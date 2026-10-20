@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- A key present in values/ but absent from values-fr/de/es/pt is an English
+         string shipped inside a localised app. This is THE coverage gate: it is
+         what makes "did the translator finish?" a build question instead of a
+         spot-check. -->
+    <issue id="MissingTranslation" severity="error" />
+
+    <!-- A literal still sitting in a layout or a manifest. Compose literals are NOT
+         caught by this (checkNoHardcodedUiStrings covers those), but manifest and
+         XML ones are, and android:label="LocalKeep" was one of them. -->
+    <issue id="HardcodedText" severity="error" />
+
+    <!-- "%1$s of %2$s" translated as "%1$s of %1$s" crashes at format time with
+         IllegalFormatException. On a password manager that is a crash on a screen
+         the user reached while holding a secret. -->
+    <issue id="StringFormatCount" severity="error" />
+    <issue id="StringFormatMatches" severity="error" />
+
+    <!-- French treats 0 and 1 as singular; English does not. ImpliedQuantity fires
+         when a <plurals> entry uses a quantity the locale can never select, which
+         is exactly the mistake a bulk translator makes. -->
+    <issue id="ImpliedQuantity" severity="error" />
+
+    <!-- Guards the Do-Not-Translate list: a string marked translatable="false"
+         must not appear in a locale folder. -->
+    <issue id="Untranslatable" severity="error" />
+
+    <!-- Not part of this work; keep it out of the signal. -->
+    <issue id="MissingDefaultResource" severity="ignore" />
+
+</lint>

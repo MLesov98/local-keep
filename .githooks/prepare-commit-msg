@@ -1,0 +1,37 @@
+#!/bin/sh
+# Appends the author's DCO sign-off to every commit message that lacks one.
+#
+# Why this exists: CONTRIBUTING.md requires `git commit -s` on every commit and says unsigned
+# commits get sent back. A rule nobody can remember to follow is not a rule; a hook is.
+#
+# Enable once per clone, by symlink:
+#     ln -s ../../.githooks/prepare-commit-msg .git/hooks/prepare-commit-msg
+#
+# Deliberately NOT `git config core.hooksPath .githooks`: hooksPath replaces .git/hooks wholesale,
+# which would silently disable any other hooks you keep there.
+#
+# Skipped for merges and squashes, where git supplies its own message and a trailer would land in
+# the wrong place. `git commit -s` still works unchanged — the grep below sees the sign-off git
+# already inserted and leaves the message alone.
+
+msg_file="$1"
+source="$2"
+
+case "$source" in
+    merge|squash) exit 0 ;;
+esac
+
+if grep -qi '^Signed-off-by:' "$msg_file"; then
+    exit 0
+fi
+
+name=$(git config user.name)
+email=$(git config user.email)
+[ -n "$name" ] && [ -n "$email" ] || exit 0
+
+# interpret-trailers rather than a bare append: it places the trailer in the trailer block with
+# correct blank-line separation whether the message ends in a paragraph or an existing
+# Co-Authored-By line.
+tmp="$msg_file.dco"
+git interpret-trailers --trailer "Signed-off-by: $name <$email>" "$msg_file" > "$tmp" &&
+    mv "$tmp" "$msg_file"

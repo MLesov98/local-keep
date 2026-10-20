@@ -1,0 +1,33 @@
+.idea/
+
+# Gradle / Android
+.gradle/
+build/
+local.properties
+*.iml
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.keystore
+!gradle/wrapper/gradle-wrapper.jar
+
+# Jazzer's generated corpus. The SEED corpus under src/test/resources IS committed — this is
+# the mutation corpus it accumulates at runtime, which is machine-local and regenerable.
+test/fuzz/.cifuzz-corpus/
+
+# Bytecode from the store-listing tooling.
+tools/__pycache__/
+
+# macOS Finder metadata. Five were tracked until 2026-08-12; they only ever produced
+# binary diffs on directories somebody opened in Finder.
+.DS_Store
+
+# Design-tool scratch from editing the landing page. `uploads/` is the clipboard paste
+# buffer — 16 `pasted-<epoch>-0.png` files, 6.9 MB, none of them referenced by the page;
+# `.thumbnail` is a regenerated WebP preview. The gallery's real screenshots live in
+# `assets/screens/` and are tracked deliberately (see that directory's README).
+site/Vault App Landing Design/uploads/
+site/Vault App Landing Design/.thumbnail

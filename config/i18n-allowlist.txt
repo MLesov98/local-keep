@@ -1,0 +1,55 @@
+# Files not yet migrated to strings.xml.
+# Phase 1 DELETES lines from this file, one module at a time.
+# When this file contains only comments, extraction is complete.
+tools/autofill-testapp/src/main/kotlin/com/localkeep/autofilltest/TestViews.kt  # PERMANENT: not shipped. A fake login form used to exercise autofill;
+# its "Username"/"Password" hints are the fixture under test, not product copy.
+core/ui/src/main/kotlin/com/localkeep/core/ui/theme/LkIndicators.kt  # animation debug labels
+# only: every literal here is a Compose `label=` debug tag (progress ring, segment meter, skeleton,
+# halo), never rendered. `"segment-$index"` trips the gate's kebab-case-only exemption regex
+# (`[a-z0-9-]+`) because of the interpolated `$index` — a false positive on shape, not real UI copy.
+core/vault/src/main/kotlin/com/localkeep/core/vault/LockState.kt  # false positive only: the
+# three exception messages are already excluded by the gate's `Illegal` match (they never reach
+# the UI, see UnlockResult's kdoc); `Unlocked.toString()` is a debug representation (logging only,
+# same category as Log.* calls), not user-facing copy, and trips the prose regex on shape alone.
+core/vault/src/main/kotlin/com/localkeep/core/vault/RecoveryKit.kt  # protocol constants only:
+# RECOVERY_LABEL is an HKDF info string and QR_HEADER is the Recovery Kit QR payload's magic
+# header — both must stay byte-identical across every locale/build for crypto derivation and
+# cross-device recovery to keep working: they are format, crypto and protocol identifiers, which
+# are never translated. Neither is ever shown as UI prose, and this object has no
+# Context to resolve an Android resource through even if one existed.
+credential/src/main/kotlin/com/localkeep/credential/CredentialActivity.kt  # false positive
+# only: every genuine on-screen string (BiometricPrompt title/subtitle, the native-binding
+# AlertDialog) is already extracted to strings.xml. What remains is LOCKED_MESSAGE and the
+# Verification enum's FAILED/UNAVAILABLE messages — these cross into CreateCredentialException /
+# GetCredentialException for a third-party calling app; exception text does not reach this
+# app's UI by design.
+credential/src/main/kotlin/com/localkeep/credential/PasskeyCreator.kt  # false positive only:
+# `title = "$label — ${options.rpId}"` is VaultItem.title data assembly (an em-dash joining two
+# data values), not UI copy — the "title" match is a VaultItem constructor param, coincidentally
+# sharing a name with Compose's Text `title=`. Every other literal here is a `require`/`error`
+# validation message or a WebAuthn protocol string (`"webauthn.create"`, JSON field names).
+credential/src/main/kotlin/com/localkeep/credential/PasskeyCrypto.kt  # protocol constant only:
+# AAD is AEAD Additional Authenticated Data bound into the wrapped private key; it must stay
+# byte-identical across every locale/build for unwrap to succeed: a format, crypto and protocol
+# identifier. Never shown as UI prose.
+credential/src/main/kotlin/com/localkeep/credential/PasskeySigner.kt  # false positive only:
+# `Signature.getInstance("SHA256withECDSA")` is a JCA algorithm identifier (a crypto
+# identifier, never translated), not prose — flagged on shape alone (capitalised, 15+ chars). Every
+# other literal is a `require`/`error` validation message or WebAuthn protocol string.
+credential/src/main/kotlin/com/localkeep/credential/webauthn/Cbor.kt  # false positive only:
+# "P-256 coordinates must be 32 bytes" is a `require` message whose text sits on the line after
+# `require(...) {`, so the gate's same-line `internalOnly` check (looking for `require(` on the
+# flagged line itself) can't see it. It never reaches the UI, like every other validation
+# message in this module.
+feature/backup/src/main/kotlin/com/localkeep/feature/backup/RollingBackupManager.kt  # false
+# positive only: LOG_TAG = "LocalKeepBackup" is a Log.w tag, never shown in UI (log messages
+# are never translated, as with LockState.kt below), and trips the prose
+# regex on shape alone (15 capitalised characters). Every AppError message this file constructs
+# is likewise excluded: every AppError cause is never user-facing; none are
+# extracted. BackupSettingsViewModel.kt's own strings ARE extracted — see feature-backup.md.
+feature/files/src/foss/kotlin/com/localkeep/feature/files/CaptureToVault.kt  # false positive
+# only: the `foss` stub has no user-facing text at all (an unreachable `= Unit` body — see its own
+# KDoc). `@Suppress("UNUSED_PARAMETER")` is a compiler warning id, not UI copy, and trips the prose
+# regex on shape alone (capitalised, 15+ chars). The `play` flavour's real CaptureToVaultScreen is
+# extracted.
+feature/settings/src/main/kotlin/com/localkeep/feature/settings/ThirdPartyLicenses.kt  # license names/URLs (e.g. "Apache License 2.0") and ~40 library coordinates are legal attribution text quoting each dependency's own grant verbatim, never translated — same reasoning as the crypto/protocol-identifier rule above

@@ -17,9 +17,9 @@ WHAT IT DOES
 
 FREE AND PRO
 
-Logins and notes are unlimited. The generator, autofill, two-factor codes, import, export and the health check are free, with no ads.
+Logins and notes are unlimited. The generator, autofill, two-factor codes, attachments, import, export and the health check are free, with no ads.
 
-Pro is a one-time purchase — no subscription — and adds attachments to other items and the duress vault, while removing the free-tier limits on cards, identity entries, and standalone files or media. Free includes one card, one identity entry, and up to seven standalone files or media items in total.
+Pro is a one-time purchase — no subscription — that adds the duress vault and removes the free-tier limits. Free includes one card, one identity entry, and up to seven files, photos or attachments in total.
 
 WHAT THE APP COLLECTS
 

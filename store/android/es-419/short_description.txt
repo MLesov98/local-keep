@@ -1,1 +1,1 @@
-Gestor de contraseñas sin conexión. Sin cuenta, servidor ni suscripción.
+Contraseñas sin conexión. Sin cuenta, servidor de sincronización ni suscripción.

@@ -25,6 +25,5 @@ additional permission** (inbound = outbound; see CONTRIBUTING.md), so that
 third-party contributions can be distributed through the app stores without
 separate copyright assignment.
 
-> Note: this text is self-drafted. It should be reviewed by someone
-> licensing-savvy before the first public release or App Store submission
-> (tracked in the design spec, §14 "Open questions / risks").
+> Note: this text is self-drafted and has not yet had a lawyer's review.
+> Treat it as the maintainer's stated intent, not as legal advice.

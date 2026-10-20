@@ -17,9 +17,9 @@ CE QU'ELLE FAIT
 
 GRATUIT ET PRO
 
-Les identifiants et les notes sont illimités. Le générateur, le remplissage automatique, les codes à deux facteurs, l'importation, l'exportation et le bilan de santé sont gratuits, sans publicité.
+Les identifiants et les notes sont illimités. Le générateur, le remplissage automatique, les codes à deux facteurs, les pièces jointes, l'importation, l'exportation et le bilan de santé sont gratuits, sans publicité.
 
-Pro est un achat unique — sans abonnement — qui ajoute les pièces jointes aux autres éléments et le coffre de contrainte, tout en supprimant la limite sur les cartes, les identités et les fichiers ou médias stockés séparément. La version gratuite permet de créer une carte, une identité et jusqu'à sept fichiers ou médias stockés séparément au total.
+Pro est un achat unique — sans abonnement — qui ajoute le coffre de contrainte et supprime les limites de la version gratuite. La version gratuite permet de créer une seule carte, une seule identité et jusqu'à sept fichiers, photos ou pièces jointes au total.
 
 CE QUE L'APPLICATION COLLECTE
 

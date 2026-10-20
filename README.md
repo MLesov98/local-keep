@@ -12,16 +12,16 @@ An iOS port is in progress and has not been released.
 - **Encryption.** The master password derives a key via **Argon2id** (32 MiB, 3 iterations,
   parallelism 4 by default). The vault is encrypted with **AES-256-GCM-SIV**, the data key is
   wrapped per unlock slot with AES-256-GCM, sub-keys come from HKDF-SHA256, and a key commitment
-  blocks multi-key ciphertext attacks. Every primitive is tested against published reference
-  vectors.
+  blocks multi-key ciphertext attacks. The core primitives are tested against published reference
+  vectors; the streaming format used for file attachments has no published vector to test against.
 - **No network in the free build.** The `foss` build has no `INTERNET` permission at all. The
-  `play` build has network access for Google Play Billing only.
+  `play` build has network access only for Google Play Billing and Google Play's in-app review card.
 - **On the device.** Secrets are masked by default; revealing or copying high-value fields (2FA
-  secrets, CVV/PIN, recovery phrases, ID numbers) requires re-authentication; the clipboard
+  secrets, CVV/PIN, recovery phrases, ID numbers, GPS coordinates) requires re-authentication; the clipboard
   auto-clears; screenshots and the app-switcher preview are blocked.
 - **Where the encrypted vault can go.** Android Auto Backup includes the encrypted `vault.enc` in
-  your Google backup by default, unless you turn cloud backup off (onboarding asks; Settings can
-  change it). Device-bound keys and file attachments are never in that backup. A manual export
+  your Google backup by default, unless you turn off "Include vault in Android backup" (onboarding
+  asks; Backup & export can change it). Device-bound keys and file attachments are never in that backup. A manual export
   writes an encrypted copy wherever you choose. In every case what leaves the device is ciphertext
   that still needs your master password.
 - **Not defended:** a rooted or otherwise compromised operating system, a weak master password, or
@@ -36,7 +36,7 @@ security audit.
 - **Nine item types:** logins, 2FA codes, secure notes, cards, identity documents, encrypted files
   (photos, videos, documents, viewable in-app), GPS locations, seed phrases, and passkeys.
 - **Autofill** for apps and browsers, with save and update prompts; a **credential provider** for
-  passkeys.
+  passkeys (Android 14 and later).
 - **Password and passphrase generator.**
 - **Password health,** computed entirely on the device: reused, weak, old and breached passwords,
   the last checked against a breach corpus bundled in the app (no lookup service).
@@ -65,7 +65,7 @@ import, stays fully readable and editable.
 | | `foss` | `play` |
 |---|---|---|
 | App id | `com.localkeep.foss` | `com.localkeep` |
-| Network | **None:** no `INTERNET` permission | `INTERNET`, `ACCESS_NETWORK_STATE` and `BILLING`, used only for Google Play Billing |
+| Network | **None:** no `INTERNET` permission | `INTERNET`, `ACCESS_NETWORK_STATE` and `BILLING`, used only for Google Play Billing and the in-app review card |
 | Other permissions (both builds) | Biometric unlock; camera (QR scanning, photo capture); foreground location (the location item type, on an explicit tap only) | Same |
 | Pro | Not available | One-time in-app purchase |
 | Distribution | Self-distributed APK from this project | Google Play |

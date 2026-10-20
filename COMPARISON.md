@@ -34,7 +34,9 @@ in mid-2026. Where a well-reviewed site and a vendor disagreed, the vendor wins.
 
 ## Who is actually in this table
 
-Eleven Android products across four categories:
+Seventeen products across four categories. The three adjacent apps get their own section at the
+bottom, and not every product appears in every table. Apple Passwords has no Android app; it is
+included alongside Google Password Manager as the other OS built-in.
 
 | Category | Products |
 |---|---|
@@ -54,9 +56,9 @@ Legend: **✓** yes · **✗** no · **?** not confirmed by any source found · 
 
 ## The short version
 
-LocalKeep is the only product in this comparison where the *free* build has no networking
-permission at all, and one of only two that runs a breach check without a network request.
-It is also the only one with a duress vault. It is the smallest in reach by a wide margin:
+LocalKeep and KeePassDX are the only products in this comparison whose *free* build has no
+networking permission at all, and LocalKeep is the only one that runs a breach check without a
+network request. It is also the only one that documents a duress vault. It is the smallest in reach by a wide margin:
 one platform, five languages, no sync, no audit.
 
 If the question is "which password manager can I use without trusting anyone", LocalKeep and
@@ -187,7 +189,7 @@ attachments hands large media to the OS or caps it (NordPass at 40 MB/file).
 
 | | Autofill | Passkeys | Generator | Biometric | Search quality |
 |---|---|---|---|---|---|
-| **LocalKeep** | ✓ domain-bound | ✓ provider | ✓ + passphrases | ✓ | diacritic-insensitive, incl. folders |
+| **LocalKeep** | ✓ domain-bound | ✓ provider (Android 14+) | ✓ + passphrases | ✓ | diacritic-insensitive, incl. folders |
 | Bitwarden | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 1Password | ✓ | ✓ (Android 14+) | ✓ | ✓ (Android 12+) | ✓ |
 | Proton Pass | ⚠ reported unreliable | ✓ | ✓ | ✓ | ✓ |
@@ -214,7 +216,7 @@ domain rather than the browser's package, so a password saved in Chrome fills in
 
 | | Breach check | Breach check **offline** | Weak/reused audit | Duress vault | `FLAG_SECURE` | Re-auth to reveal | Clipboard auto-clear | Password history |
 |---|---|---|---|---|---|---|---|---|
-| **LocalKeep** | ✓ free | **✓ bundled corpus** | ✓ zxcvbn, local | **$** | **✓ every window** | **✓ reveal *and* copy** | ✓ | ✓ last 5, gated |
+| **LocalKeep** | ✓ free | **✓ bundled corpus** | ✓ zxcvbn, local | **$** | **✓ every window** | **✓ reveal *and* copy** | ✓ | ✓ last 5, reveal gated, not copyable |
 | Bitwarden | ✓ free (HIBP) | ✗ | $ local | ✗ | ✓ | partial | ✓ | ✓ |
 | 1Password | ✓ (HIBP) | ✗ | ✓ | ✗ | ✓ | partial | ✓ | ✓ |
 | Proton Pass | $ dark web | ✗ | ✓ local | ✗ | ? | ? | ✓ | ✓ |
@@ -236,15 +238,19 @@ domain rather than the browser's package, so a password saved in Chrome fills in
    nobody. Both builds have it and it is not a paid feature — where Proton Pass, NordPass,
    Enpass and Keeper all put breach monitoring behind the paywall.
 
-2. **Duress vault.** No product in this comparison has one. Proton Pass has it as an open
-   community feature request. Both LocalKeep unlock slots carry identical KDF parameters
-   deliberately, so the vault file does not reveal that a second slot exists, and the decoy is
-   seeded with plausible content because an empty vault advertises a withheld real one.
+2. **Duress vault.** No other product in this comparison documents one; the table marks the
+   ones nobody could confirm either way as `?`. Proton Pass has it as an open community feature
+   request. Both LocalKeep unlock slots carry identical KDF parameters deliberately, so the vault
+   file does not reveal that a second slot exists, and the decoy is seeded with plausible content
+   because an empty vault advertises a withheld real one. That holds until the decoy itself has
+   been written to under coercion: someone comparing several generations of the file can then tell
+   it was used (see [`docs/THREAT-MODEL.md`](docs/THREAT-MODEL.md)). It is Pro, so Play build only.
 
 3. **Re-auth gating copy, not just reveal.** Most products gate revealing a secret. LocalKeep
-   gates *copying* it too, for TOTP seeds, card CVV/PIN and every password-history entry —
-   because each of those is enough on its own to clone the credential, and copy-without-reveal
-   is otherwise a trivial bypass of the reveal gate.
+   gates *copying* it too, for TOTP seeds, card CVV/PIN and GPS coordinates — because each of
+   those is enough on its own to clone a credential or reveal a place, and copy-without-reveal is
+   otherwise a trivial bypass of the reveal gate. Password-history entries go further: revealing one needs
+   re-auth, and they cannot be copied at all.
 
 ---
 
@@ -252,7 +258,7 @@ domain rather than the browser's package, so a password saved in Chrome fills in
 
 | | Guided import sources | Export your data | Free-tier import cap |
 |---|---|---|---|
-| **LocalKeep** | **7, each with app-specific instructions** — Google/Chrome, Apple, Bitwarden, 1Password `.1pux`, KeePass `.kdbx`, Aegis, CSV | ✓ encrypted vault | **none — imports are never capped** |
+| **LocalKeep** | **11, each with app-specific instructions** — Google/Chrome, Apple Passwords, Bitwarden, 1Password `.1pux`, KeePass `.kdbx`, Aegis, Keeper, Enpass, Proton Pass, Dashlane, Other/CSV | ✓ encrypted vault | **none — imports are never capped** |
 | Bitwarden | LastPass, 1Password, KeePass, Kaspersky, NordPass | ✓ | n/a |
 | 1Password | CSV, KeePass, Bitwarden, LastPass, Dashlane, RoboForm, browsers | ✓ `.1pux` | n/a |
 | Proton Pass | 16 sources | ✓ | n/a |
@@ -316,7 +322,7 @@ commit. It is not equivalent to an audit and `FEATURES.md` does not claim it is.
    competitor asks you to trust a policy; this is enforced by the merged manifest.
 2. **Breach checking with no service to ask.** Unique in this comparison, free in both
    builds, where four competitors paywall the network version of the same feature.
-3. **Duress vault (Pro).** Nobody else here has one. Setting one up is a paid feature, and
+3. **Duress vault (Pro).** No other product here documents one. Setting one up is a paid feature, and
    `foss` cannot buy Pro — so this is a Play-build advantage, not a free-tier one.
 4. **One-time €9.99.** Against a market that raised prices twice and killed a free tier in
    the first quarter of 2026.

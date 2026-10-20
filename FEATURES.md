@@ -8,8 +8,8 @@ disagree, this file says so out loud. It used to open with a "written against co
 2026-07-31" stamp, which turned out to be worse than no stamp at all: a snapshot date reads as a
 freshness guarantee while quietly ageing, and by 2026-09-07 the Location item type and both free-tier
 caps had moved underneath it without a word here changing. A date cannot notice that. So the stamp is
-gone and the checks are named instead — `FreeTierDocsMatchCodeTest` for the free-tier numbers,
-`tools/check-location-disclosure.py` for the permission and item-type tables.
+gone and the checks are named instead — `FreeTierDocsMatchCodeTest` for the free-tier numbers, and
+`checkFlavorPermissions`, which enforces the permission allowlist the build table below describes.
 
 For how these features compare against other Android password managers, see
 [`COMPARISON.md`](COMPARISON.md).
@@ -71,7 +71,7 @@ Nine item types:
 | **Card** | Cardholder, number, expiry, CVV, PIN, notes |
 | **Identity** | Name, company, national ID number, passport, licence, email, phone, full address |
 | **File** | Encrypted documents, photos and videos, viewable in-app |
-| **Location** | A saved coordinate — latitude, longitude, when it was taken and how accurate it was. Captured from the phone's GPS on an explicit tap. There is no way to type one in by hand; the editor's only control is "Take a reading", and saving without one is refused |
+| **Location** | A saved coordinate — latitude, longitude, when it was taken and how accurate it was. Captured from the phone's GPS on an explicit tap. There is no way to type one in by hand; the editor's only control is "Find my location", and saving without one is refused |
 | **Seed phrase** | A recovery phrase — the words, plus the optional BIP-39 passphrase |
 | **Passkey** | A WebAuthn credential — relying party, credential and user handle, the DEK-wrapped private key, algorithm and signature counter. Created and used through Android's credential provider, not typed in |
 
@@ -115,8 +115,9 @@ There is also a **key commitment**: an HMAC-SHA256 over a fixed message, checked
 This defeats the "invisible salamander" class of attack, where one ciphertext decrypts successfully
 under two different keys.
 
-Every primitive is pinned to **published reference vectors** — RFC 9106, RFC 8452, NIST CAVP,
-RFC 5869 — not merely round-tripped against itself. Round-tripping proves you can undo what you
+The core primitives are pinned to **published reference vectors** — RFC 9106, RFC 8452, NIST CAVP,
+RFC 5869 — not merely round-tripped against themselves. The streaming format used for file
+attachments is the exception: it has no published vector to pin it to. Round-tripping proves you can undo what you
 did; vectors prove you implemented the actual algorithm.
 
 **On screen.** Every window sets `FLAG_SECURE`, so screenshots and the app-switcher preview are
@@ -124,8 +125,9 @@ blank. Secrets are masked by default. Revealing one cross-fades rather than snap
 to a monospace face — the change of *shape* is what makes "this is exposed right now" hard to miss.
 
 **Re-authentication** is required before both revealing **and** copying high-value fields: a TOTP
-seed, a card's CVV and PIN, and every password-history entry. Those are gated on every item
-regardless of its reprompt flag, because each is enough on its own to clone or use the credential.
+seed, a card's CVV and PIN, and a location's coordinates. Those are gated on every item
+regardless of its reprompt flag, because each is enough on its own to clone or use a credential,
+or to reveal a place. Password-history entries are re-auth gated to reveal and cannot be copied.
 The live password and the rolling 2FA code are deliberately *not* — a fingerprint every thirty
 seconds is a second factor nobody keeps using.
 
@@ -163,7 +165,8 @@ over is fully readable and editable however large it is.
 It offers to save new credentials and to update changed ones. Credentials bind to their web domain
 rather than to the browser's package, so a password saved in Chrome works in Firefox.
 
-**Passkeys** — the app is a credential provider, creating and using WebAuthn passkeys.
+**Passkeys** — the app is a credential provider, creating and using WebAuthn passkeys. This needs
+Android 14 or later; on Android 9–13 passkeys are not available.
 
 **Generator** — passwords and passphrases, built with the system's secure random generator, with a
 strength meter.
@@ -198,7 +201,7 @@ statement of what the app's root/tamper detection can and cannot see.
 - **Manual export** of the encrypted vault
 - **Restore** validates a snapshot before overwriting anything; a corrupt file is rejected, never written
 - **Recovery Kit** — 24 words, shown once, the only way back in if you forget your master password
-- **Cloud backup toggle** — see the caveat below, because this one matters
+- **"Include vault in Android backup" toggle** — see the caveat below, because this one matters
 
 ## The duress vault — Pro
 
@@ -280,7 +283,7 @@ figure — and where Play has not answered yet, the copy states no amount at all
 |  | `foss` | `play` |
 |---|---|---|
 | App id | `com.localkeep.foss` | `com.localkeep` |
-| Permissions | `USE_BIOMETRIC`, `USE_FINGERPRINT`, `CAMERA` (offline QR scanning for 2FA setup), `ACCESS_COARSE_LOCATION` and `ACCESS_FINE_LOCATION` (the Location item type). **No `INTERNET`.** | The same five, plus `INTERNET`, `ACCESS_NETWORK_STATE`, `BILLING` — reachable only from billing code |
+| Permissions | `USE_BIOMETRIC`, `USE_FINGERPRINT`, `CAMERA` (offline QR scanning for 2FA setup), `ACCESS_COARSE_LOCATION` and `ACCESS_FINE_LOCATION` (the Location item type). **No `INTERNET`.** | The same five, plus `INTERNET`, `ACCESS_NETWORK_STATE`, `BILLING` — used only by Google Play Billing and the in-app review card |
 | Billing | None — Pro is permanently unavailable | Google Play Billing |
 | In-App Review | Absent | Present, heavily gated |
 | Breach checking | Yes | Yes |
@@ -290,7 +293,7 @@ The free build is self-distributed. **F-Droid is not a distribution target** —
 2026-07-29.
 
 Both location permissions are foreground-only, and both builds carry them for the same single
-feature: one GPS reading, taken at the moment you tap "Save current location" and never at launch.
+feature: one GPS reading, taken at the moment you tap "Find my location" and never at launch.
 `ACCESS_BACKGROUND_LOCATION` and `FOREGROUND_SERVICE` are deliberately absent — there is no
 tracking, no history and no scheduled work behind the Location item type — and `checkFlavorPermissions`
 fails the build if either ever appears. The coordinate goes into the encrypted vault like every other
@@ -298,9 +301,7 @@ item and is sent nowhere; the `foss` build still has no way to send it anywhere 
 
 Two Gradle tasks enforce the split on every build: `checkNoNetworkingDeps` blocks networking
 artifacts from reaching the air-gapped modules, and `checkFlavorPermissions` fails the build if the
-merged `foss` manifest ever asks for anything outside its allowlist. A third,
-`python3 tools/check-location-disclosure.py`, fails if this file's permission table and item-type
-table stop naming what the location manifest declares.
+merged `foss` manifest ever asks for anything outside its allowlist.
 
 ## What it deliberately does not do
 
@@ -317,7 +318,7 @@ table stop naming what the location manifest declares.
 These are the things a careful reader should know, and the app says them in its own UI too.
 
 **Google Auto Backup takes your vault by default.** `vault.enc` is in Android's backup set. Turning
-the **Disable cloud backup** switch off genuinely removes it — this was verified on hardware
+the **Include vault in Android backup** switch off genuinely removes it — this was verified on hardware
 (Galaxy S24 Ultra, 2026-07-29) — but the default is on, and the OS transport performs the upload, so
 `foss` having no `INTERNET` permission does not change that. Three separate files used to claim the
 vault never leaves the device. All three were wrong and all three were corrected.
@@ -349,9 +350,10 @@ project's own release-readiness score on purpose, and the cap is stated rather t
 
 ## How it is built
 
-Kotlin and Jetpack Compose. **28 Gradle modules** — `core/*` for crypto, vault, model, import,
-health, generator, TOTP, UI and billing; `feature/*` for each screen; plus `autofill/` and
-`credential/`. minSdk 28 (Android 9), targetSdk 36. Argon2id via Bouncy Castle. Hilt for injection.
+Kotlin and Jetpack Compose. **29 Gradle modules** — `core/*` for crypto, vault, model, import,
+health, generator, TOTP, location, UI and billing; `feature/*` for each screen; `autofill/` and
+`credential/`; plus two test apps under `tools/` and the fuzz and device-test modules under `test/`.
+minSdk 28 (Android 9), targetSdk 36. Argon2id via Bouncy Castle. Hilt for injection.
 Protobuf-shaped serialisation with frozen field numbers, so the vault format can grow without
 breaking older files — and any change to it requires a version bump and a migration path.
 
@@ -371,6 +373,7 @@ breaking older files — and any change to it requires a version bump and a migr
   verified by an adversarial pass that rejects 25–50% of them, followed by a hands-on device walk —
   because a read-only audit cannot see an interaction dead-end, and seven launch-blockers survived
   all 59 lenses before someone simply used the app
-- **CI on every push**, with instrumented tests on a self-hosted macOS runner
+- **CI** runs in the maintainers' private pipeline, with instrumented tests on a self-hosted macOS
+  runner; this public repository has no CI of its own
 
 Every fix carries a regression test that fails without it.

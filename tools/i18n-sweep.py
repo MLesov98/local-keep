@@ -165,6 +165,7 @@ def main() -> int:
                     help="include flows that require MediaViewerFixtureSeeder")
     ap.add_argument("--out", default=str(REPO / "build" / "i18n-sweep.md"))
     ap.add_argument("--ignore", default="", help="regex for text this vault happens to contain")
+    ap.add_argument("--only", default="", help="regex on screen names, to re-run a subset")
     args = ap.parse_args()
     if not args.password:
         print("--password (or LK_MASTER_PASSWORD) is required: the flows unlock a real vault",
@@ -176,6 +177,8 @@ def main() -> int:
     flows = sorted(FLOWS.glob("*.yaml"))
     if not args.include_fixtures:
         flows = [flow for flow in flows if flow.stem not in {"file-viewer", "file-settings-metadata"}]
+    if args.only:
+        flows = [flow for flow in flows if re.search(args.only, flow.stem)]
     report: list[str] = [
         "# i18n sweep",
         "",

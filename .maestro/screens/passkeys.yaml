@@ -5,8 +5,8 @@ tags:
 - runFlow:
     file: ../subflows/unlock.yaml
 - runFlow:
-    file: ../subflows/open-drawer.yaml
+    file: ../subflows/open-type-filter.yaml
     env:
-      DRAWER_ROUTE: "vault/PASSKEY"
+      FILTER_TYPE: "passkey"
 - waitForAnimationToEnd:
     timeout: 4000

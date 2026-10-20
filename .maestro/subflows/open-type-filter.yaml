@@ -1,0 +1,17 @@
+# Filters the vault list to one item type through the filter sheet.
+#
+# The per-type drawer rows these screens used to open were removed on 2026-09-02; the filter sheet
+# is the one way into a single-type list now. `FILTER_TYPE` is the lowercase `ItemTypeFilter` name,
+# so, like the drawer subflow, this file never names a word that changes with the language.
+appId: com.localkeep.foss
+---
+- tapOn:
+    id: "vaultlist-filter"
+- scrollUntilVisible:
+    element:
+      id: "filter-type-${FILTER_TYPE}"
+    direction: DOWN
+    timeout: 15000
+    visibilityPercentage: 60
+- tapOn:
+    id: "filter-type-${FILTER_TYPE}"

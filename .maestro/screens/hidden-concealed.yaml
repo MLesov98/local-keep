@@ -17,8 +17,11 @@ tags:
 
 # The visible control: present so an absence assertion below cannot pass by the vault simply being
 # empty, and to prove the screen that follows is a working vault list rather than a blank one.
+# "Shopping list" is the seeder's root-level visible note. The flow asserted "Cafe wifi" until
+# 2026-10-20, but that login sits inside a folder, and the vault list does not show folder contents
+# at the root, so the assertion could never pass.
 - assertVisible:
-    text: "Cafe wifi"
+    text: "Shopping list"
 
 # Every concealed item title, none of them reachable from the vault-list root: the direct-hide
 # login, the note nested two folders deep under the concealed "Offshore" root, the passkey, and the

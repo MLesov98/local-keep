@@ -22,7 +22,9 @@ tags:
 - tapOn:
     id: "vaultlist-search"
 - inputText: "open sesame please"
-- hideKeyboard
+# No hideKeyboard here: with the IME already gone it is a Back press, which leaves the app and
+# was the whole cause of this flow failing on a fresh AVD (2026-10-20). The reveal fires on the
+# typed phrase alone, so the keyboard can stay up.
 
 # `maybeAttemptReveal` clears the search box itself on success and flips `revealSessionActive`,
 # which is what puts `RevealedSessionHeader` on screen — waiting on that tag rather than a fixed

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!--
+        The foss build declares one permission of its own — CAMERA, for scanning an authenticator
+        QR code, asked for at the moment of use. The other two reach its merged manifest from
+        androidx.biometric, for the fingerprint unlock the user opts into.
+        That set is pinned by the `checkFlavorPermissions` Gradle task — this comment is not the
+        guarantee; that task is.
+
+        This used to read "deliberately zero-permission", which was not true of the artifact
+        anyone installed: the merged manifest carried POST_NOTIFICATIONS, WAKE_LOCK,
+        ACCESS_NETWORK_STATE, RECEIVE_BOOT_COMPLETED, FOREGROUND_SERVICE and the two biometric
+        permissions, because one daily backup reminder pulled in androidx.work. That reminder is
+        now an in-app banner (StaleExportReminder) and the five WorkManager permissions are gone.
+
+        Never add INTERNET.
+    -->
+
+    <!--
+        ACCESS_NETWORK_STATE arrives from androidx.media3:media3-common, which CameraX's
+        camera-view pulls in for video APIs this app never touches (the scanner uses PreviewView
+        and ImageAnalysis). It grants nothing here — there is no INTERNET whose state could matter
+        — but an air-gapped build that asks about the network is making a claim it should not, and
+        checkFlavorPermissions failed on it the moment the scanner moved into foss. Removed rather
+        than allowlisted. The play flavour keeps it: Play Billing genuinely uses it.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" tools:node="remove" />
+</manifest>

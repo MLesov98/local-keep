@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- ==================== ImportWizardScreen.kt ==================== -->
+    <string name="import_screen_title">Import</string>
+    <string name="import_nav_close">Close</string>
+    <string name="import_nav_back">Back</string>
+
+    <!-- "Step X of 4" subtitle under the header — the wizard has no progress rail, so this
+         carries it. PASSWORD and INSTRUCTIONS deliberately share "Step 2 of 4". -->
+    <string name="import_step_progress_pick_source">Step 1 of 4 · choose a source</string>
+    <string name="import_step_progress_instructions">Step 2 of 4 · export the file</string>
+    <!-- The KeePass wording. A Bitwarden export is an export, not a database, and got this one
+         too until 2026-09-20 (1A-F9) — see import_step_progress_export_password. -->
+    <string name="import_step_progress_password">Step 2 of 4 · unlock the database</string>
+    <string name="import_step_progress_export_password">Step 2 of 4 · unlock the export</string>
+    <string name="import_step_progress_preview">Step 3 of 4 · review what lands</string>
+    <string name="import_step_progress_done">Step 4 of 4 · clean up</string>
+
+    <!-- Shown on the PREVIEW step while the import is being written to the vault. -->
+    <string name="import_working_saving">Adding items to your vault…</string>
+    <!-- Shown on every other step while the picked file is being read or parsed. -->
+    <string name="import_working_reading">Reading the file…</string>
+
+    <!-- ==================== Source picker ==================== -->
+    <string name="import_source_title">Where are your passwords now?</string>
+    <string name="import_source_body">Android doesn\'t let one app read another\'s saved passwords — the same protection that keeps LocalKeep\'s vault private. So this can\'t be fully automatic: you\'ll export a file, and LocalKeep takes it from there.</string>
+    <!-- Accessibility description of a source tile that can't be used yet. %1$s is the source name (e.g. "Apple Passwords"). -->
+    <string name="import_source_tile_blocked_description">%1$s, not available yet</string>
+    <!-- Caption on a source tile that can't be used yet. -->
+    <string name="import_source_tile_unavailable">Not available yet</string>
+
+    <!-- ==================== Instructions step ==================== -->
+    <!-- Section label above the export steps. %1$s is the source name. -->
+    <string name="import_instructions_export_from">Export from %1$s</string>
+    <!-- Button that launches the other app, when it's installed. %1$s is the source name. -->
+    <string name="import_instructions_open_source_app">Open %1$s</string>
+    <string name="import_instructions_open_export_page">Open the export page</string>
+    <string name="import_instructions_copy_steps">Copy these steps</string>
+    <string name="import_instructions_steps_copied">Steps copied to clipboard</string>
+    <!-- Fallback confirmation when "Open the export page" can't launch a browser; the URL is
+         copied instead so the user can still get there. -->
+    <string name="import_instructions_export_page_copied">Couldn\'t open that automatically. Copied the link to your clipboard instead.</string>
+    <string name="import_instructions_worth_knowing">Worth knowing</string>
+    <string name="import_instructions_choose_file">Choose the exported file</string>
+
+    <!-- The amber "you have to do this part yourself" panel. -->
+    <string name="import_why_manual_title_computer">This export needs a computer</string>
+    <!-- %1$s is the source name (e.g. "1Password"). -->
+    <string name="import_why_manual_body_computer">%1$s can only export from its desktop app, so this step can\'t happen on your phone at all. Do it on a computer, get the file onto this device, then come back — everything after that is automatic.</string>
+
+    <!-- Accessibility description of one export step, merged into a single node.
+         %1$d = step number, %2$d = total steps, %3$s = the step's instruction. -->
+    <string name="import_step_row_description">Step %1$d of %2$d. %3$s</string>
+    <!-- Visible step number badge, e.g. "STEP 2". -->
+    <string name="import_step_row_number">STEP %1$d</string>
+
+    <!-- ==================== Password step ==================== -->
+    <string name="import_password_default_filename">Selected database</string>
+    <!-- The same three controls, for a password-protected EXPORT rather than a KeePass
+         database. Bitwarden writes the same JSON either way and only the file says which it is, so
+         which set is shown is decided per file, not per source tile. A separate key rather than a
+         %1$s noun in one string: "database" and "export" decline differently in de/fr/es/pt, and a
+         placeholder would force every locale to a shape that fits neither. -->
+    <string name="import_password_default_filename_export">Selected export</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="import_password_body">This database is encrypted. Its password is used once, in memory, to read it — it is never stored and never becomes your LocalKeep master password.</string>
+    <!-- The same claim as import_password_body above, about a password-protected export rather
+         than a database. Gauntlet-translated 2026-09-17 (sibling text, noun and agreement only). -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="import_password_body_export">This export is encrypted. Its password is used once, in memory, to read it — it is never stored and never becomes your LocalKeep master password.</string>
+    <string name="import_password_field_label">Database password</string>
+    <string name="import_password_field_label_export">Export password</string>
+    <!-- Masked placeholder dots, not a word — same treatment as the generator's separator hint. -->
+    <!-- Empty on purpose. This was twelve bullet characters until 2026-09-09, so an EMPTY
+         password field rendered more mask characters than a real four-character password —
+         you could not tell "nothing typed" from "something typed", on the unlock screen
+         most of all. The field keeps its own label above it and an explicit a11y label at
+         every call site, so nothing is lost by showing an empty field as empty.
+         translatable="false" is kept: there is no text left to translate. -->
+    <string name="import_password_field_placeholder" translatable="false"></string>
+    <string name="import_password_submit">Open database</string>
+    <string name="import_password_submit_export">Open export</string>
+    <!-- Key file. KeePass lets a database be protected by a password, a key file, or both, and
+         nothing in the container says which — so the second file has to be asked for. -->
+    <string name="import_password_key_file_add">Add key file</string>
+    <string name="import_password_key_file_chosen">Key file: %1$s</string>
+    <!-- Fallback when the file provider gives no display name for the picked key file. -->
+    <string name="import_password_key_file_unnamed">Key file</string>
+
+    <!-- ==================== Preview step ==================== -->
+    <plurals name="import_preview_items_found">
+        <item quantity="one">%1$d item found</item>
+        <item quantity="other">%1$d items found</item>
+    </plurals>
+    <!-- Appends the detected format after the item count, e.g. "42 items found · CSV". %1$s is
+         the already-pluralised item count, %2$s is the format name (an importer identifier). -->
+    <string name="import_preview_items_found_with_format">%1$s · %2$s</string>
+    <plurals name="import_preview_duplicate_count">
+        <item quantity="one">%1$d already looks like an entry you have.</item>
+        <item quantity="other">%1$d already look like entries you have.</item>
+    </plurals>
+    <!-- Rows that repeat an earlier row of the same export rather than matching anything in the
+         vault. Counted and stated separately from import_preview_duplicate_count above, which is a
+         claim about the vault and was being made about same-file repeats too. -->
+    <plurals name="import_preview_file_duplicate_count">
+        <item quantity="one">%1$d is repeated inside the file itself.</item>
+        <item quantity="other">%1$d are repeated inside the file itself.</item>
+    </plurals>
+
+    <!-- The two merge-mode chips. -->
+    <string name="import_mode_merge">Merge duplicates</string>
+    <string name="import_mode_add_all">Add everything</string>
+    <string name="import_mode_merge_description">Matching entries are combined, keeping whichever copy is newer.</string>
+    <string name="import_mode_add_all_description">Everything selected is added, even where you already have it. You\'ll end up with two copies of those.</string>
+
+    <string name="import_preview_select_all">Select all</string>
+    <string name="import_preview_select_none">None</string>
+    <string name="import_preview_skip_duplicates">Skip duplicates</string>
+
+    <plurals name="import_preview_import_button">
+        <item quantity="one">Import %1$d item</item>
+        <item quantity="other">Import %1$d items</item>
+    </plurals>
+    <string name="import_preview_nothing_selected">Nothing selected</string>
+
+    <!-- What the parser couldn't carry, shown on the preview and again before clean-up.
+         %1$d = skipped count, %2$s = the reasons list (built in Kotlin from importer-reported
+         reasons, not translated here). -->
+    <plurals name="import_skipped_summary">
+        <item quantity="one">%1$d entry in that file could not be imported and is not in this list: %2$s. Keep your export until you have copied those across by hand.</item>
+        <item quantity="other">%1$d entries in that file could not be imported and are not in this list: %2$s. Keep your export until you have copied those across by hand.</item>
+    </plurals>
+
+    <!-- Columns the file carried that LocalKeep has no field of its own for, kept as custom fields
+         instead of being dropped. %1$d = how many, %2$s = the column names, read out of the user's
+         own file and therefore not translated. Shown on the preview and again before clean-up. -->
+    <plurals name="import_carried_columns_summary">
+        <item quantity="one">%1$d column has no matching field in LocalKeep, so it was kept as a custom field: %2$s.</item>
+        <item quantity="other">%1$d columns have no matching field in LocalKeep, so they were kept as custom fields: %2$s.</item>
+    </plurals>
+
+    <!-- A two-factor seed the app cannot compute a code from, kept as a hidden field on the item
+         instead. %1$d = how many. Shown on the preview and again before clean-up. -->
+    <plurals name="import_unusable_totp_summary">
+        <item quantity="one">%1$d two-factor code can\'t be generated here — its seed was kept on the item as a hidden field so you can move it yourself.</item>
+        <item quantity="other">%1$d two-factor codes can\'t be generated here — their seeds were kept on the items as hidden fields so you can move them yourself.</item>
+    </plurals>
+
+    <!-- A KeePass entry that borrows a field from another entry ({REF:U@I:...}), where the entry it
+         points at could not be found, so the reference stayed as text. %1$d = how many items.
+         Shown on the preview and again before clean-up. This string carries no tier. -->
+    <plurals name="import_unresolved_reference_summary">
+        <item quantity="one">%1$d item borrows a field from another KeePass entry that couldn\'t be found, so the reference was kept as text instead of a value.</item>
+        <item quantity="other">%1$d items borrow a field from another KeePass entry that couldn\'t be found, so the references were kept as text instead of values.</item>
+    </plurals>
+
+    <!-- A login whose only credential was a passkey. The item crosses over with its name and
+         address; the passkey itself cannot be imported. %1$d = how many. Shown on the preview and
+         again before clean-up. This string carries no tier. -->
+    <plurals name="import_passkey_only_summary">
+        <item quantity="one">%1$d login carried only a passkey, which can\'t be imported — keep signing in with it where it is.</item>
+        <item quantity="other">%1$d logins carried only a passkey, which can\'t be imported — keep signing in with them where they are.</item>
+    </plurals>
+
+    <!-- Accessibility state words appended to a preview row's name. -->
+    <string name="import_preview_row_selected">selected</string>
+    <string name="import_preview_row_not_selected">not selected</string>
+    <!-- Merges a preview row into one accessibility node: %1$s = title, %2$s = selection word,
+         %3$s = the disposition sentence (see import_disposition_*). -->
+    <string name="import_preview_row_description">%1$s, %2$s. %3$s</string>
+
+    <!-- Second line of a preview row when the item updates one already in the vault.
+         %1$s = the item's own subtitle, %2$s = the title of the existing entry it collides with. -->
+    <string name="import_disposition_updates_existing">%1$s · newer than your \"%2$s\"</string>
+    <!-- Second line of a preview row when the vault already has a newer copy. %1$s = subtitle. -->
+    <string name="import_disposition_already_current">%1$s · you already have a newer copy</string>
+    <!-- Second line of a preview row that repeats an EARLIER ROW OF THE SAME EXPORT rather than
+         anything in the vault. Split from import_disposition_* above for the reason
+         import_preview_file_duplicate_count was split from import_preview_duplicate_count: "you
+         already have" is a claim about the vault, and it was being made about same-file repeats,
+         which are rows the user has never seen before. %1$s = subtitle. -->
+    <string name="import_disposition_updates_earlier_row">%1$s · newer than an earlier row in this file</string>
+    <string name="import_disposition_already_in_file">%1$s · repeated earlier in this file</string>
+    <!-- Second line of a preview row that matches a vault entry when the export carries no
+         per-entry dates (CSV, Aegis). Distinct from import_disposition_already_current because
+         "newer" is a comparison, and there is nothing in the file to compare against — what the
+         user needs to know is which copy survives. %1$s = subtitle. -->
+    <string name="import_disposition_undated_keeps_yours">%1$s · no dates in this file, so your entry is kept</string>
+
+    <!-- ==================== Done step ==================== -->
+    <!-- Announced live: the wizard auto-advances into this step with no user action, so a screen
+         reader needs this read without the user going looking for it. -->
+    <plurals name="import_done_updated_summary">
+        <item quantity="one">Updated %1$d item</item>
+        <item quantity="other">Updated %1$d items</item>
+    </plurals>
+    <plurals name="import_done_imported_summary">
+        <item quantity="one">Imported %1$d item</item>
+        <item quantity="other">Imported %1$d items</item>
+    </plurals>
+    <!-- %1$s = already-pluralised "N items imported", %2$s = already-pluralised "N merged...". -->
+    <string name="import_done_notice_combined">%1$s; %2$s</string>
+    <plurals name="import_done_notice_imported">
+        <item quantity="one">%1$d item imported</item>
+        <item quantity="other">%1$d items imported</item>
+    </plurals>
+    <plurals name="import_done_notice_merged">
+        <item quantity="one">%1$d merged into an entry you already had.</item>
+        <item quantity="other">%1$d merged into entries you already had.</item>
+    </plurals>
+    <!-- A selected row that repeated an EARLIER ROW OF THE SAME FILE and was folded into it. Its own
+         sentence, shown beside import_done_notice_merged and never joined to it: "merged into
+         entries you already had" is a claim about the vault, and these rows matched nothing there. -->
+    <plurals name="import_done_notice_repeated">
+        <item quantity="one">%1$d item repeated an earlier item in the file and was merged into it.</item>
+        <item quantity="other">%1$d items repeated earlier items in the file and were merged into them.</item>
+    </plurals>
+
+    <string name="import_done_cleanup_title">Clean up</string>
+    <string name="import_done_file_deleted">The export file has been deleted.</string>
+    <!-- A file that is still encrypted on disk: a .kdbx, or a Bitwarden export written as
+         "Password protected". This must never say "plain, unencrypted copy" the way the
+         generic export warning below does. It names a file rather than a database because
+         the KeePass source is no longer the only one that reaches it; the key said
+         _keepass until 2026-09-17, when it stopped being true. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_warning_encrypted">That file is still sitting in your storage, protected only by its own password. If you\'re done with it, delete it now.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_warning_plain">That export file is a plain, unencrypted copy of your passwords sitting in your storage. Delete it now.</string>
+    <!-- States a security property (ordinary delete, not a secure erase) —
+         must never be softened into implying remnants can't survive. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="import_done_delete_footnote">This is a normal delete, not a secure erase — Android doesn\'t give apps the low-level access that would need. For anything highly sensitive, treat the export as having existed.</string>
+
+    <string name="import_done_delete_button_working">Deleting…</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_button_keepass">Delete the database file</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_button_generic">Delete the export file</string>
+
+    <!-- Confirmation dialog gating the delete button above (spec §6, F8 hardening fix). -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_preview_discard_confirm_title">Discard this preview?</string>
+    <string name="import_preview_discard_confirm_body">Going back drops the parsed entries and the choices you made about them. Nothing has been imported yet, and your file is untouched — you would start again from reading it.</string>
+    <string name="import_preview_discard_confirm_button">Discard</string>
+    <string name="import_done_delete_confirm_title">Delete this file permanently?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_confirm_body">This removes it from your device for good. There is no undo.</string>
+
+    <string name="import_done_keep_app_footnote">Keep the other app installed until you\'ve checked a few entries — especially any 2FA codes. Nothing has been removed from it.</string>
+    <string name="import_done_finish_button">Done</string>
+
+    <!-- ==================== ImportWizardViewModel.kt — error messages ==================== -->
+    <!-- The ViewModel never holds display strings; it exposes these ids via ImportError and the
+         composable resolves them with stringResource, per GeneratorViewModel.error. -->
+    <string name="import_error_read_failed">Couldn\'t read that file.</string>
+    <string name="import_error_unrecognised_format">That file isn\'t in a format LocalKeep recognizes. If it came from a password manager, export it again and pick a plain, unencrypted format.</string>
+    <!-- The picked file is LocalKeep's own .vault backup, recognised by its container header.
+         Answered instead of import_error_unrecognised_format, which told a user moving to a new
+         phone that their own backup was in a format LocalKeep does not recognise. "Backup & export"
+         and "Import a .vault file" are the screen title and section label it points at
+         (backup_screen_title, backup_import_section) and must read the same. -->
+    <string name="import_error_localkeep_backup">That file is a LocalKeep backup, not an export from another app. Restore it from Backup &amp; export, under Import a .vault file.</string>
+    <!-- Hand-off button under import_error_localkeep_backup. Opens Backup & export. -->
+    <string name="import_open_backup_button">Open Backup &amp; export</string>
+    <!-- The picked file is 0 bytes. Named apart from import_error_empty_file, which is a file that
+         parsed and held no items: this one never held anything to parse. -->
+    <string name="import_error_source_file_empty">That file is empty — 0 bytes. The export didn\'t finish writing it, so export again and check the file\'s size before picking it.</string>
+    <!-- The file reads as a delimited text file, but its header row binds no password column. -->
+    <string name="import_error_csv_header_unrecognised">LocalKeep works out which column is which from the header row, and this file\'s header has no column it recognizes as a password. Rename the password column to "Password", or export in a format LocalKeep lists.</string>
+    <string name="import_error_vault_read_failed">Couldn\'t read your current vault, so this import can\'t tell which of these you already have. Your vault may have locked while the file was being read — open it again and retry.</string>
+    <string name="import_error_empty_file">That file parsed correctly but contained no items.</string>
+    <string name="import_error_nothing_selected">Nothing is selected to import.</string>
+    <string name="import_error_save_failed">Couldn\'t save the imported items.</string>
+    <!-- Two apply failures a retry cannot fix (2026-10-02). Adapted from itemedit_error_vault_too_large
+         and itemedit_error_out_of_space, without the first one's claim about the stored vault.
+         The too-large one also covers a full layout bucket. Carries no tier. -->
+    <string name="import_error_save_vault_too_large">This vault has grown too large to save the imported items on this device. Import fewer items at a time, or delete or export some items — large files and photos first.</string>
+    <string name="import_error_save_out_of_space">This device is out of storage space, so the imported items could not be saved. Free up space, then try again.</string>
+    <string name="import_error_delete_failed">Couldn\'t delete it from here — delete it yourself in Files, then empty the trash.</string>
+    <!-- The Instructions step's "Open the source app" button, when no app resolves the intent. -->
+    <string name="import_error_open_app_failed">No app on this device can open that.</string>
+
+    <!-- ==================== core/import — ImportFailureReason (Task 10 / F2, F22) ====================
+         core/import is a pure-Kotlin/JVM leaf module and cannot hold string resources or call
+         stringResource, so it returns a typed ImportFailureReason instead of English text.
+         ImportWizardScreen.resolve() maps each case to one of these. %1$s where present is a
+         source's brand name (import_source_label_*), already translatable="false" — see
+         the do-not-translate list's "Import source names" section. -->
+    <string name="core_import_error_malformed_export">This doesn\'t look like a valid %1$s export.</string>
+    <string name="core_import_error_container_encrypted">This %1$s export is password-protected. Turn off encryption when you export it, then try again.</string>
+    <!-- Bitwarden's other encrypted shape, and the reason it cannot share the string above:
+         an "Account restricted" export is sealed with the account's own key, which never
+         travels in the file, so "turn off encryption" is not the only remedy and is the
+         worse one. Re-exporting as "Password protected" opens here (the wizard asks for
+         that password) and never writes the passwords to storage in the clear. -->
+    <string name="core_import_error_account_encrypted">This export is protected with your %1$s account key, which LocalKeep cannot use. Export it again as unencrypted or as password-protected.</string>
+    <!-- Only ever shown when a key file WAS supplied — with none, the message above keeps both
+         possibilities open. It used to name the password alone, so a correct password with the
+         wrong key file pointed the user at the one thing that was right (1A-F6, 2026-09-20). KDBX
+         verifies the whole composite key in one step and cannot say which half failed. -->
+    <string name="core_import_error_wrong_password">Wrong password — or that isn\'t this database\'s key file. KeePass checks both together, so it can\'t say which.</string>
+    <!-- A password-protected export whose export password was wrong. Separate from the KeePass
+         message above (which names a database) and from container_encrypted (which tells the user
+         to export again — advice for a file no password can open, and wrong for this one). -->
+    <string name="core_import_error_wrong_export_password">Wrong password for this %1$s export.</string>
+    <!-- KDBX verifies the whole composite key at once, so a database that wants a key file is
+         refused exactly as a mistyped password is. With no key file supplied, the message has to
+         keep both possibilities open rather than assert the password is wrong. -->
+    <string name="core_import_error_wrong_password_or_key_file">Wrong password — or this database also needs its key file.</string>
+    <string name="core_import_error_unreadable_key_file">That key file couldn\'t be read. Check you picked the right file.</string>
+    <string name="core_import_error_not_kdbx_file">This file isn\'t a KeePass database.</string>
+    <!-- A KeePass 1.x .kdb. It shares KDBX's first four magic bytes, so it is recognised as a
+         KeePass file and then refused — and "this file isn't a KeePass database" was the wrong
+         sentence for a file that is one, just the previous format. Nothing here can read it; what
+         works is re-saving it from KeePass, so the message says that. -->
+    <string name="core_import_error_legacy_keepass1_file">This is a KeePass 1 database (.kdb). Open it in KeePass, save it as .kdbx, then import that file.</string>
+    <string name="core_import_error_damaged_kdbx_file">The KeePass database couldn\'t be read — the file looks damaged.</string>
+    <string name="core_import_error_kdbx_support_broken">KDBX support is broken in this build of LocalKeep — this isn\'t a problem with your password or your file. Please report it.</string>
+    <!-- The KDBX file's own KDF asks for more memory than the device allows an app, so the
+         derivation died before any credential check could run. Kept apart from the damaged-file and
+         wrong-password messages because it used to be reported as both, for the same file (G13). The
+         remedy is in the app the user is leaving, so it has to be named.
+         It used to close with "nothing is wrong with your file or your password". That was
+         an over-claim: the derivation dies before any credential check runs, so the app has
+         not checked the password and cannot say it is right. Cut in all five languages
+         rather than reworded, so no locale keeps the claim (V8, 2026-09-12). -->
+    <string name="core_import_error_kdbx_kdf_too_large">This database\'s encryption needs more memory than this device allows an app, so it can\'t be opened here. In KeePass, lower the key-derivation memory under Database security and export again.</string>
+    <!-- A valid export this device cannot hold in memory. Deliberately separate from the
+         malformed-export message, which used to swallow it: an OutOfMemoryError is not a claim
+         anyone can make about the file. Names no remedy, because there is none to name — a
+         Bitwarden or Aegis export is all-or-nothing ("Go to Tools -> Export vault"), so telling
+         the user to export less would be an instruction they cannot follow (V14). -->
+    <string name="core_import_error_export_needs_more_memory">Reading this %1$s export needs more memory than this device allows an app, so it can\'t be read here.</string>
+    <string name="core_import_error_onepux_missing_export_data">This .1pux file doesn\'t contain a 1Password export.</string>
+    <!-- %1$d is the fixed decompression cap (MAX_EXPORT_DATA_BYTES in OnePuxImporter), not a value
+         read from the untrusted file, so it is safe to show as-is. -->
+    <string name="core_import_error_export_too_large">This export is larger than the %1$d MB import limit.</string>
+    <string name="core_import_error_unexpected">Couldn\'t read this file. It may be corrupted or in a format LocalKeep doesn\'t support.</string>
+
+    <!-- ==================== core/import — SkipReason (Task 10) ====================
+         Why one entry inside an otherwise-readable export was left out — grouped and counted in the
+         preview ("Bank Account (2); HOTP code (1)"). Same "module can't hold resources" reasoning
+         as ImportFailureReason above. -->
+    <!-- "%1$s (%2$d)" — one skip-reason group in the preview's list, e.g. "Bank Account (2)". -->
+    <string name="core_import_skip_reason_count">%1$s (%2$d)</string>
+    <string name="core_import_skip_incomplete_entry">Incomplete entry in the export</string>
+    <string name="core_import_skip_ssh_key">SSH key — LocalKeep has no item type for one</string>
+    <!-- %1$d is Bitwarden's own integer item-type code, shown as a debugging aid. -->
+    <string name="core_import_skip_unsupported_bitwarden_type">Unsupported Bitwarden type (%1$d)</string>
+    <!-- %1$s is Aegis's own entry-type string, upper-cased — a format identifier, not a word, so it
+         is not translated on its own. In practice this is HOTP: counter-based codes have nowhere to
+         live in `Totp`, which has no counter field. STEAM used to reach here too and no longer does
+         (2026-09-11) — the app generates Steam Guard codes and the 2FA editor has a toggle for them,
+         so this sentence was telling users the app lacked a feature it ships. -->
+    <string name="core_import_skip_unsupported_aegis_type">%1$s code — LocalKeep only carries TOTP</string>
+    <!-- %1$s algorithm name, %2$d digit count, %3$d period in seconds — all technical parameters. -->
+    <string name="core_import_skip_unsupported_totp_settings">Unsupported TOTP settings (%1$s, %2$d digits, %3$ds)</string>
+    <string name="core_import_skip_onepassword_archived">Archived item</string>
+    <!-- Grouping label for an entry that was already in the source app's deleted items — today
+         only KeePass's Recycle Bin. Never says "archived": the user deleted it. A headed noun
+         phrase like every other reason in this family, because a bare participle carries gender in
+         fr/es/pt with nothing to agree with. The glossary's `trash` row supplies the bin's name in
+         each language (corbeille / Papierkorb / papelera / lixeira) rather than a verb: the entry
+         is recoverable where it sits, not purged. -->
+    <string name="core_import_skip_source_recycle_bin">Item in the other app\'s trash</string>
+    <string name="core_import_skip_onepassword_category_unsupported">Unsupported 1Password type</string>
+    <string name="core_import_skip_no_login_fields">No address, username or password</string>
+
+    <!-- 1Password's own category names, for the categories this build has no item type for. Only
+         used to label a skipped entry — see SkipReason.UnsupportedOnePasswordCategory. -->
+    <string name="core_import_onepassword_category_password">Password</string>
+    <string name="core_import_onepassword_category_document">Document</string>
+    <string name="core_import_onepassword_category_software_license">Software License</string>
+    <string name="core_import_onepassword_category_bank_account">Bank Account</string>
+    <string name="core_import_onepassword_category_database">Database</string>
+    <string name="core_import_onepassword_category_driver_license">Driver License</string>
+    <string name="core_import_onepassword_category_outdoor_license">Outdoor License</string>
+    <string name="core_import_onepassword_category_membership">Membership</string>
+    <string name="core_import_onepassword_category_passport">Passport</string>
+    <string name="core_import_onepassword_category_reward_program">Reward Program</string>
+    <string name="core_import_onepassword_category_ssn">Social Security Number</string>
+    <string name="core_import_onepassword_category_wireless_router">Wireless Router</string>
+    <string name="core_import_onepassword_category_server">Server</string>
+    <string name="core_import_onepassword_category_email_account">Email Account</string>
+    <string name="core_import_onepassword_category_api_credential">API Credential</string>
+    <string name="core_import_onepassword_category_medical_record">Medical Record</string>
+    <string name="core_import_onepassword_category_ssh_key">SSH Key</string>
+
+    <!-- ==================== core/import — ImportDefaultTitles (Task 10) ====================
+         Fallback titles for a source entry the file itself left blank. Resolved once in
+         ImportWizardViewModel (not a composable — see ImportDefaultTitles's kdoc for why this one
+         case reads strings via Context.getString rather than exposing a @StringRes) and threaded
+         into the importer, because the value is persisted into the vault at import time rather than
+         resolved fresh on every render. -->
+    <string name="core_import_default_untitled_item">Untitled item</string>
+    <string name="core_import_default_imported_item">Imported item</string>
+    <string name="core_import_default_untitled_code">Untitled code</string>
+    <string name="core_import_default_imported_code">Imported 2FA code</string>
+    <string name="core_import_default_untitled_row">Untitled row</string>
+    <string name="core_import_default_untitled_folder">Imported</string>
+    <string name="core_import_default_rescued_totp_field_name">TOTP seed</string>
+    <string name="core_import_default_identity_notes_field_name">Notes</string>
+
+    <!-- ==================== ImportSource.kt — source names (never translated: other products' names) ==================== -->
+    <string name="import_source_label_chrome" translatable="false">Google / Chrome</string>
+    <string name="import_source_label_apple" translatable="false">Apple Passwords</string>
+    <string name="import_source_label_bitwarden" translatable="false">Bitwarden</string>
+    <string name="import_source_label_onepassword" translatable="false">1Password</string>
+    <string name="import_source_label_keepass" translatable="false">KeePass</string>
+    <string name="import_source_label_aegis" translatable="false">Aegis</string>
+    <string name="import_source_label_keeper" translatable="false">Keeper</string>
+    <string name="import_source_label_enpass" translatable="false">Enpass</string>
+    <string name="import_source_label_protonpass" translatable="false">Proton Pass</string>
+    <string name="import_source_label_dashlane" translatable="false">Dashlane</string>
+    <!-- "Other / CSV" is a category name, not a product name, but stays untranslated alongside its
+         siblings in the same grid — a lone translated tile would read as a different kind of thing. -->
+    <string name="import_source_label_csv" translatable="false">Other / CSV</string>
+    <!-- The format name the preview appends after the item count ("12 items found · CSV"). Three
+         source cards (Google / Chrome, Apple Passwords, Other / CSV) all parse as CSV, and the
+         preview used to print the *card* label for all three — so a Chrome import announced itself
+         as "Other / CSV" (device, 2026-09-14). A format is not a source; it gets its own name. -->
+    <string name="import_format_label_csv" translatable="false">CSV</string>
+
+    <!-- ==================== ImportSource.kt — export steps, per source ==================== -->
+    <string name="import_source_chrome_step_1">Open Chrome on this device and tap ⋮ → Settings.</string>
+    <string name="import_source_chrome_step_2">Tap Password Manager, then the ⚙ Settings icon inside it.</string>
+    <string name="import_source_chrome_step_3">Tap Export passwords and confirm with your screen lock.</string>
+    <string name="import_source_chrome_step_4">Choose a location you can find again — Downloads is fine.</string>
+    <string name="import_source_chrome_caveat_1">Chrome exports logins only. Saved cards and addresses are not included — you\'ll need to add those by hand, or import them from another manager.</string>
+    <string name="import_source_chrome_caveat_2">The exported file is plain, unencrypted text. Delete it as soon as the import is done; the last step of this wizard can do that for you.</string>
+
+    <string name="import_source_apple_step_1">On a Mac: open the Passwords app, then File → Export All Passwords.</string>
+    <string name="import_source_apple_step_2">On iPhone/iPad: Settings → Passwords → ⋯ → Export Passwords (iOS 18 or later).</string>
+    <string name="import_source_apple_step_3">Save the CSV, then transfer it to this device however you normally move files.</string>
+    <!-- Corrected 2026-09-20 (1B-F2): this said Apple exports no notes. It exports a per-login
+         Notes column, which LocalKeep imports in full; what it has no export for is a standalone
+         secure note or a card. -->
+    <string name="import_source_apple_caveat_1">Apple exports logins, their 2FA codes and each login\'s own note. Cards and standalone notes have no export.</string>
+    <string name="import_source_apple_caveat_2">Passkeys can\'t be exported by any current version — they stay on your Apple devices.</string>
+
+    <string name="import_source_bitwarden_step_1">Open Bitwarden\'s web vault at vault.bitwarden.com (the mobile app can\'t export).</string>
+    <string name="import_source_bitwarden_step_2">Go to Tools → Export vault.</string>
+    <string name="import_source_bitwarden_step_3">Choose the .json format. An encrypted one works too, as long as you pick \"Password protected\" rather than \"Account restricted\".</string>
+    <string name="import_source_bitwarden_step_4">Confirm with your master password and save the file.</string>
+    <string name="import_source_bitwarden_caveat_1">A password-protected .json export opens here — LocalKeep asks for that password. An account-restricted export can only be opened by Bitwarden itself.</string>
+    <string name="import_source_bitwarden_caveat_2">File attachments are not included in any Bitwarden export.</string>
+    <string name="import_source_bitwarden_caveat_3">Collections come across as tags, because an item can be in more than one. Your own folders stay folders.</string>
+    <string name="import_source_bitwarden_caveat_4">Passkeys are in the export, but LocalKeep doesn\'t import them — they stay in Bitwarden. Keep your Bitwarden account if you still need them.</string>
+
+    <string name="import_source_onepassword_step_1">Open the 1Password desktop app (mobile can\'t export).</string>
+    <string name="import_source_onepassword_step_2">Choose File → Export → the account you want.</string>
+    <string name="import_source_onepassword_step_3">Pick the 1Password Unencrypted Export (.1pux) format.</string>
+    <string name="import_source_onepassword_step_4">Enter your account password and save the file.</string>
+    <string name="import_source_onepassword_caveat_1">A .1pux file is a zip of plain JSON. Treat it like a printed copy of your vault until it\'s wiped.</string>
+    <string name="import_source_onepassword_caveat_2">A file saved as its own 1Password Document comes across. A file attached to a login, card or identity does not — keep your 1Password account, or save those somewhere else first.</string>
+
+    <string name="import_source_keepass_step_1">Find your database file — it ends in .kdbx.</string>
+    <string name="import_source_keepass_step_2">On a phone, copy it into Files or Drive so you can pick it here.</string>
+    <string name="import_source_keepass_step_3">Choose it below and enter that database\'s master password.</string>
+    <string name="import_source_keepass_caveat_1">The database stays encrypted the whole time — LocalKeep opens it in memory only.</string>
+    <!-- Corrected 2026-09-20 (1A-F1): this said key files were not supported. They are, and have
+         been — .keyx, a 64-hex .key and a key-file-only database with a blank password all import
+         (verified on device). Hardware keys are the part that is genuinely not supported. -->
+    <string name="import_source_keepass_caveat_2">Key files work — after the password step you can add one. Hardware keys like a YubiKey aren\'t supported.</string>
+    <!-- 2FA seeds import too: a login that had one now shows its own rolling code on the login
+         itself, so this tells the user to verify that before uninstalling their authenticator. -->
+    <string name="import_source_keepass_caveat_3">2FA seeds come across too: a login that had one shows its code on the login itself. Check one works before you uninstall your authenticator.</string>
+    <!-- Added 2026-08-30. Files attached to KDBX entries are not carried over, and until now
+         nothing told the user — while the Done step offers to delete the source database. -->
+    <string name="import_source_keepass_caveat_4">Files attached to entries don\'t come across. Keep your database, or save those files somewhere else first.</string>
+
+    <string name="import_source_aegis_step_1">Open Aegis and go to Settings → Import &amp; Export.</string>
+    <string name="import_source_aegis_step_2">Tap Export, and choose the plain JSON format.</string>
+    <string name="import_source_aegis_step_3">Confirm the warning and save the file.</string>
+    <string name="import_source_aegis_caveat_1">Choose the unencrypted JSON export; the encrypted one uses Aegis\'s own format.</string>
+    <string name="import_source_aegis_caveat_2">This imports your 2FA codes. Keep Aegis installed until you\'ve confirmed a code works in LocalKeep — locking yourself out of 2FA is much worse than a duplicate.</string>
+
+    <!-- Keeper, Enpass, Proton Pass and Dashlane, added 2026-09-17 with their importers.
+         The brand names are import_source_label_*, already translatable="false". Menu paths
+         inside the other apps are left in English on purpose: they are what the user will see
+         on that app's own screen, and translating them would send them looking for a label
+         that is not there. Every caveat states a limitation that was measured against a real
+         export, not a general disclaimer. -->
+    <string name="import_source_keeper_step_1">Open the Keeper Web Vault in a browser — the phone app can\'t export.</string>
+    <string name="import_source_keeper_step_2">Go to Settings, then Export.</string>
+    <string name="import_source_keeper_step_3">Choose JSON. Keeper\'s CSV works too, but the JSON export is the one that carries your folders, record types and custom fields.</string>
+    <string name="import_source_keeper_step_4">Save the file, then bring it to this phone.</string>
+    <string name="import_source_keeper_caveat_1">SSH keys aren\'t imported — LocalKeep has no item type for one. They\'re listed by name on the preview so you know what stayed behind.</string>
+    <string name="import_source_keeper_caveat_2">A record filed in more than one Keeper folder lands in the first of them; the others are kept on the item as a field named folders.</string>
+    <string name="import_source_keeper_caveat_3">Keeper\'s CSV export has no header row, so it\'s read by column position. If your CSV was edited or re-saved by a spreadsheet, export JSON instead.</string>
+    <string name="import_source_keeper_caveat_4">Record attachments and file or photo records aren\'t carried — only the record\'s own fields.</string>
+    <string name="import_source_enpass_step_1">Open Enpass.</string>
+    <string name="import_source_enpass_step_2">Go to Settings, then Advanced, then Export.</string>
+    <string name="import_source_enpass_step_3">Choose JSON. Enpass\'s CSV works too, but only the JSON export carries your folders and your item categories.</string>
+    <string name="import_source_enpass_step_4">Confirm with your Enpass master password.</string>
+    <string name="import_source_enpass_caveat_1">Items in Enpass\'s trash aren\'t imported. They\'re listed by name on the preview.</string>
+    <string name="import_source_enpass_caveat_2">An Enpass CSV export of secure notes only isn\'t recognised — its rows carry nothing that identifies them as Enpass. Export JSON instead.</string>
+    <string name="import_source_enpass_caveat_3">Attachments aren\'t carried — only the item\'s own fields.</string>
+    <string name="import_source_protonpass_step_1">Open Proton Pass, or the web vault.</string>
+    <string name="import_source_protonpass_step_2">Go to Settings, then Export.</string>
+    <string name="import_source_protonpass_step_3">Choose JSON, not \"encrypted\".</string>
+    <string name="import_source_protonpass_step_4">Proton Pass saves a .zip. Unzip it and pick the data.json inside.</string>
+    <string name="import_source_protonpass_caveat_1">Proton Pass exports a zip. Unzip it first and choose the .json file inside — this app reads the JSON, not the archive.</string>
+    <string name="import_source_protonpass_caveat_2">Items in Proton Pass\'s trash aren\'t imported, and SSH keys aren\'t either. Both are listed by name on the preview.</string>
+    <string name="import_source_protonpass_caveat_3">Each Proton Pass vault becomes a folder.</string>
+    <string name="import_source_protonpass_caveat_4">Passkeys aren\'t carried.</string>
+    <string name="import_source_dashlane_step_1">Open Dashlane on a computer — the phone app can\'t export.</string>
+    <string name="import_source_dashlane_step_2">Go to My Account, then Settings, then Export.</string>
+    <string name="import_source_dashlane_step_3">Choose CSV.</string>
+    <string name="import_source_dashlane_step_4">Dashlane saves a zip of several files. Bring them to this phone and import them one at a time.</string>
+    <string name="import_source_dashlane_caveat_1">Dashlane exports one file per kind of record: credentials.csv for your logins, payments.csv for cards and bank accounts, id.csv for documents, personal-info.csv and securenotes.csv. Import each one separately, or you\'ll only get part of your data.</string>
+    <string name="import_source_dashlane_caveat_2">A Dashlane bank account is saved as a note, with its account and routing numbers masked — it isn\'t a payment card.</string>
+    <string name="import_source_dashlane_caveat_3">personal-info.csv has one row per detail, not one per person, so each row becomes its own entry.</string>
+    <string name="import_source_csv_step_1">Export your data from the other manager as CSV.</string>
+    <string name="import_source_csv_step_2">Most managers put this under Settings, Tools, or Export.</string>
+    <string name="import_source_csv_step_3">LocalKeep works out which column is which from the header row.</string>
+    <string name="import_source_csv_caveat_1">A CSV needs a header row naming the columns. Without one there\'s no way to tell a username from a password.</string>
+</resources>

@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared item-type display names, used by both the detail screen and the edit form so the
+         two never drift into naming the same type differently. -->
+    <string name="itemedit_type_login">Inicio de sesión</string>
+    <string name="itemedit_type_note">Nota segura</string>
+    <string name="itemedit_type_totp">Código 2FA</string>
+    <string name="itemedit_type_card">Tarjeta</string>
+    <string name="itemedit_type_identity">Identidad</string>
+
+    <!-- Shared field labels/actions, identical wording and meaning on the detail screen and the
+         edit form. -->
+    <string name="itemedit_username_label">Nombre de usuario</string>
+    <string name="itemedit_password_label">Contraseña</string>
+    <string name="itemedit_totp_issuer_label">Emisor</string>
+    <string name="itemedit_totp_account_label">Cuenta</string>
+    <string name="itemedit_card_cvv_label">CVV</string>
+    <string name="itemedit_card_pin_label">PIN</string>
+    <string name="itemedit_notes_label">Notas</string>
+    <string name="itemedit_notes_too_long">Las notas admiten hasta 20.000 caracteres, así que ese texto no se ha añadido.</string>
+    <string name="itemedit_notice_discarded_on_lock">La caja fuerte se bloqueó, así que se descartaron los cambios sin guardar.</string>
+    <string name="itemedit_identity_company_label">Empresa</string>
+    <!-- The key still says ssn: it was named after the US Social Security Number this field
+         originally asked for. The displayed value went country-neutral on 2026-08-19 so a user
+         outside the US can map it onto their own scheme. Renaming the key would churn five
+         catalogues and their review history for nothing a user can see, so key and value disagree
+         on purpose. The glossary row is "national ID number". -->
+    <string name="itemedit_identity_ssn_label">Número de identificación nacional</string>
+    <string name="itemedit_identity_email_label">Correo</string>
+    <string name="itemedit_identity_address_heading">Dirección</string>
+    <string name="itemedit_tags_label">Etiquetas</string>
+    <string name="itemedit_custom_fields_heading">Campos personalizados</string>
+    <string name="itemedit_dismiss_not_now">Ahora no</string>
+    <string name="itemedit_view_on_play">Ver en Google Play</string>
+    <!-- "Hide X" / "Show X" / "Copy X" / "Copy X, unlocks first" — the reveal/copy verbs shared by
+         every masked field on both the detail screen and the edit form. -->
+    <string name="itemedit_action_hide">Ocultar %1$s</string>
+    <string name="itemedit_action_show">Mostrar %1$s</string>
+    <string name="itemedit_action_copy">Copiar %1$s</string>
+    <string name="itemedit_action_copy_gated">Copiar %1$s, desbloquee primero</string>
+
+    <!-- ═══ Detail screen (ItemDetailScreen.kt) ═══ -->
+    <string name="itemedit_detail_untitled">Sin título</string>
+    <string name="itemedit_detail_trash_dialog_title">¿Mover a la papelera?</string>
+    <string name="itemedit_detail_trash_dialog_body">El elemento permanece en la Papelera hasta que la vacíe, por lo que esto se puede deshacer.</string>
+    <string name="itemedit_detail_trash_confirm">Mover a la papelera</string>
+    <string name="itemedit_detail_trash_dismiss">Conservarlo</string>
+    <string name="itemedit_detail_back">Atrás</string>
+    <string name="itemedit_detail_trash_icon_label">Mover %1$s a la papelera</string>
+    <string name="itemedit_detail_favourite_add">Agregar %1$s a favoritos</string>
+    <string name="itemedit_detail_favourite_remove">Quitar %1$s de favoritos</string>
+    <string name="itemedit_detail_edit">Editar</string>
+    <string name="itemedit_detail_reprompt_badge">Volver a preguntar</string>
+    <string name="itemedit_detail_dates_heading">Fechas</string>
+    <string name="itemedit_detail_added_label">Añadido</string>
+    <string name="itemedit_detail_updated_label">Actualizado</string>
+    <string name="itemedit_detail_password_changed_label">Contraseña cambiada</string>
+    <!-- Fallback label for a custom field the user never named. -->
+    <string name="itemedit_detail_field_fallback">Campo %1$d</string>
+    <!-- SECURITY-COPY: tier G — claims what does and does not leave the device from this screen. -->
+    <string name="itemedit_detail_screenshot_notice">No se pueden tomar capturas de esta pantalla. LocalKeep no sincroniza nada ni envía nada a un servidor — aunque cualquier cosa que copie va al portapapeles del sistema hasta que se borre.</string>
+    <!-- Naming what is about to become visible, per SECURITY-COPY tier C. -->
+    <string name="itemedit_detail_totp_secret_field_label">Secreto 2FA</string>
+    <string name="itemedit_detail_websites_title">Sitios web</string>
+    <string name="itemedit_detail_totp_secret_label">Secreto</string>
+    <string name="itemedit_detail_totp_code_label">Código</string>
+    <string name="itemedit_detail_totp_config_label">Configuración del código</string>
+    <string name="itemedit_detail_totp_config_value">%1$s, %2$s dígitos, %3$s s</string>
+    <string name="itemedit_detail_card_number_label">Número</string>
+    <string name="itemedit_detail_card_expires_label">Vence</string>
+    <string name="itemedit_detail_card_expired">La fecha de vencimiento de esta tarjeta ya pasó.</string>
+    <string name="itemedit_detail_card_number_hidden_a11y">número oculto</string>
+    <string name="itemedit_card_review_number_ending_a11y">que termina en %1$s</string>
+    <string name="itemedit_detail_card_face_a11y_generic">Tarjeta</string>
+    <string name="itemedit_detail_card_face_a11y">Tarjeta %1$s, %2$s, vence %3$s</string>
+    <string name="itemedit_detail_card_face_a11y_no_brand">Tarjeta, %1$s, vence %2$s</string>
+    <string name="itemedit_detail_identity_name_label">Nombre</string>
+    <string name="itemedit_detail_identity_phone_label">Teléfono</string>
+    <string name="itemedit_detail_note_empty">Esta nota está vacía.</string>
+    <!-- "42s" — a glued digit + unit abbreviation, not the word "second(s)"; not a <plurals> case. -->
+    <string name="itemedit_detail_totp_seconds_expiring">%1$ds · expirando</string>
+    <string name="itemedit_detail_totp_seconds">%1$ds</string>
+    <!-- Accessibility: spoken digit by digit so TTS does not read the code as one large number. -->
+    <string name="itemedit_detail_totp_code_spoken">Código %1$s</string>
+    <string name="itemedit_detail_totp_code_hidden">Código oculto</string>
+    <!-- Accessibility label on the countdown ring; uses the word "seconds", so unlike the glued
+         "42s" caption above this one needs the plural form. -->
+    <plurals name="itemedit_detail_totp_ring_seconds">
+        <item quantity="one">%1$d segundo hasta que este código cambie</item>
+        <item quantity="many">%1$d segundos hasta que este código cambie</item>
+        <item quantity="other">%1$d segundos hasta que este código cambie</item>
+    </plurals>
+    <plurals name="itemedit_detail_totp_refresh_caption">
+        <item quantity="one">Se renueva cada %1$d segundo</item>
+        <item quantity="many">Se renueva cada %1$d segundos</item>
+        <item quantity="other">Se renueva cada %1$d segundos</item>
+    </plurals>
+    <string name="itemedit_detail_totp_hide">Ocultar código de dos factores</string>
+    <string name="itemedit_detail_totp_show">Mostrar código de dos factores</string>
+    <!-- The clipboard entry's own label when a live 2FA code is copied. -->
+    <string name="itemedit_detail_totp_clipboard_label">Código 2FA</string>
+    <string name="itemedit_detail_totp_copy_gated">Copiar código de dos factores, desbloquee primero</string>
+    <string name="itemedit_detail_totp_copy">Copiar código de dos factores</string>
+    <!-- Accessibility: label and value merged as one node so a screen reader doesn't read the
+         label, then need a second swipe to reach the value it belongs to. -->
+    <string name="itemedit_detail_field_readout">%1$s: %2$s</string>
+    <!-- Tap-to-edit-in-place onClickLabel, view mode (T1, 2026-08-12). -->
+    <string name="itemedit_detail_field_edit">Editar %1$s</string>
+    <string name="itemedit_detail_website_row_label">Sitio web %1$s</string>
+    <string name="itemedit_detail_website_clipboard_label">Sitio web</string>
+    <string name="itemedit_detail_attachments">Archivos adjuntos</string>
+    <plurals name="itemedit_detail_attachments_photos">
+        <item quantity="one">%1$d foto</item>
+        <item quantity="other">%1$d fotos</item>
+    </plurals>
+    <plurals name="itemedit_detail_attachments_files">
+        <item quantity="one">%1$d archivo</item>
+        <item quantity="other">%1$d archivos</item>
+    </plurals>
+
+    <!-- ═══ Edit form (ItemEditScreen.kt) ═══ -->
+    <string name="itemedit_edit_encrypting">Cifrando…</string>
+    <string name="itemedit_edit_save">Guardar</string>
+    <!-- Accessibility: a button whose text becomes a spinner is nameless to a screen reader without this. -->
+    <string name="itemedit_edit_saving_a11y">Guardando, espere</string>
+    <string name="itemedit_edit_discard_dialog_title">¿Descartar cambios?</string>
+    <string name="itemedit_edit_discard_dialog_body">Este elemento tiene cambios que no se han guardado.</string>
+    <string name="itemedit_edit_discard_confirm">Descartar</string>
+    <string name="itemedit_edit_discard_dismiss">Seguir editando</string>
+    <string name="itemedit_edit_new_item_title">Nuevo elemento</string>
+    <string name="itemedit_edit_edit_item_title">Editar elemento</string>
+    <!-- SECURITY-COPY: tier G — a claim about when encryption protects this item's data. -->
+    <string name="itemedit_edit_header_subtitle">Cifrado en el momento de guardarlo</string>
+    <!-- SECURITY-COPY: tier E — the purchase copy. -->
+    <string name="itemedit_edit_pro_dialog_title">Límite del plan gratuito</string>
+    <!-- SECURITY-COPY: tier E. %1$s is PRO_PRICE — keep it a format arg fed by Play\'s own
+         localised price, never a translated literal (a security-copy rule). -->
+    <string name="itemedit_edit_pro_dialog_body_purchasable">Una caja fuerte gratuita contiene %2$d tarjeta y %2$d identidad. Elimine una para hacer espacio, o desbloquee Pro (pago único de %1$s) para uso ilimitado.</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="itemedit_edit_pro_dialog_body_purchasable_no_price">Una caja fuerte gratuita contiene %1$d tarjeta y %1$d identidad. Elimine una para hacer espacio, o desbloquee Pro (compra única) para uso ilimitado.</string>
+    <!-- SECURITY-COPY: tier E. -->
+    <string name="itemedit_edit_pro_dialog_body_not_purchasable">Una caja fuerte gratuita contiene %1$d tarjeta y %1$d identidad. Elimine una para hacer espacio. Pro, que elimina ese límite, está en la versión de Play Store de la aplicación.</string>
+    <!-- SECURITY-COPY: tier E. %1$s is PRO_PRICE, see the note above. -->
+    <string name="itemedit_edit_pro_unlock_button">Desbloquear Pro — %1$s</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="itemedit_edit_pro_unlock_button_no_price">Desbloquear Pro</string>
+    <string name="itemedit_edit_title_field_label">Título</string>
+    <string name="itemedit_edit_title_required_caption">Un título es obligatorio — es el nombre con el que encontrará este elemento.</string>
+    <string name="itemedit_edit_title_required_a11y">Un título es obligatorio</string>
+    <string name="itemedit_edit_manage_attachments_button">Gestionar archivos adjuntos</string>
+
+    <!-- Folder picker -->
+    <string name="itemedit_folder_none">Ninguna</string>
+    <string name="itemedit_folder_label">Carpeta</string>
+    <string name="itemedit_folder_name_suffix">%1$s (%2$d)</string>
+
+    <!-- Folder row on the item view screen (view-mode move/remove sheet) -->
+    <string name="itemedit_folder_change_action">Cambiar de carpeta</string>
+    <string name="itemedit_folder_sheet_title">Carpeta</string>
+    <string name="itemedit_folder_move">Mover a una carpeta…</string>
+    <string name="itemedit_folder_add_action">Agregar a una carpeta</string>
+    <string name="itemedit_folder_remove">Quitar de la carpeta</string>
+
+    <!-- Tag editor -->
+    <string name="itemedit_tag_add_label">Agregar etiqueta</string>
+    <string name="itemedit_tag_add_placeholder">p. ej. trabajo</string>
+    <string name="itemedit_tag_remove_a11y">Quitar la etiqueta %1$s</string>
+
+    <!-- Login fields -->
+    <string name="itemedit_login_website_fallback_name">sitio web %1$d</string>
+    <string name="itemedit_login_website_remove_a11y">Eliminar %1$s</string>
+    <string name="itemedit_login_website_add_button">Agregar sitio web</string>
+    <string name="itemedit_login_totp_heading">Dos factores</string>
+    <string name="itemedit_login_totp_badge">2FA</string>
+    <!-- "42s" glued abbreviation, not the word "seconds" — see the note on the detail screen\'s
+         seconds strings above. %1$s (not %1$d): totpPeriodSec is form-input text, not a parsed Int. -->
+    <string name="itemedit_login_totp_caption_default">Los códigos se renuevan cada %1$ss</string>
+    <string name="itemedit_login_totp_remove_button">Eliminar dos factores</string>
+    <!-- SECURITY-COPY: tier A — the confirm button permanently deletes the stored 2FA seed. -->
+    <string name="itemedit_login_totp_remove_dialog_title">¿Eliminar dos factores?</string>
+    <!-- SECURITY-COPY: tier A. -->
+    <string name="itemedit_login_totp_remove_dialog_body">La semilla de los códigos 2FA de este inicio de sesión se elimina al guardar. Si no está almacenada en otro lugar, tendrá que volver a configurar el código de dos factores en el sitio.</string>
+    <string name="itemedit_login_totp_remove_confirm">Eliminar</string>
+
+    <!-- Note fields -->
+    <string name="itemedit_note_label">Nota segura</string>
+
+    <!-- TOTP fields -->
+    <string name="itemedit_totp_camera_denial_sentence">LocalKeep no puede escanear un código QR sin acceso a la cámara.</string>
+    <string name="itemedit_totp_scan_button">Escanear el código QR</string>
+    <string name="itemedit_totp_scan_hint">Apunte la cámara al código QR que muestra el sitio.</string>
+    <string name="itemedit_totp_manual_divider">O ingréselo manualmente</string>
+    <string name="itemedit_totp_secret_field_label">Clave secreta (obligatoria)</string>
+    <string name="itemedit_totp_secret_hint">La clave que el sitio le muestra — letras A–Z y dígitos 2–7.</string>
+    <string name="itemedit_totp_secret_error">LocalKeep no puede leer esta clave. Debe contener letras A–Z y dígitos 2–7, copiada exactamente.</string>
+    <string name="itemedit_totp_algorithm_label">Algoritmo</string>
+    <string name="itemedit_totp_different_algorithm_button">¿Algoritmo diferente?</string>
+    <string name="itemedit_totp_digits_label">Dígitos</string>
+    <string name="itemedit_totp_period_label">Período (s)</string>
+    <string name="itemedit_totp_digits_error">Los códigos tienen 6 u 8 dígitos.</string>
+    <string name="itemedit_totp_period_error">El período es un número de segundos, mayor que cero.</string>
+    <string name="itemedit_totp_steam_label">Códigos Steam Guard</string>
+    <string name="itemedit_totp_steam_button">¿Token de Steam Guard?</string>
+    <string name="itemedit_totp_preview_label">Vista previa</string>
+    <!-- SECURITY-COPY: tier G — a claim about what the camera does and does not do with what it sees. -->
+    <string name="itemedit_totp_camera_dialog_title">¿Usar la cámara?</string>
+    <!-- SECURITY-COPY: tier G. -->
+    <string name="itemedit_totp_camera_dialog_body">LocalKeep usa la cámara solo mientras escanea este código QR de autenticador. No se guarda ni envía ninguna foto o video.</string>
+    <string name="itemedit_totp_camera_dialog_continue">Continuar</string>
+
+    <!-- Card fields -->
+    <string name="itemedit_card_holder_field_label">Nombre del titular</string>
+    <string name="itemedit_card_number_field_label">Número de tarjeta (obligatorio)</string>
+    <string name="itemedit_card_number_required_caption">Se requiere un número de tarjeta — es el único campo sin el cual no se puede guardar una tarjeta.</string>
+    <string name="itemedit_card_exp_month_label">Mes de venc.</string>
+    <string name="itemedit_card_exp_year_label">Año de venc.</string>
+    <string name="itemedit_card_exp_month_error">El mes es 1–12, como aparece en la tarjeta.</string>
+    <string name="itemedit_card_exp_year_error">El año son los cuatro dígitos impresos en la tarjeta.</string>
+    <string name="itemedit_card_exp_year_far_error">Ese año está demasiado lejos. Verifique la fecha impresa en la tarjeta.</string>
+
+    <!-- Identity fields -->
+    <string name="itemedit_identity_personal_details_heading">Datos personales</string>
+    <string name="itemedit_identity_first_name_label">Nombre</string>
+    <string name="itemedit_identity_last_name_label">Apellido</string>
+    <string name="itemedit_identity_gov_ids_heading">Documentos de identidad</string>
+    <string name="itemedit_identity_start_title">Agregar una identidad</string>
+    <string name="itemedit_identity_start_body">Fotografíe el documento, o ingrese los datos usted mismo.</string>
+    <string name="itemedit_identity_start_photo">Fotografiar el documento</string>
+    <string name="itemedit_identity_start_type">Ingresar los datos a mano</string>
+    <string name="itemedit_identity_start_cancel">Cancelar</string>
+    <string name="itemedit_identity_capture_front">Fotografíe el frente</string>
+    <string name="itemedit_identity_capture_back">Fotografíe el reverso</string>
+    <string name="itemedit_identity_capture_more">Otra página, si la hay</string>
+    <string name="itemedit_identity_capture_shutter">Tomar la foto</string>
+    <string name="itemedit_identity_capture_retake">Repetir</string>
+    <string name="itemedit_identity_capture_preview_a11y">La foto que acaba de tomar</string>
+    <string name="itemedit_identity_capture_continue">Continuar</string>
+    <string name="itemedit_identity_capture_done">Listo</string>
+    <string name="itemedit_identity_capture_cancel">Cancelar</string>
+    <string name="itemedit_identity_capture_failed">Esa foto no se guardó. Inténtelo de nuevo.</string>
+    <!-- SECURITY-COPY: tier F -->
+    <string name="itemedit_error_identity_photo_quota">Las cajas fuertes gratuitas pueden contener %1$d archivos y fotos. Elimine %2$d para guardar esta página</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_error_identity_photo_quota_suffix_purchase">, o desbloquee Pro para acceso ilimitado.</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_error_identity_photo_quota_suffix_no_purchase">, o desbloquee Pro en la versión de Play.</string>
+    <string name="itemedit_identity_capture_needs_camera">LocalKeep necesita la cámara para fotografiar un documento.</string>
+    <string name="itemedit_identity_capture_denied">LocalKeep no puede fotografiar un documento sin acceso a la cámara.</string>
+    <string name="itemedit_identity_capture_allow">Permitir acceso a la cámara</string>
+    <string name="itemedit_identity_capture_dialog_title">¿Usar la cámara?</string>
+    <string name="itemedit_identity_capture_dialog_body">LocalKeep usa la cámara solo para fotografiar este documento directamente en su caja fuerte. La imagen nunca pasa por su galería, se quitan su ubicación y los datos de la cámara, y nada sale de este dispositivo.</string>
+    <string name="itemedit_identity_capture_dialog_continue">Continuar</string>
+    <string name="itemedit_identity_capture_default_title">Identidad</string>
+    <string name="itemedit_identity_capture_name_title">Ponga nombre a esta identidad</string>
+    <string name="itemedit_identity_capture_name_label">Nombre</string>
+    <string name="itemedit_identity_capture_add_page">Agregar otra página</string>
+    <string name="itemedit_identity_start_photo_hint">Lo más rápido: no hay que escribir nada</string>
+    <!-- Photo route disabled on the identity chooser because the attachment quota is already
+         full — shown as the tile's subtitle instead of itemedit_identity_start_photo_hint. %1$d
+         is AttachmentQuota.FREE_LIMIT, %2$d is AttachmentQuota.mustRemove — never a literal. -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="itemedit_identity_start_photo_blocked">Las cajas fuertes gratuitas contienen %1$d archivos y fotos. Elimine %2$d para fotografiar este documento — o ingréselo a mano.</string>
+    <string name="itemedit_identity_wizard_body">Todo aquí es opcional. Omita lo que no tenga.</string>
+    <string name="itemedit_identity_wizard_skip">Omitir</string>
+    <string name="itemedit_identity_wizard_review_empty">Aún no ha ingresado nada. Vuelva atrás y agregue al menos un dato.</string>
+    <string name="itemedit_identity_wizard_save_disabled_a11y">Guardar, disponible cuando agregue un dato</string>
+    <string name="itemedit_identity_capture_hint">Llene el encuadre · no se mueva</string>
+    <string name="itemedit_identity_capture_rail_front">Anverso</string>
+    <string name="itemedit_identity_capture_rail_back">Reverso</string>
+    <string name="itemedit_identity_capture_rail_more">Más</string>
+    <string name="itemedit_identity_capture_rail_captured">, capturado</string>
+    <string name="itemedit_identity_saving_body">Sellando las páginas en el archivo de su caja fuerte. Nada sale de este dispositivo.</string>
+    <string name="itemedit_identity_saved_reauth">Se requiere autenticarse de nuevo para abrir o copiar</string>
+    <plurals name="itemedit_identity_capture_pages">
+        <item quantity="one">%1$d página</item>
+        <item quantity="other">%1$d páginas</item>
+    </plurals>
+    <plurals name="itemedit_identity_capture_name_body">
+        <item quantity="one">%1$d foto guardada en esta identidad. Póngale un nombre que reconozca, o conserve este.</item>
+        <item quantity="other">%1$d fotos guardadas en esta identidad. Póngale un nombre que reconozca, o conserve este.</item>
+    </plurals>
+    <plurals name="itemedit_identity_saved_body">
+        <item quantity="one">%1$d página cifrada en su caja fuerte.</item>
+        <item quantity="other">%1$d páginas cifradas en su caja fuerte.</item>
+    </plurals>
+    <string name="itemedit_identity_passport_field_label">Número de pasaporte</string>
+    <string name="itemedit_identity_license_field_label">Licencia de conducir</string>
+    <string name="itemedit_identity_contact_heading">Contacto</string>
+    <string name="itemedit_identity_address_line1_label">Línea 1</string>
+    <string name="itemedit_identity_address_line2_label">Línea 2</string>
+    <string name="itemedit_identity_address_city_label">Ciudad</string>
+    <string name="itemedit_identity_address_state_label">Estado / región</string>
+    <string name="itemedit_identity_address_zip_label">Código postal</string>
+    <string name="itemedit_identity_address_country_label">País</string>
+
+    <!-- Custom fields -->
+    <string name="itemedit_custom_field_name_label">Nombre del campo</string>
+    <string name="itemedit_custom_field_type_a11y">Tipo de campo: %1$s</string>
+    <string name="itemedit_custom_field_value_label">Valor del campo</string>
+    <string name="itemedit_custom_field_value_hidden_label">Valor del campo, oculto</string>
+    <string name="itemedit_custom_field_value_placeholder">Valor</string>
+    <!-- Fallback name spoken in "Hide/Show/Remove ___" when the user never named the field. -->
+    <string name="itemedit_custom_field_fallback_name">campo personalizado</string>
+    <string name="itemedit_custom_field_hide_a11y">Ocultar %1$s</string>
+    <string name="itemedit_custom_field_show_a11y">Mostrar %1$s</string>
+    <string name="itemedit_custom_field_remove_a11y">Eliminar %1$s</string>
+    <string name="itemedit_custom_field_add_button">Agregar campo personalizado</string>
+    <string name="itemedit_custom_field_type_text">Texto</string>
+    <string name="itemedit_custom_field_type_hidden">Oculto</string>
+    <string name="itemedit_custom_field_type_boolean">Booleano</string>
+    <string name="itemedit_custom_field_type_linked">Vinculado</string>
+
+    <string name="itemedit_generate_password_a11y">Generar contraseña</string>
+    <plurals name="itemedit_entropy_bits">
+        <item quantity="one">%1$d bit</item>
+        <item quantity="other">%1$d bits</item>
+    </plurals>
+    <string name="itemedit_undo_generate_a11y">Deshacer la contraseña generada</string>
+    <string name="itemedit_reprompt_checkbox_label">Volver a preguntar antes de mostrar secretos</string>
+    <string name="itemedit_favourite_checkbox_label">Favorito</string>
+
+    <!-- ═══ QR scanner dialog (QrScanner.kt) ═══ -->
+    <string name="itemedit_qr_camera_unavailable">La cámara no está disponible. Pegue el enlace otpauth:// en su lugar.</string>
+    <string name="itemedit_qr_dialog_title">Escanear QR de autenticador</string>
+
+    <!-- ═══ Reveal re-authentication (RevealAuthEffect.kt) — SECURITY-COPY tier C ═══ -->
+    <string name="itemedit_reveal_no_activity">No se puede verificar su identidad en esta pantalla.</string>
+    <string name="itemedit_reveal_no_auth_available">Configure un bloqueo de pantalla o la biometría para mostrar este campo.</string>
+    <string name="itemedit_reveal_no_biometric_available">Este campo requiere el desbloqueo biométrico. En esta versión de Android, un bloqueo de pantalla por sí solo no puede mostrarlo.</string>
+    <string name="itemedit_reveal_prompt_title">Confirmar que es usted</string>
+    <string name="itemedit_reveal_prompt_subtitle">Verifique su identidad para mostrar este secreto</string>
+    <string name="itemedit_copy_no_auth_available">Configure un bloqueo de pantalla o la biometría para copiar este campo.</string>
+    <string name="itemedit_copy_no_biometric_available">Este campo requiere el desbloqueo biométrico. En esta versión de Android, un bloqueo de pantalla por sí solo no puede copiarlo.</string>
+    <string name="itemedit_copy_prompt_subtitle">Verifique su identidad para copiar este secreto</string>
+
+    <!-- ═══ ViewModel errors and notices (ItemEditViewModel.kt) ═══ -->
+    <string name="itemedit_error_item_not_found">No se pudo encontrar el elemento</string>
+    <string name="itemedit_error_unsupported_type">Este tipo de elemento aún no se puede editar aquí.</string>
+    <string name="itemedit_error_readonly_cannot_save">Este elemento no se puede editar aquí, por lo que no se guardó.</string>
+    <string name="itemedit_error_out_of_space">Este dispositivo no tiene espacio de almacenamiento, por lo que no se pudo guardar el cambio. Libere espacio y vuelva a intentarlo.</string>
+    <string name="itemedit_error_bucket_exhausted">Esta caja fuerte ha crecido demasiado para guardar este cambio en su disposición actual. Todo lo ya almacenado está seguro y sin cambios. Eliminar o exportar algunos elementos — archivos grandes y fotos primero — la devolverá por debajo del límite.</string>
+    <string name="itemedit_error_title_required">Póngale un título a este elemento — es lo que buscará en la caja fuerte.</string>
+    <string name="itemedit_error_totp_secret_required">Ingrese la clave secreta o escanee el código QR del sitio.</string>
+    <string name="itemedit_error_invalid_otpauth_link">Ese no es un enlace válido de configuración de dos factores.</string>
+    <string name="itemedit_error_folder_name_exists">Ya existe una carpeta con ese nombre</string>
+    <string name="itemedit_error_already_tagged">Ya etiquetado como «%1$s».</string>
+    <!-- Generic save-time validation fallback. Replaces echoing a caught exception\'s raw .message
+         into the UI (the rule: never echo e.message into the UI) — the specific reasons
+         (card expiry, TOTP digit/period range) are already shown inline by the field that owns
+         them before Save is ever pressed; this is the backstop for the rest. -->
+    <string name="itemedit_error_check_fields">Revise los campos del elemento</string>
+    <string name="itemedit_error_action_failed">Eso no funcionó. Sus cambios siguen aquí — inténtelo de nuevo.</string>
+    <!-- SECURITY-COPY: tier G — "safe and unchanged" is a claim about what protects the stored vault. -->
+    <string name="itemedit_error_vault_too_large">Esta caja fuerte ha crecido demasiado para la memoria de este dispositivo, por lo que no se pudo guardar el cambio. Todo lo ya almacenado está seguro y sin cambios. Eliminar o exportar algunos elementos — archivos grandes y fotos primero — la devolverá por debajo del límite.</string>
+    <string name="itemedit_conflict_notice">Sus cambios se guardaron, pero la contraseña de este inicio de sesión ya se había actualizado en otro lugar — probablemente por un guardado de autocompletado — mientras esta pantalla estaba abierta. Se mantuvo la contraseña más reciente y se muestra arriba.</string>
+    <!-- Confirmations posted from the ViewModel. Resource ids since 2026-07-30: LkNotices.post
+         took only a String, so these four shipped as English literals in every language. -->
+    <string name="itemedit_notice_moved_to_trash">Movido a la papelera</string>
+    <string name="itemedit_notice_custom_field_removed">Campo personalizado eliminado</string>
+    <string name="itemedit_notice_phrase_replaced">Frase de recuperación reemplazada</string>
+    <string name="itemedit_notice_undo">Deshacer</string>
+    <string name="itemedit_notice_restored">Restaurado</string>
+    <string name="itemedit_notice_restore_failed">No se pudo devolver. Sigue en la papelera.</string>
+    <!-- Pasted phrase had more words than the selected word count, so the extra ones were
+         dropped. No Undo: they never landed, so there is no prior grid to restore. %1$d is the
+         count dropped, never the word count. -->
+    <plurals name="itemedit_notice_phrase_paste_overflow">
+        <item quantity="one">%1$d palabra adicional no se usó</item>
+        <item quantity="other">%1$d palabras adicionales no se usaron</item>
+    </plurals>
+    <!-- A website URI on this Login matched one already in the list, so it was not added a
+         second time. Posted on save rather than on entry, matching where the drop actually
+         happens (toContent's dedup). %1$d is the count dropped, never the total website count. -->
+    <plurals name="itemedit_notice_duplicate_website_dropped">
+        <item quantity="one">%1$d sitio web duplicado no se guardó</item>
+        <item quantity="other">%1$d sitios web duplicados no se guardaron</item>
+    </plurals>
+
+    <!-- ═══ Password history (ItemDetailScreen.kt) ═══
+         The app recorded a login's replaced passwords from the day autofill's save prompt
+         shipped and displayed them nowhere. These are the strings that make the retention
+         visible and reversible. -->
+    <string name="itemedit_detail_password_history_title">Contraseñas anteriores</string>
+    <!--
+         The label of one history row, and what a screen reader reads before "hidden" or
+         the revealed secret. %1$s is a localised medium date. -->
+    <string name="itemedit_detail_password_history_entry_label">Sustituida el %1$s</string>
+    <!--
+         SECURITY-COPY: tier F. States the retention rule beside the retained data. %1$d is
+         PasswordHistory.MAX_ENTRIES. Not a <plurals>: the constant is fixed above 1, so a
+         singular form would be a translation nobody can ever see. -->
+    <string name="itemedit_detail_password_history_retention">LocalKeep conserva las %1$d contraseñas más recientes de un inicio de sesión. Las más antiguas se descartan automáticamente.</string>
+    <string name="itemedit_detail_password_history_clear_action">Eliminar el historial de contraseñas</string>
+    <!--
+         SECURITY-COPY: tier A. Irreversible — unlike the trash, nothing is recoverable
+         afterwards, so the wording must not borrow the trash dialog's reassurance. -->
+    <string name="itemedit_detail_password_history_clear_dialog_title">¿Eliminar el historial de contraseñas?</string>
+    <string name="itemedit_detail_password_history_clear_confirm">Eliminar permanentemente</string>
+    <string name="itemedit_detail_password_history_clear_dismiss">Conservar</string>
+    <string name="itemedit_notice_password_history_cleared">Historial de contraseñas eliminado</string>
+    <!--
+         SECURITY-COPY: tier A and tier F — irreversible, and it states a count the user is
+         acting on. "Permanently" carries the whole warning; it must survive translation. -->
+    <plurals name="itemedit_detail_password_history_clear_dialog_body">
+        <item quantity="one">Hay %1$d contraseña anterior guardada para este elemento. Eliminarla es permanente y no se puede deshacer.</item>
+        <item quantity="other">Hay %1$d contraseñas anteriores guardadas para este elemento. Eliminarlas es permanente y no se puede deshacer.</item>
+    </plurals>
+    <string name="itemedit_card_wizard_progress">%1$d de %2$d</string>
+    <string name="itemedit_card_wizard_progress_a11y">Paso %1$d de %2$d</string>
+    <string name="itemedit_card_wizard_number_title">Número de tarjeta</string>
+    <string name="itemedit_card_wizard_number_body">El número largo del frente de la tarjeta.</string>
+    <string name="itemedit_card_wizard_expiry_title">¿Cuándo vence?</string>
+    <string name="itemedit_card_wizard_expiry_body">El mes y el año de dos dígitos impresos debajo del número.</string>
+    <string name="itemedit_card_wizard_expiry_label">Vencimiento</string>
+    <string name="itemedit_card_wizard_expiry_placeholder">MM/AA</string>
+    <string name="itemedit_card_wizard_cvv_title">Código de seguridad</string>
+    <string name="itemedit_card_wizard_cvv_body">Los tres dígitos de la banda de firma en el reverso.</string>
+    <string name="itemedit_card_wizard_cvv_body_amex">Los cuatro dígitos impresos sobre el número, en el frente.</string>
+    <string name="itemedit_card_wizard_cvv_set">Código de seguridad añadido</string>
+    <string name="itemedit_card_wizard_who_title">¿De quién es la tarjeta?</string>
+    <string name="itemedit_card_wizard_who_body">El nombre del frente. El PIN y la nota son opcionales.</string>
+    <string name="itemedit_card_wizard_review_title">Lista para guardar</string>
+    <string name="itemedit_identity_wizard_review_empty_title">Todavía no hay nada que guardar</string>
+    <string name="itemedit_card_wizard_review_body">Revísela. Le pondrá nombre en el paso siguiente.</string>
+    <string name="itemedit_card_wizard_continue">Continuar</string>
+    <string name="itemedit_card_wizard_continue_disabled_number_a11y">Continuar, disponible cuando ingrese un número de tarjeta</string>
+    <string name="itemedit_card_wizard_back">Atrás</string>
+    <string name="itemedit_card_wizard_manual">Ingresar todo de una vez</string>
+    <string name="itemedit_card_number_length_hint">Las tarjetas %1$s tienen %2$s dígitos.</string>
+    <string name="itemedit_card_number_unrecognised_hint">Ninguna red de tarjetas emite un número tan corto.</string>
+    <string name="itemedit_card_number_challenge">Verifique el número antes de continuar. Toque Continuar de nuevo para guardarlo tal cual.</string>
+    <string name="itemedit_card_cvv_length_hint">Los códigos %1$s tienen %2$d dígitos.</string>
+    <string name="itemedit_detail_note_empty_tap">Esta nota está vacía. Toque para escribirla.</string>
+    <string name="itemedit_detail_note_empty_action">Escribir esta nota</string>
+    <string name="itemedit_detail_empty_body">Este elemento no tiene nada guardado. Toque para completarlo.</string>
+    <string name="itemedit_detail_empty_action">Agregar datos</string>
+    <string name="itemedit_folder_absent_notice">Esa carpeta ya no existe. El elemento se guardó sin carpeta.</string>
+    <string name="itemedit_saved_into_trash_notice">Esa carpeta se movió a la papelera. El elemento se guardó allí también.</string>
+    <string name="itemedit_folder_picker_subfolder">%1$s, en %2$s</string>
+
+    <!-- Save current location (schema 6). -->
+    <string name="itemedit_type_coordinate">Lugar</string>
+    <string name="itemedit_coordinate_section_label">Lugar</string>
+    <string name="itemedit_coordinate_explainer">LocalKeep encuentra su ubicación una sola vez, cuando usted toca. No le sigue después.</string>
+    <string name="itemedit_coordinate_capture_button">Encontrar mi ubicación</string>
+    <string name="itemedit_coordinate_replace_button">Encontrar de nuevo</string>
+    <string name="itemedit_coordinate_capturing">Localizándole…</string>
+    <string name="itemedit_coordinate_searching">Esperando señal de satélite. A cielo abierto suele llegar antes.</string>
+    <string name="itemedit_coordinate_cancel_capture">Conservar ubicación</string>
+    <string name="itemedit_coordinate_stop_capture">Cancelar</string>
+    <string name="itemedit_coordinate_value_label">Coordenadas</string>
+    <string name="itemedit_coordinate_reveal">Mostrar</string>
+    <string name="itemedit_coordinate_open_settings">Abrir ajustes</string>
+    <!-- Action label offered on itemedit_coordinate_error_provider_off — a distinct label from
+         itemedit_coordinate_open_settings because it leads somewhere different: the system's
+         location toggle, not this app's own permission page. -->
+    <string name="itemedit_coordinate_open_location_settings">Activar la ubicación</string>
+    <string name="itemedit_coordinate_captured_caption">Tomada el %1$s</string>
+    <!-- Leyenda de una lectura terminada, una por nivel. %1$s es la fecha y hora, y el único
+         argumento: la cifra en metros se retiró el 2026-09-03 (ver CoordinateFormat.kt).
+         Frases completas y no una plantilla: el adjetivo concuerda con «ubicación». -->
+    <string name="itemedit_coordinate_captured_caption_precise">Tomada el %1$s · ubicación precisa</string>
+    <string name="itemedit_coordinate_captured_caption_street">Tomada el %1$s · ubicación a nivel de calle</string>
+    <string name="itemedit_coordinate_captured_caption_area">Tomada el %1$s · ubicación aproximada</string>
+    <string name="itemedit_coordinate_dialog_title">¿Usar su ubicación?</string>
+    <string name="itemedit_coordinate_dialog_body">LocalKeep lee su ubicación solo cuando usted toca el botón, y guarda esa única ubicación en su caja fuerte cifrada. Esa ubicación nunca se envía a ninguna parte.</string>
+    <string name="itemedit_coordinate_dialog_continue">Continuar</string>
+    <string name="itemedit_coordinate_denial_sentence">LocalKeep no puede guardar su ubicación sin acceso a la ubicación.</string>
+    <string name="itemedit_coordinate_error_permission">LocalKeep necesita acceso a la ubicación para encontrar su ubicación.</string>
+    <string name="itemedit_coordinate_error_approximate">El acceso a la ubicación aproximada no basta para encontrar su ubicación. Cambie esta app a ubicación precisa en los ajustes.</string>
+    <string name="itemedit_coordinate_error_provider_off">La ubicación está desactivada en este dispositivo.</string>
+    <string name="itemedit_coordinate_error_unavailable">No se pudo encontrar una ubicación utilizable. Inténtelo de nuevo con vista despejada al cielo.</string>
+    <string name="itemedit_coordinate_error_timeout">Todavía no hay ubicación. Suele ser más rápido al aire libre.</string>
+    <string name="itemedit_error_coordinate_required">Encuentre su ubicación antes de guardar: este elemento es el lugar, no el nombre.</string>
+    <string name="itemedit_coordinate_refining">La ubicación sigue afinándose.</string>
+    <string name="itemedit_coordinate_settled">Lista. No se afinará más aquí.</string>
+    <string name="itemedit_coordinate_network_only">Posición aproximada según las redes cercanas. Aún se esperan satélites.</string>
+    <!-- La línea de estado, una frase completa por nivel. Ninguna cifra en metros en ningún sitio:
+         decisión del 2026-09-03, argumentada en CoordinateFormat.kt (AccuracyBand). Tres niveles,
+         cortados en 10 m y 50 m; «a nivel de calle» es cierto a 20 m y describe un resultado
+         normal, mientras que con dos niveles esa misma lectura tenía que llamarse «aproximada».
+         NO convertir en una plantilla «%1$s por ahora.»: «precisa / aproximada» y «Lista»
+         concuerdan con «lectura», femenino, que el fragmento no lleva consigo. -->
+    <string name="itemedit_coordinate_refining_precise">Ubicación precisa por ahora. Sigue afinándose.</string>
+    <string name="itemedit_coordinate_refining_street">Ubicación a nivel de calle por ahora. Sigue afinándose.</string>
+    <string name="itemedit_coordinate_refining_area">Ubicación aproximada por ahora. Sigue afinándose.</string>
+    <string name="itemedit_coordinate_settled_precise">Ubicación precisa. Lista para guardar.</string>
+    <string name="itemedit_coordinate_settled_street">Ubicación a nivel de calle. Lista para guardar.</string>
+    <string name="itemedit_coordinate_settled_area">Ubicación aproximada. Lista para guardar.</string>
+    <string name="itemedit_coordinate_indoor_hint">Los muros y los techos suelen ser la causa. A cielo abierto puede afinarse más, si eso importa para este lugar.</string>
+    <string name="itemedit_edit_more_label">Carpeta, etiquetas y más</string>
+    <string name="itemedit_edit_more_summary_none">nada definido</string>
+    <string name="itemedit_edit_more_summary_reprompt">volver a preguntar</string>
+    <string name="itemedit_edit_more_summary_favourite">favorito</string>
+    <string name="itemedit_edit_more_summary_totp">2FA</string>
+    <string name="itemedit_edit_more_summary_notes">notas</string>
+    <string name="itemedit_edit_more_expand_a11y">Mostrar carpeta, etiquetas y más</string>
+    <string name="itemedit_edit_more_collapse_a11y">Ocultar carpeta, etiquetas y más</string>
+    <string name="itemedit_edit_more_state_expanded">Expandido</string>
+    <string name="itemedit_edit_more_state_collapsed">Contraído</string>
+    <string name="itemedit_reprompt_caption_on">Cada secreto de este elemento pide el bloqueo de pantalla antes de mostrarse o copiarse, incluso con la caja fuerte abierta.</string>
+    <string name="itemedit_reprompt_caption_off">Los secretos de aquí se abren con la caja fuerte. El CVV de una tarjeta, su PIN, una clave 2FA y una posición guardada lo piden siempre, esté esto activado o no.</string>
+    <string name="itemedit_login_website_remove_title">¿Quitar %1$s?</string>
+    <string name="itemedit_login_website_remove_body">El sitio web se quita de este inicio de sesión al guardar. El autocompletado dejará de ofrecerlo allí.</string>
+    <string name="itemedit_login_website_remove_confirm">Quitar el sitio web</string>
+    <string name="itemedit_note_placeholder">Muy sensible para apps de notas.</string>
+    <string name="itemedit_note_assurance">La búsqueda dentro de la aplicación aún puede encontrar el texto de esta nota.</string>
+    <string name="itemedit_edit_saving_body">Sellándolo en su archivo de caja fuerte. Nada sale de este dispositivo.</string>
+    <string name="itemedit_edit_saving_body_note">Sellando la nota en su archivo de caja fuerte. Nada sale de este dispositivo.</string>
+    <string name="itemedit_edit_saved_title">Guardado</string>
+    <string name="itemedit_edit_saved_body">Cifrado en su caja fuerte con la misma clave que todo lo demás.</string>
+    <plurals name="itemedit_edit_more_summary_tags">
+        <item quantity="one">%1$d etiqueta</item>
+        <item quantity="other">%1$d etiquetas</item>
+    </plurals>
+    <plurals name="itemedit_edit_more_summary_fields">
+        <item quantity="one">%1$d campo</item>
+        <item quantity="other">%1$d campos</item>
+    </plurals>
+    <plurals name="itemedit_note_character_count">
+        <item quantity="one">%1$d carácter</item>
+        <item quantity="other">%1$d caracteres</item>
+    </plurals>
+    <string name="itemedit_save_sheet_title">Nombrar</string>
+    <string name="itemedit_save_sheet_subtitle">La búsqueda y la lista de la caja fuerte solo cuentan con este nombre.</string>
+    <string name="itemedit_save_sheet_confirm">Guardar elemento</string>
+    <string name="itemedit_title_suggestion_card_no_brand">Tarjeta •••• %1$s</string>
+    <string name="itemedit_title_suggestion_login">Inicio de sesión %1$d</string>
+    <string name="itemedit_title_suggestion_location">Lugar, %1$s</string>
+    <string name="itemedit_coordinate_chip_searching">Buscando</string>
+    <string name="itemedit_coordinate_chip_refining">Afinando</string>
+    <string name="itemedit_coordinate_chip_settled">Lista</string>
+    <string name="itemedit_coordinate_hold_to_copy">Mantenga pulsado para copiar</string>
+    <string name="itemedit_coordinate_copied">Copiado</string>
+    <string name="itemedit_coordinate_copied_a11y">Coordenadas copiadas al portapapeles</string>
+    <string name="itemedit_card_face_holder_placeholder">Titular</string>
+    <string name="itemedit_card_face_cvv_hint">La banda de firma y la casilla del código.</string>
+    <string name="itemedit_card_face_cvv_hint_amex">Amex imprime su código en el frente.</string>
+    <!-- Recovery phrase (added 2026-08-21) -->
+    <string name="itemedit_type_phrase">Frase de recuperación</string>
+    <string name="itemedit_phrase_count_label">Cuántas palabras</string>
+    <string name="itemedit_phrase_words_label">Palabras</string>
+    <string name="itemedit_phrase_paste_all">Pegar todo</string>
+    <string name="itemedit_phrase_paste_all_empty">No hay nada en el portapapeles para pegar.</string>
+    <string name="itemedit_phrase_reveal">Mostrar</string>
+    <string name="itemedit_phrase_hide">Ocultar</string>
+    <string name="itemedit_phrase_word_label">Palabra %1$02d</string>
+    <string name="itemedit_phrase_type_four">Ingrese cuatro letras</string>
+    <string name="itemedit_phrase_hint_one">Una coincidencia</string>
+    <string name="itemedit_phrase_hint_none">Ninguna coincidencia</string>
+    <string name="itemedit_phrase_hint_four">Cuatro letras bastan</string>
+    <string name="itemedit_phrase_banner_incomplete_title">%1$d de %2$d palabras</string>
+    <string name="itemedit_phrase_banner_incomplete_body">No se comprueba nada hasta que llega la última — la suma de comprobación abarca la frase entera.</string>
+    <string name="itemedit_phrase_banner_badword_title">La posición %1$d no es una palabra BIP-39</string>
+    <string name="itemedit_phrase_banner_badword_body">Una nota lo habría conservado. La restauración sería el primer momento en que lo notaría.</string>
+    <string name="itemedit_phrase_banner_checksum_title">Palabras reales, pero la frase no pasa su suma de comprobación</string>
+    <string name="itemedit_phrase_banner_checksum_body">Una es incorrecta, o dos están en el orden equivocado. Nada fuera de esta pantalla puede decírselo.</string>
+    <string name="itemedit_phrase_banner_valid_title">Suma de comprobación válida</string>
+    <string name="itemedit_phrase_banner_valid_body">La última palabra codifica una suma de comprobación sobre las otras %1$d. Esta frase es coherente internamente.</string>
+    <string name="itemedit_phrase_banner_vaultkit_title">Estas son las palabras del Kit de recuperación de esta caja fuerte</string>
+    <string name="itemedit_phrase_banner_vaultkit_body">Guardarlas aquí pone la llave de la caja fuerte dentro de la caja fuerte. Consérvelas en papel, fuera de ella.</string>
+    <string name="itemedit_phrase_save_disabled_a11y">Guardar, disponible cuando la frase de recuperación sea válida</string>
+    <string name="itemedit_phrase_save_disabled_vaultkit_a11y">Guardar, estas son las palabras del Kit de recuperación de esta caja fuerte</string>
+    <string name="itemedit_phrase_passphrase_label">Frase de contraseña (opcional)</string>
+    <string name="itemedit_phrase_passphrase_caption">Se guarda junto a las palabras pero nunca se comprueba con ellas — nada en este dispositivo sabe si es correcta.</string>
+    <string name="itemedit_detail_phrase_label">Frase de recuperación</string>
+    <string name="itemedit_detail_phrase_passphrase_label">Frase de contraseña</string>
+    <string name="itemedit_detail_phrase_checksum_invalid">Estas palabras no pasan su suma de comprobación BIP-39. Se guardan exactamente como las introdujo.</string>
+    <plurals name="itemedit_detail_phrase_word_count">
+        <item quantity="one">%1$d palabra</item>
+        <item quantity="other">%1$d palabras</item>
+    </plurals>
+
+    <!-- ── Passkey item type ── -->
+    <string name="itemedit_type_passkey">Clave de acceso</string>
+    <string name="itemedit_detail_passkey_site_label">Sitio web</string>
+    <string name="itemedit_detail_passkey_username_label">Cuenta</string>
+    <string name="itemedit_detail_passkey_created_label">Fecha de creación</string>
+    <string name="itemedit_detail_passkey_sign_counter_label">Usos</string>
+    <string name="itemedit_custom_field_bound_package">Aplicación vinculada</string>
+    <string name="itemedit_custom_field_bound_cert">Certificado de firma de esa aplicación</string>
+</resources>

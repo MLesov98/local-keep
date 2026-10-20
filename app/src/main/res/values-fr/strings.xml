@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- Drawer header subtitle. Replaces a prior claim of "nothing leaves this device", which was
+         false: Android Auto Backup can still take vault.enc. What this says instead is true
+         regardless of the user's cloud-backup choice. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_drawer_subtitle">Version hors ligne · aucun compte, aucun serveur de synchronisation</string>
+
+    <!-- Bottom navigation bar tab labels. -->
+    <string name="app_nav_vault">Coffre</string>
+    <string name="app_nav_generator">Générateur</string>
+    <string name="app_nav_health">Santé</string>
+    <!-- Accessibility: appended to a bottom-tab's label when it is the active tab. -->
+    <string name="app_nav_tab_selected">Onglet sélectionné\u00a0: %1$s</string>
+
+    <!-- Command drawer group headings. -->
+    <string name="app_drawer_group_items">Éléments</string>
+    <string name="app_drawer_group_tools">Outils</string>
+    <string name="app_drawer_group_security">Sécurité</string>
+    <string name="app_drawer_group_system">Système</string>
+
+    <!-- Command drawer link labels. -->
+    <string name="app_drawer_all_items">Tous les éléments</string>
+    <string name="app_drawer_generator">Générateur</string>
+    <string name="app_drawer_migrate_import">Migration / Importation</string>
+    <string name="app_drawer_backup_export">Sauvegarde et exportation</string>
+    <string name="app_drawer_restore_snapshot">Restaurer un instantané</string>
+    <string name="app_drawer_password_health">Santé des mots de passe</string>
+    <!-- Names the duress/decoy feature itself; hidden entirely during a decoy session. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="app_drawer_duress_decoy">Contrainte / leurre</string>
+    <string name="app_drawer_invisible_items">Éléments invisibles</string>
+    <string name="app_drawer_recovery_kit">Kit de récupération</string>
+    <string name="app_drawer_trash">Corbeille</string>
+    <string name="app_drawer_settings">Paramètres</string>
+    <!-- Accessibility: appended to a drawer link's label when it is the active route. -->
+    <string name="app_drawer_item_selected">Élément sélectionné\u00a0: %1$s</string>
+
+    <!-- Root/tamper warning banner, shown at launch when the device looks rooted or modified. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_root_warning_message">Cet appareil présente des signes de root ou de modification. LocalKeep fonctionne toujours, mais les protections matérielles des clés peuvent être affaiblies.</string>
+    <string name="app_root_warning_dismiss">Ignorer</string>
+
+    <!-- Stale-export reminder banner, shown when it has been a while since the last backup. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_stale_export_message">Cela fait un moment que vous n\'avez pas exporté votre coffre. Une exportation chiffrée est la seule copie que vous contrôlez si cet appareil est perdu.</string>
+    <string name="app_stale_export_action">Sauvegarder</string>
+    <string name="app_stale_export_dismiss">Pas maintenant</string>
+
+    <!-- Notice posted once, on the genuine free-to-Pro transition (never on cold-start emission
+         of an existing Pro tier). -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="app_pro_unlock_announcement">Pro débloqué — plus aucune limite sur les cartes, les identités ni les fichiers que vous ajoutez.</string>
+    <string name="app_notice_edit_dropped_by_lock">Le coffre s\'est verrouillé, vos modifications non enregistrées ont donc été abandonnées.</string>
+    <string name="app_notice_vault_restored">Instantané restauré — voici le coffre tel qu\'il était alors.</string>
+    <string name="app_notice_cloud_backup_unchosen">Vous n\'avez pas choisi si ce coffre est inclus dans la sauvegarde Android</string>
+    <string name="app_notice_cloud_backup_unchosen_action">Choisir</string>
+    <string name="app_drawer_folders">Dossiers</string>
+    <!-- The two long-press launcher shortcuts (res/xml/shortcuts.xml). -->
+    <string name="app_shortcut_search_short">Rechercher</string>
+    <string name="app_shortcut_search_long">Rechercher dans le coffre</string>
+    <string name="app_shortcut_new_item_short">Nouvel élément</string>
+    <string name="app_shortcut_new_item_long">Ajouter au coffre</string>
+</resources>

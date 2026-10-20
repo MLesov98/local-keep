@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="health_screen_title">Password health</string>
+    <string name="health_screen_subtitle">Offline analysis · nothing is sent anywhere</string>
+
+    <string name="health_category_reused_label">Reused passwords</string>
+    <string name="health_category_reused_note">One breach exposes every account sharing it</string>
+
+    <!-- Was "Under 60 bits of entropy" — a threshold nothing in the app computes for stored
+         passwords. The detector is StrengthAnalyzer.isWeak, i.e. a zxcvbn 0-4 guessability score
+         of 1 or less, which its own KDoc calls "guessed in seconds" (roughly 20 bits, not 60).
+         Entropy is computed only in the generator, never for stored items; describe what is
+         actually measured. -->
+    <string name="health_category_weak_label">Weak passwords</string>
+    <string name="health_category_weak_note">Guessed in seconds by a common cracker</string>
+
+    <string name="health_category_breached_label">Potentially compromised</string>
+    <string name="health_category_breached_note">Matched the offline breach set</string>
+
+    <string name="health_category_old_label">Old passwords</string>
+    <string name="health_category_old_note">Unchanged for 90+ days</string>
+    <!-- Dialog title for the "old passwords" category — includes the threshold, unlike the row label. -->
+    <string name="health_category_old_dialog_title">Old passwords (90+ days)</string>
+
+    <string name="health_category_duplicate_label">Duplicate entries</string>
+    <string name="health_category_duplicate_note">The same account saved more than once</string>
+
+    <!-- Accessibility label combining a category row's label, count, and note into one sentence. -->
+    <string name="health_category_accessibility">%1$s: %2$d. %3$s</string>
+
+    <!-- footnote shown when the offline breach corpus loaded
+         successfully. Discloses the false-positive rate per spec §12.7: about 1 in 1,000
+         passwords that are NOT on the list are flagged anyway.
+         %1$s is the corpus size, already locale-formatted and compacted ("9.9M") by
+         BreachCorpusFootnote.formatCorpusSize.
+
+         There were two variants of this until 2026-08-10, and the dated one led with
+         ", from July 2026". Both the count and the date were false precision, and the date was the
+         worse of the two because it decays: the corpus is a static bundled asset, so a user
+         installing next spring reads the month as a neglected feed rather than as a top-10M list
+         whose value barely changes with age. The date is not lost — Settings → Breach list shows
+         it, which is where someone asking about provenance actually goes.
+
+         The clause from "A miss means" to "guarantee of safety" is byte-identical to what shipped
+         before, in all five locales. That is deliberate: it is a security-property claim, and
+         rewriting the clause in front of it should not reopen the verification protocol behind it.
+
+         The hit clause was NOT identical, and had to change on 2026-08-31. It read "A hit is right
+         about 999 times in 1,000", and 0.999 is 1 minus the disclosed false-positive rate
+         (BreachFilter.DISCLOSED_FALSE_POSITIVE_DENOMINATOR, 1-in-2^riceK, 1-in-1024 at the shipped
+         k=10). That complement is the specificity, P(no hit | not in the set) — the sentence
+         attached it to the converse, P(in the set | hit), which is precision and depends on how
+         many of THIS user's passwords are actually breached. Solving for 0.999 needs about half of
+         them to be; for a vault of generated passwords every hit that ever appears is a false one.
+         So the comment above claiming the line "discloses the false-positive rate" was itself
+         wrong — it disclosed the complement, in the wrong direction. The line now states the rate
+         the filter actually guarantees, and the key is in the Tier G register so the inverted form
+         cannot come back in any of the five languages.
+
+         Known coupling, not fixed here: 1,000 is written into the sentence in all five locales
+         while the real rate is 2^-riceK read from the loaded asset, so a corpus rebuilt with a
+         different k would make this line quietly wrong. Formatting it from
+         DISCLOSED_FALSE_POSITIVE_DENOMINATOR needs a second format argument at the call site. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="health_footnote_breach_available_undated">Checked against %1$s known-breached passwords. A miss means “not in the most-common-breached set” — never a guarantee of safety. A hit is not proof either: about 1 in 1,000 passwords that are not on the list get flagged anyway; the check trades that for keeping the whole list on your device.</string>
+    <!-- Footnote shown when the offline breach corpus failed to load or parse. -->
+    <string name="health_footnote_breach_unavailable">The breach list could not be read on this device, so nothing here can tell you whether a password has already leaked. Everything else on this screen was checked normally.</string>
+    <!-- Footnote shown when the offline breach corpus loaded fine but nothing was actually looked
+         up in it this scan: an empty vault, or a vault whose Logins carry no password (routine
+         after a browser import that drops passwords). Deliberately NOT the "checked against"
+         wording above — no check ran, so this states what the corpus is rather than claiming it
+         was consulted. %1$s is the same locale-formatted corpus size. Not Tier G: it makes no
+         security-property claim, it explicitly says nothing has been checked yet. -->
+    <string name="health_footnote_breach_not_yet_checked">%1$s known-breached passwords are stored on this device, but nothing here has a password to check yet.</string>
+
+    <!-- Body of the category detail dialog when no items match the selected category. -->
+    <string name="health_dialog_empty_category">Nothing in this category.</string>
+    <!-- Body of the category detail dialog when the search field narrows the list to zero rows.
+         Distinct from health_dialog_empty_category: the category is not empty, the query just
+         missed everything in it. -->
+    <string name="health_dialog_no_matches">No matches.</string>
+    <!-- Placeholder for the search field shown above a long category detail list. -->
+    <string name="health_dialog_search_placeholder">Search this list</string>
+    <string name="health_dialog_close">Close</string>
+    <!-- Fallback title for a vault item with a blank title, in the category detail list. -->
+    <string name="health_item_untitled">Untitled</string>
+    <!-- Reused-passwords drill-down row, secondary line (F-30): how many OTHER items share this
+         row's password, not counting itself. %1$d is sharedWithOthersCount, substituted only in
+         the "other" form. Shown next to (or instead of, when the Login has no username) the
+         row's username, since two reused Logins routinely share a title with nothing else on the
+         row to tell them apart. -->
+    <plurals name="health_dialog_reused_shared_with">
+        <item quantity="one">Shares a password with 1 other account</item>
+        <item quantity="other">Shares a password with %1$d other accounts</item>
+    </plurals>
+
+    <!-- Shown inside the score ring in place of a numeral when nothing has been scanned yet. An
+         empty vault used to read "100", a perfect score for having done nothing. A glyph, not
+         language, so it is never translated. -->
+    <string name="health_score_placeholder" translatable="false">—</string>
+    <!-- Small caption under the numeral inside the score ring. Kept short and shouty by design. -->
+    <string name="health_score_badge">SCORE</string>
+    <!-- Accessibility label for the score ring; %1$d is the score out of 100. -->
+    <!-- 2026-09-13: was "Security score", and the glossary rules that word out here: security
+         names a category (the drawer group and the Settings group), both of which contain password
+         health, and this screen's own title is "Password health" (health_screen_title above). -->
+    <string name="health_score_accessibility">Password health score %1$d out of 100</string>
+
+    <string name="health_always_on_heading">Always on</string>
+    <string name="health_always_on_footer">None of this is part of Pro, and none of it can be switched off.</string>
+    <!-- Accessibility label for one "always on" protection row: title, then summary, then the fixed claim. -->
+    <string name="health_always_on_item_accessibility">%1$s. %2$s. Always on.</string>
+
+    <string name="health_scanning_title">Scanning your vault on this device</string>
+    <!-- Accessibility label read instead of health_scanning_title while a scan is in progress. -->
+    <string name="health_scanning_accessibility">Scanning your vault. This runs entirely on this device.</string>
+
+    <!-- Score card verdict line: no findings at all yet because the vault is empty. -->
+    <string name="health_verdict_nothing_to_check">Nothing to check yet</string>
+    <!-- Score card verdict line: scanned, and nothing in any category. -->
+    <string name="health_verdict_nothing_worth_fixing">Nothing worth fixing</string>
+    <!-- Score card verdict line: no password faults, only duplicate entries remain. -->
+    <string name="health_verdict_healthy_duplicates">Healthy — only duplicate entries left</string>
+    <!-- Score card verdict line: no password faults, only ageing passwords remain. -->
+    <string name="health_verdict_healthy_ageing">Healthy — only ageing passwords left</string>
+    <!-- Score card verdict line when one or more items have a password fault (breached, reused,
+         or weak, counted once each). %1$d is affectedCount, substituted only in the "other" form. -->
+    <plurals name="health_verdict_affected_count">
+        <item quantity="one">Good, with one thing worth fixing</item>
+        <item quantity="other">Good, with %1$d things worth fixing</item>
+    </plurals>
+    <!-- The same line when the score falls short of GOOD_VERDICT_MIN_SCORE or any password matched the breach set, where
+         "Good" would contradict the ring and the advice under it. Same quantity as above. -->
+    <plurals name="health_verdict_affected_count_attention">
+        <item quantity="one">Needs attention, with one thing worth fixing</item>
+        <item quantity="other">Needs attention, with %1$d things worth fixing</item>
+    </plurals>
+
+    <!-- Advice line: empty vault, nothing yet to analyse. -->
+    <string name="health_advice_empty">Add some logins and this screen will have something to say.</string>
+    <!-- advice line: at least one item matched the offline breach set.
+         Highest priority.
+
+         Said "it is already in a public breach set" until 2026-08-31, flatly and with no hedge,
+         which is a stronger claim than the screen's own category label ("Potentially compromised"
+         / "Matched the offline breach set") and stronger than the filter can make: a Golomb-Rice
+         set has a disclosed false-positive rate, so a match is a match against a compressed
+         summary of the list, not membership of it. It now names the match and the action it
+         should trigger, and keeps the "offline" scope word for the same reason
+         health_advice_clean_breach_checked does — an offline app cannot speak for every breach
+         that exists. -->
+    <!-- SECURITY-COPY: tier G -->
+    <plurals name="health_advice_breached">
+        <item quantity="one">%1$d password matched the offline breach set — start there, and treat it as compromised.</item>
+        <item quantity="other">%1$d passwords matched the offline breach set — start there, and treat them as compromised.</item>
+    </plurals>
+    <!-- Advice line: no breach hits, but a password is reused across items. -->
+    <string name="health_advice_reused">Start with the reused passwords — one breach there exposes every account sharing it.</string>
+    <!-- Advice line: no breach or reuse hits, but a password is weak. -->
+    <string name="health_advice_weak">Start with the weak passwords — the generator will replace one in a couple of taps.</string>
+    <!-- Advice line: no password faults, only ageing passwords to rotate. -->
+    <string name="health_advice_old">Nothing is broken. Rotate the oldest few when you next have a spare minute.</string>
+    <!-- Advice line: no password faults or ageing passwords, only duplicate entries. -->
+    <string name="health_advice_duplicate">The passwords are fine. Some accounts are saved twice — worth merging, or the next password change will only take on one copy.</string>
+    <!-- Advice line: a completely clean scan that did consult the offline breach set. States the
+         breach-check result explicitly — see health_advice_clean_no_breach_data for the case where
+         the corpus never loaded and this claim would not be true. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="health_advice_clean_breach_checked">Every password here is unique, not weak, and not in the offline breach set.</string>
+    <!-- Advice line: a completely clean scan where the breach corpus was unavailable, so nothing
+         is claimed about breach status (see HealthAdviceBreachClaimTest). -->
+    <string name="health_advice_clean_no_breach_data">Every password here is unique and not weak.</string>
+
+    <!-- Error card shown when the scan coroutine fails, most commonly an auto-lock landing mid-scan. -->
+    <string name="health_error_scan_failed">The security scan could not finish. Your vault may have locked while it was running — open it again and retry.</string>
+    <!-- The second line of a category row whose entry has no username (a phrase, a note), so two
+         copies of one title still differ. %1$s is the locale's medium date. -->
+    <string name="health_row_saved_on">Saved %1$s</string>
+    <!-- Shown under the Health verdict when entries are concealed in this session, so a perfect
+         score is not read as a statement about the whole vault. -->
+    <plurals name="health_excluded_note">
+        <item quantity="one">%1$d invisible entry was not checked.</item>
+        <item quantity="other">%1$d invisible entries were not checked.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared across several steps' primary button. -->
+    <string name="onboarding_action_continue">Continuar</string>
+
+    <string name="onboarding_screen_deriving_title">Creando su caja fuerte</string>
+    <string name="onboarding_screen_busy_biometric_title">Configurando el desbloqueo biométrico</string>
+    <string name="onboarding_screen_busy_recovery_title">Guardando su Kit de recuperación</string>
+
+    <!-- Welcome step: the brand moment, no chrome. -->
+    <string name="onboarding_welcome_tagline">Su caja fuerte. Su dispositivo.</string>
+    <!-- SECURITY-COPY: tier G. Claims what LocalKeep can and cannot see/reset — keep the
+         locational and confidentiality claims accurate; do not translate in a way that implies
+         the vault never leaves the device (Android Auto Backup can still take vault.enc). -->
+    <string name="onboarding_welcome_body">Las contraseñas se cifran aquí — no hay cuenta, ni servidor de sincronización, ni forma de que nosotros leamos o restablezcamos nada.</string>
+    <string name="onboarding_welcome_cta">Empezar</string>
+
+    <!-- Create-master-password step. -->
+    <string name="onboarding_password_title">Crear su contraseña maestra</string>
+    <!-- SECURITY-COPY: tier G. Claims LocalKeep never sees the master password and cannot reset it. -->
+    <string name="onboarding_password_body">Esta es la única clave de su caja fuerte.\nLocalKeep nunca la ve, y por eso tampoco podemos restablecerla.</string>
+    <!-- SECURITY-COPY: tier B. Names the Recovery Kit as the only way back in. -->
+    <string name="onboarding_password_recovery_kit_promise">Durante la configuración se le ofrece un Kit de recuperación de 24 palabras — la única forma de volver a entrar si olvida esta contraseña.</string>
+    <!-- Used both as the field's visible label and as its accessibility label. -->
+    <string name="onboarding_password_field_label">Contraseña maestra</string>
+    <string name="onboarding_password_suggest_one">Sugerir una</string>
+    <string name="onboarding_password_confirm_label">Confirmar</string>
+    <string name="onboarding_password_confirm_placeholder">Escríbala una vez más</string>
+    <string name="onboarding_password_confirm_field_label">Confirmar contraseña maestra</string>
+    <string name="onboarding_password_mismatch">Estas aún no coinciden.</string>
+    <!-- SECURITY-COPY: tier G. Explains why a short password is not actually rate-limited: the
+         vault is a file, not an account behind a server. -->
+    <string name="onboarding_password_weak_consent_title">Usar esta contraseña de todos modos</string>
+    <string name="onboarding_password_weak_consent_body">Su caja fuerte es un archivo en este dispositivo. Si alguien la copia, puede intentar adivinar la contraseña sin conexión tan rápido como su hardware lo permita — no hay servidor que lo frene ni cuenta que bloquear. Una contraseña corta es cuestión de minutos.</string>
+    <!-- zxcvbn strength verdicts. -->
+    <string name="onboarding_password_strength_guessed_instantly">Adivinada al instante</string>
+    <string name="onboarding_password_strength_guessed_seconds">Adivinada en segundos</string>
+    <string name="onboarding_password_strength_guessed_hours">Adivinada en horas</string>
+    <string name="onboarding_password_strength_strong_enough">Suficientemente fuerte</string>
+    <string name="onboarding_password_strength_very_strong">Muy fuerte</string>
+    <!-- %2$s is zxcvbn's own advice string (e.g. "add another word"), which is library output in
+         English only and is not itself translated by this extraction. -->
+    <string name="onboarding_password_strength_summary">%1$s — %2$s</string>
+    <!-- Accessibility variant of the line above, read by a screen reader as one sentence. -->
+    <string name="onboarding_password_strength_summary_description">%1$s. %2$s</string>
+    <string name="onboarding_password_error_empty">Ingrese una contraseña maestra</string>
+    <string name="onboarding_password_error_weak">Esta contraseña es fácil de adivinar. Confirme abajo que quiere usarla de todos modos, o elija una más fuerte.</string>
+    <string name="onboarding_password_error_mismatch">Las contraseñas no coinciden.</string>
+    <string name="onboarding_password_error_creation_failed">Error al crear la caja fuerte. Los datos existentes no se sobrescribieron. No se guardó ninguna contraseña, así que si anotó alguna, puede descartarla y elegir de nuevo.</string>
+    <string name="onboarding_password_error_suggest_failed">No se pudo generar una frase de contraseña. Toque Sugerir de nuevo, o escriba la suya propia.</string>
+    <string name="onboarding_password_notice_suggested">Escríbala antes de continuar — es su contraseña maestra.</string>
+
+    <!-- Biometric-enrollment step. -->
+    <string name="onboarding_biometric_title">Desbloquear con biometría</string>
+    <!-- SECURITY-COPY: tier G. Claims biometric unlock is a convenience layered on top of the master
+         password and can never recover the vault on its own. -->
+    <string name="onboarding_biometric_body">La biometría puede abrir LocalKeep en lugar de escribir su contraseña maestra cada vez.\n\nEs una comodidad adicional, nunca un reemplazo: su contraseña maestra sigue funcionando, y la biometría nunca puede recuperar la caja fuerte por sí sola.</string>
+    <!-- Reused as the BiometricPrompt system dialog's title. -->
+    <string name="onboarding_biometric_enable_cta">Activar desbloqueo biométrico</string>
+    <string name="onboarding_biometric_not_now">Ahora no</string>
+    <!-- SECURITY-COPY: tier C. Explains why the biometric prompt appeared. -->
+    <string name="onboarding_biometric_prompt_subtitle">Confirme para proteger esta clave de la caja fuerte</string>
+    <!-- SECURITY-COPY: tier G. Reiterates that the master password still works after enrollment. -->
+    <string name="onboarding_biometric_enabled_notice">Desbloqueo biométrico activado. Su contraseña maestra sigue funcionando.</string>
+    <string name="onboarding_biometric_enable_failed">El desbloqueo biométrico no se activó. Puede activarlo más tarde en Ajustes.</string>
+    <string name="onboarding_biometric_skip_no_lock">El desbloqueo biométrico necesita un bloqueo de pantalla del dispositivo. Agregue un PIN, patrón o contraseña en los ajustes del sistema, luego actívelo desde los ajustes de LocalKeep.</string>
+    <string name="onboarding_biometric_skip_no_sensor">Este dispositivo no tiene ningún sensor biométrico fuerte registrado, por lo que el desbloqueo biométrico no está disponible. Su contraseña maestra sigue funcionando.</string>
+
+    <!-- Recovery Kit step, embedded in first-run onboarding. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recovery_title">Su Kit de recuperación</string>
+    <string name="onboarding_recovery_body">Estas 24 palabras son la única forma de volver a su caja fuerte si olvida su contraseña maestra — no se puede restablecer, porque nadie más que usted tiene la clave que la abre.\n\nCualquiera con estas palabras puede abrir la caja fuerte real.</string>
+    <!-- Accessibility label for the Continue button while it is disabled, since a screen reader
+         gets neither the visual dimming nor the adjacency to the consent row above it. -->
+    <string name="onboarding_recovery_continue_disabled_label">Continuar, disponible cuando guarde su Kit de recuperación</string>
+    <string name="onboarding_password_continue_disabled_empty">Continuar, disponible cuando ingrese una contraseña maestra</string>
+    <string name="onboarding_password_continue_disabled_confirm">Continuar, disponible cuando confirme su contraseña maestra</string>
+    <string name="onboarding_password_continue_disabled_mismatch">Continuar, disponible cuando ambas contraseñas coincidan</string>
+    <string name="onboarding_password_continue_disabled_weak">Continuar, disponible cuando confirme que desea esta contraseña fácil de adivinar</string>
+    <!-- Heading over the numbered word grid. Shared by the onboarding step and the standalone
+         Recovery Kit screen. -->
+    <string name="onboarding_recovery_words_label">Palabras de recuperación</string>
+    <string name="onboarding_recovery_qr_render_error">No se pudo generar el código QR — guarde el PDF en su lugar.</string>
+    <string name="onboarding_recovery_qr_instruction">Fotografíe esto con otro dispositivo, luego confirme abajo.</string>
+    <string name="onboarding_recovery_qr_captured_cta">Capturé el código QR</string>
+    <string name="onboarding_recovery_save_pdf">Guardar como PDF</string>
+    <string name="onboarding_recovery_show_qr">Mostrar código QR en su lugar</string>
+    <string name="onboarding_recovery_footnote">Prefiera guardar en este dispositivo. Algunos destinos de compartir suben a la nube, lo que pondría sus palabras de recuperación en la computadora de otra persona.</string>
+    <string name="onboarding_recovery_qr_content_description">Código QR del Kit de recuperación</string>
+    <string name="onboarding_recovery_export_pdf_notice">Kit de recuperación guardado. Manténgalo sin conexión — cualquiera que lo tenga puede abrir su caja fuerte.</string>
+    <string name="onboarding_recovery_export_pdf_error">No se pudo guardar el Kit de recuperación. Cualquier archivo que haya quedado en esa ubicación está incompleto y no abrirá su caja fuerte — elimínelo y vuelva a intentarlo.</string>
+    <string name="onboarding_recovery_qr_captured_notice">Kit de recuperación capturado. Verifique que la foto sea legible antes de continuar.</string>
+    <string name="onboarding_recovery_confirm_notice">Guarde el Kit de recuperación como PDF, o muestre el QR y captúrelo — o elija «Configurar más tarde».</string>
+    <string name="onboarding_recovery_defer">Configurar más tarde</string>
+    <string name="onboarding_recovery_pdf_title">Kit de recuperación de LocalKeep</string>
+    <string name="onboarding_recovery_pdf_warning_line1">Estas 24 palabras son la ÚNICA forma de volver a su caja fuerte si olvida su contraseña maestra.</string>
+    <string name="onboarding_recovery_pdf_warning_line2">LocalKeep no puede restablecerla por usted — nadie más que usted tiene la clave que la abre, y LocalKeep no tiene ningún servidor al que enviar su caja fuerte.</string>
+    <string name="onboarding_recovery_pdf_warning_line3">Cualquiera que tenga estas palabras puede abrir su caja fuerte real. Guarde esta página como si fuera dinero en efectivo.</string>
+    <!-- %1$s is today's date, ISO-formatted. -->
+    <string name="onboarding_recovery_pdf_footer">Generado %1$s · conserve esto en papel, sin conexión, en un lugar al que solo usted pueda acceder.</string>
+
+    <!-- General back-navigation notice, not Recovery Kit specific. -->
+    <string name="onboarding_notice_no_back">Su caja fuerte ya está creada, por lo que no hay ningún paso al que volver.</string>
+
+    <!-- Cloud-backup step. -->
+    <string name="onboarding_cloudbackup_title">¿Hacer copia de seguridad en su cuenta de Google?</string>
+    <!-- SECURITY-COPY: tier G. Claims Google only ever holds the encrypted file and the master
+         password never leaves the device — the canonical claim-about-where-data-lives case. -->
+    <string name="onboarding_cloudbackup_body">Android puede mantener una copia cifrada de su caja fuerte en su cuenta de Google, de modo que sobrevive a la pérdida de este teléfono.\n\nGoogle solo tiene el archivo cifrado — su contraseña maestra nunca sale de este dispositivo, así que nadie allí puede abrirlo.</string>
+    <string name="onboarding_cloudbackup_enable_cta">Mantener la copia de seguridad activada</string>
+    <string name="onboarding_cloudbackup_disable_cta">Sin copia de seguridad</string>
+    <!-- SECURITY-COPY: tier G. Claims this phone holds the only copy once backup is off. -->
+    <string name="onboarding_cloudbackup_footnote">Si la desactiva, este teléfono tiene la única copia — exporte su caja fuerte a un lugar seguro; si el teléfono se pierde, la caja fuerte se pierde. En cualquier caso, puede cambiarlo después en Ajustes → Copia de seguridad.</string>
+
+    <!-- Migration step. -->
+    <string name="onboarding_migrate_title">Traer sus contraseñas</string>
+    <string name="onboarding_migrate_body">Importe desde Chrome, Apple Passwords, Bitwarden, 1Password, KeePass o Aegis — o un CSV de cualquier otro gestor, incluidos Firefox y LastPass.\n\nVerá todo lo que se encontró y podrá elegir qué conservar antes de que se guarde nada.</string>
+    <!-- Reused on the Done step's primary button when the user asked to import. -->
+    <string name="onboarding_migrate_import_cta">Importar mis contraseñas</string>
+    <string name="onboarding_done_import_cta">Elegir una fuente de importación</string>
+    <string name="onboarding_migrate_skip_cta">Empezar con una caja fuerte vacía</string>
+    <string name="onboarding_migrate_footnote">Elegir «Empezar con una caja fuerte vacía» está bien. Ajustes → Caja fuerte y copia de seguridad → Importar desde otra aplicación ejecuta el mismo asistente cuando quiera — nada aquí se hace una sola vez.</string>
+
+    <!-- Done step. -->
+    <string name="onboarding_done_title">Todo listo</string>
+    <!-- SECURITY-COPY: tier B. Recovery-kit-saved confirmation. -->
+    <string name="onboarding_done_body_recovery_saved">Su caja fuerte está cifrada en este dispositivo.\n\nGuarde su Kit de recuperación en un lugar seguro y sin conexión — es la única forma de volver si olvida su contraseña maestra.</string>
+    <!-- SECURITY-COPY: tier B. Warns the user has no Recovery Kit yet. -->
+    <string name="onboarding_done_body_recovery_missing">Su caja fuerte está cifrada en este dispositivo.\n\nAún no tiene un Kit de recuperación, así que por ahora su contraseña maestra es la única forma de entrar — olvídela y la caja fuerte se pierde.\n\nCree uno cuando quiera desde Ajustes → Kit de recuperación.</string>
+    <string name="onboarding_done_open_vault_cta">Abrir mi caja fuerte</string>
+    <string name="onboarding_done_autofill_cta">Configurar autocompletado</string>
+    <string name="onboarding_done_autofill_done">Autocompletado activado</string>
+    <string name="onboarding_done_passkeys_cta">Configurar claves de acceso</string>
+
+    <!-- Progress rail across the top of every step. -->
+    <string name="onboarding_rail_progress">%1$d de %2$d</string>
+    <string name="onboarding_rail_progress_description">Paso %1$d de %2$d</string>
+
+    <string name="onboarding_settings_unavailable">Esta pantalla de ajustes no está disponible</string>
+
+    <!-- Standalone Recovery Kit screen (Settings → Recovery Kit), for a vault that already
+         exists. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recoverykit_gate_title">Confirme que es usted</string>
+    <string name="onboarding_recoverykit_gate_body">Un Kit de recuperación abre esta caja fuerte sin la contraseña maestra, y crear uno reemplaza el que ya tenga. Confirme con biometría o con la contraseña de la caja fuerte para continuar.</string>
+    <!-- Shown instead of the body above when the gate has no biometric door to offer: a panic
+         lock took biometrics away from the gates, or the device has no strong sensor. The
+         shared body invited a fingerprint the screen then did not accept. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_gate_body_password_only">Un Kit de recuperación abre esta caja fuerte sin la contraseña maestra, y crear uno reemplaza el que ya tenga. Confirme con la contraseña de la caja fuerte para continuar.</string>
+    <string name="onboarding_recoverykit_gate_password_label">Contraseña de la caja fuerte</string>
+    <string name="onboarding_recoverykit_gate_biometric">Usar datos biométricos</string>
+    <string name="onboarding_recoverykit_gate_biometric_subtitle">Confirme para crear un Kit de recuperación</string>
+    <string name="onboarding_recoverykit_gate_submit">Continuar</string>
+    <string name="onboarding_recoverykit_gate_error_password">Esa no es la contraseña de esta caja fuerte.</string>
+    <string name="onboarding_recoverykit_gate_error_memory">Los ajustes de cifrado de esta caja fuerte necesitan más memoria de la que este dispositivo da a la aplicación mientras está abierta. No se cambió nada. En un teléfono con más memoria, redúzcalos en Ajustes › Copia de seguridad — después de eso también funcionará aquí.</string>
+    <string name="onboarding_recoverykit_gate_error_session_ended">La caja fuerte se bloqueó antes de terminar. Desbloquéela e inténtelo de nuevo.</string>
+    <plurals name="onboarding_recoverykit_gate_error_throttled">
+        <item quantity="one">Demasiados intentos. Intente de nuevo en %1$d segundo.</item>
+        <item quantity="many">Demasiados intentos. Intente de nuevo en %1$d segundos.</item>
+        <item quantity="other">Demasiados intentos. Intente de nuevo en %1$d segundos.</item>
+    </plurals>
+    <string name="onboarding_recoverykit_title">Kit de recuperación</string>
+    <string name="onboarding_recoverykit_subtitle">La única forma de volver si olvida su contraseña maestra</string>
+    <string name="onboarding_recoverykit_back_label">Atrás</string>
+    <string name="onboarding_recoverykit_empty_body">Un Kit de recuperación son 24 palabras que abren esta caja fuerte sin la contraseña maestra. No hay restablecimiento ni cuenta, así que es la única forma de volver a entrar.\n\nCrear uno reemplaza cualquier kit que ya tenga. Hágalo si nunca guardó uno, si lo perdió, o si ha cambiado su contraseña maestra desde entonces — eso cambia la clave para la que se creó el kit anterior, y la aplicación lo revoca en lugar de dejarle con una página que falla en el momento que la necesita.</string>
+    <string name="onboarding_recoverykit_working">Procesando…</string>
+    <string name="onboarding_recoverykit_create_cta">Crear un Kit de recuperación</string>
+    <string name="onboarding_recoverykit_done_cta">Listo</string>
+    <string name="onboarding_recoverykit_replace_footnote">Guardarlas reemplazará cualquier Kit de recuperación anterior de esta caja fuerte. Hasta que las guarde, el kit que ya tiene sigue funcionando: si sale sin guardar, nada cambia. Prefiera guardar en este dispositivo: algunos destinos de compartir suben a la nube.</string>
+    <string name="onboarding_recoverykit_error_locked">Desbloquee su caja fuerte primero.</string>
+    <string name="onboarding_recoverykit_error_create_failed">No se pudo crear un Kit de recuperación para esta caja fuerte.</string>
+    <string name="onboarding_recoverykit_error_commit_failed">Archivo guardado, pero esta caja fuerte conservó su Kit de recuperación anterior. Desbloquee la caja fuerte e intente de nuevo — las palabras que acaba de guardar no la abrirán.</string>
+</resources>

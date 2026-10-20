@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The themed-icon layer (Android 13+). The system tints this with the user's wallpaper colours, so it
+  must be a single flat shape: the keyhole is cut out of the shield with evenOdd rather than painted
+  over it, because "painted over" means painted in a colour the system is about to replace. None of
+  the foreground's bevel or lighting can appear here for the same reason — a one-colour layer has no
+  way to express them, and faking them with alpha reads as a smudge under a saturated wallpaper.
+
+  Geometry tracks ic_launcher_foreground exactly. The keyhole is one continuous outline (stem down,
+  round the foot, back up, then the long way over the circle) rather than a circle subpath plus an
+  overlapping stem — under evenOdd two overlapping subpaths cancel where they cross, which put a
+  tinted wedge in the middle of the opening.
+
+  === v2, 2026-07-31 ===============================================================================
+  Two changes, both checked against the adaptive mask; the technique above is untouched.
+
+   1. Scaled +7% about (54,54). The silhouette's furthest point moves from 30.3 to 32.4 of the 33
+      safe radius, so the mark fills the tile instead of floating in it. Same shoulders, same 0.86
+      width-to-height — it is the same shield.
+   2. Keyhole enlarged past the uniform scale: radius 6.1 to 7.0, stem half-width 2.3 to 2.6, foot
+      dropped to y63. The punch now reads on the 48dp launcher grid and at 19dp in the drawer.
+      Still one continuous single-subpath outline, so point 4 above still holds.
+
+  This drawing is also what the app renders in-app: LkLogo's LkMark is this silhouette and keyhole
+  flattened onto the 24 grid. Geometry is now centred on (54,54), x 27.9-80.1, y 23.6-84.4.
+
+  === 1a "Slim & sharp", 2026-09-07 ===============================================================
+  This file is deliberately untouched by the 1a adoption that re-lit ic_launcher_foreground.xml and
+  ic_launcher_background.xml. 1a changed lighting only — diffed against the mark it refines, its
+  shield path and keyhole path are character-identical — and a themed layer has no lighting to
+  change. Editing it would have moved this silhouette away from the foreground's, which is the one
+  thing the paragraph above exists to prevent.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M54 23.6 L80.1 34.7 V54.3 c0 16.14 -11.17 27 -26.1 30.1 c-14.94 -3.1 -26.1 -13.96 -26.1 -30.1 V34.7 Z M56.6 56.1 V63 a2.6 2.6 0 0 1 -5.2 0 V56.1 A7 7 0 1 1 56.6 56.1 Z" />
+</vector>

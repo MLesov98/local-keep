@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- Drawer header subtitle. Replaces a prior claim of "nothing leaves this device", which was
+         false: Android Auto Backup can still take vault.enc. What this says instead is true
+         regardless of the user's cloud-backup choice. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_drawer_subtitle">Offline-Build · kein Konto, kein Sync-Server</string>
+
+    <!-- Bottom navigation bar tab labels. -->
+    <string name="app_nav_vault">Tresor</string>
+    <string name="app_nav_generator">Generator</string>
+    <string name="app_nav_health">Gesundheit</string>
+    <!-- Accessibility: appended to a bottom-tab's label when it is the active tab. -->
+    <string name="app_nav_tab_selected">%1$s, ausgewählt</string>
+
+    <!-- Command drawer group headings. -->
+    <string name="app_drawer_group_items">Einträge</string>
+    <string name="app_drawer_group_tools">Extras</string>
+    <string name="app_drawer_group_security">Sicherheit</string>
+    <string name="app_drawer_group_system">System</string>
+
+    <!-- Command drawer link labels. -->
+    <string name="app_drawer_all_items">Alle Einträge</string>
+    <string name="app_drawer_generator">Generator</string>
+    <string name="app_drawer_migrate_import">Migrieren / Importieren</string>
+    <string name="app_drawer_backup_export">Sicherung &amp; Export</string>
+    <string name="app_drawer_restore_snapshot">Schnappschuss wiederherstellen</string>
+    <string name="app_drawer_password_health">Passwort-Gesundheit</string>
+    <!-- Names the duress/decoy feature itself; hidden entirely during a decoy session. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="app_drawer_duress_decoy">Notfall / Tarnung</string>
+    <string name="app_drawer_invisible_items">Unsichtbare Einträge</string>
+    <string name="app_drawer_recovery_kit">Wiederherstellungskit</string>
+    <string name="app_drawer_trash">Papierkorb</string>
+    <string name="app_drawer_settings">Einstellungen</string>
+    <!-- Accessibility: appended to a drawer link's label when it is the active route. -->
+    <string name="app_drawer_item_selected">%1$s, ausgewählt</string>
+
+    <!-- Root/tamper warning banner, shown at launch when the device looks rooted or modified. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_root_warning_message">Dieses Gerät zeigt Anzeichen dafür, dass es gerootet oder modifiziert wurde. LocalKeep funktioniert weiterhin, aber hardwaregestützter Schlüsselschutz kann schwächer sein.</string>
+    <string name="app_root_warning_dismiss">Ausblenden</string>
+
+    <!-- Stale-export reminder banner, shown when it has been a while since the last backup. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_stale_export_message">Es ist schon eine Weile her, seit Sie Ihren Tresor exportiert haben. Ein verschlüsselter Export ist die einzige Kopie, die Sie selbst kontrollieren, wenn dieses Gerät verloren geht.</string>
+    <string name="app_stale_export_action">Sichern</string>
+    <string name="app_stale_export_dismiss">Jetzt nicht</string>
+
+    <!-- Notice posted once, on the genuine free-to-Pro transition (never on cold-start emission
+         of an existing Pro tier). -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="app_pro_unlock_announcement">Pro freigeschaltet — keine Obergrenze mehr für Karten, Identitäten und Dateien, die Sie hinzufügen.</string>
+    <string name="app_notice_edit_dropped_by_lock">Der Tresor wurde gesperrt, daher wurden Ihre nicht gespeicherten Änderungen verworfen.</string>
+    <string name="app_notice_vault_restored">Schnappschuss wiederhergestellt — das ist der Tresor, wie er damals war.</string>
+    <string name="app_notice_cloud_backup_unchosen">Sie haben noch nicht entschieden, ob dieser Tresor im Android-Backup enthalten ist</string>
+    <string name="app_notice_cloud_backup_unchosen_action">Wählen</string>
+    <string name="app_drawer_folders">Ordner</string>
+    <!-- The two long-press launcher shortcuts (res/xml/shortcuts.xml). -->
+    <string name="app_shortcut_search_short">Suchen</string>
+    <string name="app_shortcut_search_long">Tresor durchsuchen</string>
+    <string name="app_shortcut_new_item_short">Neuer Eintrag</string>
+    <string name="app_shortcut_new_item_long">Zum Tresor hinzufügen</string>
+</resources>

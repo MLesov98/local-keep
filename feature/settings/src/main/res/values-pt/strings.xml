@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Screen header / search -->
+    <string name="settings_screen_title">Configurações</string>
+    <string name="settings_back">Voltar</string>
+    <string name="settings_search_placeholder">Pesquisar nas configurações</string>
+    <!-- Shown above the results while an operation (save, biometric enrol, purchase check…) is running. -->
+    <string name="settings_working">Processando…</string>
+    <string name="settings_empty_title">Sem correspondências</string>
+    <!-- %1$s is the user's search text; %2$s is the third example word, which is "backup" during a
+         decoy session and "decoy" otherwise — naming the duress feature in a help string during a
+         decoy session would give away that a real vault exists. -->
+    <string name="settings_empty_body">Nada aqui corresponde a “%1$s”. Tente uma palavra sobre o que você quer alterar, não seu nome — “vibração”, “impressão digital”, “%2$s”.</string>
+    <string name="settings_empty_word_decoy">engodo</string>
+    <string name="settings_empty_word_backup">backup</string>
+    <string name="settings_clear_search">Limpar pesquisa</string>
+
+    <!-- Group titles -->
+    <string name="settings_group_security">Segurança</string>
+    <string name="settings_group_autofill">Preenchimento automático</string>
+    <string name="settings_group_vault_backup">Cofre e backup</string>
+    <string name="settings_group_appearance">Aparência</string>
+    <string name="settings_group_how_this_works">Como funciona</string>
+    <string name="settings_group_about">Sobre</string>
+    <string name="settings_group_pro">LocalKeep Pro</string>
+    <string name="settings_group_debug">Desenvolvedor (build debug)</string>
+
+    <!-- Accessibility state words appended to an expandable row's description. -->
+    <string name="settings_state_expanded">Expandido</string>
+    <string name="settings_state_collapsed">Recolhido</string>
+
+    <!-- Security · Auto-lock -->
+    <string name="settings_autolock_title">Bloqueio automático</string>
+    <!-- SECURITY-COPY: tier F -->
+    <!-- %1$s is the preset name (e.g. "Balanced"); %2$d/%3$d are seconds. Compact "10s" unit
+         notation, not a countable noun, so it does not need <plurals>. -->
+    <string name="settings_autolock_chip_legend">Cada opção mostra quanto tempo até bloquear: ocioso / em segundo plano.</string>
+    <string name="settings_autolock_summary">%1$s · %2$s de inatividade, %3$s em segundo plano</string>
+
+    <!-- Security · Biometric unlock -->
+    <string name="settings_biometric_title">Desbloqueio biométrico</string>
+    <string name="settings_biometric_summary_on">Ativado neste dispositivo</string>
+    <string name="settings_biometric_summary_off">Desativado — apenas sua senha mestra</string>
+    <string name="settings_biometric_summary_unavailable">Indisponível neste dispositivo</string>
+    <string name="settings_biometric_summary_not_enrolled">Nenhuma biometria cadastrada ainda</string>
+    <string name="settings_biometric_summary_no_hardware">Este dispositivo não tem sensor biométrico</string>
+    <string name="settings_biometric_summary_sensor_busy">Sensor biométrico indisponível no momento</string>
+    <string name="settings_biometric_summary_needs_update">A biometria requer uma atualização de segurança do sistema</string>
+    <string name="settings_biometric_enrol_button">Configurar a biometria</string>
+    <string name="settings_biometric_body">Abre o LocalKeep com biometria em vez de digitar sua senha mestra. Uma conveniência adicional, nunca uma substituição.</string>
+    <!-- Also used as the system BiometricPrompt title from SettingsViewModel.enableBiometric. -->
+    <string name="settings_biometric_enable_button">Ativar desbloqueio biométrico</string>
+    <string name="settings_biometric_disable_button">Desativar desbloqueio biométrico</string>
+    <string name="settings_biometric_dialog_title">Usar desbloqueio biométrico?</string>
+    <string name="settings_biometric_dialog_body">O cadastro permite que o sensor biométrico do seu dispositivo desbloqueie o LocalKeep no lugar da sua senha mestra. Seus dados biométricos nunca saem do hardware seguro do dispositivo e nunca são vistos pelo LocalKeep.</string>
+    <string name="settings_biometric_dialog_continue">Continuar</string>
+    <string name="settings_biometric_dialog_dismiss">Agora não</string>
+    <!-- The system BiometricPrompt subtitle, read via Context.getString from the ViewModel — this
+         dialog is an imperative Android API call, not composed, so it cannot use stringResource. -->
+    <string name="settings_biometric_prompt_subtitle">Confirme para proteger esta chave do cofre</string>
+
+    <!-- Security · Change master password -->
+    <string name="settings_password_title">Alterar senha mestra</string>
+    <string name="settings_password_summary">Requer sua senha atual</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_body">Isso substitui a chave que protege seu cofre. Seu Kit de recuperação existente para de funcionar, então crie um novo depois, e o desbloqueio biométrico precisará ser cadastrado novamente.</string>
+    <string name="settings_password_forgot_cta">Esqueci minha senha mestra</string>
+    <string name="settings_password_current_cta">Sei minha senha atual</string>
+    <string name="settings_password_kit_label">Palavras do Kit de recuperação</string>
+    <string name="settings_password_kit_placeholder">As 24 palavras, separadas por espaços</string>
+    <string name="settings_password_kit_body">Digite as 24 palavras do seu Kit de recuperação em vez da sua senha atual. Definir uma nova senha substitui a chave de criptografia deste cofre: o kit digitado aqui deixará de funcionar e você precisará criar um novo.</string>
+    <string name="settings_error_wrong_recovery_kit">Essas não são as palavras do Kit de recuperação deste cofre. Verifique a ordem e a grafia.</string>
+    <string name="settings_password_current_label">Senha atual</string>
+    <string name="settings_password_new_label">Nova senha</string>
+    <string name="settings_password_confirm_label">Confirmar nova senha</string>
+    <string name="settings_password_mismatch">Estas ainda não correspondem.</string>
+    <string name="settings_password_submit">Alterar senha</string>
+
+    <!-- Security · Password health -->
+    <string name="settings_health_title">Saúde das senhas</string>
+    <string name="settings_health_summary">Encontrar senhas fracas e reutilizadas</string>
+
+    <!-- Security · Recovery Kit -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_recovery_kit_title">Kit de recuperação</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_recovery_kit_summary">Criar 24 palavras que abrem este cofre sem sua senha</string>
+    <string name="settings_recovery_kit_summary_missing">Ainda não salvo — se esquecer sua senha mestra, este cofre não poderá ser aberto</string>
+
+    <!-- Security · Duress vault. Entire feature is SECURITY-COPY tier D. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_title">Cofre de coação</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_summary_pro">Uma segunda senha que abre um engodo</string>
+    <!-- SECURITY-COPY: tier D. "Pro" is the app's paid-tier name and stays untranslated
+         in every locale. -->
+    <string name="settings_duress_summary_free">Pro · uma segunda senha que abre um engodo</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_body_explain">Digitar esta senha na tela de desbloqueio abre um cofre engodo separado, preenchido com logins de aparência comum que você pode editar. Seu cofre real fica intacto e nada no engodo aponta para ele. Isso lhe dá uma resposta plausível sob pressão; não é uma proteção. Quem já souber que este aplicativo tem o recurso pode simplesmente exigir uma segunda senha, e tanto o desbloqueio biométrico quanto o Kit de recuperação abrem o cofre real, diga o que disser.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_body_replace_warning">Executar isto novamente substitui qualquer senha de coação já definida e reconstrói o cofre engodo do zero — qualquer coisa que você editou dentro dele é descartada.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_password_label">Senha de coação</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_confirm_label">Confirmar senha de coação</string>
+    <!-- SECURITY-COPY: tier D. Also reused as the confirm label of the "replace" dialog below. -->
+    <string name="settings_duress_setup_button">Configurar cofre de coação</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_button">Excluir o cofre de coação</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_gate_body">Digite a sua senha do cofre para confirmar esta alteração.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_gate_label">Senha do cofre</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_dialog_title">Excluir o cofre de coação?</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_dialog_body">A senha de coação para de abrir qualquer coisa e o engodo é sobrescrito. Se a coação nunca foi configurada, isto não faz nada. Seu cofre real não é tocado.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_confirm">Excluir</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_replace_dialog_title">Substituir o cofre de coação?</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_replace_dialog_body">Isto define a senha de coação e cria um novo cofre engodo. Se a coação já estiver configurada, a senha antiga para de funcionar e quaisquer edições que você fez no engodo são perdidas. Seu cofre real não é tocado.</string>
+    <!-- SECURITY-COPY: tier D. Passed to ProUpsell as the reason Pro is required. -->
+    <string name="settings_duress_upsell_purpose">para configurar um cofre engodo</string>
+
+    <!-- Security · Panic lock -->
+    <string name="settings_panic_title">Bloqueio de pânico</string>
+    <string name="settings_panic_summary">Bloquear agora e desativar permanentemente o desbloqueio biométrico</string>
+    <string name="settings_panic_body">Bloqueia o cofre imediatamente e exige sua senha mestra — um dado biométrico obtido à força não o reabrirá. O desbloqueio biométrico é desativado permanentemente: reativá-lo exige cadastrá-lo novamente em Segurança.</string>
+    <string name="settings_panic_button">Bloquear agora</string>
+
+    <!-- Autofill -->
+    <string name="settings_autofill_service_title">Serviço de preenchimento automático</string>
+    <string name="settings_autofill_service_summary_on">Ativado — o LocalKeep preenche seus logins</string>
+    <string name="settings_autofill_service_summary_off">Desativado — toque para escolher o LocalKeep</string>
+    <string name="settings_autofill_inline_title">Sugestões inline</string>
+    <string name="settings_autofill_inline_summary">Os logins salvos aparecem na barra de sugestões do seu teclado</string>
+    <string name="settings_autofill_inline_summary_off">Desativado enquanto o LocalKeep não for seu serviço de preenchimento automático</string>
+    <string name="settings_autofill_inline_body">Quando o preenchimento automático está ativado e o seu teclado é compatível com sugestões inline, o LocalKeep oferece os logins correspondentes na barra acima das teclas. Não há botão aqui: o seu teclado decide se as exibe.</string>
+    <string name="settings_trusted_title">Apps confiáveis</string>
+    <string name="settings_trusted_summary">Sites que você confirmou para um navegador</string>
+    <string name="trusted_apps_subtitle">Sites que você confirmou para um navegador, para que o preenchimento automático possa oferecer logins ali sem perguntar de novo, e apps cuja assinatura o LocalKeep memorizou. Remova qualquer um a qualquer momento.</string>
+    <string name="trusted_apps_back">Voltar</string>
+    <string name="trusted_apps_empty_title">Nada confiável ainda</string>
+    <string name="trusted_apps_empty_body">Nada aqui até você confirmar um site.</string>
+    <string name="trusted_apps_no_sites">Assinatura memorizada quando este app pediu ao LocalKeep para preencher. Nenhum site foi permitido para ele.</string>
+    <string name="trusted_apps_remove_site">Parar de preencher %1$s</string>
+    <string name="trusted_apps_forget_app_label">Esquecer %1$s</string>
+    <string name="trusted_apps_forget_title">Esquecer %1$s?</string>
+    <string name="trusted_apps_forget_body">O LocalKeep esquecerá a assinatura deste app e cada site que você permitiu para ele. A assinatura será memorizada novamente na próxima vez que este app pedir ao LocalKeep para preencher, e cada site precisará ser confirmado de novo.</string>
+    <string name="trusted_apps_forget_action">Esquecer</string>
+    <string name="settings_passkey_title">Provedor de chaves de acesso</string>
+    <string name="settings_passkey_summary">Armazenar e oferecer chaves de acesso junto com senhas</string>
+    <string name="settings_passkey_summary_unavailable">Requer Android 14 ou mais recente</string>
+    <string name="settings_passkey_value_unavailable">Requer Android 14</string>
+
+    <!-- Vault & Backup -->
+    <string name="settings_backup_title">Backup e exportação</string>
+    <string name="settings_backup_summary">Salvar uma cópia criptografada ou restaurar uma</string>
+    <string name="settings_import_title">Importar de outro app</string>
+    <string name="settings_cloud_backup_title">Backup na nuvem</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_cloud_backup_summary">Manter o arquivo de cofre fora do Android Auto Backup</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_cloud_backup_summary_included">Cofre incluído no Android Auto Backup</string>
+
+    <!-- Appearance -->
+    <string name="settings_haptics_title">Reduzir vibração</string>
+    <!-- Also used as the switch hint when the system has not already silenced haptics. -->
+    <string name="settings_haptics_summary">Silenciar o feedback de vibração do aplicativo</string>
+    <string name="settings_haptics_hint_system_off">Já desligado: o feedback tátil está desabilitado em todo o sistema</string>
+
+    <!-- How this works -->
+    <string name="settings_dark_title">Por que o LocalKeep é escuro</string>
+    <string name="settings_dark_summary">Não há tema claro — veja o motivo</string>
+    <string name="settings_dark_body">Um tema claro seria um segundo design, não uma troca de brilho: aqui as cores carregam significado com pouquíssimo contraste, e esse significado não sobrevive a um fundo branco. A animação segue a configuração do sistema “remover animações”.</string>
+    <string name="settings_breach_title">Lista de vazamentos</string>
+    <string name="settings_breach_summary">O corpus contra o qual suas senhas são verificadas</string>
+    <string name="settings_breach_body">A lista vem embutida no aplicativo e é formada a partir de uma coletânea pública de senhas expostas em vazamentos anteriores. Ela só muda quando o aplicativo é atualizado.</string>
+    <string name="settings_breach_vintage">Data da coletânea: %1$s</string>
+    <string name="settings_breach_checking">Verificando…</string>
+    <string name="settings_breach_unavailable">A lista de vazamentos não pôde ser lida neste dispositivo, portanto as verificações não podem ser executadas.</string>
+
+    <!-- About -->
+    <string name="settings_version_title">Versão</string>
+    <string name="settings_version_unknown">desconhecida</string>
+    <!-- Also the LicensesDialog title below. -->
+    <string name="settings_licenses_title">Licenças de código aberto</string>
+    <string name="settings_licenses_summary">Todas as dependências que esta build vincula</string>
+    <string name="settings_licenses_dialog_body">Cada dependência de terceiros que esta build vincula e a licença sob a qual é distribuída.</string>
+    <string name="settings_licenses_dialog_close">Fechar</string>
+
+    <!-- Pro upsell (shown inside the locked branch of a Pro-gated setting) -->
+    <!-- SECURITY-COPY: tier E. %1$s is PRO_PRICE (Play's own localised price); %2$s is a purpose
+         phrase such as settings_duress_upsell_purpose. -->
+    <string name="settings_pro_row_title">LocalKeep Pro</string>
+    <string name="settings_pro_row_summary_free">Pagamento único, sem assinatura</string>
+    <string name="settings_pro_row_summary_pro">Desbloqueado</string>
+    <string name="settings_pro_row_summary_foss">O Pro está na versão da Play</string>
+    <string name="settings_pro_row_body_removes_caps">Remove o limite para adicionar novos arquivos e mídia, cartões e identidades. Importar e visualizar nunca teve limite.</string>
+    <string name="settings_pro_row_body_pro">Os limites de criação foram removidos. Adicione arquivos e mídia, cartões e identidades sem limite.</string>
+
+    <plurals name="settings_pro_row_usage_files">
+        <item quantity="one">Arquivos e mídia — %1$d de %2$d usado</item>
+        <item quantity="many">Arquivos e mídia — %1$d de %2$d usados</item>
+        <item quantity="other">Arquivos e mídia — %1$d de %2$d usados</item>
+    </plurals>
+    <plurals name="settings_pro_row_usage_cards">
+        <item quantity="one">Cartões — %1$d de %2$d usado</item>
+        <item quantity="many">Cartões — %1$d de %2$d usados</item>
+        <item quantity="other">Cartões — %1$d de %2$d usados</item>
+    </plurals>
+    <plurals name="settings_pro_row_usage_identities">
+        <item quantity="one">Identidades — %1$d de %2$d usada</item>
+        <item quantity="many">Identidades — %1$d de %2$d usadas</item>
+        <item quantity="other">Identidades — %1$d de %2$d usadas</item>
+    </plurals>
+    <plurals name="settings_pro_row_over_cap_files">
+        <item quantity="one">Arquivos e mídia — %1$d salvos, todos mantidos. A versão gratuita cria no máximo %2$d.</item>
+        <item quantity="many">Arquivos e mídia — %1$d salvos, todos mantidos. A versão gratuita cria no máximo %2$d.</item>
+        <item quantity="other">Arquivos e mídia — %1$d salvos, todos mantidos. A versão gratuita cria no máximo %2$d.</item>
+    </plurals>
+    <plurals name="settings_pro_row_over_cap_cards">
+        <item quantity="one">Cartões — %1$d salvos, todos mantidos. A versão gratuita cria no máximo %2$d.</item>
+        <item quantity="many">Cartões — %1$d salvos, todos mantidos. A versão gratuita cria no máximo %2$d.</item>
+        <item quantity="other">Cartões — %1$d salvos, todos mantidos. A versão gratuita cria no máximo %2$d.</item>
+    </plurals>
+    <plurals name="settings_pro_row_over_cap_identities">
+        <item quantity="one">Identidades — %1$d salvas, todas mantidas. A versão gratuita cria no máximo %2$d.</item>
+        <item quantity="many">Identidades — %1$d salvas, todas mantidas. A versão gratuita cria no máximo %2$d.</item>
+        <item quantity="other">Identidades — %1$d salvas, todas mantidas. A versão gratuita cria no máximo %2$d.</item>
+    </plurals>
+    <string name="settings_pro_upsell_body">Desbloqueie o Pro (pagamento único de %1$s) %2$s.</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="settings_pro_upsell_body_no_price">Desbloqueie o Pro (pagamento único) %1$s.</string>
+    <!-- SECURITY-COPY: tier E. %1$s is PRO_PRICE. -->
+    <string name="settings_pro_upsell_button">Desbloquear Pro — %1$s</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="settings_pro_upsell_button_no_price">Desbloquear Pro</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_foss_body">O Pro está na versão da Play Store do aplicativo.</string>
+    <!-- SECURITY-COPY: tier E. "Google Play" is a product name, never translated. -->
+    <string name="settings_pro_upsell_view_play">Ver no Google Play</string>
+
+    <!-- Pro group (play build only) — restore purchases -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_title">Restaurar compras</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_summary_active">O Pro está ativo — verifique novamente com o Google Play</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_summary_inactive">Já comprou o Pro? Verifique novamente com o Google Play</string>
+
+    <!-- Developer (debug build) — TEMPORARY, on-device QA only. -->
+    <string name="settings_debug_pro_title">Substituição do Pro</string>
+    <string name="settings_debug_pro_summary">Testar o nível pago sem uma compra</string>
+    <string name="settings_debug_pro_switch_label">Desbloquear recursos Pro</string>
+    <string name="settings_debug_pro_switch_hint">Apenas builds debug. Não é uma compra — desligue para ver o nível gratuito.</string>
+
+    <!-- "HarperHouse" is the decoy's fixed, fictional network name and stays as written; %1$s is the
+         generated decoy password. -->
+    <string name="settings_decoy_wifi_note">Rede doméstica: HarperHouse\nChave: %1$s</string>
+
+    <!-- ViewModel-resolved errors and messages (SettingsMessage) -->
+    <string name="settings_error_screen_unavailable">Esta tela de configurações está indisponível neste dispositivo</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_message_pro_restored">O Pro está ativo neste dispositivo.</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_error_no_pro_purchase">Nenhuma compra do Pro encontrada. Verifique se você está online e conectado à conta Google com a qual comprou.</string>
+    <string name="settings_message_autolock_updated">Bloqueio automático atualizado</string>
+    <!-- SECURITY-COPY: tier F. %1$d is MIN_PASSWORD_LENGTH. -->
+    <string name="settings_error_password_too_short">A nova senha deve ter pelo menos %1$d caracteres</string>
+    <!-- SECURITY-COPY: tier G — states that the vault file is attackable offline. -->
+    <string name="settings_error_password_too_weak">Essa senha é muito fácil de adivinhar. Seu arquivo de cofre pode ser atacado offline, então esta é a única coisa que o protege.</string>
+    <string name="settings_error_wrong_current_password">Essa não é sua senha mestra atual.</string>
+    <string name="settings_error_password_unchanged">Sua nova senha mestra deve ser diferente da atual. Nada foi alterado.</string>
+    <!-- SECURITY-COPY: tier D, tier F. %1$d is MIN_PASSWORD_LENGTH. -->
+    <string name="settings_error_duress_same_as_master">Sua senha de coação precisa ser diferente da sua senha mestra — a mesma senha não pode abrir os dois cofres.</string>
+    <string name="settings_error_duress_password_too_short">A senha de coação deve ter pelo menos %1$d caracteres</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_message_duress_configured">Cofre de coação configurado</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_message_duress_removed">Cofre de coação excluído</string>
+    <string name="settings_error_biometric_unavailable">A autenticação biométrica forte está indisponível</string>
+    <string name="settings_error_biometric_lockout">Muitas tentativas biométricas. A biometria está bloqueada por enquanto — aguarde um momento ou desbloqueie o telefone com o PIN e tente novamente.</string>
+    <string name="settings_message_biometric_enabled">Desbloqueio biométrico ativado</string>
+    <string name="settings_message_biometric_disabled">Desbloqueio biométrico desativado</string>
+    <!-- Only for a failure nothing is known about. -->
+    <string name="settings_error_generic">Isso não funcionou. Tente novamente.</string>
+    <string name="settings_error_kdf_needs_more_memory">As configurações de criptografia deste cofre precisam de mais memória do que este dispositivo dá ao aplicativo enquanto ele está aberto. Nada foi alterado. Em um telefone com mais memória, reduza-as em Configurações › Backup — depois disso, isso funcionará aqui também.</string>
+    <!-- SECURITY-COPY: tier F. The throttle shared with unlock. -->
+    <plurals name="settings_error_retry_after">
+        <item quantity="one">Muitas tentativas. Tente novamente em %1$d segundo.</item>
+        <item quantity="many">Muitas tentativas. Tente novamente em %1$d segundos.</item>
+        <item quantity="other">Muitas tentativas. Tente novamente em %1$d segundos.</item>
+    </plurals>
+    <!-- %1$s is one of the settings_op_* infinitive phrases below (see the EN file's note). -->
+    <string name="settings_error_vault_session_ended">O cofre bloqueou enquanto você tentava %1$s. Nada foi alterado — desbloqueie e tente novamente.</string>
+    <string name="settings_op_prepare_recovery_kit">preparar o Kit de recuperação</string>
+    <string name="settings_op_save_recovery_kit">salvar o Kit de recuperação</string>
+    <string name="settings_op_save_changes">salvar suas alterações</string>
+    <string name="settings_op_set_up_duress">configurar a coação</string>
+    <string name="settings_op_remove_duress">excluir a coação</string>
+    <string name="settings_op_inspect_duress">verificar a coação</string>
+    <string name="settings_op_update_encryption_settings">atualizar as configurações de criptografia</string>
+    <string name="settings_op_change_master_password">alterar a senha mestra</string>
+    <string name="settings_op_rotate_encryption_key">renovar a chave de criptografia</string>
+    <string name="settings_op_enable_biometric_unlock">ativar o desbloqueio biométrico</string>
+    <string name="settings_error_vault_session_ended_generic">O cofre bloqueou durante uma operação. Nada foi alterado — desbloqueie e tente novamente.</string>
+
+    <!-- Change-password success message, assembled from optional clauses. -->
+    <string name="settings_password_changed">Senha mestra alterada.</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_changed_recovery_kit_voided">Seu antigo Kit de recuperação não funciona mais — crie um novo em Segurança → Kit de recuperação.</string>
+    <string name="settings_password_changed_biometric_note">O desbloqueio biométrico foi desativado — ative-o novamente para usá-lo.</string>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_rekeyed">
+        <item quantity="one">A %1$d cópia de backup local neste telefone — um snapshot local ou o arquivo de cofre anterior — também foi migrada para a nova senha.</item>
+        <item quantity="many">As %1$d cópias de backup locais neste telefone — os snapshots locais e o arquivo de cofre anterior — também foram migradas para a nova senha.</item>
+        <item quantity="other">As %1$d cópias de backup locais neste telefone — os snapshots locais e o arquivo de cofre anterior — também foram migradas para a nova senha.</item>
+    </plurals>
+    <plurals name="settings_password_changed_blobs_pending">
+        <item quantity="one">%1$d arquivo armazenado ainda está sendo recriptografado. Será concluído no próximo desbloqueio; nada é perdido.</item>
+        <item quantity="many">%1$d arquivos armazenados ainda estão sendo recriptografados. Serão concluídos no próximo desbloqueio; nada é perdido.</item>
+        <item quantity="other">%1$d arquivos armazenados ainda estão sendo recriptografados. Serão concluídos no próximo desbloqueio; nada é perdido.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_destroyed">
+        <item quantity="one">%1$d cópia de backup local mais antiga não pôde mais ser lida e foi excluída em vez de permanecer acessível com sua senha antiga.</item>
+        <item quantity="many">%1$d cópias de backup locais mais antigas não puderam mais ser lidas e foram excluídas em vez de permanecerem acessíveis com sua senha antiga.</item>
+        <item quantity="other">%1$d cópias de backup locais mais antigas não puderam mais ser lidas e foram excluídas em vez de permanecerem acessíveis com sua senha antiga.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_left_behind">
+        <item quantity="one">Aviso: %1$d cópia de backup local não pôde ser atualizada nem excluída, então sua senha antiga ainda a abre. Exporte seu cofre e reinstale o LocalKeep para resolver isto.</item>
+        <item quantity="many">Aviso: %1$d cópias de backup locais não puderam ser atualizadas nem excluídas, então sua senha antiga ainda as abre. Exporte seu cofre e reinstale o LocalKeep para resolver isto.</item>
+        <item quantity="other">Aviso: %1$d cópias de backup locais não puderam ser atualizadas nem excluídas, então sua senha antiga ainda as abre. Exporte seu cofre e reinstale o LocalKeep para resolver isto.</item>
+    </plurals>
+    <plurals name="settings_duration_seconds">
+        <item quantity="one">%1$d segundo</item>
+        <item quantity="many">%1$d segundos</item>
+        <item quantity="other">%1$d segundos</item>
+    </plurals>
+    <plurals name="settings_duration_minutes">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="many">%1$d minutos</item>
+        <item quantity="other">%1$d minutos</item>
+    </plurals>
+    <string name="settings_entry_action_label">%1$s. %2$s</string>
+    <string name="settings_value_row_label">%1$s, %2$s</string>
+
+    <string name="settings_group_privacy">Privacidade</string>
+    <string name="settings_hidden_items_title">Itens invisíveis</string>
+    <string name="settings_hidden_items_summary">Trazer de volta itens que você tornou invisíveis e alterar sua frase de revelação.</string>
+
+    <string name="settings_hidden_title">Itens invisíveis</string>
+    <string name="settings_hidden_back">Voltar</string>
+
+    <string name="settings_hidden_gate_title">Confirme que é você</string>
+    <string name="settings_hidden_gate_body">Esta lista só é exibida após uma autenticação biométrica ou a sua senha do cofre.</string>
+    <string name="settings_hidden_gate_body_password_only">Esta lista só é exibida depois que você digita a senha do cofre.</string>
+    <string name="settings_hidden_gate_biometric">Usar biometria</string>
+    <string name="settings_hidden_gate_password_label">Senha do cofre</string>
+    <string name="settings_hidden_gate_password_submit">Continuar</string>
+    <string name="settings_hidden_error_password">Essa não é a senha do cofre atual.</string>
+    <string name="settings_hidden_error_session_ended">O cofre bloqueou. Desbloqueie-o e abra esta tela novamente.</string>
+
+    <string name="settings_hidden_empty_title">Nada está invisível</string>
+    <string name="settings_hidden_empty_body">Tudo o que você tornar invisível é listado aqui, para que você sempre possa trazê-lo de volta.</string>
+
+    <string name="settings_hidden_until">Invisível até %1$s</string>
+    <string name="settings_hidden_indefinite">Invisível sem data de término</string>
+    <string name="settings_hidden_folder_label">Pasta</string>
+    <string name="settings_hidden_stop">Tornar visível</string>
+    <string name="settings_hidden_view_entry">Ver a entrada</string>
+    <string name="settings_hidden_peek_reprompt">Esta entrada pede o bloqueio de tela sempre que é aberta. Torne-a visível para lê-la.</string>
+    <string name="settings_hidden_peek_empty">Esta entrada não tem pré-visualização. Torne-a visível para abri-la por completo.</string>
+    <string name="settings_hidden_peek_taken">Capturada em %1$s</string>
+    <string name="settings_hidden_change_duration">Alterar duração</string>
+    <string name="settings_hidden_stopped">%1$s está visível novamente</string>
+    <string name="settings_hidden_duration_changed">%1$s continua invisível pela nova duração</string>
+
+    <string name="settings_hidden_duration_title">Tornar %1$s invisível por</string>
+    <string name="settings_hidden_preset_5min">5 minutos</string>
+    <string name="settings_hidden_preset_30min">30 minutos</string>
+    <string name="settings_hidden_preset_1hour">1 hora</string>
+    <string name="settings_hidden_preset_1day">1 dia</string>
+    <string name="settings_hidden_preset_indefinite">Indefinidamente</string>
+
+    <string name="settings_hidden_change_phrase">Alterar frase de revelação</string>
+    <string name="settings_hidden_phrase_body">A frase que você digita na caixa de pesquisa para trazer os itens invisíveis de volta por uma sessão. Alterá-la não torna nenhum item visível novamente.</string>
+    <string name="settings_hidden_phrase_label">Nova frase de revelação</string>
+    <string name="settings_hidden_phrase_confirm">Salvar frase</string>
+    <string name="settings_hidden_phrase_collision">Essa frase já corresponde a um item no seu cofre, então não poderia servir também como frase de revelação. Escolha outra.</string>
+    <string name="settings_hidden_phrase_changed">Frase de revelação alterada</string>
+
+    <string name="settings_hidden_explainer_health">Tornar um item invisível o retira das contagens do painel de segurança, então sua pontuação muda quando ele fica invisível e novamente quando volta a ficar visível.</string>
+    <string name="settings_hidden_explainer_storage">Itens invisíveis permanecem no seu cofre e em cada backup. Tornar itens invisíveis os remove das telas do app; não é uma segunda camada de criptografia.</string>
+    <string name="settings_original_delete_title">Oferecer a exclusão dos originais</string>
+    <string name="settings_original_delete_summary">Depois de salvar uma foto ou um arquivo, perguntar se a cópia que ficou fora do LocalKeep deve ser excluída.</string>
+</resources>

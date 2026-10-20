@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="backup_screen_title">Backup &amp; export</string>
+    <!-- Used to read "Everything here stays on this device unless you
+         move it" — the same false claim unlock_subtitle and vaultlist_count_device_suffix already
+         had removed. vault.enc rides Android Auto Backup unless the user turned cloud backup off,
+         and this screen's own first row says so one line further down. Nothing reassuring replaces
+         the clause: the header now just names what the screen holds, and the cloud-backup row and
+         footnote below it carry the honest version. Guarded by TierGClaimsTest in :app. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_screen_subtitle">Encrypted copies, local snapshots, and cloud backup</string>
+    <string name="backup_screen_back">Back</string>
+
+    <string name="backup_cloud_section">Cloud backup</string>
+    <!-- Positive assertion, added 2026-09-09. The row was "Disable cloud backup" with the
+         switch ON meaning backup was OFF — a double negative on the one control that
+         decides whether vault ciphertext can leave the device via Android Auto Backup.
+         The stored preference is still `disableCloudBackup`; only the presentation is
+         inverted, so ON now means the thing the label names is happening. -->
+    <!-- Each of the four below asserts a security *property*, not an action: whether vault
+         ciphertext reaches Android Auto Backup, and what protects it once there. They were
+         untagged and unregistered until 2026-09-10 while backup_screen_subtitle above - which
+         IS tier G - delegates its own rationale to them by name. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_include_label">Include vault in Android backup</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_disable_hint_on">Android Auto Backup will not include your vault</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_disable_hint_off">Auto Backup includes the encrypted vault (~25 MB cap)</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_footnote">What Google holds is ciphertext; restoring it still needs your master password.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_schedule_footnote">Android decides when to upload — usually on Wi-Fi while charging and idle — so a recent change may not be in the backup yet.</string>
+    <!-- What Auto Backup leaves behind. app/src/main/res/xml/full_backup_content.xml excludes
+         blobs/ deliberately, because attachment bytes would blow the ~25 MB payload cap on their
+         own, and nothing on this screen or in FEATURES.md said so. A user restoring onto a new
+         phone got every item back with every File and photo item empty, with no warning that this
+         would happen (release sweep 2026-09-20, finding 1C-F4). The exclusion is right; the
+         silence about it was the defect. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_attachments_footnote">Attachments are not included — Auto Backup takes the vault only, so restoring from Google brings your items back without their files and photos.</string>
+    <!-- The OFF state's own "when" line (S3, 2026-09-16). Turning the switch off keeps the vault out
+         of the NEXT pass; it cannot reach back into a copy already uploaded, and Android decides when
+         that next pass runs. Both halves are load-bearing: drop the first and it is a schedule note,
+         drop the second and it promises the copy is gone. Gauntlet-translated 2026-09-16. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_schedule_footnote_off">Android decides when backups run, so a copy uploaded before you turned this off can stay in your Google account until its next pass.</string>
+
+    <string name="backup_kdf_section">Encryption settings for this device</string>
+    <string name="backup_kdf_intro">Unlock difficulty travels with the vault. Worth checking if you restored it from another phone.</string>
+    <string name="backup_kdf_check_button">Check unlock speed</string>
+    <!-- Shown when a re-benchmark finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_kdf_keep_slow">Checked — slow here (%1$d ms), but already at the lowest setting LocalKeep will use.</string>
+    <string name="backup_kdf_keep_ok">Checked — your vault\'s settings suit this device.</string>
+    <!-- Offer to lower the Argon2id cost because unlocking is slow on this device. -->
+    <string name="backup_kdf_faster_headline">Unlocking takes %1$d ms on this device, which is slow enough to be worth easing.</string>
+    <string name="backup_kdf_faster_consequence">This lowers the work an attacker has to do per guess. It is the right trade only if the delay is stopping you locking your vault at all.</string>
+    <!-- Offer to lower the Argon2id cost so the vault can open on older, lower-memory phones. -->
+    <string name="backup_kdf_portable_headline">This vault was set up to need more memory than older phones give an app, so it would not open on one at all.</string>
+    <string name="backup_kdf_portable_consequence">Easing it now means the vault still opens if you ever restore it onto an older phone. It lowers the work an attacker has to do per guess, to the setting new vaults already use.</string>
+    <!-- Offer to raise the Argon2id cost because this device unlocks fast enough to afford it. -->
+    <string name="backup_kdf_stronger_headline">This device unlocks your vault in %1$d ms — fast enough that it can afford to work harder.</string>
+    <string name="backup_kdf_stronger_consequence">Raising it costs you a fraction of a second and costs anyone attacking the file proportionally more.</string>
+    <string name="backup_kdf_master_password_field_label">Master password, to confirm the change</string>
+    <string name="backup_kdf_update_button">Update for this device</string>
+    <string name="backup_kdf_leaving_fine_footnote">Leaving it is fine. Your Recovery Kit and biometric unlock are unaffected either way.</string>
+    <!-- The folded Encryption row's summary: what the last check on this screen found. -->
+    <string name="backup_kdf_summary_unchecked">Not checked</string>
+    <string name="backup_kdf_summary_ok">Checked · suits this device</string>
+    <string name="backup_kdf_summary_slow">Checked · slow here</string>
+    <string name="backup_kdf_summary_offer">Checked · a change is available</string>
+
+    <string name="backup_export_section">Export a .vault file</string>
+    <!-- Shared field label, used both for the export-confirmation password and the KDF recalibration password. -->
+    <string name="backup_master_password_label">Master password</string>
+    <string name="backup_export_master_password_field_label">Master password, to confirm the export</string>
+    <!-- Masked password well placeholder — literal bullet characters, not words. -->
+    <!-- Empty on purpose. This was twelve bullet characters until 2026-09-09, so an EMPTY
+         password field rendered more mask characters than a real four-character password —
+         you could not tell "nothing typed" from "something typed", on the unlock screen
+         most of all. The field keeps its own label above it and an explicit a11y label at
+         every call site, so nothing is lost by showing an empty field as empty.
+         translatable="false" is kept: there is no text left to translate. -->
+    <string name="backup_password_placeholder" translatable="false"></string>
+    <string name="backup_export_separate_passphrase_label">Use a separate export passphrase</string>
+    <!-- Shared for both the field label above the passphrase well and the well\'s own label. -->
+    <string name="backup_export_passphrase_label">Export passphrase</string>
+    <string name="backup_export_passphrase_footnote">A separate passphrase means this file survives a master-password change — and that losing it makes the file unreadable. There is no recovery path for an export.</string>
+    <!-- Shown under the strength meter while the chosen passphrase is below the floor Export is
+         gated on — the same zxcvbn floor onboarding and Settings apply to the master password.
+         Deliberately NOT tagged SECURITY-COPY: it states a requirement, not a property, which is
+         the same shape as the untagged onboarding_password_error_weak; the property claim it might
+         otherwise carry (what protects the exported file, and that nothing else does) is the job of
+         backup_export_passphrase_footnote above. Never names the four bands — those are core:ui's
+         vocabulary and the meter directly above already says which one this is. -->
+    <string name="backup_export_passphrase_too_weak">That passphrase is too easy to guess. Pick a stronger one.</string>
+    <string name="backup_export_button">Export .vault</string>
+    <!-- The name the export's save dialog proposes; %1$s is the export date, ISO (2026-10-05).
+         Not translated, like onboarding_recovery_pdf_filename: it is a file name, the brand is on
+         the do-not-translate list, and an ISO date sorts and reads the same everywhere. -->
+    <string name="backup_export_filename" translatable="false">LocalKeep-%1$s.vault</string>
+    <!-- %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_export_last_export">Last export: %1$s</string>
+    <!-- The folded Export row's summary when there has been no export. With one, the row reads
+         backup_export_last_export. -->
+    <string name="backup_export_summary_never">Not exported yet</string>
+
+    <string name="backup_import_section">Import a .vault file</string>
+    <string name="backup_import_vault_password_label">Vault password</string>
+    <string name="backup_import_password_field_label">Password of the file being imported</string>
+    <string name="backup_import_choose_button">Choose .vault file</string>
+    <string name="backup_import_decrypted_note">File decrypted. Choose how to apply it.</string>
+    <string name="backup_import_merge_button">Merge into this vault</string>
+    <string name="backup_import_replace_button">Replace this vault</string>
+    <string name="backup_import_cancel_button">Cancel</string>
+
+    <string name="backup_snapshots_section">Rolling local snapshots</string>
+    <string name="backup_snapshots_empty_title">No snapshots yet</string>
+    <!-- %1$d is RollingBackupManager.MAX_SNAPSHOTS, the number of rolling copies kept on-device. -->
+    <plurals name="backup_snapshots_empty_body">
+        <item quantity="one">LocalKeep keeps the newest %1$d copy of the vault on this device as you save. One will appear here after your next change.</item>
+        <item quantity="other">LocalKeep keeps the newest %1$d copies of the vault on this device as you save. One will appear here after your next change.</item>
+    </plurals>
+    <string name="backup_snapshot_restore_button">Restore</string>
+    <string name="backup_snapshots_footnote">Restoring replaces the current vault with that snapshot. Anything saved since then is gone.</string>
+
+    <!-- Raised by Back and by the header chevron while a picked .vault sits decrypted in memory
+         waiting on Merge or Replace. Leaving used to drop it in silence, and redoing it costs a
+         file pick plus an Argon2id derivation. It discards work, so it carries tier A; it is not
+         painted coral, because nothing in the user's own vault is at risk. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_title">Discard this backup?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_body">This backup is decrypted and waiting for Merge or Replace. Leaving now discards it. None of your items have changed, and the file itself is untouched — you can choose it again.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_confirm">Discard</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_title">Replace this vault?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_body">Every item in this vault is discarded — including its files and photos — and the imported file takes its place. Media from the import is restored, re-encrypted under this vault\'s key. This cannot be undone, though an earlier snapshot or backup may still hold the old vault.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_confirm">Replace everything</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_title">Restore this snapshot?</string>
+    <!-- %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03"; it appears once. The closing
+         clause names the forced re-lock, which VaultLockManager.restoreVaultFile performs before it
+         returns and which the dialog used not to mention at all. It says CURRENT master password
+         because that is the only one a restored snapshot accepts: every master-password change and
+         Recovery-Kit reset re-keys every rolling snapshot (StaleContainerSweeper converts each
+         backup container to the new key), so a snapshot is never sealed under an older secret. The
+         string used to send the user to "the master password you used on <date>", which the
+         vault would reject. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_body">The vault goes back to how it was on %1$s. Anything saved since then is lost. Snapshots hold the vault only, so any files or photos added since will no longer be attached to anything. It then locks: unlock it with your current master password.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_confirm">Restore</string>
+    <!-- Names the gate in front of the one irreversible control on this screen; its two siblings
+         above label a well that guards an export and a KDF change, neither of which destroys data.
+         Tier C under the security-copy protocol: it is what explains why the prompt appeared. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="backup_restore_master_password_field_label">Master password, to confirm the restore</string>
+
+    <!-- Status/error banner shown at the top of the screen, from BackupSettingsViewModel. -->
+    <string name="backup_status_cloud_disabled">Cloud backup disabled</string>
+    <string name="backup_status_cloud_enabled">Cloud backup enabled</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_status_kdf_check_slow">Unlocking takes %1$d ms here, but your vault is already at the lowest setting LocalKeep will use — there is nothing safe to trade away.</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault\'s settings already suit this device. -->
+    <string name="backup_status_kdf_check_ok">Encryption settings suit this device (%1$d ms to unlock).</string>
+    <string name="backup_status_kdf_recalibrated">Encryption settings updated for this device. Your Recovery Kit and biometric unlock are unaffected.</string>
+    <!-- The in-flight note for the one operation on the Backup screen that writes no
+         status of its own: the unlock-speed check. Announced to a screen reader. -->
+    <string name="backup_working">Working…</string>
+    <string name="backup_status_exporting">Exporting…</string>
+    <!-- Queued for the next unlock when the vault locks while a file picker is open: the screen that
+         asked for the file is gone by the time the picker answers, so the pick is dropped, and
+         without this the user unlocks onto the vault list with no word that it was. -->
+    <string name="backup_notice_locked_while_choosing_file">Locked while choosing a file. Nothing was exported or imported.</string>
+    <!-- %1$d is the exported .vault file\'s size in bytes. -->
+    <string name="backup_status_exported">Exported %1$s</string>
+    <string name="backup_status_reading_file">Reading the file…</string>
+    <string name="backup_status_file_read">File read — choose Merge or Replace</string>
+    <string name="backup_status_merging">Merging…</string>
+    <string name="backup_status_replacing_vault">Replacing this vault…</string>
+    <string name="backup_status_import_complete">Import complete</string>
+    <!-- The merge path's result line. Label-and-value rather than counted nouns: three counts
+         cannot be one plural, and the segments are category headings, not agreement with the
+         number beside them. "already current" is the file's item that this vault had nothing
+         newer to take from. -->
+    <string name="backup_status_merge_complete">Merge complete — new: %1$d, updated: %2$d, already current: %3$d</string>
+    <!-- The replace path's result line: what the vault holds now, in the merge line's
+         label-and-value shape. Counted from what the vault list shows, so the two numbers agree
+         with the list header the user lands on. -->
+    <string name="backup_status_replace_complete">Replace complete — items: %1$d, folders: %2$d</string>
+    <!-- Shown instead of backup_status_import_complete when the restored vault has items
+         referencing files this backup's media section did not contain — truncated, corrupted,
+         or (deliberately indistinguishable from either) an export taken from a different vault.
+         %1$d is the distinct count of missing refs, never the count of affected items. -->
+    <plurals name="backup_status_import_complete_missing_files">
+        <item quantity="one">Import complete — %1$d referenced file was not in this backup.</item>
+        <item quantity="other">Import complete — %1$d referenced files were not in this backup.</item>
+    </plurals>
+    <string name="backup_status_restoring">Restoring…</string>
+    <!-- The restore-side counterpart of backup_status_import_complete_missing_files, for
+         RollingBackupManager.missingBlobRefCount. Deliberately its own plural, not a reuse of the
+         import one: "was not in this backup" describes a bundle that never carried the file, but a
+         rolling snapshot is vault.enc alone and never carries media at all — what is true here is
+         that this device no longer has the file, most likely because it was cleaned up as
+         unreferenced sometime after this snapshot was taken and before it was restored. Not yet
+         wired to a screen: restoreVaultFile force-locks before RollingBackupManager can report
+         anything itself, so this reaches the user through the post-unlock notice in :app the same
+         way backup_status_import_complete_missing_files's sibling flag already does — see
+         BackupPreferences.consumeRestoreNoticePendingMissingBlobRefCount. -->
+    <plurals name="backup_status_restore_complete_missing_files">
+        <item quantity="one">Restored — %1$d referenced file is no longer on this device.</item>
+        <item quantity="other">Restored — %1$d referenced files are no longer on this device.</item>
+    </plurals>
+
+    <string name="backup_error_kdf_check_failed">Couldn\'t measure your vault\'s encryption settings on this device.</string>
+    <string name="backup_error_kdf_wrong_password">That isn\'t your master password.</string>
+    <!-- Deliberately does not name duress: the feature only works while
+         an observer does not learn it exists. True as far as it goes — this vault's setup does
+         not allow the change — and says nothing more. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="backup_error_kdf_recalibrate_blocked">This vault\'s security setup doesn\'t allow changing that here.</string>
+    <string name="backup_error_export_wrong_password">Wrong master password. Enter it again to retry.</string>
+    <string name="backup_error_restore_wrong_password">Wrong master password. Enter it again to retry.</string>
+    <string name="backup_error_export_vault_locked">Vault is locked</string>
+
+    <!-- Resolved from a known AppError literal raised by VaultExporter/VaultImporter/
+         RollingBackupManager — see BackupSettingsViewModel's AppError.toBackupMessage(). Any
+         failure text not in that mapping falls back to backup_error_generic. -->
+    <string name="backup_error_vault_file_missing">Your vault file is missing or damaged, so this backup could not be made.</string>
+    <string name="backup_error_export_write_failed">Couldn\'t write the export to the location you chose.</string>
+    <string name="backup_error_export_device_full">Not enough free space on this device. The export is built here first, even when you save it somewhere else, so free up some space and try again.</string>
+    <string name="backup_error_export_build_failed">Couldn\'t build the export with a separate passphrase.</string>
+    <string name="backup_error_import_read_failed">Couldn\'t read the file you chose.</string>
+    <string name="backup_error_import_too_large">That file is too large to open on this device.</string>
+    <string name="backup_error_import_open_failed">Couldn\'t open the file you chose.</string>
+    <string name="backup_error_import_invalid_file">That isn\'t a valid .vault file.</string>
+    <string name="backup_error_import_wrong_password">Wrong password for this file. Enter it again, then choose the file again.</string>
+    <string name="backup_error_import_decrypt_failed">Couldn\'t decrypt the file you chose.</string>
+    <!-- Adapted from unlock_error_vault_newer_version, which says the same thing about the live
+         vault file. Deliberately drops that string's "do not restore an older backup over it":
+         here the newer file IS the backup, and nothing has been written. What it keeps is the
+         part that matters — naming what the user should do (update) and what they should not do
+         (re-type a password that was already correct). By the time this can be reported the KEK
+         has unwrapped the DEK and the key commitment has verified, so "your password was
+         correct" is a fact, not a guess. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="backup_error_import_newer_version">This backup was written by a newer version of LocalKeep. Update the app to open it — the file is fine, and your password was correct.</string>
+    <!-- decryptThenRestore's restore phase failing means the import never merged/replaced
+         anything — pendingImportVault stays null and confirmImport is unreachable (see
+         VaultImporter.kt / BackupSettingsViewModel.stageImport). Must say plainly that nothing
+         was imported; the prior wording claimed the opposite. -->
+    <string name="backup_error_import_attachments_failed">Nothing was imported — some attachments in this backup could not be restored.</string>
+    <!-- The vault auto-locked while the file picker was open. Distinct from
+         backup_error_import_attachments_failed, which used to swallow this case and told the user
+         their backup was damaged when nothing was (G14). -->
+    <string name="backup_error_import_vault_locked">The vault locked while that file was being read. Unlock it and choose the file again — nothing was imported.</string>
+    <string name="backup_error_merge_failed">Merging the imported vault failed.</string>
+    <string name="backup_error_replace_failed">Replacing the vault failed.</string>
+    <!-- The three ways restoring a rolling snapshot fails for good. They shared
+         backup_error_generic until 2026-09-07, because RollingBackupManager interpolated the
+         snapshot filename into each literal and an interpolated name can never match the exact-text
+         table above — so three permanent conditions all offered a retry that changes none of them.
+         None names the file: the snapshot's `vault-<UTC stamp>.enc` is an internal storage id the
+         UI never shows. "Try an older one" is the real next step, and the list of older snapshots
+         is on the same screen, directly above this message's slot. -->
+    <string name="backup_error_restore_read_failed">Couldn\'t read that snapshot from this device. Nothing was changed — try an older one.</string>
+    <string name="backup_error_restore_invalid_file">That snapshot isn\'t a valid vault file, so it wasn\'t restored. Try an older one.</string>
+    <string name="backup_error_restore_corrupt">That snapshot is damaged, so it wasn\'t restored. Try an older one.</string>
+    <!-- Unlike the two strings above, "try an older one" would be the wrong advice here: the
+         snapshot itself is fine, this build just predates it. Deliberately does not name a
+         password, unlike backup_error_import_newer_version's "your password was correct" —
+         restoring a rolling snapshot never asks for one. -->
+    <string name="backup_error_restore_newer_version">That snapshot was written by a newer version of LocalKeep. Update the app to open it — nothing was changed.</string>
+    <string name="backup_error_generic">Something went wrong. Please try again.</string>
+    <!-- A key derivation that runs inside the open app (duress setup, master-password change, KDF
+         re-wrap) ran out of heap. Named rather than generic: "try again" reproduces it. The remedy
+         mirrors unlock_error_needs_more_memory in feature/unlock. Carries no tier. -->
+    <string name="backup_error_kdf_needs_more_memory">This vault\'s encryption settings need more memory than this device gives the app while it is open. Nothing was changed. On a phone with more memory, lower them under Settings › Backup — after that this works here too.</string>
+</resources>

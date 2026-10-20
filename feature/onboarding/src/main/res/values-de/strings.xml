@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared across several steps' primary button. -->
+    <string name="onboarding_action_continue">Weiter</string>
+
+    <string name="onboarding_screen_deriving_title">Ihr Tresor wird erstellt</string>
+    <string name="onboarding_screen_busy_biometric_title">Biometrisches Entsperren wird eingerichtet</string>
+    <string name="onboarding_screen_busy_recovery_title">Ihr Wiederherstellungskit wird gespeichert</string>
+
+    <!-- Welcome step: the brand moment, no chrome. -->
+    <string name="onboarding_welcome_tagline">Ihr Tresor. Ihr Gerät.</string>
+    <!-- SECURITY-COPY: tier G. Claims what LocalKeep can and cannot see/reset — keep the
+         locational and confidentiality claims accurate; do not translate in a way that implies
+         the vault never leaves the device (Android Auto Backup can still take vault.enc). -->
+    <string name="onboarding_welcome_body">Passwörter werden hier verschlüsselt — es gibt kein Konto, keinen Synchronisationsserver und keine Möglichkeit für uns, etwas zu lesen oder zurückzusetzen.</string>
+    <string name="onboarding_welcome_cta">Loslegen</string>
+
+    <!-- Create-master-password step. -->
+    <string name="onboarding_password_title">Erstellen Sie Ihr Master-Passwort</string>
+    <!-- SECURITY-COPY: tier G. Claims LocalKeep never sees the master password and cannot reset it. -->
+    <string name="onboarding_password_body">Dies ist der einzige Schlüssel zu Ihrem Tresor.\nLocalKeep sieht ihn nie, weshalb wir ihn auch nie zurücksetzen können.</string>
+    <!-- SECURITY-COPY: tier B. Names the Recovery Kit as the only way back in. -->
+    <string name="onboarding_password_recovery_kit_promise">Während der Einrichtung wird Ihnen ein Wiederherstellungskit mit 24 Wörtern angeboten — der einzige Weg zurück, falls Sie dieses Passwort vergessen.</string>
+    <!-- Used both as the field's visible label and as its accessibility label. -->
+    <string name="onboarding_password_field_label">Master-Passwort</string>
+    <string name="onboarding_password_suggest_one">Vorschlagen</string>
+    <string name="onboarding_password_confirm_label">Bestätigen</string>
+    <string name="onboarding_password_confirm_placeholder">Noch einmal eingeben</string>
+    <string name="onboarding_password_confirm_field_label">Master-Passwort bestätigen</string>
+    <string name="onboarding_password_mismatch">Diese stimmen noch nicht überein.</string>
+    <!-- SECURITY-COPY: tier G. Explains why a short password is not actually rate-limited: the
+         vault is a file, not an account behind a server. -->
+    <string name="onboarding_password_weak_consent_title">Dieses Passwort trotzdem verwenden</string>
+    <string name="onboarding_password_weak_consent_body">Ihr Tresor ist eine Datei auf diesem Gerät. Wenn jemand sie kopiert, kann er das Passwort offline so schnell erraten, wie seine Hardware es erlaubt — es gibt keinen Server, der ihn verlangsamt, und kein Konto, das gesperrt werden kann. Ein kurzes Passwort ist Minuten Arbeit.</string>
+    <!-- zxcvbn strength verdicts. -->
+    <string name="onboarding_password_strength_guessed_instantly">Sofort erraten</string>
+    <string name="onboarding_password_strength_guessed_seconds">In Sekunden erraten</string>
+    <string name="onboarding_password_strength_guessed_hours">In Stunden erraten</string>
+    <string name="onboarding_password_strength_strong_enough">Stark genug</string>
+    <string name="onboarding_password_strength_very_strong">Sehr stark</string>
+    <!-- %2$s is zxcvbn's own advice string (e.g. "add another word"), which is library output in
+         English only and is not itself translated by this extraction. -->
+    <string name="onboarding_password_strength_summary">%1$s — %2$s</string>
+    <!-- Accessibility variant of the line above, read by a screen reader as one sentence. -->
+    <string name="onboarding_password_strength_summary_description">%1$s. %2$s</string>
+    <string name="onboarding_password_error_empty">Master-Passwort eingeben</string>
+    <string name="onboarding_password_error_weak">Dieses Passwort ist leicht zu erraten. Bestätigen Sie unten, dass Sie es trotzdem verwenden möchten, oder wählen Sie ein stärkeres.</string>
+    <string name="onboarding_password_error_mismatch">Passwörter stimmen nicht überein</string>
+    <string name="onboarding_password_error_creation_failed">Tresorerstellung fehlgeschlagen. Vorhandene Daten wurden nicht überschrieben. Es wurde kein Passwort gespeichert. Falls Sie sich eines notiert haben, können Sie es verwerfen und ein neues wählen.</string>
+    <string name="onboarding_password_error_suggest_failed">Passphrase konnte nicht generiert werden. Tippen Sie erneut auf Vorschlagen, oder geben Sie Ihre eigene ein.</string>
+    <string name="onboarding_password_notice_suggested">Notieren Sie es sich, bevor Sie fortfahren — es ist Ihr Master-Passwort.</string>
+
+    <!-- Biometric-enrollment step. -->
+    <string name="onboarding_biometric_title">Mit Biometrie entsperren</string>
+    <!-- SECURITY-COPY: tier G. Claims biometric unlock is a convenience layered on top of the master
+         password and can never recover the vault on its own. -->
+    <string name="onboarding_biometric_body">Biometrisches Entsperren kann LocalKeep öffnen, anstatt jedes Mal Ihr Master-Passwort einzugeben.\n\nEs ist ein zusätzlicher Komfort, niemals ein Ersatz: Ihr Master-Passwort funktioniert weiterhin, und biometrisches Entsperren allein kann den Zugriff auf den Tresor niemals wiederherstellen.</string>
+    <!-- Reused as the BiometricPrompt system dialog's title. -->
+    <string name="onboarding_biometric_enable_cta">Biometrisches Entsperren aktivieren</string>
+    <string name="onboarding_biometric_not_now">Jetzt nicht</string>
+    <!-- SECURITY-COPY: tier C. Explains why the biometric prompt appeared. -->
+    <string name="onboarding_biometric_prompt_subtitle">Bestätigen, um diesen Tresorschlüssel zu schützen</string>
+    <!-- SECURITY-COPY: tier G. Reiterates that the master password still works after enrollment. -->
+    <string name="onboarding_biometric_enabled_notice">Biometrisches Entsperren aktiviert. Ihr Master-Passwort funktioniert weiterhin.</string>
+    <string name="onboarding_biometric_enable_failed">Biometrisches Entsperren wurde nicht aktiviert. Sie können es später in den Einstellungen einschalten.</string>
+    <string name="onboarding_biometric_skip_no_lock">Biometrisches Entsperren benötigt eine Geräte-Bildschirmsperre. Fügen Sie in den Systemeinstellungen eine PIN, ein Muster oder ein Passwort hinzu und aktivieren Sie es dann in den Einstellungen von LocalKeep.</string>
+    <string name="onboarding_biometric_skip_no_sensor">Dieses Gerät hat keinen starken biometrischen Sensor registriert, daher ist biometrisches Entsperren nicht verfügbar. Ihr Master-Passwort funktioniert weiterhin.</string>
+
+    <!-- Recovery Kit step, embedded in first-run onboarding. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recovery_title">Ihr Wiederherstellungskit</string>
+    <string name="onboarding_recovery_body">Diese 24 Wörter sind der einzige Weg zurück in Ihren Tresor, falls Sie Ihr Master-Passwort vergessen — es kann nicht zurückgesetzt werden, weil niemand außer Ihnen den Schlüssel besitzt, der ihn öffnet.\n\nJeder mit diesen Wörtern kann den echten Tresor öffnen.</string>
+    <!-- Accessibility label for the Continue button while it is disabled, since a screen reader
+         gets neither the visual dimming nor the adjacency to the consent row above it. -->
+    <string name="onboarding_recovery_continue_disabled_label">Weiter, verfügbar sobald Sie Ihr Wiederherstellungskit speichern</string>
+    <string name="onboarding_password_continue_disabled_empty">Weiter, verfügbar sobald Sie ein Master-Passwort eingeben</string>
+    <string name="onboarding_password_continue_disabled_confirm">Weiter, verfügbar sobald Sie Ihr Master-Passwort bestätigen</string>
+    <string name="onboarding_password_continue_disabled_mismatch">Weiter, verfügbar sobald beide Passwörter übereinstimmen</string>
+    <string name="onboarding_password_continue_disabled_weak">Weiter, verfügbar sobald Sie bestätigen, dass Sie dieses leicht zu erratende Passwort verwenden möchten</string>
+    <!-- Heading over the numbered word grid. Shared by the onboarding step and the standalone
+         Recovery Kit screen. -->
+    <string name="onboarding_recovery_words_label">Wiederherstellungswörter</string>
+    <string name="onboarding_recovery_qr_render_error">QR-Code konnte nicht gerendert werden — stattdessen das PDF speichern.</string>
+    <string name="onboarding_recovery_qr_instruction">Fotografieren Sie dies mit einem anderen Gerät und bestätigen Sie dann unten.</string>
+    <string name="onboarding_recovery_qr_captured_cta">Ich habe den QR-Code fotografiert</string>
+    <string name="onboarding_recovery_save_pdf">Als PDF speichern</string>
+    <string name="onboarding_recovery_show_qr">Stattdessen QR-Code anzeigen</string>
+    <string name="onboarding_recovery_footnote">Speichern Sie am besten auf diesem Gerät. Manche Freigabeziele laden in die Cloud hoch, was Ihre Wiederherstellungswörter auf den Computer eines anderen bringen würde.</string>
+    <string name="onboarding_recovery_qr_content_description">Wiederherstellungskit-QR-Code</string>
+    <string name="onboarding_recovery_export_pdf_notice">Wiederherstellungskit gespeichert. Bewahren Sie es offline auf — jeder, der es hat, kann Ihren Tresor öffnen.</string>
+    <string name="onboarding_recovery_export_pdf_error">Wiederherstellungskit konnte nicht gespeichert werden. Eine dort verbliebene Datei ist unvollständig und öffnet Ihren Tresor nicht — entfernen Sie sie und versuchen Sie es erneut.</string>
+    <string name="onboarding_recovery_qr_captured_notice">Wiederherstellungskit fotografiert. Überprüfen Sie, ob das Foto lesbar ist, bevor Sie fortfahren.</string>
+    <string name="onboarding_recovery_confirm_notice">Speichern Sie das Wiederherstellungskit als PDF, oder zeigen Sie den QR-Code an und fotografieren Sie ihn — oder wählen Sie „Später einrichten“.</string>
+    <string name="onboarding_recovery_defer">Später einrichten</string>
+    <string name="onboarding_recovery_pdf_title">LocalKeep Wiederherstellungskit</string>
+    <string name="onboarding_recovery_pdf_warning_line1">Diese 24 Wörter sind der EINZIGE Weg zurück in Ihren Tresor, falls Sie Ihr Master-Passwort vergessen.</string>
+    <string name="onboarding_recovery_pdf_warning_line2">LocalKeep kann es nicht für Sie zurücksetzen — nur Sie halten den Schlüssel, der es öffnet, und LocalKeep hat keinen Server, an den Ihr Tresor gesendet werden könnte.</string>
+    <string name="onboarding_recovery_pdf_warning_line3">Jeder, der diese Wörter besitzt, kann Ihren echten Tresor öffnen. Verwahren Sie diese Seite wie Bargeld.</string>
+    <!-- %1$s is today's date, ISO-formatted. -->
+    <string name="onboarding_recovery_pdf_footer">Generiert %1$s · bewahren Sie dies auf Papier, offline, an einem Ort auf, den nur Sie erreichen können.</string>
+
+    <!-- General back-navigation notice, not Recovery Kit specific. -->
+    <string name="onboarding_notice_no_back">Ihr Tresor wurde bereits erstellt, daher gibt es keinen Schritt, zu dem Sie zurückkehren könnten.</string>
+
+    <!-- Cloud-backup step. -->
+    <string name="onboarding_cloudbackup_title">In Ihrem Google-Konto sichern?</string>
+    <!-- SECURITY-COPY: tier G. Claims Google only ever holds the encrypted file and the master
+         password never leaves the device — the canonical claim-about-where-data-lives case. -->
+    <string name="onboarding_cloudbackup_body">Android kann eine verschlüsselte Kopie Ihres Tresors in Ihrem Google-Konto aufbewahren, sodass Ihr Tresor den Verlust dieses Telefons übersteht.\n\nGoogle hat immer nur die verschlüsselte Datei — Ihr Master-Passwort verlässt niemals dieses Gerät, daher kann niemand sie dort öffnen.</string>
+    <string name="onboarding_cloudbackup_enable_cta">Sicherung aktiviert lassen</string>
+    <string name="onboarding_cloudbackup_disable_cta">Keine Sicherung</string>
+    <!-- SECURITY-COPY: tier G. Claims this phone holds the only copy once backup is off. -->
+    <string name="onboarding_cloudbackup_footnote">Wenn Sie sie deaktivieren, hält dieses Telefon die einzige Kopie — exportieren Sie Ihren Tresor an einen sicheren Ort, sonst geht mit dem Telefon auch der Tresor verloren. Sie können dies jederzeit unter Einstellungen → Sicherung ändern.</string>
+
+    <!-- Migration step. -->
+    <string name="onboarding_migrate_title">Ihre Passwörter importieren</string>
+    <string name="onboarding_migrate_body">Importieren Sie von Chrome, Apple Passwords, Bitwarden, 1Password, KeePass oder Aegis — oder einer CSV von einem anderen Manager, einschließlich Firefox und LastPass.\n\nSie sehen alles, was gefunden wurde, und können auswählen, was behalten werden soll, bevor etwas gespeichert wird.</string>
+    <!-- Reused on the Done step's primary button when the user asked to import. -->
+    <string name="onboarding_migrate_import_cta">Meine Passwörter importieren</string>
+    <string name="onboarding_done_import_cta">Importquelle wählen</string>
+    <string name="onboarding_migrate_skip_cta">Mit leerem Tresor beginnen</string>
+    <string name="onboarding_migrate_footnote">„Mit leerem Tresor beginnen“ ist völlig in Ordnung. Einstellungen → Tresor &amp; Sicherung → Import aus einer anderen App führt den gleichen Assistenten aus, wann immer Sie möchten — nichts hier ist einmalig.</string>
+
+    <!-- Done step. -->
+    <string name="onboarding_done_title">Sie sind bereit</string>
+    <!-- SECURITY-COPY: tier B. Recovery-kit-saved confirmation. -->
+    <string name="onboarding_done_body_recovery_saved">Ihr Tresor ist auf diesem Gerät verschlüsselt.\n\nBewahren Sie Ihr Wiederherstellungskit sicher und offline auf — es ist der einzige Weg zurück, falls Sie Ihr Master-Passwort vergessen.</string>
+    <!-- SECURITY-COPY: tier B. Warns the user has no Recovery Kit yet. -->
+    <string name="onboarding_done_body_recovery_missing">Ihr Tresor ist auf diesem Gerät verschlüsselt.\n\nSie haben noch kein Wiederherstellungskit, daher ist Ihr Master-Passwort derzeit der einzige Weg hinein — vergessen Sie es und der Tresor ist verloren.\n\nEinstellungen → Wiederherstellungskit erstellt eines, wann immer Sie möchten.</string>
+    <string name="onboarding_done_open_vault_cta">Meinen Tresor öffnen</string>
+    <string name="onboarding_done_autofill_cta">Autofill einrichten</string>
+    <string name="onboarding_done_autofill_done">Autofill aktiviert</string>
+    <string name="onboarding_done_passkeys_cta">Passkeys einrichten</string>
+
+    <!-- Progress rail across the top of every step. -->
+    <string name="onboarding_rail_progress">%1$d von %2$d</string>
+    <string name="onboarding_rail_progress_description">Schritt %1$d von %2$d</string>
+
+    <string name="onboarding_settings_unavailable">Dieser Einstellungsbildschirm ist nicht verfügbar</string>
+
+    <!-- Standalone Recovery Kit screen (Settings → Recovery Kit), for a vault that already
+         exists. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recoverykit_gate_title">Bestätigen Sie, dass Sie es sind</string>
+    <string name="onboarding_recoverykit_gate_body">Ein Wiederherstellungskit öffnet diesen Tresor ohne das Master-Passwort, und ein neu erstelltes ersetzt jedes vorhandene Kit. Bestätigen Sie biometrisch oder mit dem Tresor-Passwort, um fortzufahren.</string>
+    <!-- Shown instead of the body above when the gate has no biometric door to offer: a panic
+         lock took biometrics away from the gates, or the device has no strong sensor. The
+         shared body invited a fingerprint the screen then did not accept. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_gate_body_password_only">Ein Wiederherstellungskit öffnet diesen Tresor ohne das Master-Passwort, und ein neu erstelltes ersetzt jedes vorhandene Kit. Bestätigen Sie mit dem Tresor-Passwort, um fortzufahren.</string>
+    <string name="onboarding_recoverykit_gate_password_label">Tresor-Passwort</string>
+    <string name="onboarding_recoverykit_gate_biometric">Biometrisch bestätigen</string>
+    <string name="onboarding_recoverykit_gate_biometric_subtitle">Bestätigen Sie, um ein Wiederherstellungskit zu erstellen</string>
+    <string name="onboarding_recoverykit_gate_submit">Weiter</string>
+    <string name="onboarding_recoverykit_gate_error_password">Das ist nicht das Passwort dieses Tresors.</string>
+    <string name="onboarding_recoverykit_gate_error_memory">Die Verschlüsselungseinstellungen dieses Tresors benötigen mehr Arbeitsspeicher, als dieses Gerät der geöffneten App gibt. Nichts wurde geändert. Senken Sie sie auf einem Telefon mit mehr Arbeitsspeicher unter Einstellungen › Sicherung — danach funktioniert es auch hier.</string>
+    <string name="onboarding_recoverykit_gate_error_session_ended">Der Tresor wurde gesperrt, bevor das abgeschlossen war. Entsperren Sie ihn und versuchen Sie es erneut.</string>
+    <plurals name="onboarding_recoverykit_gate_error_throttled">
+        <item quantity="one">Zu viele Versuche. Versuchen Sie es in %1$d Sekunde erneut.</item>
+        <item quantity="other">Zu viele Versuche. Versuchen Sie es in %1$d Sekunden erneut.</item>
+    </plurals>
+    <string name="onboarding_recoverykit_title">Wiederherstellungskit</string>
+    <string name="onboarding_recoverykit_subtitle">Der einzige Weg zurück, falls Sie Ihr Master-Passwort vergessen</string>
+    <string name="onboarding_recoverykit_back_label">Zurück</string>
+    <string name="onboarding_recoverykit_empty_body">Ein Wiederherstellungskit besteht aus 24 Wörtern, die diesen Tresor ohne das Master-Passwort öffnen. Es gibt kein Zurücksetzen und kein Konto, daher ist es der einzige Weg zurück.\n\nDie Erstellung eines Kits ersetzt jedes bereits vorhandene Kit. Tun Sie es, wenn Sie nie eines gespeichert haben, wenn Sie es verloren haben, oder wenn Sie seitdem Ihr Master-Passwort geändert haben — das rotiert den Schlüssel, für den das alte Kit erstellt wurde, und die App widerruft es, anstatt Sie mit einer Seite zurückzulassen, die genau dann versagt, wenn Sie sie brauchen.</string>
+    <string name="onboarding_recoverykit_working">Wird bearbeitet…</string>
+    <string name="onboarding_recoverykit_create_cta">Wiederherstellungskit erstellen</string>
+    <string name="onboarding_recoverykit_done_cta">Fertig</string>
+    <string name="onboarding_recoverykit_replace_footnote">Ein Speichern ersetzt jedes frühere Wiederherstellungskit dieses Tresors. Bis dahin funktioniert das Kit, das Sie bereits haben, weiterhin — verlassen Sie den Bildschirm ohne zu speichern, ändert sich nichts. Speichern Sie bevorzugt auf diesem Gerät: manche Freigabeziele laden in die Cloud hoch.</string>
+    <string name="onboarding_recoverykit_error_locked">Entsperren Sie zuerst Ihren Tresor.</string>
+    <string name="onboarding_recoverykit_error_create_failed">Wiederherstellungskit für diesen Tresor konnte nicht erstellt werden.</string>
+    <string name="onboarding_recoverykit_error_commit_failed">Datei gespeichert, aber dieser Tresor behielt sein vorheriges Wiederherstellungskit. Entsperren Sie den Tresor und versuchen Sie es erneut — die soeben gespeicherten Wörter werden ihn nicht öffnen.</string>
+</resources>

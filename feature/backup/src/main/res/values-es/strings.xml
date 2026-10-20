@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="backup_screen_title">Copia de seguridad y exportación</string>
+    <string name="backup_screen_subtitle">Copias cifradas, copias instantáneas locales y copia de seguridad en la nube</string>
+    <string name="backup_screen_back">Atrás</string>
+
+    <string name="backup_cloud_section">Copia de seguridad en la nube</string>
+    <!-- Positive assertion, added 2026-09-09. The row was "Disable cloud backup" with the
+         switch ON meaning backup was OFF — a double negative on the one control that
+         decides whether vault ciphertext can leave the device via Android Auto Backup.
+         The stored preference is still `disableCloudBackup`; only the presentation is
+         inverted, so ON now means the thing the label names is happening. -->
+    <string name="backup_cloud_include_label">Incluir la caja fuerte en la copia de Android</string>
+    <string name="backup_cloud_disable_hint_on">La copia de seguridad automática de Android no incluirá su caja fuerte</string>
+    <string name="backup_cloud_disable_hint_off">La copia de seguridad automática incluye la caja fuerte cifrada (límite ~25 MB)</string>
+    <string name="backup_cloud_footnote">Lo que Google almacena es texto cifrado; restaurarlo aún necesita su contraseña maestra.</string>
+    <string name="backup_cloud_schedule_footnote">Android decide cuándo subir la copia: normalmente por Wi-Fi, mientras se carga y está inactivo, así que un cambio reciente puede no estar aún en la copia de seguridad.</string>
+    <string name="backup_cloud_attachments_footnote">Los archivos adjuntos no se incluyen: la copia de seguridad automática solo abarca la caja fuerte, así que restaurar desde Google devuelve sus elementos sin sus archivos ni fotos.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_schedule_footnote_off">Android decide cuándo se realizan las copias de seguridad, así que una copia subida antes de que desactivara esto puede permanecer en su cuenta de Google hasta la siguiente pasada de Android.</string>
+
+    <string name="backup_kdf_section">Configuración de cifrado para este dispositivo</string>
+    <string name="backup_kdf_intro">La dificultad de desbloqueo viaja con la caja fuerte. Vale la pena verificarlo si la restauró desde otro teléfono.</string>
+    <string name="backup_kdf_check_button">Verificar velocidad de desbloqueo</string>
+    <!-- Shown when a re-benchmark finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_kdf_keep_slow">Verificado — lenta aquí (%1$d ms), pero ya en la configuración más baja que LocalKeep usará.</string>
+    <string name="backup_kdf_keep_ok">Verificado — la configuración de su caja fuerte es adecuada para este dispositivo.</string>
+    <!-- Offer to lower the Argon2id cost because unlocking is slow on this device. -->
+    <string name="backup_kdf_faster_headline">El desbloqueo tarda %1$d ms en este dispositivo, lo suficientemente lento como para que valga la pena aligerarlo.</string>
+    <string name="backup_kdf_faster_consequence">Esto reduce el trabajo que un atacante debe realizar por intento. Solo es el compromiso correcto si la demora le impide siquiera bloquear su caja fuerte.</string>
+    <!-- Offer to lower the Argon2id cost so the vault can open on older, lower-memory phones. -->
+    <string name="backup_kdf_portable_headline">Esta caja fuerte fue configurada para necesitar más memoria de la que los teléfonos antiguos le dan a una aplicación, por lo que no se abriría en uno en absoluto.</string>
+    <string name="backup_kdf_portable_consequence">Aligerarla ahora significa que la caja fuerte aún se abre si alguna vez la restaura en un teléfono antiguo. Reduce el trabajo que un atacante debe realizar por intento, al nivel que las cajas fuertes nuevas ya usan.</string>
+    <!-- Offer to raise the Argon2id cost because this device unlocks fast enough to afford it. -->
+    <string name="backup_kdf_stronger_headline">Este dispositivo desbloquea su caja fuerte en %1$d ms — lo suficientemente rápido como para permitirse trabajar más.</string>
+    <string name="backup_kdf_stronger_consequence">Aumentarlo le cuesta una fracción de segundo y le cuesta proporcionalmente más a cualquiera que ataque el archivo.</string>
+    <string name="backup_kdf_master_password_field_label">Contraseña maestra, para confirmar el cambio</string>
+    <string name="backup_kdf_update_button">Actualizar para este dispositivo</string>
+    <string name="backup_kdf_leaving_fine_footnote">Dejarlo así está bien. Su Kit de recuperación y su desbloqueo biométrico no se ven afectados en ningún caso.</string>
+    <string name="backup_kdf_summary_unchecked">Sin verificar</string>
+    <string name="backup_kdf_summary_ok">Verificado · adecuada para este dispositivo</string>
+    <string name="backup_kdf_summary_slow">Verificado · lenta aquí</string>
+    <string name="backup_kdf_summary_offer">Verificado · hay un cambio disponible</string>
+
+    <string name="backup_export_section">Exportar un archivo .vault</string>
+    <!-- Shared field label, used both for the export-confirmation password and the KDF recalibration password. -->
+    <string name="backup_master_password_label">Contraseña maestra</string>
+    <string name="backup_export_master_password_field_label">Contraseña maestra, para confirmar la exportación</string>
+    <string name="backup_export_separate_passphrase_label">Usar una frase de contraseña de exportación separada</string>
+    <!-- Shared for both the field label above the passphrase well and the well\'s own label. -->
+    <string name="backup_export_passphrase_label">Frase de contraseña de exportación</string>
+    <string name="backup_export_passphrase_footnote">Una frase de contraseña separada significa que este archivo sobrevive a un cambio de contraseña maestra — y que perderla vuelve el archivo ilegible. No existe una ruta de recuperación para una exportación.</string>
+    <string name="backup_export_passphrase_too_weak">Esa frase de contraseña es demasiado fácil de adivinar. Elija una más fuerte.</string>
+    <string name="backup_export_button">Exportar .vault</string>
+    <!-- %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_export_last_export">Última exportación: %1$s</string>
+    <string name="backup_export_summary_never">Aún no exportado</string>
+
+    <string name="backup_import_section">Importar un archivo .vault</string>
+    <string name="backup_import_vault_password_label">Contraseña de la caja fuerte</string>
+    <string name="backup_import_password_field_label">Contraseña del archivo que se está importando</string>
+    <string name="backup_import_choose_button">Elegir archivo .vault</string>
+    <string name="backup_import_decrypted_note">Archivo descifrado. Elija cómo aplicarlo.</string>
+    <string name="backup_import_merge_button">Fusionar en esta caja fuerte</string>
+    <string name="backup_import_replace_button">Reemplazar esta caja fuerte</string>
+    <string name="backup_import_cancel_button">Cancelar</string>
+
+    <string name="backup_snapshots_section">Copias instantáneas locales automáticas</string>
+    <string name="backup_snapshots_empty_title">Aún no hay copias instantáneas</string>
+    <!-- %1$d is RollingBackupManager.MAX_SNAPSHOTS, the number of rolling copies kept on-device. -->
+    <plurals name="backup_snapshots_empty_body">
+        <item quantity="one">LocalKeep conserva la %1$d copia más reciente de la caja fuerte en este dispositivo mientras usted guarda. Aparecerá una aquí después de su próximo cambio.</item>
+        <item quantity="many">LocalKeep conserva las %1$d copias más recientes de la caja fuerte en este dispositivo mientras usted guarda. Aparecerá una aquí después de su próximo cambio.</item>
+        <item quantity="other">LocalKeep conserva las %1$d copias más recientes de la caja fuerte en este dispositivo mientras usted guarda. Aparecerá una aquí después de su próximo cambio.</item>
+    </plurals>
+    <string name="backup_snapshot_restore_button">Restaurar</string>
+    <string name="backup_snapshots_footnote">Restaurar reemplaza la caja fuerte actual por esa copia instantánea. Todo lo guardado desde entonces se pierde.</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_title">¿Descartar esta copia de seguridad?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_body">Esta copia de seguridad está descifrada y espera Fusionar o Reemplazar. Si sale ahora, se descarta. Ninguno de sus elementos ha cambiado y el archivo sigue intacto: puede elegirlo de nuevo.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_confirm">Descartar</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_title">¿Reemplazar esta caja fuerte?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_body">Se descarta todo elemento de esta caja fuerte — incluyendo sus archivos y fotos — y el archivo importado ocupa su lugar. Los medios de la importación se restauran, re-cifrados con la clave de esta caja fuerte. Esto no se puede deshacer, aunque una copia instantánea o copia de seguridad anterior aún pueda contener la caja fuerte antigua.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_confirm">Reemplazar todo</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_title">¿Restaurar esta copia instantánea?</string>
+    <!-- SECURITY-COPY: tier A. %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_restore_dialog_body">La caja fuerte vuelve a cómo estaba el %1$s. Todo lo guardado desde entonces se pierde. Las copias instantáneas solo contienen la caja fuerte, por lo que cualquier archivo o foto añadido desde entonces ya no estará adjunto a nada. Después se bloquea: desbloquéela con su contraseña maestra actual.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_confirm">Restaurar</string>
+    <string name="backup_restore_master_password_field_label">Contraseña maestra, para confirmar la restauración</string>
+
+    <!-- Status/error banner shown at the top of the screen, from BackupSettingsViewModel. -->
+    <string name="backup_status_cloud_disabled">Copia de seguridad en la nube desactivada</string>
+    <string name="backup_status_cloud_enabled">Copia de seguridad en la nube activada</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_status_kdf_check_slow">El desbloqueo tarda %1$d ms aquí, pero su caja fuerte ya está en la configuración más baja que LocalKeep usará — no hay nada seguro que sacrificar.</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault\'s settings already suit this device. -->
+    <string name="backup_status_kdf_check_ok">La configuración de cifrado es adecuada para este dispositivo (%1$d ms para desbloquear).</string>
+    <string name="backup_status_kdf_recalibrated">Configuración de cifrado actualizada para este dispositivo. Su Kit de recuperación y su desbloqueo biométrico no se ven afectados.</string>
+    <string name="backup_working">Procesando…</string>
+    <string name="backup_status_exporting">Exportando…</string>
+    <string name="backup_notice_locked_while_choosing_file">Se bloqueó mientras elegía un archivo. No se exportó ni importó nada.</string>
+    <!-- %1$d is the exported .vault file\'s size in bytes. -->
+    <string name="backup_status_exported">Exportado: %1$s</string>
+    <string name="backup_status_reading_file">Leyendo el archivo…</string>
+    <string name="backup_status_file_read">Archivo leído: elija Fusionar o Reemplazar</string>
+    <string name="backup_status_merging">Fusionando…</string>
+    <string name="backup_status_replacing_vault">Reemplazando esta caja fuerte…</string>
+    <string name="backup_status_import_complete">Importación completada</string>
+    <string name="backup_status_merge_complete">Fusión completada — nuevos: %1$d, actualizados: %2$d, ya actualizados: %3$d</string>
+    <string name="backup_status_replace_complete">Reemplazo completado — elementos: %1$d, carpetas: %2$d</string>
+    <plurals name="backup_status_import_complete_missing_files">
+        <item quantity="one">Importación completada — %1$d archivo referenciado no estaba en esta copia de seguridad.</item>
+        <item quantity="many">Importación completada — %1$d archivos referenciados no estaban en esta copia de seguridad.</item>
+        <item quantity="other">Importación completada — %1$d archivos referenciados no estaban en esta copia de seguridad.</item>
+    </plurals>
+    <string name="backup_status_restoring">Restaurando…</string>
+    <plurals name="backup_status_restore_complete_missing_files">
+        <item quantity="one">Restaurado — %1$d archivo referenciado ya no está en este dispositivo.</item>
+        <item quantity="many">Restaurado — %1$d archivos referenciados ya no están en este dispositivo.</item>
+        <item quantity="other">Restaurado — %1$d archivos referenciados ya no están en este dispositivo.</item>
+    </plurals>
+
+    <string name="backup_error_kdf_check_failed">No se pudo medir la configuración de cifrado de su caja fuerte en este dispositivo.</string>
+    <string name="backup_error_kdf_wrong_password">Esa no es su contraseña maestra.</string>
+    <!-- SECURITY-COPY: tier D. Deliberately does not name duress: the feature only works while
+         an observer does not learn it exists. True as far as it goes — this vault's setup does
+         not allow the change — and says nothing more. -->
+    <string name="backup_error_kdf_recalibrate_blocked">La configuración de seguridad de esta caja fuerte no permite cambiarlo aquí.</string>
+    <string name="backup_error_export_wrong_password">Contraseña maestra incorrecta. Ingrésela de nuevo para reintentar.</string>
+    <string name="backup_error_restore_wrong_password">Contraseña maestra incorrecta. Ingrésela de nuevo para reintentar.</string>
+    <string name="backup_error_export_vault_locked">La caja fuerte está bloqueada</string>
+    <string name="backup_error_vault_file_missing">Su archivo de caja fuerte falta o está dañado, por lo que no se pudo crear esta copia de seguridad.</string>
+    <string name="backup_error_export_write_failed">No se pudo escribir la exportación en la ubicación que eligió.</string>
+    <string name="backup_error_export_device_full">No hay suficiente espacio libre en este dispositivo. La exportación se crea aquí primero, aunque la guarde en otro lugar: libere espacio e inténtelo de nuevo.</string>
+    <string name="backup_error_export_build_failed">No se pudo crear la exportación con una frase de contraseña aparte.</string>
+    <string name="backup_error_import_read_failed">No se pudo leer el archivo que eligió.</string>
+    <string name="backup_error_import_too_large">Ese archivo es demasiado grande para abrirse en este dispositivo.</string>
+    <string name="backup_error_import_open_failed">No se pudo abrir el archivo que eligió.</string>
+    <string name="backup_error_import_invalid_file">Ese no es un archivo .vault válido.</string>
+    <string name="backup_error_import_wrong_password">Contraseña incorrecta para este archivo. Ingrésela de nuevo y vuelva a elegir el archivo.</string>
+    <string name="backup_error_import_decrypt_failed">No se pudo descifrar el archivo que eligió.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="backup_error_import_newer_version">Esta copia de seguridad fue escrita por una versión más reciente de LocalKeep. Actualice la aplicación para abrirla — el archivo está bien, y su contraseña era correcta.</string>
+    <string name="backup_error_import_attachments_failed">No se importó nada — algunos archivos adjuntos de esta copia de seguridad no se pudieron restaurar.</string>
+    <string name="backup_error_import_vault_locked">La caja fuerte se bloqueó mientras se leía el archivo. Desbloquéela y elija el archivo de nuevo — no se importó nada.</string>
+    <string name="backup_error_merge_failed">Falló la fusión de la caja fuerte importada.</string>
+    <string name="backup_error_replace_failed">Falló el reemplazo de la caja fuerte.</string>
+    <string name="backup_error_restore_read_failed">No se pudo leer esa copia instantánea en este dispositivo. No se cambió nada: pruebe con una más antigua.</string>
+    <string name="backup_error_restore_invalid_file">Esa copia instantánea no es un archivo de caja fuerte válido, por lo que no se restauró. Pruebe con una más antigua.</string>
+    <string name="backup_error_restore_corrupt">Esa copia instantánea está dañada, por lo que no se restauró. Pruebe con una más antigua.</string>
+    <string name="backup_error_restore_newer_version">Esa copia instantánea fue escrita por una versión más reciente de LocalKeep. Actualice la aplicación para abrirla — no se cambió nada.</string>
+    <string name="backup_error_generic">Algo salió mal. Inténtelo de nuevo.</string>
+    <string name="backup_error_kdf_needs_more_memory">Los ajustes de cifrado de esta caja fuerte necesitan más memoria de la que este dispositivo da a la aplicación mientras está abierta. No se cambió nada. En un teléfono con más memoria, redúzcalos en Ajustes › Copia de seguridad — después de eso también funcionará aquí.</string>
+</resources>

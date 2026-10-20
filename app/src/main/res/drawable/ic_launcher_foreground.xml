@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The launcher mark: the shield with a keyhole, drawn at launcher scale rather than borrowed from it.
+
+  This used to be LkIcons.Shield's 24×24 path under a `scaleX/Y="2.6"` group. That kept the two marks
+  provably identical, which was the right instinct and the wrong execution: a glyph authored for 24dp
+  has a 24dp detail budget, and blowing it up 2.6× spends none of the room a 108dp canvas offers. The
+  silhouette here is the same shield to within a rounding — same shoulder angle, same 0.86 width-to-
+  height, same keyhole proportions — so it still reads as one mark, but it is authored in the 108 grid
+  so the surface can carry a bevel, a light, and a punched hole.
+
+  Four things the scaled version could not have:
+
+   1. *An edge.* A lit rim along the silhouette, brightest at the apex and gone by the waist. This is
+      what stops the mark reading as a flat sticker on a flat ground.
+   2. *A surface.* A light over the top-left facet and a shade over the bottom, both clipped to the
+      shield, on the same light source as the background and as LkScreen's aura.
+   3. *A hole that is a hole.* The keyhole is knocked out three times: a dark offset up-left, a lit
+      jade offset down-right, then the true opening on top. What survives is a shadow crescent on the
+      near wall and a lit crescent on the far one — the read of something cut *through* a plate.
+   4. *No seam.* The old keyhole was a circle subpath plus a stem subpath that overlapped, under
+      `evenOdd` — so the lens where they crossed cancelled to zero and filled with shield colour, a
+      jade wedge sitting in the middle of the opening. Invisible at 24dp, not at 108. It is now a
+      single continuous outline: down the stem, round its foot, back up, then the long way over the
+      circle. One subpath cannot cancel against itself.
+
+  Geometry: centred on (54, 54), spanning x 27.9–80.1 and y 23.6–84.4. Furthest point from centre is
+  the top-right shoulder at 32.46, inside the adaptive icon's 33 safe radius with room for the mask.
+
+  === v2, 2026-07-31 ===============================================================================
+  Two changes, both checked against the adaptive mask; the technique above is untouched.
+
+   1. Scaled +7% about (54,54). The silhouette's furthest point moves from 30.3 to 32.46 of the 33
+      safe radius, so the mark fills the tile instead of floating in it. Same shoulders, same 0.86
+      width-to-height — it is the same shield.
+   2. Keyhole enlarged past the uniform scale: radius 6.1 to 7.0, stem half-width 2.3 to 2.6, foot
+      dropped to y63. The punch now reads on the 48dp launcher grid and at 19dp in the drawer.
+      Still one continuous single-subpath outline, so point 4 above still holds.
+
+  This drawing is also what the app renders in-app: LkLogo's LkMark is this silhouette and keyhole
+  flattened onto the 24 grid.
+
+  === 1a "Slim & sharp", 2026-09-07 ===============================================================
+  The lighting is now `site/Vault App Landing Design/assets/icon-slim.svg`, the option picked out of
+  the Icon Lab: harder light, brighter rim, crisper keyhole. **No geometry moved.** The silhouette,
+  the keyhole and their proportions are byte-for-byte what v2 left, because 1a changed nothing about
+  them either — diffed against `assets/logo-compact.svg`, the mark 1a was offered as a refinement of,
+  the shield path and the keyhole path are character-identical in both. Only the surface changed, so
+  ic_launcher_monochrome.xml and LkMark — which carry the silhouette with no surface at all — need no
+  edit to stay the same mark.
+
+  Five surface changes, each traceable to a line of the SVG:
+
+   1. *Plate.* #78F5D3/#39D4AA/#159576 -> #83F8D6/#31D0A5/#0E8A6B: brighter at the apex, deeper at
+      the foot, so the plate itself carries more of the modelling.
+   2. *Light.* The soft radial haze is gone. 1a lights the shield with an angular facet — a triangle
+      from the apex down the left shoulder, under its own white .22 -> 0 gradient — which is what
+      gives the mark a hard edge of light instead of a bloom. This is the single biggest change.
+   3. *Crown.* A new white .4 stroke tracing the shield's top two edges, inside the clip. v2 had no
+      such line; it is what makes the top read as a chamfer rather than a fold.
+   4. *Rim.* The evenOdd band (silhouette minus a 0.9 inset) is replaced by 1a's actual construction,
+      a stroke on the silhouette itself, and made much brighter: #F2FFFB at .9 where the band peaked
+      at .46, fading through #AEFFE9 .2 and reaching zero at y63 rather than y54.
+   5. *Keyhole.* Shadow and lit offsets both pulled in — (-5,-7)/(6,8) -> (-3,-4)/(4,5) in SVG units
+      — so the crescents are tighter and the punch reads as thinner stock; and a specular arc is
+      added inside the opening's upper-left, the highlight of light caught on the far wall.
+
+  Mapping, since the two canvases are not a simple divide. The SVG shield spans x 92–420, y 84–462
+  inside a 512 box; this one spans x 27.9–80.1, y 23.6–84.4 inside 108 — a *relatively larger* mark,
+  which is what v2's +7% bought and is not given back here. So every feature that lives on the shield
+  is mapped through the shield's own bounding box rather than through the canvas:
+
+      x' = 54 + (x - 256) * 0.15915        y' = 23.6 + (y - 84) * 0.16085
+
+  Stroke widths take the same factor (7 -> 1.11), except inside the keyhole group, where the SVG's
+  own scale(0.786) applies first (7 -> 0.88). The keyhole offsets are scaled by 0.786 for the same
+  reason before being mapped.
+
+  One deliberate deviation: 1a's rim stroke is 7 units, which maps to 1.11, and a centred stroke puts
+  half of that outside the silhouette — 32.46 + 0.555 = 33.02, a hair past the 33 safe radius the
+  comment above claims. It is set to 1.0 instead, which lands at 32.96 and keeps that claim true. The
+  0.11 difference is under a tenth of a dp at launcher size and invisible; a false safe-radius claim
+  would not be.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!--
+      === Proportion, corrected 2026-09-07 =========================================================
+      The background maps 1a into the 108 grid at 36/247 = 0.14575. The mapping above uses 0.15915,
+      the 9.2% enlargement inherited from v2 and knowingly kept. On an actual launcher the two
+      factors do not read as one drawing: the shield took 72.5% of the visible 72dp tile where 1a
+      takes 66.4% of its own, and since the mark is centred here but seated low there, nearly all of
+      the difference came off the top — 7.8% margin against 15.2%. Under a circle mask the shoulder
+      ran to 90% of the mask radius and the lit ground vanished behind the shield, which is the one
+      thing the plate-on-a-lit-ground reading depends on.
+
+      Rather than re-derive every coordinate at 0.14575, the drawing is scaled whole. 0.916 is
+      0.664/0.725, the exact width 1a has; translateY 2.45 restores its seating, since 1a's shield
+      centre sits at 53.4% of the tile from the top rather than 50%. A group transform carries the
+      stroke widths with it, which is what the mapping note above wants in any case.
+
+      Measured after, against the visible 18..90 tile, with 1a's own figures beside them:
+          left/right margin  16.8%   (1a: 16.8%)
+          top margin         14.7%   (1a: 15.2%)
+          bottom margin       7.9%   (1a:  8.3%)
+      The furthest point is now the bottom tip at 30.3 from centre, 30.8 with half the rim stroke —
+      so the 33 safe radius the note above is careful about gets more headroom, not less, and the
+      shoulder that used to define the extreme drops from 32.96 to 28.4.
+    -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="0.916"
+        android:scaleY="0.916"
+        android:translateY="2.45">
+
+    <!-- The plate. -->
+    <path android:pathData="M54 23.6 L80.1 34.7 V54.3 c0 16.14 -11.17 27 -26.1 30.1 c-14.94 -3.1 -26.1 -13.96 -26.1 -30.1 V34.7 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="33.95"
+                android:startY="26.82"
+                android:endX="73.73"
+                android:endY="83.11"
+                android:type="linear">
+                <item android:offset="0" android:color="#FF83F8D6" />
+                <item android:offset="0.46" android:color="#FF31D0A5" />
+                <item android:offset="1" android:color="#FF0E8A6B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Surface modelling, clipped to the plate. -->
+    <group>
+        <clip-path android:pathData="M54 23.6 L80.1 34.7 V54.3 c0 16.14 -11.17 27 -26.1 30.1 c-14.94 -3.1 -26.1 -13.96 -26.1 -30.1 V34.7 Z" />
+
+        <!-- The lit facet: apex, left shoulder, and down the left flank. -->
+        <path android:pathData="M54 23.6 L30.13 34.22 L34.9 67.99 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="37.13"
+                    android:startY="24.57"
+                    android:endX="65.78"
+                    android:endY="51.91"
+                    android:type="linear">
+                    <item android:offset="0" android:color="#38FFFFFF" />
+                    <item android:offset="1" android:color="#00FFFFFF" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- The crown: the top two edges, caught hard. -->
+        <path
+            android:pathData="M31.08 37.27 L54 27.14 L76.92 37.27"
+            android:strokeColor="#66FFFFFF"
+            android:strokeWidth="1.11"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+
+        <!-- The shade under the waist. -->
+        <path android:pathData="M0 0h108v108H0Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="54"
+                    android:startY="45.15"
+                    android:endX="54"
+                    android:endY="85.37"
+                    android:type="linear">
+                    <item android:offset="0" android:color="#00000000" />
+                    <item android:offset="1" android:color="#4D00150F" />
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+
+    <!-- The rim: a stroke on the silhouette, lit at the apex and gone by y63. -->
+    <path
+        android:pathData="M54 23.6 L80.1 34.7 V54.3 c0 16.14 -11.17 27 -26.1 30.1 c-14.94 -3.1 -26.1 -13.96 -26.1 -30.1 V34.7 Z"
+        android:strokeWidth="1.0"
+        android:strokeLineJoin="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="54"
+                android:startY="23.6"
+                android:endX="54"
+                android:endY="63.17"
+                android:type="linear">
+                <item android:offset="0" android:color="#E6F2FFFB" />
+                <item android:offset="0.5" android:color="#33AEFFE9" />
+                <item android:offset="1" android:color="#0058E4BD" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Near wall of the opening: in shadow, offset toward the light. -->
+    <group android:translateX="-0.38" android:translateY="-0.5">
+        <path
+            android:fillColor="#8000110C"
+            android:pathData="M56.6 56.1 V63 a2.6 2.6 0 0 1 -5.2 0 V56.1 A7 7 0 1 1 56.6 56.1 Z" />
+    </group>
+
+    <!-- Far wall: lit chamfer, one notch above the plate's lightest tone. -->
+    <group android:translateX="0.5" android:translateY="0.63">
+        <path
+            android:fillColor="#FF96FBE1"
+            android:pathData="M56.6 56.1 V63 a2.6 2.6 0 0 1 -5.2 0 V56.1 A7 7 0 1 1 56.6 56.1 Z" />
+    </group>
+
+    <!-- The opening itself, in the ground colour. -->
+    <path
+        android:fillColor="#FF03170F"
+        android:pathData="M56.6 56.1 V63 a2.6 2.6 0 0 1 -5.2 0 V56.1 A7 7 0 1 1 56.6 56.1 Z" />
+
+    <!-- The specular: light caught on the far wall, inside the opening's upper left. -->
+    <path
+        android:pathData="M48.12 47.85 a6.5 6.5 0 0 1 9.25 -3.37"
+        android:strokeColor="#80B9FFE9"
+        android:strokeWidth="0.88"
+        android:strokeLineCap="round" />
+    </group>
+</vector>

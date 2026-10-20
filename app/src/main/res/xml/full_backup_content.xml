@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Same include/exclude policy as data_extraction_rules.xml, legacy syntax (no
+         cloud-backup/device-transfer split — pre-Android-12 has only one full-backup path). -->
+    <include domain="file" path="."/>
+    <exclude domain="file" path="device_keys.bin"/>
+    <exclude domain="file" path="device_keys.bin.tmp"/>
+    <exclude domain="file" path="vault.enc.bak"/>
+    <exclude domain="file" path="vault.enc.bak.sweep.tmp"/>
+    <exclude domain="file" path="vault.enc.tmp"/>
+    <exclude domain="file" path="blobs/"/>
+    <exclude domain="file" path="blob-replacements/"/>
+    <exclude domain="file" path="dek-rotation.journal"/>
+    <exclude domain="file" path="dek-rotation.journal.tmp"/>
+    <exclude domain="file" path="backups/"/>
+    <exclude domain="file" path="damaged/"/>
+    <!-- androidx DataStore (autofill_trust, billing_entitlement) — see data_extraction_rules.xml. -->
+    <exclude domain="file" path="datastore/"/>
+
+    <include domain="sharedpref" path="."/>
+    <!-- The unlock backoff's failure count and lockout deadline (core/vault UnlockThrottle). Not
+         secret, but device-local state: restored onto a new phone it would re-arm the backoff at a
+         high exponent on the first wrong guess there. -->
+    <exclude domain="sharedpref" path="unlock_throttle.xml"/>
+</full-backup-content>

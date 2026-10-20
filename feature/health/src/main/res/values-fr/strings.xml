@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="health_screen_title">Santé des mots de passe</string>
+    <string name="health_screen_subtitle">Analyse hors ligne · rien n\'est envoyé nulle part</string>
+
+    <string name="health_category_reused_label">Mots de passe réutilisés</string>
+    <string name="health_category_reused_note">Une fuite expose tous les comptes qui le partagent</string>
+
+    <!-- Was "Under 60 bits of entropy" — a threshold nothing in the app computes for stored
+         passwords. The detector is StrengthAnalyzer.isWeak, i.e. a zxcvbn 0-4 guessability score
+         of 1 or less, which its own KDoc calls "guessed in seconds" (roughly 20 bits, not 60).
+         Entropy is computed only in the generator, never for stored items; describe what is
+         actually measured. -->
+    <string name="health_category_weak_label">Mots de passe faibles</string>
+    <string name="health_category_weak_note">Devinés en quelques secondes par un cracker courant</string>
+
+    <string name="health_category_breached_label">Potentiellement compromis</string>
+    <string name="health_category_breached_note">Correspond à la base de fuites hors ligne</string>
+
+    <string name="health_category_old_label">Anciens mots de passe</string>
+    <string name="health_category_old_note">Inchangés depuis 90+ jours</string>
+    <!-- Dialog title for the "old passwords" category — includes the threshold, unlike the row label. -->
+    <string name="health_category_old_dialog_title">Anciens mots de passe (90+ jours)</string>
+
+    <string name="health_category_duplicate_label">Éléments en double</string>
+    <string name="health_category_duplicate_note">Le même compte enregistré plus d\'une fois</string>
+
+    <!-- Accessibility label combining a category row's label, count, and note into one sentence. -->
+    <string name="health_category_accessibility">%1$s\u00a0: %2$d. %3$s</string>
+
+    <!-- Footnote shown when the offline breach corpus loaded successfully. Discloses the
+         false-positive rate per spec §12.7: about 1 in 1,000 passwords that are NOT on the list
+         are flagged anyway. Read "a hit is right about 999 times in 1,000" until 2026-08-31, which
+         was that rate's complement attached to the converse conditional — see values/strings.xml.
+         %1$s is the breach list vintage (e.g. a date), or "unknown" if blank. -->
+    <!-- Same, for an asset whose vintage carries no parseable date. Drops the date clause
+         rather than printing a placeholder: "from unknown" reads as a fault in the app. -->
+    <string name="health_footnote_breach_available_undated">Comparé à %1$s mots de passe connus comme compromis. Une absence signifie «\u00a0pas dans l\'ensemble des plus courants\u00a0» — jamais une garantie de sécurité. Une correspondance n\'est pas une preuve non plus\u00a0: environ 1 mot de passe sur 1\u00a0000 qui ne figure pas dans la liste est signalé quand même\u00a0; le contrôle accepte ce compromis pour garder la liste complète sur votre appareil.</string>
+    <!-- Footnote shown when the offline breach corpus failed to load or parse. -->
+    <string name="health_footnote_breach_unavailable">La base de fuites n\'a pas pu être lue sur cet appareil, donc rien ici ne peut indiquer si un mot de passe a déjà fuité. Tout le reste sur cet écran a été vérifié normalement.</string>
+    <string name="health_footnote_breach_not_yet_checked">%1$s mots de passe connus comme compromis sont stockés sur cet appareil, mais rien ici n\'a de mot de passe à vérifier pour l\'instant.</string>
+
+    <!-- Body of the category detail dialog when no items match the selected category. -->
+    <string name="health_dialog_empty_category">Rien dans cette catégorie.</string>
+    <string name="health_dialog_no_matches">Aucune correspondance.</string>
+    <string name="health_dialog_search_placeholder">Rechercher dans cette liste</string>
+    <string name="health_dialog_close">Fermer</string>
+    <!-- Fallback title for a vault item with a blank title, in the category detail list. -->
+    <string name="health_item_untitled">Sans titre</string>
+    <plurals name="health_dialog_reused_shared_with">
+        <item quantity="one">Partage un mot de passe avec %1$d autre compte</item>
+        <item quantity="many">Partage un mot de passe avec %1$d autres comptes</item>
+        <item quantity="other">Partage un mot de passe avec %1$d autres comptes</item>
+    </plurals>
+
+    <!-- Small caption under the numeral inside the score ring. Kept short and shouty by design. -->
+    <string name="health_score_badge">SCORE</string>
+    <!-- Accessibility label for the score ring; %1$d is the score out of 100. -->
+    <string name="health_score_accessibility">Score de santé des mots de passe %1$d sur 100</string>
+
+    <string name="health_always_on_heading">Toujours actif</string>
+    <string name="health_always_on_footer">Aucune de ces protections ne fait partie de Pro, et aucune ne peut être désactivée.</string>
+    <!-- Accessibility label for one "always on" protection row: title, then summary, then the fixed claim. -->
+    <string name="health_always_on_item_accessibility">%1$s. %2$s. Toujours actif.</string>
+
+    <string name="health_scanning_title">Analyse de votre coffre sur cet appareil</string>
+    <!-- Accessibility label read instead of health_scanning_title while a scan is in progress. -->
+    <string name="health_scanning_accessibility">Analyse de votre coffre en cours. Cela s\'exécute entièrement sur cet appareil.</string>
+
+    <!-- Score card verdict line: no findings at all yet because the vault is empty. -->
+    <string name="health_verdict_nothing_to_check">Rien à vérifier pour l\'instant</string>
+    <!-- Score card verdict line: scanned, and nothing in any category. -->
+    <string name="health_verdict_nothing_worth_fixing">Rien à corriger</string>
+    <!-- Score card verdict line: no password faults, only duplicate entries remain. -->
+    <string name="health_verdict_healthy_duplicates">Sain — seuls des éléments en double restent</string>
+    <!-- Score card verdict line: no password faults, only ageing passwords remain. -->
+    <string name="health_verdict_healthy_ageing">Sain — seuls des mots de passe vieillissants restent</string>
+    <!-- Score card verdict line when one or more items have a password fault (breached, reused,
+         or weak, counted once each). %1$d is affectedCount. Present in every form here: this locale's "one" also covers 0. -->
+    <plurals name="health_verdict_affected_count">
+        <item quantity="one">Bien, avec %1$d chose à corriger</item>
+        <item quantity="many">Bien, avec %1$d choses à corriger</item>
+        <item quantity="other">Bien, avec %1$d choses à corriger</item>
+    </plurals>
+    <!-- The same line when the score falls short of GOOD_VERDICT_MIN_SCORE or any password matched the breach set, where
+         "Good" would contradict the ring and the advice under it. Same quantity as above. -->
+    <plurals name="health_verdict_affected_count_attention">
+        <item quantity="one">Attention requise, avec %1$d chose à corriger</item>
+        <item quantity="many">Attention requise, avec %1$d choses à corriger</item>
+        <item quantity="other">Attention requise, avec %1$d choses à corriger</item>
+    </plurals>
+
+    <!-- Advice line: empty vault, nothing yet to analyse. -->
+    <string name="health_advice_empty">Ajoutez des identifiants et cet écran aura quelque chose à dire.</string>
+    <!-- Advice line: at least one item matched the offline breach set. Highest priority. -->
+    <plurals name="health_advice_breached">
+        <item quantity="one">%1$d mot de passe correspond à la base de fuites hors ligne — commencez par là et traitez-le comme compromis.</item>
+        <item quantity="many">%1$d mots de passe correspondent à la base de fuites hors ligne — commencez par là et traitez-les comme compromis.</item>
+        <item quantity="other">%1$d mots de passe correspondent à la base de fuites hors ligne — commencez par là et traitez-les comme compromis.</item>
+    </plurals>
+    <!-- Advice line: no breach hits, but a password is reused across items. -->
+    <string name="health_advice_reused">Commencez par les mots de passe réutilisés — une fuite expose tous les comptes qui le partagent.</string>
+    <!-- Advice line: no breach or reuse hits, but a password is weak. -->
+    <string name="health_advice_weak">Commencez par les mots de passe faibles — le générateur en remplace un en quelques appuis.</string>
+    <!-- Advice line: no password faults, only ageing passwords to rotate. -->
+    <string name="health_advice_old">Rien n\'est cassé. Renouvelez les plus anciens quand vous aurez une minute.</string>
+    <!-- Advice line: no password faults or ageing passwords, only duplicate entries. -->
+    <string name="health_advice_duplicate">Les mots de passe sont bons. Certains comptes sont enregistrés deux fois — à fusionner, ou le prochain changement de mot de passe ne s\'appliquera qu\'à une copie.</string>
+    <!-- Advice line: a completely clean scan that did consult the offline breach set. States the
+         breach-check result explicitly — see health_advice_clean_no_breach_data for the case where
+         the corpus never loaded and this claim would not be true. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="health_advice_clean_breach_checked">Chaque mot de passe ici est unique, aucun n\'est faible, et aucun n\'est dans la base de fuites hors ligne.</string>
+    <!-- Advice line: a completely clean scan where the breach corpus was unavailable, so nothing
+         is claimed about breach status (see HealthAdviceBreachClaimTest). -->
+    <string name="health_advice_clean_no_breach_data">Chaque mot de passe ici est unique, et aucun n\'est faible.</string>
+
+    <!-- Error card shown when the scan coroutine fails, most commonly an auto-lock landing mid-scan. -->
+    <string name="health_error_scan_failed">L\'analyse de sécurité n\'a pas pu se terminer. Votre coffre a peut-être été verrouillé pendant l\'exécution — déverrouillez-le à nouveau et réessayez.</string>
+    <string name="health_row_saved_on">Enregistré le %1$s</string>
+    <plurals name="health_excluded_note">
+        <item quantity="one">%1$d élément invisible n\'a pas été vérifié.</item>
+        <item quantity="many">%1$d éléments invisibles n\'ont pas été vérifiés.</item>
+        <item quantity="other">%1$d éléments invisibles n\'ont pas été vérifiés.</item>
+    </plurals>
+</resources>

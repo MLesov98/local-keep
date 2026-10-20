@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Base languages only, deliberately: Android resolves pt-PT -> pt -> default,
+     so shipping values-pt covers all ~260M Portuguese speakers, where a
+     Brazil-only values-pt-rBR would give everyone else an English app.
+     Same reasoning for es (locale decisions, 2026-07-30). -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="fr" />
+    <locale android:name="de" />
+    <locale android:name="es" />
+    <locale android:name="pt" />
+</locale-config>

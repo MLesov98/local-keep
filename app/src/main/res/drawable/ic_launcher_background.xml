@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The icon's ground: the app's own near-black, lifted at the top left so the mask does not read as a
+  flat sticker. Same light source as LkScreen's aura and as the foreground's rim — top left, barely
+  there.
+
+  The lift carries a trace of the jade rather than being neutral grey, and it falls off sooner, so the
+  plate sits in a pool of light instead of on an evenly lit card. Two stops became three for the same
+  reason the foreground gained a rim: on a 108 canvas a two-stop radial is visibly a two-stop radial,
+  and the mid stop is what keeps the falloff from banding on the darker end.
+
+  === 1a "Slim & sharp", 2026-09-07 ===============================================================
+  Adopted from `site/Vault App Landing Design/assets/icon-slim.svg`, the option picked out of the Icon
+  Lab. The ground is now that file's own `g1` rather than an independently-tuned near-neutral: stops
+  #1E3E36 / #0D1A19 / #060909, so the lift is meaningfully greener and the far corner meaningfully
+  darker than the #17211F / #0E1316 / #07090B it replaces. One drawing, one set of numbers.
+
+  Mapping, because it is not the naive 512 -> 108 divide. The SVG's ground is a circle at (146,106)
+  with radius 520 inside a tile spanning 9..503 — so the far stop lands just past the tile's
+  bottom-right corner. An adaptive icon's *visible* area is the middle 72 of 108, not the whole
+  canvas, so the tile that must match is 18..90 and the factor is 36/247 = 0.14575, not 108/512:
+
+      centre (146,106) -> (38, 32.1)      radius 520 -> 75.8
+
+  Checked the same way the SVG was: distance from (38,32.1) to the visible tile's bottom-right (90,90)
+  is 77.9, just past the 75.8 radius — the same relationship the SVG has at 534 against 520. Outside
+  the visible circle the gradient simply clamps to #060909, which is what the parallax reveal wants.
+
+  What 1a has and this file cannot: the jade frame stroke and the white hairline ring. Both live in
+  the outer ~4% of the SVG's canvas, which on a 108 adaptive grid is the region every launcher mask
+  cuts away — a frame drawn there would be invisible under a circle mask and sliced under a squircle.
+  The OS mask is the frame. Deliberately dropped, not overlooked.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M0 0h108v108H0Z">
+        <aapt:attr xmlns:aapt="http://schemas.android.com/aapt" name="android:fillColor">
+            <gradient
+                android:centerX="38"
+                android:centerY="32.1"
+                android:gradientRadius="75.8"
+                android:type="radial">
+                <item android:offset="0" android:color="#FF1E3E36" />
+                <item android:offset="0.5" android:color="#FF0D1A19" />
+                <item android:offset="1" android:color="#FF060909" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

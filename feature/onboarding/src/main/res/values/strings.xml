@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared across several steps' primary button. -->
+    <string name="onboarding_action_continue">Continue</string>
+
+    <string name="onboarding_screen_deriving_title">Creating your vault</string>
+    <!-- Titles for the busy overlay on the two steps that raise it without any key derivation: a Keystore
+         key plus one AES-GCM wrap, and a PDF write. Plain labels of what is happening; they promise nothing
+         about the result, so they are not security copy. -->
+    <string name="onboarding_screen_busy_biometric_title">Setting up biometric unlock</string>
+    <string name="onboarding_screen_busy_recovery_title">Saving your Recovery Kit</string>
+
+    <!-- Welcome step: the brand moment, no chrome. -->
+    <string name="onboarding_welcome_tagline">Your vault. Your device.</string>
+    <!-- Claims what LocalKeep can and cannot see/reset — keep the
+         locational and confidentiality claims accurate; do not translate in a way that implies
+         the vault never leaves the device (Android Auto Backup can still take vault.enc). -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_welcome_body">Passwords are encrypted here — there is no account, no sync server, and no way for us to read or reset anything.</string>
+    <string name="onboarding_welcome_cta">Get started</string>
+
+    <!-- Create-master-password step. -->
+    <string name="onboarding_password_title">Create your master password</string>
+    <!-- Claims LocalKeep never sees the master password and cannot reset it. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_password_body">This is the only key to your vault.\nLocalKeep never sees it, which is also why we can never reset it.</string>
+    <!-- Names the Recovery Kit as the only way back in. -->
+    <!-- "Offered", not "you'll save": the Recovery Kit step can now be
+         deferred, and a promise the next screen does not keep is exactly the kind of small untruth
+         that costs a security-critical flow its credibility. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_password_recovery_kit_promise">A 24-word Recovery Kit is offered during setup — the only way back in if you forget this.</string>
+    <!-- Used both as the field's visible label and as its accessibility label. -->
+    <string name="onboarding_password_field_label">Master password</string>
+    <string name="onboarding_password_suggest_one">Suggest one</string>
+    <string name="onboarding_password_confirm_label">Confirm</string>
+    <string name="onboarding_password_confirm_placeholder">Type it once more</string>
+    <string name="onboarding_password_confirm_field_label">Confirm master password</string>
+    <string name="onboarding_password_mismatch">These don\'t match yet.</string>
+    <!-- Explains why a short password is not actually rate-limited: the
+         vault is a file, not an account behind a server. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_password_weak_consent_title">Use this password anyway</string>
+    <string name="onboarding_password_weak_consent_body">Your vault is a file on this device. If someone copies it, they can guess at it offline as fast as their hardware allows — there is no server to slow them down and no account to lock. A short password is minutes of work.</string>
+    <!-- zxcvbn strength verdicts. -->
+    <string name="onboarding_password_strength_guessed_instantly">Guessed instantly</string>
+    <string name="onboarding_password_strength_guessed_seconds">Guessed in seconds</string>
+    <string name="onboarding_password_strength_guessed_hours">Guessed in hours</string>
+    <string name="onboarding_password_strength_strong_enough">Strong enough</string>
+    <string name="onboarding_password_strength_very_strong">Very strong</string>
+    <!-- %2$s is zxcvbn's own advice string (e.g. "add another word"), which is library output in
+         English only and is not itself translated by this extraction. -->
+    <string name="onboarding_password_strength_summary">%1$s — %2$s</string>
+    <!-- Accessibility variant of the line above, read by a screen reader as one sentence. -->
+    <string name="onboarding_password_strength_summary_description">%1$s. %2$s</string>
+    <string name="onboarding_password_error_empty">Enter a master password</string>
+    <string name="onboarding_password_error_weak">This password is easy to guess. Confirm below that you want to use it anyway, or pick a stronger one.</string>
+    <string name="onboarding_password_error_mismatch">Passwords do not match.</string>
+    <string name="onboarding_password_error_creation_failed">Vault creation failed. Existing data was not overwritten. No password was saved, so if you wrote one down you can discard it and choose again.</string>
+    <string name="onboarding_password_error_suggest_failed">Couldn\'t generate a passphrase. Tap Suggest again, or type your own.</string>
+    <string name="onboarding_password_notice_suggested">Write this down before continuing — it is your master password.</string>
+
+    <!-- Biometric-enrollment step. -->
+    <string name="onboarding_biometric_title">Unlock with biometrics</string>
+    <!-- Claims the master password is still the only thing that can
+         recover the vault; biometric unlock is a convenience layered on top. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_biometric_body">Biometrics can open LocalKeep instead of typing your master password each time.\n\nIt is a convenience layered on top, never a replacement: your master password keeps working, and biometrics can never recover the vault on their own.</string>
+    <!-- Reused as the BiometricPrompt system dialog's title. -->
+    <string name="onboarding_biometric_enable_cta">Enable biometric unlock</string>
+    <string name="onboarding_biometric_not_now">Not now</string>
+    <!-- Explains why the biometric prompt appeared. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="onboarding_biometric_prompt_subtitle">Confirm to protect this vault key</string>
+    <!-- Reiterates that the master password still works after enrollment. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_biometric_enabled_notice">Biometric unlock enabled. Your master password still works.</string>
+    <string name="onboarding_biometric_enable_failed">Biometric unlock wasn\'t enabled. You can turn it on later in Settings.</string>
+    <string name="onboarding_biometric_skip_no_lock">Biometric unlock needs a device screen lock. Add a PIN, pattern, or password in system settings, then enable it from LocalKeep\'s settings.</string>
+    <string name="onboarding_biometric_skip_no_sensor">This device has no strong biometric sensor enrolled, so biometric unlock isn\'t available. Your master password still works.</string>
+
+    <!-- Recovery Kit step, embedded in first-run onboarding. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_title">Your Recovery Kit</string>
+    <!-- Criterion 1 and 3: it is the sentence that says the 24 words are the only way back in, and
+         that the master password cannot be reset. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_body">These 24 words are the only way back into your vault if you forget your master password — it cannot be reset, because nobody but you holds the key that opens it.\n\nAnyone with these words can open the real vault.</string>
+    <!-- Accessibility label for the Continue button while it is disabled, since a screen reader
+         gets neither the visual dimming nor the adjacency to the consent row above it. -->
+    <!-- Spoken reasons for the dimmed Continue on the master-password step. Screen readers get
+         neither the dimming nor the adjacency of the meter and mismatch line, so the reason has to
+         be on the button itself — the same treatment onboarding_recovery_continue_disabled_label
+         gives the Recovery Kit step. -->
+    <string name="onboarding_password_continue_disabled_empty">Continue, available once you enter a master password</string>
+    <string name="onboarding_password_continue_disabled_confirm">Continue, available once you confirm your master password</string>
+    <string name="onboarding_password_continue_disabled_mismatch">Continue, available once both passwords match</string>
+    <string name="onboarding_password_continue_disabled_weak">Continue, available once you confirm you want this easy-to-guess password</string>
+    <string name="onboarding_recovery_continue_disabled_label">Continue, available once you save your Recovery Kit</string>
+    <!-- Heading over the numbered word grid. Shared by the onboarding step and the standalone
+         Recovery Kit screen. -->
+    <string name="onboarding_recovery_words_label">Recovery words</string>
+    <string name="onboarding_recovery_qr_render_error">Couldn\'t render the QR code — save the PDF instead.</string>
+    <string name="onboarding_recovery_qr_instruction">Photograph this with another device, then confirm below.</string>
+    <string name="onboarding_recovery_qr_captured_cta">I captured the QR code</string>
+    <string name="onboarding_recovery_save_pdf">Save as PDF</string>
+    <string name="onboarding_recovery_show_qr">Show QR code instead</string>
+    <string name="onboarding_recovery_footnote">Prefer saving to this device. Some share targets upload to the cloud, which would put your recovery words on someone else\'s computer.</string>
+    <string name="onboarding_recovery_qr_content_description">Recovery Kit QR code</string>
+    <!-- Criterion 2 and 4. This is the tier's own headline sentence, shipped: it confirms the kit was
+         saved and says in the same breath where it must not go. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_export_pdf_notice">Recovery Kit saved. Keep it offline — anyone with it can open your vault.</string>
+    <!-- the SAF export failure. Amended 2026-08-10: this path streams into
+         the file the user picked, so a mid-write failure leaves a TRUNCATED PDF sitting at a
+         location they chose, and the old copy said nothing about it. A half-written Recovery Kit
+         the user later trusts is precisely the Tier B harm, so the message now names the file and
+         tells them to delete it. Do not shorten this back down without deciding what happens to
+         that partial file first. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_export_pdf_error">Couldn\'t save the Recovery Kit. Any file it left at that location is incomplete and won\'t open your vault — delete it, then try again.</string>
+    <!-- Criterion 4, and the weakest save route there is: a photograph of a QR that was never checked
+         is a kit the user believes they have. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_qr_captured_notice">Recovery Kit captured. Verify the photo is readable before continuing.</string>
+    <!-- Shown when Continue is tapped before the kit has been saved. Names
+         the deferral too, because it is now a real way past this step and a notice that listed only
+         the three save actions would be telling the user something untrue about their options. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_confirm_notice">Save the Recovery Kit as a PDF, or show the QR and capture it — or choose “Set this up later”.</string>
+    <!-- The deferral. States the consequence once, plainly, without a
+         confirm dialog: this is an action with a cost, not a warning to be acknowledged. It is
+         deliberately NOT worded as "I have saved it" — nothing here records a kit as existing. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_defer">Set this up later</string>
+    <!-- Suggested filename for the document picker, not prose — stays English like other
+         filenames the app writes. -->
+    <string name="onboarding_recovery_pdf_filename" translatable="false">LocalKeep-Recovery-Kit.pdf</string>
+    <string name="onboarding_recovery_pdf_title">LocalKeep Recovery Kit</string>
+    <!-- Criterion 3, printed onto the artefact itself. Line 2 beside it is already Tier B; the two are
+         one warning and were tagged apart. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recovery_pdf_warning_line1">These 24 words are the ONLY way back into your vault if you forget your master password.</string>
+    <!-- A "where vault data lives" claim: says the *app* has no server to
+         send the vault to, and deliberately stops short of "never leaves your device" — Android
+         Auto Backup can still take vault.enc (see §8.2), which is why the onboarding cloud-backup
+         step owns that disclosure. Fixed 2026-08-06: previously claimed "your vault is never sent
+         anywhere", false on a default install. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_recovery_pdf_warning_line2">LocalKeep cannot reset it for you — nobody but you holds the key that opens it, and LocalKeep has no server to send your vault to.</string>
+    <string name="onboarding_recovery_pdf_warning_line3">Anyone who holds these words can open your real vault. Store this page like cash.</string>
+    <!-- %1$s is today's date, ISO-formatted. -->
+    <string name="onboarding_recovery_pdf_footer">Generated %1$s · keep this on paper, offline, somewhere only you can reach.</string>
+
+    <!-- General back-navigation notice, not Recovery Kit specific. -->
+    <string name="onboarding_notice_no_back">Your vault is already created, so there\'s no step to go back to.</string>
+
+    <!-- Cloud-backup step. -->
+    <string name="onboarding_cloudbackup_title">Back up to your Google account?</string>
+    <!-- Claims Google only ever holds the encrypted file and the master
+         password never leaves the device — the canonical claim-about-where-data-lives case. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_cloudbackup_body">Android can keep an encrypted copy of your vault in your Google account, so it survives losing this phone.\n\nGoogle only ever holds the encrypted file — your master password never leaves this device, so nobody there can open it.</string>
+    <string name="onboarding_cloudbackup_enable_cta">Keep the backup on</string>
+    <string name="onboarding_cloudbackup_disable_cta">No backup</string>
+    <!-- Claims this phone holds the only copy once backup is off. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="onboarding_cloudbackup_footnote">If you turn it off, this phone holds the only copy — export your vault somewhere safe, or losing the phone loses the vault. Either way you can change this later under Settings → Backup.</string>
+
+    <!-- Migration step. -->
+    <string name="onboarding_migrate_title">Bring your passwords over</string>
+    <string name="onboarding_migrate_body">Import from Chrome, Apple Passwords, Bitwarden, 1Password, KeePass or Aegis — or a CSV from any other manager, including Firefox and LastPass.\n\nYou will see everything that was found and can choose what to keep before anything is saved.</string>
+    <!-- Reused on the Done step's primary button when the user asked to import. -->
+    <string name="onboarding_migrate_import_cta">Import my passwords</string>
+    <!-- The Done step's primary when the user asked to migrate. Deliberately NOT
+         onboarding_migrate_import_cta: the migration step already carries that label, and the same
+         words on two consecutive screens made the first tap read as a no-op (2A-F7). Matches the
+         wizard's own first step, "choose a source". -->
+    <string name="onboarding_done_import_cta">Choose an import source</string>
+    <string name="onboarding_migrate_skip_cta">Start with an empty vault</string>
+    <string name="onboarding_migrate_footnote">“Start with an empty vault” is fine. Settings → Vault &amp; Backup → Import from another app runs the same wizard whenever you want it — nothing here is one-time.</string>
+
+    <!-- Done step. -->
+    <string name="onboarding_done_title">You\'re set up</string>
+    <!-- Recovery-kit-saved confirmation. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_done_body_recovery_saved">Your vault is encrypted on this device.\n\nKeep your Recovery Kit somewhere safe and offline — it is the only way back in if you forget your master password.</string>
+    <!-- Warns the user has no Recovery Kit yet. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_done_body_recovery_missing">Your vault is encrypted on this device.\n\nYou have no Recovery Kit yet, so right now your master password is the only way in — forget it and the vault is gone.\n\nSettings → Recovery Kit makes one whenever you want.</string>
+    <string name="onboarding_done_open_vault_cta">Open my vault</string>
+    <string name="onboarding_done_autofill_cta">Set up autofill</string>
+    <!-- Replaces the CTA once LocalKeep is the device's autofill service. The button used to read
+         "Set up autofill" whether or not the user had just done exactly that, so the step gave no
+         sign the excursion had worked. Same two-state treatment Settings has always had. -->
+    <string name="onboarding_done_autofill_done">Autofill is on</string>
+    <string name="onboarding_done_passkeys_cta">Set up passkeys</string>
+
+    <!-- Progress rail across the top of every step. -->
+    <string name="onboarding_rail_progress">%1$d of %2$d</string>
+    <string name="onboarding_rail_progress_description">Step %1$d of %2$d</string>
+
+    <string name="onboarding_settings_unavailable">This settings screen is unavailable</string>
+
+    <!-- Standalone Recovery Kit screen (Settings → Recovery Kit), for a vault that already
+         exists. -->
+    <!-- SECURITY-COPY: tier B -->
+    <!-- the re-authentication gate in front of minting a Recovery Kit.
+         Says "vault password", never "master password": the same words are shown in a duress
+         session, where the real master password is not what is being asked for. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="onboarding_recoverykit_gate_title">Confirm it\'s you</string>
+    <!-- Criterion 1 and 4: it says a kit opens the vault without the master password, and that making
+         one silently retires the kit the user may already be holding. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_gate_body">A Recovery Kit opens this vault without the master password, and making one replaces any kit you already have. Confirm with biometrics or your vault password to continue.</string>
+    <!-- Shown instead of the body above when the gate has no biometric door to offer: a panic
+         lock took biometrics away from the gates, or the device has no strong sensor. The
+         shared body invited a fingerprint the screen then did not accept. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_gate_body_password_only">A Recovery Kit opens this vault without the master password, and making one replaces any kit you already have. Confirm with your vault password to continue.</string>
+    <string name="onboarding_recoverykit_gate_password_label">Vault password</string>
+    <string name="onboarding_recoverykit_gate_biometric">Use biometrics</string>
+    <string name="onboarding_recoverykit_gate_biometric_subtitle">Confirm to create a Recovery Kit</string>
+    <string name="onboarding_recoverykit_gate_submit">Continue</string>
+    <string name="onboarding_recoverykit_gate_error_password">That is not this vault\'s password.</string>
+    <!-- The gate's key derivation ran out of heap beside the open UI. Same copy as
+         settings_error_kdf_needs_more_memory. Carries no tier. -->
+    <string name="onboarding_recoverykit_gate_error_memory">This vault\'s encryption settings need more memory than this device gives the app while it is open. Nothing was changed. On a phone with more memory, lower them under Settings › Backup — after that this works here too.</string>
+    <string name="onboarding_recoverykit_gate_error_session_ended">The vault locked before that finished. Unlock it and try again.</string>
+    <!-- How long until the gate's shared throttle (VaultLockManager, also used by unlock and the
+         master-password change) allows another attempt. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="onboarding_recoverykit_gate_error_throttled">
+        <item quantity="one">Too many attempts. Try again in %1$d second.</item>
+        <item quantity="other">Too many attempts. Try again in %1$d seconds.</item>
+    </plurals>
+    <string name="onboarding_recoverykit_title">Recovery Kit</string>
+    <string name="onboarding_recoverykit_subtitle">The only way back in if you forget your master password</string>
+    <string name="onboarding_recoverykit_back_label">Back</string>
+    <!-- Criterion 1 and 3, for a vault that has no kit at all. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_empty_body">A Recovery Kit is 24 words that open this vault without the master password. There is no reset and no account, so it is the only route back in.\n\nMaking one replaces any kit you already have. Do it if you never saved one, if you have lost it, or if you have changed your master password since — that rotates the key the old kit was made for, and the app revokes it rather than leaving you holding a page that fails at the moment you need it.</string>
+    <string name="onboarding_recoverykit_working">Working…</string>
+    <string name="onboarding_recoverykit_create_cta">Create a Recovery Kit</string>
+    <string name="onboarding_recoverykit_done_cta">Done</string>
+    <!-- Future tense, deliberately. This asserted the revocation in the
+         present — "the old ones no longer open it" — while the new words are still uncommitted, and
+         the deferred commit exists precisely so that leaving without saving keeps the old kit
+         alive. A user who read it literally and destroyed their printed kit before saving the new
+         one would have been left with nothing. F14 QA persona, 2026-08-30. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_replace_footnote">Saving these replaces any earlier Recovery Kit for this vault. Until you save, the kit you already have still works — leave without saving and nothing changes. Prefer saving to this device: some share targets upload to the cloud.</string>
+    <string name="onboarding_recoverykit_error_locked">Unlock your vault first.</string>
+    <string name="onboarding_recoverykit_error_create_failed">Couldn\'t create a Recovery Kit for this vault.</string>
+    <!-- Criterion 4, in its most dangerous form. The file was written but the vault kept the OLD kit,
+         so the user is holding a sheet that does not open it and has every reason to think it
+         does. This is the exact 'you believe you have a kit' failure the tier exists for. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_error_commit_failed">Saved the file, but this vault kept its previous Recovery Kit. Unlock the vault and try again — the words you just saved will not open it.</string>
+</resources>

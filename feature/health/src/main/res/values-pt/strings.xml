@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="health_screen_title">Saúde das senhas</string>
+    <string name="health_screen_subtitle">Análise offline · nada é enviado a lugar nenhum</string>
+
+    <string name="health_category_reused_label">Senhas reutilizadas</string>
+    <string name="health_category_reused_note">Um vazamento expõe todas as contas que a compartilham</string>
+
+    <!-- Was "Under 60 bits of entropy" — a threshold nothing in the app computes for stored
+         passwords. The detector is StrengthAnalyzer.isWeak, i.e. a zxcvbn 0-4 guessability score
+         of 1 or less, which its own KDoc calls "guessed in seconds" (roughly 20 bits, not 60).
+         Entropy is computed only in the generator, never for stored items; describe what is
+         actually measured. -->
+    <string name="health_category_weak_label">Senhas fracas</string>
+    <string name="health_category_weak_note">Adivinhadas em segundos por um cracker comum</string>
+
+    <string name="health_category_breached_label">Potencialmente comprometidas</string>
+    <string name="health_category_breached_note">Corresponde ao conjunto de vazamentos offline</string>
+
+    <string name="health_category_old_label">Senhas antigas</string>
+    <string name="health_category_old_note">Inalteradas por 90+ dias</string>
+    <!-- Dialog title for the "old passwords" category — includes the threshold, unlike the row label. -->
+    <string name="health_category_old_dialog_title">Senhas antigas (90+ dias)</string>
+
+    <string name="health_category_duplicate_label">Entradas duplicadas</string>
+    <string name="health_category_duplicate_note">A mesma conta salva mais de uma vez</string>
+
+    <!-- Accessibility label combining a category row's label, count, and note into one sentence. -->
+    <string name="health_category_accessibility">%1$s: %2$d. %3$s</string>
+
+    <!-- Footnote shown when the offline breach corpus loaded successfully. Discloses the
+         false-positive rate per spec §12.7: about 1 in 1,000 passwords that are NOT on the list
+         are flagged anyway. Read "a hit is right about 999 times in 1,000" until 2026-08-31, which
+         was that rate's complement attached to the converse conditional — see values/strings.xml.
+         %1$s is the breach list vintage (e.g. a date), or "unknown" if blank. -->
+    <!-- Same, for an asset whose vintage carries no parseable date. Drops the date clause
+         rather than printing a placeholder: "from unknown" reads as a fault in the app. -->
+    <string name="health_footnote_breach_available_undated">Verificado com %1$s senhas sabidamente vazadas. Uma ausência significa “não está no conjunto das mais vazadas” — nunca uma garantia de segurança. Uma correspondência também não é prova: cerca de 1 em 1.000 senhas que não estão na lista é sinalizada mesmo assim; a verificação aceita isso para manter a lista toda no seu dispositivo.</string>
+    <!-- Footnote shown when the offline breach corpus failed to load or parse. -->
+    <string name="health_footnote_breach_unavailable">A lista de vazamentos não pôde ser lida neste dispositivo, então nada aqui pode dizer se uma senha já vazou. Todo o resto nesta tela foi verificado normalmente.</string>
+    <string name="health_footnote_breach_not_yet_checked">%1$s senhas sabidamente vazadas estão armazenadas neste dispositivo, mas ainda não há nenhuma senha aqui para verificar.</string>
+
+    <!-- Body of the category detail dialog when no items match the selected category. -->
+    <string name="health_dialog_empty_category">Nada nesta categoria.</string>
+    <string name="health_dialog_no_matches">Nenhuma correspondência.</string>
+    <string name="health_dialog_search_placeholder">Pesquisar nesta lista</string>
+    <string name="health_dialog_close">Fechar</string>
+    <!-- Fallback title for a vault item with a blank title, in the category detail list. -->
+    <string name="health_item_untitled">Sem título</string>
+    <plurals name="health_dialog_reused_shared_with">
+        <item quantity="one">Compartilha uma senha com %1$d outra conta</item>
+        <item quantity="many">Compartilha uma senha com %1$d outras contas</item>
+        <item quantity="other">Compartilha uma senha com %1$d outras contas</item>
+    </plurals>
+
+    <!-- Small caption under the numeral inside the score ring. Kept short and shouty by design. -->
+    <string name="health_score_badge">PONTUAÇÃO</string>
+    <!-- Accessibility label for the score ring; %1$d is the score out of 100. -->
+    <string name="health_score_accessibility">Pontuação de saúde das senhas %1$d de 100</string>
+
+    <string name="health_always_on_heading">Sempre ativo</string>
+    <string name="health_always_on_footer">Nada disso faz parte do Pro, e nada pode ser desligado.</string>
+    <!-- Accessibility label for one "always on" protection row: title, then summary, then the fixed claim. -->
+    <string name="health_always_on_item_accessibility">%1$s. %2$s. Sempre ativo.</string>
+
+    <string name="health_scanning_title">Escaneando seu cofre neste dispositivo</string>
+    <!-- Accessibility label read instead of health_scanning_title while a scan is in progress. -->
+    <string name="health_scanning_accessibility">Escaneando seu cofre. Isso roda inteiramente neste dispositivo.</string>
+
+    <!-- Score card verdict line: no findings at all yet because the vault is empty. -->
+    <string name="health_verdict_nothing_to_check">Nada para verificar ainda</string>
+    <!-- Score card verdict line: scanned, and nothing in any category. -->
+    <string name="health_verdict_nothing_worth_fixing">Nada para corrigir</string>
+    <!-- Score card verdict line: no password faults, only duplicate entries remain. -->
+    <string name="health_verdict_healthy_duplicates">Saudável — só restam entradas duplicadas</string>
+    <!-- Score card verdict line: no password faults, only ageing passwords remain. -->
+    <string name="health_verdict_healthy_ageing">Saudável — só restam senhas envelhecidas</string>
+    <!-- Score card verdict line when one or more items have a password fault (breached, reused,
+         or weak, counted once each). %1$d is affectedCount. Present in every form here: this locale's "one" also covers 0. -->
+    <plurals name="health_verdict_affected_count">
+        <item quantity="one">Bom, com %1$d coisa a corrigir</item>
+        <item quantity="many">Bom, com %1$d coisas a corrigir</item>
+        <item quantity="other">Bom, com %1$d coisas a corrigir</item>
+    </plurals>
+    <!-- The same line when the score falls short of GOOD_VERDICT_MIN_SCORE or any password matched the breach set, where
+         "Good" would contradict the ring and the advice under it. Same quantity as above. -->
+    <plurals name="health_verdict_affected_count_attention">
+        <item quantity="one">Requer atenção, com %1$d coisa a corrigir</item>
+        <item quantity="many">Requer atenção, com %1$d coisas a corrigir</item>
+        <item quantity="other">Requer atenção, com %1$d coisas a corrigir</item>
+    </plurals>
+
+    <!-- Advice line: empty vault, nothing yet to analyse. -->
+    <string name="health_advice_empty">Adicione alguns logins e esta tela terá algo a dizer.</string>
+    <!-- Advice line: at least one item matched the offline breach set. Highest priority. -->
+    <plurals name="health_advice_breached">
+        <item quantity="one">%1$d senha corresponde ao conjunto de vazamentos offline — comece por ela e trate-a como comprometida.</item>
+        <item quantity="many">%1$d senhas correspondem ao conjunto de vazamentos offline — comece por elas e trate-as como comprometidas.</item>
+        <item quantity="other">%1$d senhas correspondem ao conjunto de vazamentos offline — comece por elas e trate-as como comprometidas.</item>
+    </plurals>
+    <!-- Advice line: no breach hits, but a password is reused across items. -->
+    <string name="health_advice_reused">Comece pelas senhas reutilizadas — um vazamento numa delas expõe todas as contas que a compartilham.</string>
+    <!-- Advice line: no breach or reuse hits, but a password is weak. -->
+    <string name="health_advice_weak">Comece pelas senhas fracas — o gerador substitui uma em poucos toques.</string>
+    <!-- Advice line: no password faults, only ageing passwords to rotate. -->
+    <string name="health_advice_old">Nada está quebrado. Troque as mais antigas quando tiver um minuto livre.</string>
+    <!-- Advice line: no password faults or ageing passwords, only duplicate entries. -->
+    <string name="health_advice_duplicate">As senhas estão bem. Algumas contas foram salvas duas vezes — vale mesclar, ou a próxima troca de senha só pegará uma cópia.</string>
+    <!-- Advice line: a completely clean scan that did consult the offline breach set. States the
+         breach-check result explicitly — see health_advice_clean_no_breach_data for the case where
+         the corpus never loaded and this claim would not be true. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="health_advice_clean_breach_checked">Todas as senhas aqui são únicas, não fracas e não estão no conjunto de vazamentos offline.</string>
+    <!-- Advice line: a completely clean scan where the breach corpus was unavailable, so nothing
+         is claimed about breach status (see HealthAdviceBreachClaimTest). -->
+    <string name="health_advice_clean_no_breach_data">Todas as senhas aqui são únicas e não fracas.</string>
+
+    <!-- Error card shown when the scan coroutine fails, most commonly an auto-lock landing mid-scan. -->
+    <string name="health_error_scan_failed">A verificação de segurança não pôde terminar. Seu cofre pode ter bloqueado enquanto rodava — abra de novo e tente novamente.</string>
+    <string name="health_row_saved_on">Salvo em %1$s</string>
+    <plurals name="health_excluded_note">
+        <item quantity="one">%1$d item invisível não foi verificado.</item>
+        <item quantity="many">%1$d itens invisíveis não foram verificados.</item>
+        <item quantity="other">%1$d itens invisíveis não foram verificados.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="backup_screen_title">Sicherung &amp; Export</string>
+    <string name="backup_screen_subtitle">Verschlüsselte Kopien, lokale Schnappschüsse und Cloud-Sicherung</string>
+    <string name="backup_screen_back">Zurück</string>
+
+    <string name="backup_cloud_section">Cloud-Sicherung</string>
+    <!-- Positive assertion, added 2026-09-09. The row was "Disable cloud backup" with the
+         switch ON meaning backup was OFF — a double negative on the one control that
+         decides whether vault ciphertext can leave the device via Android Auto Backup.
+         The stored preference is still `disableCloudBackup`; only the presentation is
+         inverted, so ON now means the thing the label names is happening. -->
+    <string name="backup_cloud_include_label">Tresor in Android-Backup einschließen</string>
+    <string name="backup_cloud_disable_hint_on">Android Auto Backup enthält Ihren Tresor nicht</string>
+    <string name="backup_cloud_disable_hint_off">Auto Backup enthält den verschlüsselten Tresor (Limit ~25 MB)</string>
+    <string name="backup_cloud_footnote">Was Google speichert, ist verschlüsselter Text; zur Wiederherstellung benötigen Sie dennoch Ihr Master-Passwort.</string>
+    <string name="backup_cloud_schedule_footnote">Android entscheidet, wann hochgeladen wird — meist über WLAN, beim Laden und im Ruhezustand —, sodass eine kürzlich vorgenommene Änderung möglicherweise noch nicht in der Sicherung enthalten ist.</string>
+    <string name="backup_cloud_attachments_footnote">Anhänge sind nicht enthalten — Auto Backup umfasst nur den Tresor, eine Wiederherstellung aus Google bringt Ihre Einträge also ohne deren Dateien und Fotos zurück.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_schedule_footnote_off">Android entscheidet, wann gesichert wird, sodass eine vor dem Deaktivieren hochgeladene Kopie bis zum nächsten Durchlauf in Ihrem Google-Konto bleiben kann.</string>
+
+    <string name="backup_kdf_section">Verschlüsselungseinstellungen für dieses Gerät</string>
+    <string name="backup_kdf_intro">Die Entsperrschwierigkeit gehört zum Tresor. Es lohnt sich, dies zu prüfen, wenn Sie ihn von einem anderen Telefon wiederhergestellt haben.</string>
+    <string name="backup_kdf_check_button">Entsperrgeschwindigkeit prüfen</string>
+    <!-- Shown when a re-benchmark finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_kdf_keep_slow">Geprüft — langsam hier (%1$d ms), aber bereits auf der niedrigsten Einstellung, die LocalKeep verwendet.</string>
+    <string name="backup_kdf_keep_ok">Geprüft — die Einstellungen Ihres Tresors passen zu diesem Gerät.</string>
+    <!-- Offer to lower the Argon2id cost because unlocking is slow on this device. -->
+    <string name="backup_kdf_faster_headline">Das Entsperren dauert auf diesem Gerät %1$d ms — langsam genug, dass sich eine Lockerung lohnt.</string>
+    <string name="backup_kdf_faster_consequence">Dies verringert den Aufwand, den ein Angreifer pro Versuch betreiben muss. Es ist nur dann der richtige Kompromiss, wenn die Verzögerung Sie davon abhält, Ihren Tresor überhaupt zu sperren.</string>
+    <!-- Offer to lower the Argon2id cost so the vault can open on older, lower-memory phones. -->
+    <string name="backup_kdf_portable_headline">Dieser Tresor wurde so eingerichtet, dass er mehr Speicher benötigt, als ältere Telefone einer App gewähren, sodass er auf einem solchen Gerät gar nicht geöffnet werden könnte.</string>
+    <string name="backup_kdf_portable_consequence">Wenn Sie es jetzt lockern, öffnet sich der Tresor auch dann noch, wenn Sie ihn jemals auf einem älteren Telefon wiederherstellen. Dies verringert den Aufwand, den ein Angreifer pro Versuch betreiben muss, auf das Niveau, das neue Tresore bereits verwenden.</string>
+    <!-- Offer to raise the Argon2id cost because this device unlocks fast enough to afford it. -->
+    <string name="backup_kdf_stronger_headline">Dieses Gerät entsperrt Ihren Tresor in %1$d ms — schnell genug, um sich mehr Aufwand leisten zu können.</string>
+    <string name="backup_kdf_stronger_consequence">Eine Erhöhung kostet Sie einen Bruchteil einer Sekunde und kostet jeden, der die Datei angreift, proportional mehr.</string>
+    <string name="backup_kdf_master_password_field_label">Master-Passwort, zur Bestätigung der Änderung</string>
+    <string name="backup_kdf_update_button">Für dieses Gerät aktualisieren</string>
+    <string name="backup_kdf_leaving_fine_footnote">Sie können es auch so lassen. Ihr Wiederherstellungskit und Ihr biometrisches Entsperren bleiben in jedem Fall unberührt.</string>
+    <string name="backup_kdf_summary_unchecked">Nicht geprüft</string>
+    <string name="backup_kdf_summary_ok">Geprüft · passt zu diesem Gerät</string>
+    <string name="backup_kdf_summary_slow">Geprüft · hier langsam</string>
+    <string name="backup_kdf_summary_offer">Geprüft · Änderung möglich</string>
+
+    <string name="backup_export_section">Eine .vault-Datei exportieren</string>
+    <!-- Shared field label, used both for the export-confirmation password and the KDF recalibration password. -->
+    <string name="backup_master_password_label">Master-Passwort</string>
+    <string name="backup_export_master_password_field_label">Master-Passwort, zur Bestätigung des Exports</string>
+    <string name="backup_export_separate_passphrase_label">Eine separate Export-Passphrase verwenden</string>
+    <!-- Shared for both the field label above the passphrase well and the well\'s own label. -->
+    <string name="backup_export_passphrase_label">Export-Passphrase</string>
+    <string name="backup_export_passphrase_footnote">Eine separate Passphrase bedeutet, dass diese Datei eine Änderung des Master-Passworts übersteht — und dass ein Verlust die Datei unlesbar macht. Es gibt keinen Wiederherstellungsweg für einen Export.</string>
+    <string name="backup_export_passphrase_too_weak">Diese Passphrase ist zu leicht zu erraten. Wählen Sie eine stärkere.</string>
+    <string name="backup_export_button">.vault exportieren</string>
+    <!-- %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_export_last_export">Letzter Export: %1$s</string>
+    <string name="backup_export_summary_never">Noch nicht exportiert</string>
+
+    <string name="backup_import_section">Eine .vault-Datei importieren</string>
+    <string name="backup_import_vault_password_label">Tresor-Passwort</string>
+    <string name="backup_import_password_field_label">Passwort der zu importierenden Datei</string>
+    <string name="backup_import_choose_button">.vault-Datei auswählen</string>
+    <string name="backup_import_decrypted_note">Datei entschlüsselt. Wählen Sie, wie sie angewendet werden soll.</string>
+    <string name="backup_import_merge_button">Mit diesem Tresor zusammenführen</string>
+    <string name="backup_import_replace_button">Diesen Tresor ersetzen</string>
+    <string name="backup_import_cancel_button">Abbrechen</string>
+
+    <string name="backup_snapshots_section">Fortlaufende lokale Schnappschüsse</string>
+    <string name="backup_snapshots_empty_title">Noch keine Schnappschüsse</string>
+    <!-- %1$d is RollingBackupManager.MAX_SNAPSHOTS, the number of rolling copies kept on-device. -->
+    <plurals name="backup_snapshots_empty_body">
+        <item quantity="one">LocalKeep behält die %1$d aktuellste Kopie des Tresors auf diesem Gerät bei, während Sie speichern. Eine wird hier nach Ihrer nächsten Änderung angezeigt.</item>
+        <item quantity="other">LocalKeep behält die %1$d aktuellsten Kopien des Tresors auf diesem Gerät bei, während Sie speichern. Eine wird hier nach Ihrer nächsten Änderung angezeigt.</item>
+    </plurals>
+    <string name="backup_snapshot_restore_button">Wiederherstellen</string>
+    <string name="backup_snapshots_footnote">Die Wiederherstellung ersetzt den aktuellen Tresor durch diesen Schnappschuss. Alles, was seither gespeichert wurde, ist verloren.</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_title">Diese Sicherung verwerfen?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_body">Diese Sicherung ist entschlüsselt und wartet auf Zusammenführen oder Ersetzen. Wenn Sie den Bildschirm jetzt verlassen, wird sie verworfen. Keiner Ihrer Einträge hat sich geändert, und die Datei bleibt unverändert — Sie können sie erneut auswählen.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_confirm">Verwerfen</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_title">Diesen Tresor ersetzen?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_body">Jeder Eintrag in diesem Tresor wird verworfen — einschließlich seiner Dateien und Fotos — und die importierte Datei tritt an seine Stelle. Medien aus dem Import werden wiederhergestellt und mit dem Schlüssel dieses Tresors neu verschlüsselt. Dies kann nicht rückgängig gemacht werden, auch wenn ein früherer Schnappschuss oder eine Sicherung den alten Tresor noch enthalten könnte.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_confirm">Alles ersetzen</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_title">Diesen Schnappschuss wiederherstellen?</string>
+    <!-- SECURITY-COPY: tier A. %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_restore_dialog_body">Der Tresor wird auf den Zustand vom %1$s zurückgesetzt. Alles, was seither gespeichert wurde, ist verloren. Schnappschüsse enthalten nur den Tresor, daher sind alle seitdem hinzugefügten Dateien oder Fotos keinem Eintrag mehr angehängt. Danach wird er gesperrt: Entsperren Sie ihn mit Ihrem aktuellen Master-Passwort.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_confirm">Wiederherstellen</string>
+    <string name="backup_restore_master_password_field_label">Master-Passwort, zur Bestätigung der Wiederherstellung</string>
+
+    <!-- Status/error banner shown at the top of the screen, from BackupSettingsViewModel. -->
+    <string name="backup_status_cloud_disabled">Cloud-Sicherung deaktiviert</string>
+    <string name="backup_status_cloud_enabled">Cloud-Sicherung aktiviert</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_status_kdf_check_slow">Das Entsperren dauert hier %1$d ms, aber Ihr Tresor ist bereits auf der niedrigsten Einstellung, die LocalKeep verwendet — es gibt nichts, was man gefahrlos opfern könnte.</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault\'s settings already suit this device. -->
+    <string name="backup_status_kdf_check_ok">Verschlüsselungseinstellungen passen zu diesem Gerät (%1$d ms zum Entsperren).</string>
+    <string name="backup_status_kdf_recalibrated">Verschlüsselungseinstellungen für dieses Gerät aktualisiert. Ihr Wiederherstellungskit und Ihr biometrisches Entsperren sind nicht betroffen.</string>
+    <string name="backup_working">Wird bearbeitet…</string>
+    <string name="backup_status_exporting">Wird exportiert…</string>
+    <string name="backup_notice_locked_while_choosing_file">Während der Dateiauswahl gesperrt. Es wurde nichts exportiert oder importiert.</string>
+    <!-- %1$d is the exported .vault file\'s size in bytes. -->
+    <string name="backup_status_exported">%1$s exportiert</string>
+    <string name="backup_status_reading_file">Datei wird gelesen…</string>
+    <string name="backup_status_file_read">Datei gelesen — Zusammenführen oder Ersetzen wählen</string>
+    <string name="backup_status_merging">Wird zusammengeführt…</string>
+    <string name="backup_status_replacing_vault">Dieser Tresor wird ersetzt…</string>
+    <string name="backup_status_import_complete">Import abgeschlossen</string>
+    <string name="backup_status_merge_complete">Zusammenführung abgeschlossen — neu: %1$d, aktualisiert: %2$d, bereits aktuell: %3$d</string>
+    <string name="backup_status_replace_complete">Ersetzen abgeschlossen — Einträge: %1$d, Ordner: %2$d</string>
+    <plurals name="backup_status_import_complete_missing_files">
+        <item quantity="one">Import abgeschlossen — %1$d referenzierte Datei war nicht in dieser Sicherung enthalten.</item>
+        <item quantity="other">Import abgeschlossen — %1$d referenzierte Dateien waren nicht in dieser Sicherung enthalten.</item>
+    </plurals>
+    <string name="backup_status_restoring">Wird wiederhergestellt…</string>
+    <plurals name="backup_status_restore_complete_missing_files">
+        <item quantity="one">Wiederhergestellt — %1$d referenzierte Datei ist nicht mehr auf diesem Gerät.</item>
+        <item quantity="other">Wiederhergestellt — %1$d referenzierte Dateien sind nicht mehr auf diesem Gerät.</item>
+    </plurals>
+
+    <string name="backup_error_kdf_check_failed">Die Verschlüsselungseinstellungen Ihres Tresors konnten auf diesem Gerät nicht gemessen werden.</string>
+    <string name="backup_error_kdf_wrong_password">Das ist nicht Ihr Master-Passwort.</string>
+    <!-- SECURITY-COPY: tier D. Deliberately does not name duress: the feature only works while
+         an observer does not learn it exists. True as far as it goes — this vault's setup does
+         not allow the change — and says nothing more. -->
+    <string name="backup_error_kdf_recalibrate_blocked">Die Sicherheitskonfiguration dieses Tresors erlaubt hier keine Änderung.</string>
+    <string name="backup_error_export_wrong_password">Falsches Master-Passwort. Geben Sie es ein, um es erneut zu versuchen.</string>
+    <string name="backup_error_restore_wrong_password">Falsches Master-Passwort. Geben Sie es ein, um es erneut zu versuchen.</string>
+    <string name="backup_error_export_vault_locked">Tresor ist gesperrt</string>
+    <string name="backup_error_vault_file_missing">Ihre Tresordatei fehlt oder ist beschädigt, daher konnte diese Sicherung nicht erstellt werden.</string>
+    <string name="backup_error_export_write_failed">Der Export konnte nicht an den von Ihnen gewählten Ort geschrieben werden.</string>
+    <string name="backup_error_export_device_full">Nicht genug freier Speicher auf diesem Gerät. Der Export wird zuerst hier erstellt, auch wenn Sie ihn woanders speichern. Geben Sie Speicher frei und versuchen Sie es erneut.</string>
+    <string name="backup_error_export_build_failed">Der Export mit einer separaten Passphrase konnte nicht erstellt werden.</string>
+    <string name="backup_error_import_read_failed">Die von Ihnen gewählte Datei konnte nicht gelesen werden.</string>
+    <string name="backup_error_import_too_large">Diese Datei ist zu groß, um sie auf diesem Gerät zu öffnen.</string>
+    <string name="backup_error_import_open_failed">Die von Ihnen gewählte Datei konnte nicht geöffnet werden.</string>
+    <string name="backup_error_import_invalid_file">Das ist keine gültige .vault-Datei.</string>
+    <string name="backup_error_import_wrong_password">Falsches Passwort für diese Datei. Geben Sie es erneut ein und wählen Sie die Datei erneut aus.</string>
+    <string name="backup_error_import_decrypt_failed">Die von Ihnen gewählte Datei konnte nicht entschlüsselt werden.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="backup_error_import_newer_version">Diese Sicherung wurde von einer neueren Version von LocalKeep geschrieben. Aktualisieren Sie die App, um sie zu öffnen — die Datei ist in Ordnung, und Ihr Passwort war richtig.</string>
+    <string name="backup_error_import_attachments_failed">Es wurde nichts importiert — einige Anhänge in dieser Sicherung konnten nicht wiederhergestellt werden.</string>
+    <string name="backup_error_import_vault_locked">Der Tresor wurde gesperrt, während die Datei gelesen wurde. Entsperren Sie ihn und wählen Sie die Datei erneut — es wurde nichts importiert.</string>
+    <string name="backup_error_merge_failed">Das Zusammenführen des importierten Tresors ist fehlgeschlagen.</string>
+    <string name="backup_error_replace_failed">Das Ersetzen des Tresors ist fehlgeschlagen.</string>
+    <string name="backup_error_restore_read_failed">Dieser Schnappschuss konnte auf diesem Gerät nicht gelesen werden. Es wurde nichts geändert — versuchen Sie einen älteren.</string>
+    <string name="backup_error_restore_invalid_file">Dieser Schnappschuss ist keine gültige Tresordatei und wurde daher nicht wiederhergestellt. Versuchen Sie einen älteren.</string>
+    <string name="backup_error_restore_corrupt">Dieser Schnappschuss ist beschädigt und wurde daher nicht wiederhergestellt. Versuchen Sie einen älteren.</string>
+    <string name="backup_error_restore_newer_version">Dieser Schnappschuss wurde von einer neueren Version von LocalKeep geschrieben. Aktualisieren Sie die App, um ihn zu öffnen — es wurde nichts geändert.</string>
+    <string name="backup_error_generic">Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.</string>
+    <string name="backup_error_kdf_needs_more_memory">Die Verschlüsselungseinstellungen dieses Tresors benötigen mehr Arbeitsspeicher, als dieses Gerät der geöffneten App gibt. Nichts wurde geändert. Senken Sie sie auf einem Telefon mit mehr Arbeitsspeicher unter Einstellungen › Sicherung — danach funktioniert es auch hier.</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      THE ONLY PLACE IN THE TREE WHERE THIS IS FALSE.
+
+      Dropping FLAG_SECURE lets `adb exec-out screencap` return a real image instead of a black
+      frame, which is what makes UI work verifiable at all — a uiautomator dump describes the node
+      tree and can say nothing about a gradient, a halo or the smoothness of a ring.
+
+      This is the `debug` build-type source set. Release variants do not compile it, so a shipped
+      APK has no path to this value; `checkScreenSecurity` asserts that on the merged release
+      resources of both flavours on every push.
+
+      Two consequences of dropping the flag in debug, stated so they are decisions and not
+      discoveries: the app-switcher preview is no longer obscured either (recents blocking is a
+      side effect of FLAG_SECURE itself — there is no separate onPause blur), and screen recording
+      is possible. Both are wanted in a QA build and neither reaches users.
+
+      In effect since 2026-08-10.
+    -->
+    <bool name="lk_obscure_screen">false</bool>
+</resources>

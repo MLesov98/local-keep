@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="backup_screen_title">Sauvegarde et exportation</string>
+    <string name="backup_screen_subtitle">Copies chiffrées, instantanés locaux et sauvegarde cloud</string>
+    <string name="backup_screen_back">Retour</string>
+
+    <string name="backup_cloud_section">Sauvegarde cloud</string>
+    <!-- Positive assertion, added 2026-09-09. The row was "Disable cloud backup" with the
+         switch ON meaning backup was OFF — a double negative on the one control that
+         decides whether vault ciphertext can leave the device via Android Auto Backup.
+         The stored preference is still `disableCloudBackup`; only the presentation is
+         inverted, so ON now means the thing the label names is happening. -->
+    <string name="backup_cloud_include_label">Inclure le coffre dans la sauvegarde Android</string>
+    <string name="backup_cloud_disable_hint_on">Android Auto Backup n\'inclura pas votre coffre</string>
+    <string name="backup_cloud_disable_hint_off">Auto Backup inclut le coffre chiffré (limite ~25 Mo)</string>
+    <string name="backup_cloud_footnote">Ce que Google détient est du texte chiffré\u00a0; sa restauration nécessite toujours votre mot de passe principal.</string>
+    <string name="backup_cloud_schedule_footnote">C\'est Android qui décide du moment de l\'envoi — en général en Wi-Fi, en charge et inactif — donc une modification récente peut ne pas encore être dans la sauvegarde.</string>
+    <string name="backup_cloud_attachments_footnote">Les pièces jointes ne sont pas incluses — Auto Backup ne prend que le coffre, donc une restauration depuis Google rétablit vos éléments sans leurs fichiers ni leurs photos.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_schedule_footnote_off">C\'est Android qui décide du moment des sauvegardes, donc une copie envoyée avant que vous ne désactiviez cette option peut rester dans votre compte Google jusqu\'au prochain passage d\'Android.</string>
+
+    <string name="backup_kdf_section">Paramètres de chiffrement pour cet appareil</string>
+    <string name="backup_kdf_intro">La difficulté de déverrouillage voyage avec le coffre. Il vaut la peine de vérifier si vous l\'avez restauré depuis un autre téléphone.</string>
+    <string name="backup_kdf_check_button">Vérifier la vitesse de déverrouillage</string>
+    <!-- Shown when a re-benchmark finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_kdf_keep_slow">Vérifié — lent ici (%1$d ms), mais déjà au réglage le plus bas que LocalKeep utilisera.</string>
+    <string name="backup_kdf_keep_ok">Vérifié — les paramètres de votre coffre conviennent à cet appareil.</string>
+    <!-- Offer to lower the Argon2id cost because unlocking is slow on this device. -->
+    <string name="backup_kdf_faster_headline">Le déverrouillage prend %1$d ms sur cet appareil, ce qui est assez lent pour qu\'un allègement soit pertinent.</string>
+    <string name="backup_kdf_faster_consequence">Cela réduit le travail qu\'un attaquant doit fournir par tentative. Ce n\'est le bon compromis que si le délai vous empêche de verrouiller votre coffre.</string>
+    <!-- Offer to lower the Argon2id cost so the vault can open on older, lower-memory phones. -->
+    <string name="backup_kdf_portable_headline">Ce coffre a été configuré pour nécessiter plus de mémoire que les anciens téléphones n\'en accordent à une application, il ne s\'ouvrirait donc pas du tout sur un tel appareil.</string>
+    <string name="backup_kdf_portable_consequence">L\'alléger maintenant signifie que le coffre s\'ouvrira encore si vous le restaurez un jour sur un ancien téléphone. Cela réduit le travail qu\'un attaquant doit fournir par tentative, au réglage que les nouveaux coffres utilisent déjà.</string>
+    <!-- Offer to raise the Argon2id cost because this device unlocks fast enough to afford it. -->
+    <string name="backup_kdf_stronger_headline">Cet appareil déverrouille votre coffre en %1$d ms — assez rapidement pour pouvoir se permettre un travail plus intense.</string>
+    <string name="backup_kdf_stronger_consequence">L\'augmenter vous coûte une fraction de seconde et coûte proportionnellement plus à quiconque attaque le fichier.</string>
+    <string name="backup_kdf_master_password_field_label">Mot de passe principal, pour confirmer la modification</string>
+    <string name="backup_kdf_update_button">Mettre à jour pour cet appareil</string>
+    <string name="backup_kdf_leaving_fine_footnote">Ne rien changer est parfaitement acceptable. Votre Kit de récupération et votre déverrouillage biométrique ne sont pas affectés, quoi que vous choisissiez.</string>
+    <string name="backup_kdf_summary_unchecked">Non vérifié</string>
+    <string name="backup_kdf_summary_ok">Vérifié · convient à cet appareil</string>
+    <string name="backup_kdf_summary_slow">Vérifié · lent ici</string>
+    <string name="backup_kdf_summary_offer">Vérifié · un changement est possible</string>
+
+    <string name="backup_export_section">Exporter un fichier .vault</string>
+    <!-- Shared field label, used both for the export-confirmation password and the KDF recalibration password. -->
+    <string name="backup_master_password_label">Mot de passe principal</string>
+    <string name="backup_export_master_password_field_label">Mot de passe principal, pour confirmer l\'exportation</string>
+    <string name="backup_export_separate_passphrase_label">Utiliser une phrase secrète d\'exportation distincte</string>
+    <!-- Shared for both the field label above the passphrase well and the well\'s own label. -->
+    <string name="backup_export_passphrase_label">Phrase secrète d\'exportation</string>
+    <string name="backup_export_passphrase_footnote">Une phrase secrète distincte signifie que ce fichier survit à un changement de mot de passe principal — et que sa perte rend le fichier illisible. Il n\'existe aucun moyen de récupération pour une exportation.</string>
+    <string name="backup_export_passphrase_too_weak">Cette phrase secrète est trop facile à deviner. Choisissez-en une plus forte.</string>
+    <string name="backup_export_button">Exporter .vault</string>
+    <!-- %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_export_last_export">Dernière exportation\u00a0: %1$s</string>
+    <string name="backup_export_summary_never">Pas encore exporté</string>
+
+    <string name="backup_import_section">Importer un fichier .vault</string>
+    <string name="backup_import_vault_password_label">Mot de passe du coffre</string>
+    <string name="backup_import_password_field_label">Mot de passe du fichier importé</string>
+    <string name="backup_import_choose_button">Choisir un fichier .vault</string>
+    <string name="backup_import_decrypted_note">Fichier déchiffré. Choisissez comment l\'appliquer.</string>
+    <string name="backup_import_merge_button">Fusionner dans ce coffre</string>
+    <string name="backup_import_replace_button">Remplacer ce coffre</string>
+    <string name="backup_import_cancel_button">Annuler</string>
+
+    <string name="backup_snapshots_section">Instantanés locaux automatiques</string>
+    <string name="backup_snapshots_empty_title">Aucun instantané pour l\'instant</string>
+    <!-- %1$d is RollingBackupManager.MAX_SNAPSHOTS, the number of rolling copies kept on-device. -->
+    <plurals name="backup_snapshots_empty_body">
+        <item quantity="one">LocalKeep conserve %1$d copie du coffre sur cet appareil au fur et à mesure de vos enregistrements. L\'une d\'elles apparaîtra ici après votre prochaine modification.</item>
+        <item quantity="other">LocalKeep conserve les %1$d copies les plus récentes du coffre sur cet appareil au fur et à mesure de vos enregistrements. L\'une d\'elles apparaîtra ici après votre prochaine modification.</item>
+    </plurals>
+    <string name="backup_snapshot_restore_button">Restaurer</string>
+    <string name="backup_snapshots_footnote">La restauration remplace le coffre actuel par cet instantané. Toute donnée enregistrée depuis lors est perdue.</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_title">Abandonner cette sauvegarde\u00a0?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_body">Cette sauvegarde est déchiffrée et attend Fusionner ou Remplacer. Si vous quittez cet écran maintenant, elle est abandonnée. Aucun de vos éléments n\'a changé et le fichier reste intact\u00a0: vous pouvez le choisir à nouveau.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_confirm">Abandonner</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_title">Remplacer ce coffre\u00a0?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_body">Tous les éléments de ce coffre sont abandonnés — y compris ses fichiers et photos — et le fichier importé prend leur place. Les médias de l\'importation sont restaurés, rechiffrés avec la clé de ce coffre. Cette action est irréversible, même si un instantané ou une sauvegarde antérieure peut encore contenir l\'ancien coffre.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_confirm">Tout remplacer</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_title">Restaurer cet instantané\u00a0?</string>
+    <!-- SECURITY-COPY: tier A. %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_restore_dialog_body">Le coffre revient à son état du %1$s. Toute donnée enregistrée depuis lors est perdue. Les instantanés ne contiennent que le coffre, donc les fichiers ou photos ajoutés depuis ne seront plus joints à aucun élément. Il se verrouille ensuite\u00a0: déverrouillez-le avec votre mot de passe principal actuel.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_confirm">Restaurer</string>
+    <string name="backup_restore_master_password_field_label">Mot de passe principal, pour confirmer la restauration</string>
+
+    <!-- Status/error banner shown at the top of the screen, from BackupSettingsViewModel. -->
+    <string name="backup_status_cloud_disabled">Sauvegarde cloud désactivée</string>
+    <string name="backup_status_cloud_enabled">Sauvegarde cloud activée</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_status_kdf_check_slow">Le déverrouillage prend %1$d ms ici, mais votre coffre est déjà au réglage le plus bas que LocalKeep utilisera — il n\'y a rien à échanger sans risque.</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault\'s settings already suit this device. -->
+    <string name="backup_status_kdf_check_ok">Les paramètres de chiffrement conviennent à cet appareil (%1$d ms pour déverrouiller).</string>
+    <string name="backup_status_kdf_recalibrated">Paramètres de chiffrement mis à jour pour cet appareil. Votre Kit de récupération et votre déverrouillage biométrique ne sont pas affectés.</string>
+    <string name="backup_working">Traitement en cours…</string>
+    <string name="backup_status_exporting">Exportation en cours…</string>
+    <string name="backup_notice_locked_while_choosing_file">Verrouillé pendant le choix d\'un fichier. Rien n\'a été exporté ni importé.</string>
+    <!-- %1$d is the exported .vault file\'s size in bytes. -->
+    <string name="backup_status_exported">Exporté\u00a0: %1$s</string>
+    <string name="backup_status_reading_file">Lecture du fichier…</string>
+    <string name="backup_status_file_read">Fichier lu — choisissez Fusionner ou Remplacer</string>
+    <string name="backup_status_merging">Fusion en cours…</string>
+    <string name="backup_status_replacing_vault">Remplacement de ce coffre en cours…</string>
+    <string name="backup_status_import_complete">Importation terminée</string>
+    <string name="backup_status_merge_complete">Fusion terminée — nouveaux : %1$d, mis à jour : %2$d, déjà à jour : %3$d</string>
+    <string name="backup_status_replace_complete">Remplacement terminé — éléments : %1$d, dossiers : %2$d</string>
+    <plurals name="backup_status_import_complete_missing_files">
+        <item quantity="one">Importation terminée — %1$d fichier référencé était absent de cette sauvegarde.</item>
+        <item quantity="other">Importation terminée — %1$d fichiers référencés étaient absents de cette sauvegarde.</item>
+    </plurals>
+    <string name="backup_status_restoring">Restauration en cours…</string>
+    <plurals name="backup_status_restore_complete_missing_files">
+        <item quantity="one">Restauré — %1$d fichier référencé n\'est plus sur cet appareil.</item>
+        <item quantity="other">Restauré — %1$d fichiers référencés ne sont plus sur cet appareil.</item>
+    </plurals>
+
+    <string name="backup_error_kdf_check_failed">Impossible de mesurer les paramètres de chiffrement de votre coffre sur cet appareil.</string>
+    <string name="backup_error_kdf_wrong_password">Ce n\'est pas votre mot de passe principal.</string>
+    <!-- SECURITY-COPY: tier D. Deliberately does not name duress: the feature only works while
+         an observer does not learn it exists. True as far as it goes — this vault's setup does
+         not allow the change — and says nothing more. -->
+    <string name="backup_error_kdf_recalibrate_blocked">La configuration de sécurité de ce coffre ne permet pas de modifier cela ici.</string>
+    <string name="backup_error_export_wrong_password">Mot de passe principal incorrect. Saisissez-le à nouveau pour réessayer.</string>
+    <string name="backup_error_restore_wrong_password">Mot de passe principal incorrect. Saisissez-le à nouveau pour réessayer.</string>
+    <string name="backup_error_export_vault_locked">Le coffre est verrouillé</string>
+    <string name="backup_error_vault_file_missing">Votre fichier de coffre est absent ou endommagé\u00a0; cette sauvegarde n\'a pas pu être créée.</string>
+    <string name="backup_error_export_write_failed">Impossible d\'écrire l\'exportation à l\'emplacement que vous avez choisi.</string>
+    <string name="backup_error_export_device_full">Espace libre insuffisant sur cet appareil. L\'export est d\'abord constitué ici, même si vous l\'enregistrez ailleurs\u00a0: libérez de l\'espace et réessayez.</string>
+    <string name="backup_error_export_build_failed">Impossible de créer l\'exportation avec une phrase secrète distincte.</string>
+    <string name="backup_error_import_read_failed">Impossible de lire le fichier que vous avez choisi.</string>
+    <string name="backup_error_import_too_large">Ce fichier est trop volumineux pour être ouvert sur cet appareil.</string>
+    <string name="backup_error_import_open_failed">Impossible d\'ouvrir le fichier que vous avez choisi.</string>
+    <string name="backup_error_import_invalid_file">Ce n\'est pas un fichier .vault valide.</string>
+    <string name="backup_error_import_wrong_password">Mot de passe incorrect pour ce fichier. Saisissez-le à nouveau, puis resélectionnez le fichier.</string>
+    <string name="backup_error_import_decrypt_failed">Impossible de déchiffrer le fichier que vous avez choisi.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="backup_error_import_newer_version">Cette sauvegarde a été écrite par une version plus récente de LocalKeep. Mettez à jour l\'application pour l\'ouvrir — le fichier est intact, et votre mot de passe était correct.</string>
+    <string name="backup_error_import_attachments_failed">Rien n\'a été importé — certaines pièces jointes de cette sauvegarde n\'ont pas pu être restaurées.</string>
+    <string name="backup_error_import_vault_locked">Le coffre s\'est verrouillé pendant la lecture du fichier. Déverrouillez-le et choisissez à nouveau le fichier — rien n\'a été importé.</string>
+    <string name="backup_error_merge_failed">La fusion du coffre importé a échoué.</string>
+    <string name="backup_error_replace_failed">Le remplacement du coffre a échoué.</string>
+    <string name="backup_error_restore_read_failed">Impossible de lire cet instantané depuis cet appareil. Rien n\'a été modifié — essayez-en un plus ancien.</string>
+    <string name="backup_error_restore_invalid_file">Cet instantané n\'est pas un fichier de coffre valide, il n\'a donc pas été restauré. Essayez-en un plus ancien.</string>
+    <string name="backup_error_restore_corrupt">Cet instantané est endommagé, il n\'a donc pas été restauré. Essayez-en un plus ancien.</string>
+    <string name="backup_error_restore_newer_version">Cet instantané a été écrit par une version plus récente de LocalKeep. Mettez à jour l\'application pour l\'ouvrir — rien n\'a été modifié.</string>
+    <string name="backup_error_generic">Une erreur s\'est produite. Veuillez réessayer.</string>
+    <string name="backup_error_kdf_needs_more_memory">Les paramètres de chiffrement de ce coffre nécessitent plus de mémoire que ce que cet appareil accorde à l\'application lorsqu\'elle est ouverte. Rien n\'a été modifié. Sur un téléphone avec plus de mémoire, réduisez-les sous Paramètres › Sauvegarde — après cela, cela fonctionnera aussi ici.</string>
+</resources>

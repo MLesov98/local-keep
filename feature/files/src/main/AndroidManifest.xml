@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- CAMERA: capture-straight-to-vault. Declared for both flavours since 2026-08-19, when the
+         Identity type gained a photograph-the-document route: capture is the whole point of that
+         route, and gating it to `play` would have made the headline feature a no-op on the flavour
+         this project open-sources. This adds no permission to either merged manifest —
+         :feature:itemedit already declares CAMERA in its own `main` for TOTP QR scanning, and the
+         `checkFlavorPermissions` allowlist in the root build script already lists it for foss and
+         play alike. The air gap is untouched: INTERNET stays absent from foss.
+
+         This module shows its own prominent in-app disclosure before requesting the permission
+         (FileItemEditScreen, AttachmentPickerScreen) rather than relying on the other module's. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Never a hard requirement: every capture route has a gallery fallback beside it, and
+         camera-less devices must still install. Mirrors :feature:itemedit's own declaration. -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+</manifest>

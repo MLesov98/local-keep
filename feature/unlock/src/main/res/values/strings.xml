@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="unlock_welcome_title">Welcome back</string>
+    <!-- Subtitle under "Welcome back". Used to read "Your vault is on this device only. Enter
+         your master password to open it." — the same false claim the footer below was already
+         rewritten to stop making. Android Auto Backup carries vault.enc when the user opts in,
+         so "on this device only" was false for anyone who said yes. Nothing replaces the dropped
+         clause: the footer already states the honest version, and saying it twice reads as
+         protesting. Regression-tested by UnlockSubtitleTest against this XML file directly —
+         the four translations are guarded by TierGClaimsTest in :app,
+         which UnlockSubtitleTest cannot reach: it matches English words. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="unlock_subtitle">Enter your master password to open your vault.</string>
+
+    <string name="unlock_password_label">Master password</string>
+    <!-- Decorative masked-password placeholder dots shown before typing. Not language content. -->
+    <!-- Empty on purpose. This was twelve bullet characters until 2026-09-09, so an EMPTY
+         password field rendered more mask characters than a real four-character password —
+         you could not tell "nothing typed" from "something typed", on the unlock screen
+         most of all. The field keeps its own label above it and an explicit a11y label at
+         every call site, so nothing is lost by showing an empty field as empty.
+         translatable="false" is kept: there is no text left to translate. -->
+    <string name="unlock_password_placeholder" translatable="false"></string>
+
+    <!-- Replaces unlock_subtitle while the Recovery Kit grid is showing, so the line above the
+         control describes the control the user is actually looking at. -->
+    <!-- Criterion 1: it tells the user, at the moment they need it, what the kit is for. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="unlock_recovery_subtitle">Enter your Recovery Kit words to open your vault.</string>
+    <string name="unlock_recovery_kit_label">Recovery Kit</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="unlock_recovery_instructions">Type all 24 words in order, separated by spaces. Capitals don\'t matter.</string>
+    <!-- Accessibility label of the Recovery Kit words field. -->
+    <string name="unlock_recovery_words_label">Recovery Kit words</string>
+    <!-- Illustrative BIP-39 recovery words. The wordlist itself is English-only in every
+         locale, so this placeholder is never translated. -->
+    <string name="unlock_recovery_words_placeholder" translatable="false">abandon ability able …</string>
+    <string name="unlock_recovery_word_count_empty">No words yet</string>
+    <!-- How many of the 24 recovery words have been typed so far. -->
+    <plurals name="unlock_recovery_word_count">
+        <item quantity="one">%1$d of 24 words</item>
+        <item quantity="other">%1$d of 24 words</item>
+    </plurals>
+
+    <!-- ═══ Recovery Kit QR scanner (RecoveryKit.parseQrCode wiring, 2026-09-10) — reads back
+         the QR the Recovery Kit export screen draws (RecoveryKitExport.kt /
+         RecoveryKit.formatForQrCode), so the word field above can be filled by camera instead of
+         by hand. Reuses :core:ui's QrScannerDialog and PermissionDenial, the same pair
+         :feature:itemedit's TOTP scanner already uses. ═══ -->
+    <string name="unlock_recovery_scan_button">Scan Recovery Kit QR</string>
+    <!-- Title of the scanner dialog itself. -->
+    <string name="unlock_recovery_qr_dialog_title">Scan Recovery Kit QR</string>
+    <string name="unlock_recovery_qr_camera_unavailable">The camera is unavailable. Type the words below instead.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="unlock_recovery_qr_camera_dialog_title">Use the camera?</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="unlock_recovery_qr_camera_dialog_body">LocalKeep uses the camera only while scanning your Recovery Kit\'s QR code. No photo or video is saved or sent.</string>
+    <string name="unlock_recovery_qr_camera_dialog_continue">Continue</string>
+    <string name="unlock_recovery_qr_camera_denial_sentence">LocalKeep can\'t scan a QR code without camera access.</string>
+    <!-- Shown when the scanned code is not a Recovery Kit — wrong QR entirely, a stray otpauth://
+         code, or a frame `RecoveryKit.parseQrCode` could not validate. Never echoes the scanned
+         payload: the code that failed could be anything, and putting it on screen would show
+         whoever is looking at this vault's unlock screen the contents of an unrelated QR. -->
+    <!-- The scanned twin of unlock_recovery_failed_message, which is already Tier B. One event, two
+         input routes; tagging one and not the other lets the two answers drift. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="unlock_recovery_qr_invalid_message">That QR code isn\'t a Recovery Kit. Check it\'s the one LocalKeep gave you, or type the words below instead.</string>
+
+    <string name="unlock_recovery_open_button">Open with Recovery Kit</string>
+    <!-- Accessibility label of "Open with Recovery Kit" while fewer than 24 valid words are typed.
+         A partial phrase cannot open anything, so the button is inert; sighted users have the word
+         counter directly above it, and this says the same thing out loud. -->
+    <string name="unlock_recovery_open_button_a11y_incomplete">Open with Recovery Kit, available once all 24 words are entered</string>
+    <!-- Accessibility label of "Open with Recovery Kit" when all 24 words are present but fail the
+         BIP-39 checksum (N-01). Replaces unlock_recovery_open_button_a11y_incomplete in that one
+         case, which would otherwise keep saying "available once all 24 words are entered" — false
+         once 24 words are typed, whether or not they form a valid kit. -->
+    <string name="unlock_recovery_open_button_a11y_checksum_invalid">Open with Recovery Kit, unavailable — these 24 words don\'t form a valid Recovery Kit</string>
+    <!-- Accessibility label of "Open with Recovery Kit" when more than 24 words are typed (V3-01).
+         The incomplete label above says "available once all 24 words are entered", which at 32
+         words tells a screen-reader user to do what they have already done and never names the
+         real cause. -->
+    <string name="unlock_recovery_open_button_a11y_too_many">Open with Recovery Kit, unavailable — that is more than 24 words, a Recovery Kit has exactly 24</string>
+    <string name="unlock_back_to_password">Back to password</string>
+
+    <string name="unlock_button">Unlock</string>
+    <!-- Accessibility label of the Unlock button while a derivation is in progress. -->
+    <string name="unlock_button_a11y_working">Unlocking, please wait</string>
+    <!-- Accessibility label of the Unlock button before any password has been typed. -->
+    <string name="unlock_button_a11y_needs_password">Unlock, enter your master password first</string>
+    <string name="unlock_use_recovery_kit_button">Use Recovery Kit</string>
+    <string name="unlock_biometric_button">Unlock with biometrics</string>
+    <!-- explains why the biometric button is absent after a panic lock. Worded so it is true
+         whether or not this vault had biometric unlock enrolled: once panic lock has destroyed the
+         device-wrapped key, nothing left on the device remembers which it was. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_biometric_blocked_notice">Biometric unlock is off after a panic lock, and stays off until you set it up again in Settings.</string>
+
+    <!-- footer shown on every unlock. States what does NOT exist (see the
+         original comment in UnlockScreen.kt for why "sync server", not "cloud") and scopes the
+         exclusivity claim to the master password, which really does stay on the device.
+
+         Read "Your vault opens only with your password" until 2026-08-31, and that was false on
+         the very screen that offers two other ways in: biometric unlock (VaultLockManager
+         .unlockWithBiometric, via the device-wrapped DEK) and the 24-word Recovery Kit
+         (unlockWithRecoveryKit, whose wrapped key lives inside the vault file — so "only your
+         password opens the exported file" would be false too, and is not the fix). The
+         replacement is the spec's own wording, which the exclusivity claim never matched:
+         the UI/UX spec's Welcome screen amendment —
+         "no account, no sync server, and a master password that never leaves the device".
+         The same sentence about the master password is already shipped, and already true, in
+         onboarding_cloudbackup_body. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="unlock_footer_disclaimer">No account. No sync server. Your master password never leaves this device.</string>
+
+    <!-- KDF parameter line shown under the derivation spinner, e.g. "Argon2id · 3 passes · 256 MiB".
+         "Argon2id" is a fixed KDF name (never translated) embedded in an otherwise
+         translatable sentence. %1$s is the passes phrase (see unlock_kdf_passes), %2$d is MiB. -->
+    <string name="unlock_kdf_summary">Argon2id · %1$s · %2$d MiB</string>
+    <!-- Passes phrase substituted into unlock_kdf_summary's %1$s. -->
+    <plurals name="unlock_kdf_passes">
+        <item quantity="one">%1$d pass</item>
+        <item quantity="other">%1$d passes</item>
+    </plurals>
+
+    <string name="unlock_error_generic_failed">Unlock failed</string>
+
+    <!-- a wrong Recovery Kit is deliberately indistinguishable from
+         a vault with no kit at all; see UnlockViewModel.recoveryFailureMessage. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="unlock_recovery_failed_message">Those words didn\'t open this vault. Check the order and the spelling — all 24 have to be right, and they only work for the kit this vault was last given.</string>
+
+    <!-- Shown under the Recovery Kit field when all 24 words are typed but fail the BIP-39
+         checksum (N-01), before the CTA is ever pressed. Not a security-property claim — this is a
+         local checksum check on the words, not a statement about this or any vault — so it carries
+         no SECURITY-COPY tier, unlike unlock_recovery_failed_message above. -->
+    <string name="unlock_recovery_checksum_invalid_message">These 24 words don\'t form a valid Recovery Kit — check the spelling and the order.</string>
+
+    <!-- Shown under the Recovery Kit field when more than 24 words are typed (V3-01). A kit is
+         exactly 24 words, so this is not an unfinished phrase and the checksum message above
+         cannot fire for it. Not a security-property claim, for the same reason
+         unlock_recovery_checksum_invalid_message is not: it counts words. -->
+    <string name="unlock_recovery_too_many_words_message">That is more than 24 words — a Recovery Kit has exactly 24</string>
+
+    <!-- explains why biometric unlock is refusing to run: the user
+         asked for this via "Lock now". -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_biometric_panic_lock_message">Biometric unlock is off. \"Lock now\" switches it off for good — set it up again in Settings.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_biometric_not_enabled">Biometric unlock has not been enabled</string>
+    <!-- Android biometric prompt title. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_biometric_prompt_title">Unlock LocalKeep</string>
+    <!-- Android biometric prompt subtitle. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_biometric_prompt_subtitle">Confirm it\'s you</string>
+    <!-- the retry countdown is its own attempt-counter, separate
+         from the master password's; reassures the password is still usable. -->
+    <!-- SECURITY-COPY: tier C -->
+    <plurals name="unlock_biometric_locked_retry">
+        <item quantity="one">Too many biometric attempts. Try again in %1$d second, or use your master password now.</item>
+        <item quantity="other">Too many biometric attempts. Try again in %1$d seconds, or use your master password now.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_biometric_incomplete">Biometric unlock was not completed</string>
+    <!-- The framework's own cool-off after too many rejected fingerprints. It ends by itself,
+         so the sentence must not read as a failure of the sensor or of the enrolment. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_biometric_lockout">Too many attempts — biometrics are resting for a moment. Your master password still works.</string>
+
+    <!-- lockout countdown after too many wrong master-password or
+         Recovery Kit attempts. -->
+    <!-- SECURITY-COPY: tier C -->
+    <plurals name="unlock_retry_after_seconds">
+        <item quantity="one">Try again in %1$d second</item>
+        <item quantity="other">Try again in %1$d seconds</item>
+    </plurals>
+
+    <!-- every case below is UnlockViewModel.publishResult naming the
+         real cause instead of "Wrong password"; see the surrounding Kotlin comments for why
+         each one is worded the way it is. Never merge these into one string. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_wrong_password">Wrong password</string>
+    <!-- Part of the run the comment above unlock_error_wrong_password calls 'every case below'.
+         That marker tagged only the first of them, so the siblings it named were never
+         covered; each carries its own now. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_biometric_unavailable">Biometric unlock is no longer available. Your master password still works.</string>
+    <!-- Part of the run the comment above unlock_error_wrong_password calls 'every case below'.
+         That marker tagged only the first of them, so the siblings it named were never
+         covered; each carries its own now. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_vault_unreadable">The vault file couldn\'t be read. Your password is probably fine — you can restore a backup from here.</string>
+    <!-- Part of the run the comment above unlock_error_wrong_password calls 'every case below'.
+         That marker tagged only the first of them, so the siblings it named were never
+         covered; each carries its own now. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_vault_newer_version">This vault was saved by a newer version of LocalKeep. Update the app to open it — your vault is fine, and do not restore an older backup over it.</string>
+    <!-- Part of the run the comment above unlock_error_wrong_password calls 'every case below'.
+         That marker tagged only the first of them, so the siblings it named were never
+         covered; each carries its own now. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_interrupted">That took long enough for the vault to re-lock. Try again.</string>
+    <!-- Part of the run the comment above unlock_error_wrong_password calls 'every case below'.
+         That marker tagged only the first of them, so the siblings it named were never
+         covered; each carries its own now. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_needs_more_memory">This vault needs more memory than this device allows an app. Your password is fine. Open it on a phone with more memory, then lower its encryption settings under Settings › Backup — after that it opens here too.</string>
+    <!-- Shown when the derivation ran out of heap but this vault's cost is within the portable
+         ceiling, i.e. it fits this device and the *process* was full. Distinct from
+         unlock_error_needs_more_memory, which sends the user to another phone — advice that is
+         actively wrong here and was being given for a three-item vault the device itself created. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_memory_transient">LocalKeep is short of memory right now. Your password is fine. Close the app completely — swipe it away — then open it again.</string>
+    <!-- ===== Pre-unlock restore (F34) =====
+         The vault container will not open, so Settings — where every other backup control lives —
+         is behind a door that cannot be opened. These strings are that flow. Spec 12.5 makes a
+         restore-from-backup flow on load failure a MUST. -->
+    <!-- The action the sentence above now actually carries. Never appears for a wrong password, and
+         never for a vault from a newer version — see UnlockError.Actionable for why both
+         exclusions are security decisions rather than tidiness. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_error_vault_unreadable_action">Restore a backup</string>
+    <string name="unlock_restore_title">Restore a backup</string>
+    <!-- Two sources, two passwords, and both must be true. An on-device snapshot opens with the
+         CURRENT master password (every password change re-keys the snapshot ring), while a picked
+         backup file keeps whatever password or separate passphrase it was exported with. -->
+    <string name="unlock_restore_subtitle">Pick a snapshot this device saved, or a backup file. A snapshot opens with your current master password; a backup file opens with the password it was exported with.</string>
+    <string name="unlock_restore_on_device_label">Saved on this device</string>
+    <string name="unlock_restore_empty">This device has no saved snapshots. Choose a backup file instead.</string>
+    <string name="unlock_restore_snapshot_label">Saved %1$s</string>
+    <!-- The password for the BACKUP being opened. For an on-device snapshot that is the current master
+         password; for a picked backup file it is the one the file was exported with, which can differ
+         from the vault's. The label stays generic so it is true of both. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_restore_password_label">Password for this backup</string>
+    <string name="unlock_restore_password_placeholder">Password</string>
+    <string name="unlock_restore_check_button">Open this backup</string>
+    <string name="unlock_restore_working">Opening the backup…</string>
+    <!-- The only wrong-password wording on this screen. Everything else that can fail here gets its own
+         sentence, because sending someone to retype a password at the one screen that exists
+         because retyping does not help is the defect this flow was built to remove. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_restore_error_wrong_password">That password didn\'t open this backup.</string>
+    <!-- A parser, I/O or payload-authentication failure. Deliberately not folded into the wrong-password
+         string above. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_restore_error_unreadable">This backup can\'t be read on this device. Nothing was changed.</string>
+    <string name="unlock_restore_error_newer_version">This backup was saved by a newer version of LocalKeep. Update the app first.</string>
+    <!-- Shown when the damaged vault file could not be copied aside, in which case nothing was written.
+         The claim that nothing changed is enforced by confirmRestore returning before the write. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_error_not_kept">The vault file couldn\'t be kept, so nothing was changed.</string>
+    <!-- Fires when the write itself failed. It deliberately does NOT claim "nothing was
+         changed": AtomicVaultWriter.write truncates the temporary file and removes the previous
+         .bak before the move, so a throw after that point has already touched the container set.
+         What IS guaranteed is the quarantine copy taken before any write, so that is what this
+         says. Same claim as the confirm dialog makes, one step earlier. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_error_failed">The backup couldn\'t be restored. The vault file that wouldn\'t open is still on this device.</string>
+    <!-- Title of the irreversible-action confirmation. The security-copy protocol names "replace vault on
+         restore" as a tier A example, and the marker below it used to belong to the string above:
+         this title was dark to verify_pack.py and so never entered a verification pack. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_confirm_title">Replace the vault?</string>
+    <!-- The irreversible-action confirmation. Two claims, and both must stay true in every language:
+         anything saved after the backup was taken is not in it, and the vault file that would not
+         open is KEPT rather than deleted (PreUnlockRestore copies all three container files aside
+         before anything is written, and the restore aborts if that copy fails). -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_confirm_body">This backup opened. Replacing the vault with it means anything saved after that backup was made is not in it. Backups hold the vault only, so any files or photos added since will no longer be attached to anything. The vault file that wouldn\'t open is kept on this device, not deleted.</string>
+    <!-- The button that performs the replacement. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_confirm_button">Replace vault</string>
+    <!-- Two controls on this screen went back, to two different places, under one word. The header
+         chevron leaves the flow entirely and drops the typed password; the button under the password
+         field only steps back to the list. TalkBack read "Back, button" for both. The chevron keeps
+         the generic word; the button says where it goes. -->
+    <string name="unlock_restore_back">Back</string>
+    <string name="unlock_restore_pick_another">Choose another backup</string>
+    <string name="unlock_restore_done_title">Vault restored</string>
+    <string name="unlock_restore_done_body">The password that opened that backup is now your master password. Unlock with it.</string>
+    <string name="unlock_restore_done_button">Go to unlock</string>
+    <!-- Opens the document picker so a vault export from outside this device can be restored.
+         The ring is excluded from cloud backup and device transfer, so a replaced phone has
+         none of it and this is the only route left. -->
+    <string name="unlock_restore_choose_file">Choose a backup file</string>
+    <string name="unlock_restore_picked_file">The file you chose</string>
+    <!-- Accessibility label of the Open this backup button while the derivation is running. -->
+    <string name="unlock_restore_check_a11y_working">Opening the backup, please wait</string>
+    <!-- Accessibility label of the same button before any password has been typed. Keyed on the
+         blocking condition rather than on the disabled flag: that flag folds two causes, so it
+         cannot say which one applies and announces the wrong one while work is in progress. -->
+    <string name="unlock_restore_check_a11y_needs_password">Open this backup, enter this backup\'s password first</string>
+</resources>

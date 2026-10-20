@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- The app name is a brand and is never translated in any locale. -->
+    <string name="app_name" translatable="false">LocalKeep</string>
+
+    <!-- Drawer header subtitle. Replaces a prior claim of "nothing leaves this device", which was
+         false: Android Auto Backup can still take vault.enc. What this says instead is true
+         regardless of the user's cloud-backup choice. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_drawer_subtitle">Offline build · no account, no sync server</string>
+
+    <!-- Bottom navigation bar tab labels. -->
+    <string name="app_nav_vault">Vault</string>
+    <string name="app_nav_generator">Generator</string>
+    <string name="app_nav_health">Health</string>
+    <!-- Accessibility: appended to a bottom-tab's label when it is the active tab. -->
+    <string name="app_nav_tab_selected">%1$s, selected</string>
+
+    <!-- Command drawer group headings. -->
+    <string name="app_drawer_group_items">Items</string>
+    <string name="app_drawer_group_tools">Tools</string>
+    <string name="app_drawer_group_security">Security</string>
+    <string name="app_drawer_group_system">System</string>
+
+    <!-- Command drawer link labels. -->
+    <string name="app_drawer_all_items">All items</string>
+    <string name="app_drawer_generator">Generator</string>
+    <string name="app_drawer_migrate_import">Migrate / Import</string>
+    <string name="app_drawer_backup_export">Backup &amp; export</string>
+    <string name="app_drawer_restore_snapshot">Restore a snapshot</string>
+    <string name="app_drawer_password_health">Password health</string>
+    <!-- Names the duress/decoy feature itself; hidden entirely during a decoy session. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="app_drawer_duress_decoy">Duress / decoy</string>
+    <!-- A second door to the authenticated Invisible-items screen, in the drawer's Security group.
+         Deliberately the same words as feature/settings' settings_hidden_items_title: one feature
+         must not acquire a second noun. The Settings row stays where it is — this is an additional
+         entry point, not a move, because Settings search is how some users will still arrive.
+         Present in a decoy session, like Recovery Kit and unlike Duress / decoy: an ordinary vault
+         has this screen, and a Security group that came up a row short would itself be the tell. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_drawer_invisible_items">Invisible items</string>
+    <string name="app_drawer_recovery_kit">Recovery Kit</string>
+    <string name="app_drawer_trash">Trash</string>
+    <string name="app_drawer_settings">Settings</string>
+    <!-- Accessibility: appended to a drawer link's label when it is the active route. -->
+    <string name="app_drawer_item_selected">%1$s, selected</string>
+
+    <!-- Root/tamper warning banner, shown at launch when the device looks rooted or modified. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_root_warning_message">This device shows signs of being rooted or modified. LocalKeep still works, but hardware-backed key protections may be weaker.</string>
+    <string name="app_root_warning_dismiss">Dismiss</string>
+
+    <!-- Stale-export reminder banner, shown when it has been a while since the last backup. -->
+    <!-- Said "the only copy that survives losing this device" until
+         2026-07-30, which was false for every user with cloud backup on: StaleExportReminder
+         reads one export timestamp and never asks. "The only copy you control" is true either
+         way — a Google-held copy survives, but the user does not control it. Guarded per
+         language by TierGClaimsTest. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="app_stale_export_message">It has been a while since you exported your vault. An encrypted export is the only copy you control if this device is lost.</string>
+    <string name="app_stale_export_action">Back up</string>
+    <string name="app_stale_export_dismiss">Not now</string>
+
+    <!-- Notice posted once, on the genuine free-to-Pro transition (never on cold-start emission
+         of an existing Pro tier). -->
+    <!-- Purchase copy, so it may not describe the paid tier as granting
+         anything it does not. It listed "files & media" alongside cards and identities, and those
+         are not the same kind of thing: `NewItemType.FILE` is `requiresPro = false`, so the free
+         tier creates files already. What Pro removes is `AttachmentQuota.FREE_LIMIT`, a cap on
+         creation only — never on import, never on display. Deliberately no number here: the limit
+         is stated in one place in the UI already, and a second copy of it is a second thing to
+         drift. Found by the F16 QA persona, 2026-08-30. On 2026-09-03 cards and identities stopped
+         being Pro-only and became one-each free quotas (`ProTypeQuota.FREE_LIMIT`), so naming them
+         as things Pro "unlocks" repeated the same error the files half had already been corrected
+         for — it told a purchaser they had just bought two things they already had. The notice now
+         names only what Pro removes: the caps. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="app_pro_unlock_announcement">Pro unlocked — no cap on the cards, identities or files you can add.</string>
+
+    <!-- Shown after a successful re-unlock when the lock interrupted an in-progress edit. The lock
+         discards the form (the pop removes the editor's back-stack entry), and the user should not
+         be left to discover the typed work vanished on its own. Not a security-tier claim. -->
+    <string name="app_notice_edit_dropped_by_lock">The vault locked, so your unsaved changes were discarded.</string>
+
+    <!-- Shown after the re-unlock that a successful snapshot restore forces. The restore replaces
+         the whole vault and then locks it, which destroys the Backup screen before it can confirm
+         anything, so this is the only place the user is told it worked. Describes what happened;
+         asserts no security property. -->
+    <string name="app_notice_vault_restored">Snapshot restored — this is the vault as it was then.</string>
+    <!-- Shown once, after the first unlock of a vault whose owner never reached onboarding's
+         Android-backup step because they left mid-setup. Deliberately does not state which way the
+         setting currently sits: the row it leads to says that, and repeating it here would mean
+         two places to keep true. -->
+    <string name="app_notice_cloud_backup_unchosen">You haven\'t chosen whether this vault is included in Android backup</string>
+    <string name="app_notice_cloud_backup_unchosen_action">Choose</string>
+    <string name="app_drawer_folders">Folders</string>
+
+    <!-- The two long-press launcher shortcuts (res/xml/shortcuts.xml). The short label is what the
+         launcher shows in its cramped menu row; the long label is what it uses when a shortcut is
+         dragged out onto the home screen as an icon of its own. -->
+    <string name="app_shortcut_search_short">Search</string>
+    <string name="app_shortcut_search_long">Search the vault</string>
+    <string name="app_shortcut_new_item_short">New item</string>
+    <!-- Deliberately the same words as the add sheet's own title (vaultlist_add_sheet_title): the
+         shortcut opens that sheet, and one surface must not acquire a second name. -->
+    <string name="app_shortcut_new_item_long">Add to vault</string>
+</resources>

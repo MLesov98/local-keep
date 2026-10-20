@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="unlock_welcome_title">Hola de nuevo</string>
+    <!-- Subtitle under "Welcome back". Used to read "Your vault is on this device only. Enter
+         your master password to open it." — the same false claim the footer below was already
+         rewritten to stop making. Android Auto Backup carries vault.enc when the user opts in,
+         so "on this device only" was false for anyone who said yes. Nothing replaces the dropped
+         clause: the footer already states the honest version, and saying it twice reads as
+         protesting. Regression-tested by UnlockSubtitleTest against this XML file directly.
+         SECURITY-COPY: tier G — the four translations are guarded by TierGClaimsTest in :app,
+         which UnlockSubtitleTest cannot reach: it matches English words. -->
+    <string name="unlock_subtitle">Ingrese su contraseña maestra para abrir su caja fuerte.</string>
+
+    <string name="unlock_password_label">Contraseña maestra</string>
+
+    <string name="unlock_recovery_kit_label">Kit de recuperación</string>
+    <string name="unlock_recovery_subtitle">Ingrese las palabras de su Kit de recuperación para abrir su caja fuerte.</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="unlock_recovery_instructions">Escriba las 24 palabras en orden, separadas por espacios. No importan las mayúsculas.</string>
+    <!-- Accessibility label of the Recovery Kit words field. -->
+    <string name="unlock_recovery_words_label">Palabras del Kit de recuperación</string>
+    <string name="unlock_recovery_word_count_empty">Aún no hay palabras</string>
+    <!-- How many of the 24 recovery words have been typed so far. -->
+    <plurals name="unlock_recovery_word_count">
+        <item quantity="one">%1$d de 24 palabras</item>
+        <item quantity="other">%1$d de 24 palabras</item>
+    </plurals>
+
+    <!-- ═══ Recovery Kit QR scanner (RecoveryKit.parseQrCode wiring, 2026-09-10) — reads back
+         the QR the Recovery Kit export screen draws (RecoveryKitExport.kt /
+         RecoveryKit.formatForQrCode), so the word field above can be filled by camera instead of
+         by hand. Reuses :core:ui's QrScannerDialog and PermissionDenial, the same pair
+         :feature:itemedit's TOTP scanner already uses. ═══ -->
+    <string name="unlock_recovery_scan_button">Escanear el código QR del Kit de recuperación</string>
+    <!-- Title of the scanner dialog itself. -->
+    <string name="unlock_recovery_qr_dialog_title">Escanear el código QR del Kit de recuperación</string>
+    <string name="unlock_recovery_qr_camera_unavailable">La cámara no está disponible. Escriba las palabras de abajo en su lugar.</string>
+    <string name="unlock_recovery_qr_camera_dialog_title">¿Usar la cámara?</string>
+    <string name="unlock_recovery_qr_camera_dialog_body">LocalKeep usa la cámara solo mientras escanea el código QR de su Kit de recuperación. No se guarda ni envía ninguna foto o video.</string>
+    <string name="unlock_recovery_qr_camera_dialog_continue">Continuar</string>
+    <string name="unlock_recovery_qr_camera_denial_sentence">LocalKeep no puede escanear un código QR sin acceso a la cámara.</string>
+    <!-- Shown when the scanned code is not a Recovery Kit — wrong QR entirely, a stray otpauth://
+         code, or a frame `RecoveryKit.parseQrCode` could not validate. Never echoes the scanned
+         payload: the code that failed could be anything, and putting it on screen would show
+         whoever is looking at this vault's unlock screen the contents of an unrelated QR. -->
+    <string name="unlock_recovery_qr_invalid_message">Ese código QR no es un Kit de recuperación. Verifique que sea el que LocalKeep le dio, o escriba las palabras de abajo en su lugar.</string>
+
+    <string name="unlock_recovery_open_button">Abrir con el Kit de recuperación</string>
+    <string name="unlock_recovery_open_button_a11y_incomplete">Abrir con el Kit de recuperación, disponible cuando se hayan ingresado las 24 palabras</string>
+    <string name="unlock_recovery_open_button_a11y_checksum_invalid">Abrir con el Kit de recuperación, no disponible — estas 24 palabras no forman un Kit de recuperación válido</string>
+    <!-- Accessibility label of "Open with Recovery Kit" when more than 24 words are typed (V3-01).
+         The incomplete label above says "available once all 24 words are entered", which at 32
+         words tells a screen-reader user to do what they have already done and never names the
+         real cause. -->
+    <string name="unlock_recovery_open_button_a11y_too_many">Abrir con el Kit de recuperación, no disponible — eso son más de 24 palabras, un Kit de recuperación tiene exactamente 24</string>
+    <string name="unlock_back_to_password">Volver a la contraseña</string>
+
+    <string name="unlock_button">Desbloquear</string>
+    <!-- Accessibility label of the Unlock button while a derivation is in progress. -->
+    <string name="unlock_button_a11y_working">Desbloqueando, espere por favor</string>
+    <!-- Accessibility label of the Unlock button before any password has been typed. -->
+    <string name="unlock_button_a11y_needs_password">Desbloquear, primero ingrese su contraseña maestra</string>
+    <string name="unlock_use_recovery_kit_button">Usar el Kit de recuperación</string>
+    <string name="unlock_biometric_button">Desbloquear con datos biométricos</string>
+    <!-- SECURITY-COPY: tier C — explains why the biometric button is absent even though
+         the user enrolled biometrics. -->
+    <string name="unlock_biometric_blocked_notice">El desbloqueo biométrico está desactivado tras un bloqueo de pánico y sigue desactivado hasta que vuelva a configurarlo en Ajustes.</string>
+
+    <!-- Footer shown on every unlock. Tier G in the base resources; see values/strings.xml for
+         why the exclusivity claim was scoped to the master password on 2026-08-31. -->
+    <string name="unlock_footer_disclaimer">Sin cuenta. Sin servidor de sincronización. Su contraseña maestra nunca sale de este dispositivo.</string>
+
+    <!-- KDF parameter line shown under the derivation spinner, e.g. "Argon2id · 3 passes · 256 MiB".
+         "Argon2id" is a fixed KDF name (never translated) embedded in an otherwise
+         translatable sentence. %1$s is the passes phrase (see unlock_kdf_passes), %2$d is MiB. -->
+    <string name="unlock_kdf_summary">Argon2id · %1$s · %2$d MiB</string>
+    <!-- Passes phrase substituted into unlock_kdf_summary's %1$s. -->
+    <plurals name="unlock_kdf_passes">
+        <item quantity="one">%1$d pasada</item>
+        <item quantity="other">%1$d pasadas</item>
+    </plurals>
+
+    <string name="unlock_error_generic_failed">Desbloqueo fallido</string>
+
+    <!-- SECURITY-COPY: tier B — a wrong Recovery Kit is deliberately indistinguishable from
+         a vault with no kit at all; see UnlockViewModel.recoveryFailureMessage. -->
+    <string name="unlock_recovery_failed_message">Esas palabras no abrieron esta caja fuerte. Verifique el orden y la ortografía — las 24 deben ser correctas, y solo funcionan con el kit que esta caja fuerte recibió por última vez.</string>
+
+    <string name="unlock_recovery_checksum_invalid_message">Estas 24 palabras no forman un Kit de recuperación válido — verifique la ortografía y el orden.</string>
+
+    <!-- Shown under the Recovery Kit field when more than 24 words are typed (V3-01). A kit is
+         exactly 24 words, so this is not an unfinished phrase and the checksum message above
+         cannot fire for it. Not a security-property claim, for the same reason
+         unlock_recovery_checksum_invalid_message is not: it counts words. -->
+    <string name="unlock_recovery_too_many_words_message">Eso son más de 24 palabras — un Kit de recuperación tiene exactamente 24</string>
+
+    <!-- SECURITY-COPY: tier C — explains why biometric unlock is refusing to run: the user
+         asked for this via "Lock now". -->
+    <string name="unlock_biometric_panic_lock_message">El desbloqueo biométrico está desactivado. «Bloquear ahora» lo desactiva permanentemente: configúrelo de nuevo en Ajustes.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_biometric_not_enabled">El desbloqueo biométrico no ha sido activado</string>
+    <!-- SECURITY-COPY: tier C — Android biometric prompt title. -->
+    <string name="unlock_biometric_prompt_title">Desbloquear LocalKeep</string>
+    <!-- SECURITY-COPY: tier C — Android biometric prompt subtitle. -->
+    <string name="unlock_biometric_prompt_subtitle">Confirme su identidad</string>
+    <!-- SECURITY-COPY: tier C — the retry countdown is its own attempt-counter, separate
+         from the master password's; reassures the password is still usable. -->
+    <plurals name="unlock_biometric_locked_retry">
+        <item quantity="one">Demasiados intentos biométricos. Intente de nuevo en %1$d segundo, o use su contraseña maestra ahora.</item>
+        <item quantity="other">Demasiados intentos biométricos. Intente de nuevo en %1$d segundos, o use su contraseña maestra ahora.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_biometric_incomplete">El desbloqueo biométrico no se completó</string>
+    <string name="unlock_error_biometric_lockout">Demasiados intentos: la biometría descansa un momento. Su contraseña maestra sigue funcionando.</string>
+
+    <!-- SECURITY-COPY: tier C — lockout countdown after too many wrong master-password or
+         Recovery Kit attempts. -->
+    <plurals name="unlock_retry_after_seconds">
+        <item quantity="one">Intente de nuevo en %1$d segundo</item>
+        <item quantity="other">Intente de nuevo en %1$d segundos</item>
+    </plurals>
+
+    <!-- SECURITY-COPY: tier C — every case below is UnlockViewModel.publishResult naming the
+         real cause instead of "Wrong password"; see the surrounding Kotlin comments for why
+         each one is worded the way it is. Never merge these into one string. -->
+    <string name="unlock_error_wrong_password">Contraseña incorrecta</string>
+    <string name="unlock_error_biometric_unavailable">El desbloqueo biométrico ya no está disponible. Su contraseña maestra sigue funcionando.</string>
+    <string name="unlock_error_vault_unreadable">No se pudo leer el archivo de la caja fuerte. Su contraseña probablemente esté bien — puede restaurar una copia de seguridad desde aquí.</string>
+    <string name="unlock_error_vault_newer_version">Esta caja fuerte fue guardada por una versión más reciente de LocalKeep. Actualice la aplicación para abrirla — su caja fuerte está bien, y no restaure una copia de seguridad anterior sobre ella.</string>
+    <string name="unlock_error_interrupted">La operación tomó tanto tiempo que la caja fuerte se volvió a bloquear. Intente de nuevo.</string>
+    <string name="unlock_error_needs_more_memory">Esta caja fuerte necesita más memoria de la que este dispositivo permite a una aplicación. Su contraseña está bien. Ábrala en un teléfono con más memoria, luego reduzca sus ajustes de cifrado en Ajustes › Copia de seguridad — después de eso también se abrirá aquí.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_error_memory_transient">LocalKeep no tiene suficiente memoria en este momento. Su contraseña está bien. Cierre la aplicación por completo — deslícela para cerrarla — y ábrala de nuevo.</string>
+    <!-- ===== Pre-unlock restore (F34) =====
+         The vault container will not open, so Settings — where every other backup control lives —
+         is behind a door that cannot be opened. These strings are that flow. Spec 12.5 makes a
+         restore-from-backup flow on load failure a MUST. -->
+    <!-- The action the sentence above now actually carries. Never appears for a wrong password, and
+         never for a vault from a newer version — see UnlockError.Actionable for why both
+         exclusions are security decisions rather than tidiness. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_error_vault_unreadable_action">Restaurar una copia de seguridad</string>
+    <string name="unlock_restore_title">Restaurar una copia de seguridad</string>
+    <string name="unlock_restore_subtitle">Elija una copia instantánea guardada en este dispositivo, o un archivo de copia de seguridad. Una copia instantánea se abre con su contraseña maestra actual; un archivo de copia de seguridad, con la contraseña con la que se exportó.</string>
+    <string name="unlock_restore_on_device_label">Guardadas en este dispositivo</string>
+    <string name="unlock_restore_empty">Este dispositivo no tiene copias instantáneas guardadas. Elija un archivo de copia de seguridad en su lugar.</string>
+    <string name="unlock_restore_snapshot_label">Guardada el %1$s</string>
+    <!-- This is the password for the BACKUP, not necessarily the one the vault uses now. A snapshot is
+         sealed under whatever the master password was when it was taken. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_restore_password_label">Contraseña de esta copia de seguridad</string>
+    <string name="unlock_restore_password_placeholder">Contraseña</string>
+    <string name="unlock_restore_check_button">Abrir esta copia de seguridad</string>
+    <string name="unlock_restore_working">Abriendo la copia de seguridad…</string>
+    <!-- The only wrong-password wording on this screen. Everything else that can fail here gets its own
+         sentence, because sending someone to retype a password at the one screen that exists
+         because retyping does not help is the defect this flow was built to remove. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_restore_error_wrong_password">Esa contraseña no abrió esta copia de seguridad.</string>
+    <!-- A parser, I/O or payload-authentication failure. Deliberately not folded into the wrong-password
+         string above. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="unlock_restore_error_unreadable">Esta copia de seguridad no se puede leer en este dispositivo. No se cambió nada.</string>
+    <string name="unlock_restore_error_newer_version">Esta copia de seguridad se guardó con una versión más reciente de LocalKeep. Actualice la aplicación primero.</string>
+    <!-- Shown when the damaged vault file could not be copied aside, in which case nothing was written.
+         The claim that nothing changed is enforced by confirmRestore returning before the write. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_error_not_kept">No se pudo conservar el archivo de la caja fuerte, así que no se cambió nada.</string>
+    <string name="unlock_restore_error_failed">No se pudo restaurar la copia de seguridad. El archivo de la caja fuerte que no se abría sigue en este dispositivo.</string>
+    <string name="unlock_restore_confirm_title">¿Reemplazar la caja fuerte?</string>
+    <!-- The irreversible-action confirmation. Two claims, and both must stay true in every language:
+         anything saved after the backup was taken is not in it, and the vault file that would not
+         open is KEPT rather than deleted (PreUnlockRestore copies all three container files aside
+         before anything is written, and the restore aborts if that copy fails). -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_confirm_body">Esta copia de seguridad se abrió. Reemplazar la caja fuerte con ella significa que todo lo guardado después de hacerla no está incluido. Las copias de seguridad solo contienen la caja fuerte, por lo que cualquier archivo o foto añadido desde entonces ya no estará adjunto a nada. El archivo de la caja fuerte que no se abría se conserva en este dispositivo, no se elimina.</string>
+    <!-- The button that performs the replacement. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="unlock_restore_confirm_button">Reemplazar caja fuerte</string>
+    <string name="unlock_restore_back">Atrás</string>
+    <string name="unlock_restore_pick_another">Elegir otra copia de seguridad</string>
+    <string name="unlock_restore_done_title">Caja fuerte restaurada</string>
+    <string name="unlock_restore_done_body">La contraseña que abrió esa copia de seguridad es ahora su contraseña maestra. Desbloquee con ella.</string>
+    <string name="unlock_restore_done_button">Ir a desbloquear</string>
+    <!-- Opens the document picker so a vault export from outside this device can be restored.
+         The ring is excluded from cloud backup and device transfer, so a replaced phone has
+         none of it and this is the only route left. -->
+    <string name="unlock_restore_choose_file">Elegir un archivo de copia de seguridad</string>
+    <string name="unlock_restore_picked_file">El archivo que eligió</string>
+    <!-- Accessibility label of the Open this backup button while the derivation is running. -->
+    <string name="unlock_restore_check_a11y_working">Abriendo la copia de seguridad, espere</string>
+    <!-- Accessibility label of the same button before any password has been typed. Keyed on the
+         blocking condition rather than on the disabled flag: that flag folds two causes, so it
+         cannot say which one applies and announces the wrong one while work is in progress. -->
+    <string name="unlock_restore_check_a11y_needs_password">Abrir esta copia de seguridad, primero ingrese la contraseña de esta copia</string>
+</resources>

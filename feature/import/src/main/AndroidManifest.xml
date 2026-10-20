@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Package visibility for the import wizard's "Open <app>" shortcut.
+
+        This is NOT a permission: it adds nothing to `foss`'s allowlist, and `checkNoNetworkingDeps` is
+        unaffected. What it does is let getLaunchIntentForPackage resolve these specific apps, so
+        the wizard can send the user straight to the export screen instead of telling them to go
+        find it themselves — the one part of another app's export we are able to do for them.
+
+        Named packages only, never a broad intent filter. A filter matching "password manager" would
+        let this app enumerate every manager installed on the device, which is a fact about the user
+        that an import wizard has no business learning.
+    -->
+    <queries>
+        <package android:name="com.android.chrome" />
+        <package android:name="com.chrome.beta" />
+        <package android:name="com.beemdevelopment.aegis" />
+        <package android:name="com.callpod.android_apps.keeper" />
+        <package android:name="io.enpass.app" />
+        <package android:name="proton.android.pass" />
+        <package android:name="com.dashlane" />
+    </queries>
+
+</manifest>

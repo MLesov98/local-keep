@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Screen header / search -->
+    <string name="settings_screen_title">Settings</string>
+    <string name="settings_back">Back</string>
+    <string name="settings_search_placeholder">Search settings</string>
+    <!-- Shown above the results while an operation (save, biometric enrol, purchase check…) is running. -->
+    <string name="settings_working">Working…</string>
+    <string name="settings_empty_title">No matches</string>
+    <!-- %1$s is the user's search text; %2$s is the third example word, which is "backup" during a
+         decoy session and "decoy" otherwise — naming the duress feature in a help string during a
+         decoy session would give away that a real vault exists. -->
+    <string name="settings_empty_body">Nothing here matches “%1$s”. Try a word from the thing you want to change rather than its name — “vibration”, “fingerprint”, “%2$s”.</string>
+    <string name="settings_empty_word_decoy">decoy</string>
+    <string name="settings_empty_word_backup">backup</string>
+    <string name="settings_clear_search">Clear search</string>
+
+    <!-- Group titles -->
+    <string name="settings_group_security">Security</string>
+    <string name="settings_group_autofill">Autofill</string>
+    <string name="settings_group_vault_backup">Vault &amp; Backup</string>
+    <string name="settings_group_appearance">Appearance</string>
+    <string name="settings_group_how_this_works">How this works</string>
+    <string name="settings_group_about">About</string>
+    <string name="settings_group_pro">LocalKeep Pro</string>
+    <string name="settings_group_debug">Developer (debug build)</string>
+
+    <!-- Accessibility state words appended to an expandable row's description. -->
+    <string name="settings_state_expanded">Expanded</string>
+    <string name="settings_state_collapsed">Collapsed</string>
+
+    <!-- EntryRow's accessibility label for a tappable Action row. %1$s is the entry's title,
+         %2$s its summary. Was a Kotlin-interpolated "$title. $summary" with a hardcoded
+         period-and-space until 2026-08-10, which a translator cannot reorder or re-punctuate. -->
+    <string name="settings_entry_action_label">%1$s. %2$s</string>
+    <!-- ValueRow's accessibility label (e.g. "Version, 1.4.2"). %1$s is the row title, %2$s the
+         value. Was a Kotlin-interpolated "$title, $value" with a hardcoded comma until
+         2026-08-10, which a translator cannot reorder or re-punctuate. -->
+    <string name="settings_value_row_label">%1$s, %2$s</string>
+
+    <!-- Security · Auto-lock -->
+    <string name="settings_autolock_title">Auto-lock</string>
+    <!-- %1$s is the preset name (e.g. "Balanced"); %2$d/%3$d are seconds. Compact "10s" unit
+         notation, not a countable noun, so it does not need <plurals>. -->
+    <!-- Punctuation only: the preset name, its idle timeout and its background grace. No words to
+         translate, so it is not translatable; the legend below carries the meaning. -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="settings_autolock_chip_durations" translatable="false">%1$s / %2$s</string>
+    <string name="settings_autolock_chip_legend">Each option shows how long until locking: idle / in the background.</string>
+    <string name="settings_autolock_summary">%1$s · %2$s idle, %3$s in the background</string>
+
+    <!-- Security · Biometric unlock -->
+    <string name="settings_biometric_title">Biometric unlock</string>
+    <string name="settings_biometric_summary_on">On for this device</string>
+    <string name="settings_biometric_summary_off">Off — your master password only</string>
+    <string name="settings_biometric_summary_unavailable">Unavailable on this device</string>
+    <!-- Shown in place of the line above when the device can do this and simply has nothing
+         enrolled yet. Distinct because it is the one case the user can fix, and the row offers
+         the route to do it. -->
+    <string name="settings_biometric_summary_not_enrolled">No biometrics enrolled yet</string>
+    <string name="settings_biometric_summary_no_hardware">This device has no biometric sensor</string>
+    <string name="settings_biometric_summary_sensor_busy">Biometric sensor unavailable right now</string>
+    <string name="settings_biometric_summary_needs_update">Biometrics need a system security update</string>
+    <string name="settings_biometric_enrol_button">Set up biometrics</string>
+    <string name="settings_biometric_body">Opens LocalKeep with biometrics instead of typing your master password. A convenience on top of it, never a replacement.</string>
+    <!-- Also used as the system BiometricPrompt title from SettingsViewModel.enableBiometric. -->
+    <string name="settings_biometric_enable_button">Enable biometric unlock</string>
+    <string name="settings_biometric_disable_button">Turn off biometric unlock</string>
+    <string name="settings_biometric_dialog_title">Use biometric unlock?</string>
+    <string name="settings_biometric_dialog_body">Enrolling lets your device\'s biometric sensor unlock LocalKeep in place of your master password. Your biometric data never leaves the device\'s secure hardware and is never seen by LocalKeep.</string>
+    <string name="settings_biometric_dialog_continue">Continue</string>
+    <string name="settings_biometric_dialog_dismiss">Not now</string>
+    <!-- The system BiometricPrompt subtitle, read via Context.getString from the ViewModel — this
+         dialog is an imperative Android API call, not composed, so it cannot use stringResource. -->
+    <string name="settings_biometric_prompt_subtitle">Confirm to protect this vault key</string>
+
+    <!-- Security · Change master password -->
+    <string name="settings_password_title">Change master password</string>
+    <string name="settings_password_summary">Needs your current one</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_body">This replaces the key that protects your vault. Your existing Recovery Kit stops working, so create a new one afterwards, and biometric unlock has to be enrolled again.</string>
+    <!-- The Recovery Kit route into a master-password change. It has to
+         say that the kit being used is spent, because the data key rotates with the password and
+         these 24 words stop opening the vault the moment the change lands. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_forgot_cta">I\'ve forgotten my master password</string>
+    <string name="settings_password_current_cta">I know my current password</string>
+    <string name="settings_password_kit_label">Recovery Kit words</string>
+    <string name="settings_password_kit_placeholder">All 24 words, separated by spaces</string>
+    <!-- Criterion 3 and 4 of Tier B: it states the consequence of using the kit here, which is
+         that the kit stops working afterwards. A user who reads past that keeps a printed sheet
+         they believe still opens the vault. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_kit_body">Type the 24 words from your Recovery Kit instead of your current password. Setting a new password replaces this vault\'s encryption key, so the kit you type here stops working and you will need to make a new one.</string>
+    <!-- The same event as unlock_recovery_failed_message, which is already Tier B, reached from
+         the master-password change instead of the unlock screen. Tagging one and not the other
+         would let the two answers to one question drift apart. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_error_wrong_recovery_kit">Those are not this vault\'s Recovery Kit words. Check the order and the spelling.</string>
+    <string name="settings_password_current_label">Current password</string>
+    <string name="settings_password_new_label">New password</string>
+    <string name="settings_password_confirm_label">Confirm new password</string>
+    <string name="settings_password_mismatch">These don\'t match yet.</string>
+    <string name="settings_password_submit">Change password</string>
+    <!-- Dot placeholder for a masked password well — the glyphs carry no language, same in every locale. -->
+    <!-- Empty on purpose. This was twelve bullet characters until 2026-09-09, so an EMPTY
+         password field rendered more mask characters than a real four-character password —
+         you could not tell "nothing typed" from "something typed", on the unlock screen
+         most of all. The field keeps its own label above it and an explicit a11y label at
+         every call site, so nothing is lost by showing an empty field as empty.
+         translatable="false" is kept: there is no text left to translate. -->
+    <string name="settings_password_field_placeholder" translatable="false"></string>
+
+    <!-- Security · Password health -->
+    <string name="settings_health_title">Password health</string>
+    <string name="settings_health_summary">Find weak and reused passwords</string>
+
+    <!-- Security · Recovery Kit -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_recovery_kit_title">Recovery Kit</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_recovery_kit_summary">Make 24 words that open this vault without your password</string>
+    <!-- Shown when onboarding was finished without saving a kit. States the
+         consequence rather than scolding: the fact that matters is that forgetting the password
+         would end the vault, not that a step was skipped. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_recovery_kit_summary_missing">Not saved yet — forget your master password and this vault cannot be opened</string>
+
+    <!-- Security · Duress vault. Entire feature is SECURITY-COPY tier D. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_title">Duress vault</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_summary_pro">A second password that opens a decoy</string>
+    <!-- "Pro" is the app's paid-tier name and stays untranslated
+         in every locale. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_summary_free">Pro · a second password that opens a decoy</string>
+    <!-- The limit is stated where the decision is made, not only in the
+         threat model. This read "Your real vault is untouched and gives no sign it exists" with a
+         single caveat about biometrics, which is an unqualified protection claim on the one feature
+         whose whole risk is a user believing it protects more than it does. THREAT-MODEL.md lists
+         coercion under "What LocalKeep does not defend against" — "the duress vault exists for
+         this, but it is a mitigation, not a defence" — under a heading that opens "Stated plainly
+         so no UI copy ever implies otherwise". Found by the F14 UX persona, 2026-08-30. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_body_explain">Entering this password at the unlock screen opens a separate decoy vault, pre-filled with ordinary-looking logins you can edit. Your real vault is untouched, and nothing in the decoy points to it. This buys you a plausible answer under pressure; it is not a defence. Someone who already knows this app has the feature can simply demand a second password, and biometric unlock and the Recovery Kit both open the real vault whatever you say.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_body_replace_warning">Running this again replaces any duress password already set, and rebuilds the decoy vault from scratch — anything you edited inside it is discarded.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_password_label">Duress password</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_confirm_label">Confirm duress password</string>
+    <!-- Also reused as the confirm label of the "replace" dialog below. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_setup_button">Set up duress vault</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_button">Remove the duress vault</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_gate_body">Enter your vault password to confirm this change.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_gate_label">Vault password</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_dialog_title">Remove the duress vault?</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_dialog_body">The duress password stops opening anything and the decoy is overwritten. If duress was never set up, this does nothing. Your real vault is not touched.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_confirm">Remove</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_replace_dialog_title">Replace the duress vault?</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_replace_dialog_body">This sets the duress password and builds a fresh decoy vault. If duress is already set up, the old password stops working and any edits you made to the decoy are lost. Your real vault is not touched.</string>
+    <!-- Passed to ProUpsell as the reason Pro is required. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_upsell_purpose">to set up a decoy vault</string>
+
+    <!-- Security · Panic lock -->
+    <string name="settings_panic_title">Panic lock</string>
+    <!-- The row summary is the sentence most users read instead of the body below it, so it has to
+         carry the one-way door rather than soften it. It said "refuse biometrics until unlocked",
+         which understated a permanent change (device, 2026-09-20). -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="settings_panic_summary">Lock now, and switch biometric unlock off for good</string>
+    <string name="settings_panic_body">Locks the vault at once and requires your master password — a biometric taken from you by force will not reopen it. Biometric unlock is switched off for good; turning it back on means enrolling it again in Security.</string>
+    <string name="settings_panic_button">Lock now</string>
+
+    <!-- Autofill -->
+    <string name="settings_autofill_service_title">Autofill service</string>
+    <!-- The row's summary once the state is known. Material's rule for a settings row is that
+         its secondary text carries state; this row described the feature instead, so a user who
+         had never turned autofill on and one who had read exactly the same sentence. -->
+    <string name="settings_autofill_service_summary_on">On — LocalKeep fills your logins</string>
+    <string name="settings_autofill_service_summary_off">Off — tap to choose LocalKeep</string>
+    <string name="settings_autofill_inline_title">Inline suggestions</string>
+    <string name="settings_autofill_inline_summary">Saved logins appear in your keyboard\'s suggestion bar</string>
+    <string name="settings_autofill_inline_summary_off">Off while LocalKeep isn\'t your autofill service</string>
+    <string name="settings_autofill_inline_body">When autofill is on and your keyboard supports inline suggestions, LocalKeep offers matching logins in the strip above the keys. There is no switch: your keyboard decides whether to show them.</string>
+    <string name="settings_trusted_title">Trusted apps</string>
+    <string name="settings_trusted_summary">Sites you confirmed for a browser</string>
+    <string name="trusted_apps_subtitle">Sites you confirmed for a browser, so autofill can offer logins there without asking again, and apps whose signature LocalKeep has remembered. Remove any of them at any time.</string>
+    <string name="trusted_apps_back">Back</string>
+    <string name="trusted_apps_empty_title">Nothing trusted yet</string>
+    <string name="trusted_apps_empty_body">Nothing here until you confirm a site.</string>
+    <string name="trusted_apps_no_sites">Signature remembered when this app asked LocalKeep to fill. No site has been allowed for it.</string>
+    <string name="trusted_apps_remove_site">Stop filling %1$s</string>
+    <string name="trusted_apps_forget_app_label">Forget %1$s</string>
+    <string name="trusted_apps_forget_title">Forget %1$s?</string>
+    <string name="trusted_apps_forget_body">LocalKeep will forget this app\'s signature and every site you\'ve allowed for it. The signature is remembered again the next time this app asks LocalKeep to fill, and each site will need your confirmation again.</string>
+    <string name="trusted_apps_forget_action">Forget</string>
+    <string name="settings_passkey_title">Passkey provider</string>
+    <string name="settings_passkey_summary">Store and offer passkeys alongside passwords</string>
+    <string name="settings_passkey_summary_unavailable">Needs Android 14 or newer</string>
+    <string name="settings_passkey_value_unavailable">Needs Android 14</string>
+
+    <!-- Vault & Backup -->
+    <string name="settings_backup_title">Backup &amp; export</string>
+    <string name="settings_backup_summary">Save an encrypted copy, or restore one</string>
+    <string name="settings_import_title">Import from another app</string>
+    <!-- Every word here is a source app/format name (Chrome, Bitwarden,
+         1Password, KeePass, Aegis) or a bare format acronym (CSV) — never translated. -->
+    <string name="settings_import_summary" translatable="false">Chrome, Bitwarden, 1Password, KeePass, Aegis, CSV</string>
+    <string name="settings_cloud_backup_title">Cloud backup</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_cloud_backup_summary">Keep the vault file out of Android Auto Backup</string>
+    <!-- F-41 (2026-09-16): the row showed settings_cloud_backup_summary whatever the Backup screen's
+         switch said, so with the switch on it read as a false claim of state. This is the ON-state
+         summary; the one above still covers OFF. Same claim class as its neighbour, translated
+         through the security-copy gauntlet on 2026-09-16 (3-vote, back-translated). -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_cloud_backup_summary_included">Vault included in Android Auto Backup</string>
+
+    <!-- Appearance -->
+    <string name="settings_haptics_title">Reduce haptics</string>
+    <!-- Also used as the switch hint when the system has not already silenced haptics. -->
+    <string name="settings_haptics_summary">Silence the app\'s vibration feedback</string>
+    <string name="settings_haptics_hint_system_off">Already off: touch feedback is disabled system-wide</string>
+
+    <!-- How this works -->
+    <string name="settings_dark_title">Why LocalKeep is dark</string>
+    <string name="settings_dark_summary">There is no light theme — here is the reasoning</string>
+    <string name="settings_dark_body">A light theme would be a second design, not a brightness switch: the colours here carry meaning at very low contrast, and that meaning does not survive a white background. Motion follows your system “remove animations” setting.</string>
+    <string name="settings_breach_title">Breach list</string>
+    <string name="settings_breach_summary">The corpus your passwords are checked against</string>
+    <string name="settings_breach_body">The list is bundled with the app and built from a public collection of passwords found in past breaches. It changes only when the app is updated.</string>
+    <string name="settings_breach_vintage">Corpus date: %1$s</string>
+    <string name="settings_breach_checking">Checking…</string>
+    <string name="settings_breach_unavailable">The breach list could not be read on this device, so breach checks cannot run.</string>
+
+    <!-- About -->
+    <string name="settings_version_title">Version</string>
+    <string name="settings_version_unknown">unknown</string>
+    <!-- Also the LicensesDialog title below. -->
+    <string name="settings_licenses_title">Open-source licenses</string>
+    <string name="settings_licenses_summary">Every dependency this build links against</string>
+    <string name="settings_licenses_dialog_body">Every third-party dependency this build links against, and the license it ships under.</string>
+    <string name="settings_licenses_dialog_close">Close</string>
+
+    <!-- Pro upgrade entry point (the standing row in the LocalKeep Pro group). "LocalKeep" and
+         "Pro" are both never translated (brand / tier); the prose around them translates. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_row_title">LocalKeep Pro</string>
+
+    <!-- Collapsed summary, play build, not yet purchased. The Tier E binding shape verbatim: no
+         price, no subscription language, and no number of any kind. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_row_summary_free">One payment, no subscription</string>
+
+    <!-- Collapsed summary, already purchased. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_row_summary_pro">Unlocked</string>
+
+    <!-- Collapsed summary, foss. This build sells nothing; the row states where Pro lives and its
+         action opens the listing. Deliberately shorter than settings_pro_upsell_foss_body, which
+         answers a feature the reader was just refused rather than naming the product. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_row_summary_foss">Pro is in the Play version</string>
+
+    <!-- Expanded body, play build, free tier. Says what Pro removes AND denies the reading that it
+         unlocks data: the caps limit creation only, never import and never display. Both halves
+         are stated rather than one being left to inference. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_row_body_removes_caps">Removes the limit on adding new files and media, cards, and identities. Importing and viewing were never capped.</string>
+
+    <!-- Expanded body, Pro. What was lifted, and nothing to sell. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_row_body_pro">The creation caps are lifted. Add files and media, cards and identities without a limit.</string>
+
+    <!-- Usage counts, shown in the expanded body only and never in the collapsed summary: a number
+         drawn on an unopened row is a prompt, not a disclosure. Text and argument order match
+         vaultlist_quota_blocked_title, vaultlist_card_quota_blocked_title and
+         vaultlist_identity_quota_blocked_title deliberately — the same three category
+         names the drawer and the Add sheet use, per the glossary. They are minted here rather than
+         reused because feature/settings declares no dependency on feature:vaultlist, so its R class
+         is unreachable; the values are copied character-for-character from the shipped catalogue.
+         %1$d is what is held, %2$d is the cap — never the cap twice, the bug the vaultlist copy
+         records as already made once. quantity binds to the held count. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_pro_row_usage_files">
+        <item quantity="one">Files &amp; media — %1$d of %2$d used</item>
+        <item quantity="other">Files &amp; media — %1$d of %2$d used</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_pro_row_usage_cards">
+        <item quantity="one">Cards — %1$d of %2$d used</item>
+        <item quantity="other">Cards — %1$d of %2$d used</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_pro_row_usage_identities">
+        <item quantity="one">Identities — %1$d of %2$d used</item>
+        <item quantity="other">Identities — %1$d of %2$d used</item>
+    </plurals>
+
+    <!-- Over the cap: an imported or downgraded vault, which is a supported state because import is
+         never charged against the cap. Deliberately NOT a fraction. "9 of 7" reads correctly on the
+         add sheet, where the reader was refused a second ago, but in a Settings row with no refusal
+         in view it implies a deficit the quota invariant denies — nothing is hidden and nothing is
+         lost. So the count is stated, the keeping is stated, and the cap is described as what it
+         actually limits: creating. The "one" item is unreachable (over-cap means held > cap >= 1,
+         so held >= 2) and exists only because a plurals element must carry it. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_pro_row_over_cap_files">
+        <item quantity="one">Files &amp; media — %1$d saved, all kept. The free version creates up to %2$d.</item>
+        <item quantity="other">Files &amp; media — %1$d saved, all kept. The free version creates up to %2$d.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_pro_row_over_cap_cards">
+        <item quantity="one">Cards — %1$d saved, all kept. The free version creates up to %2$d.</item>
+        <item quantity="other">Cards — %1$d saved, all kept. The free version creates up to %2$d.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_pro_row_over_cap_identities">
+        <item quantity="one">Identities — %1$d saved, all kept. The free version creates up to %2$d.</item>
+        <item quantity="other">Identities — %1$d saved, all kept. The free version creates up to %2$d.</item>
+    </plurals>
+
+    <!-- Pro upsell (shown inside the locked branch of a Pro-gated setting) -->
+    <!-- %1$s is PRO_PRICE (Play's own localised price); %2$s is a purpose
+         phrase such as settings_duress_upsell_purpose. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_body">Unlock Pro (one-time %1$s) %2$s.</string>
+    <!-- Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_body_no_price">Unlock Pro (one-time) %1$s.</string>
+    <!-- %1$s is PRO_PRICE. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_button">Unlock Pro — %1$s</string>
+    <!-- Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_button_no_price">Unlock Pro</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_foss_body">Pro lives in the Play Store version of the app.</string>
+    <!-- "Google Play" is a product name, never translated. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_view_play">View on Google Play</string>
+
+    <!-- Pro group (play build only) — restore purchases -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_title">Restore purchases</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_summary_active">Pro is active — re-check with Google Play</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_summary_inactive">Already bought Pro? Re-check with Google Play</string>
+
+    <!-- Developer (debug build) — TEMPORARY, on-device QA only. -->
+    <string name="settings_debug_pro_title">Pro override</string>
+    <string name="settings_debug_pro_summary">Test the paid tier without a purchase</string>
+    <string name="settings_debug_pro_switch_label">Unlock Pro features</string>
+    <string name="settings_debug_pro_switch_hint">Debug builds only. Not a purchase — flip it off to see the free tier.</string>
+
+    <!-- Duress decoy vault content (DecoyVaultSeed) — a believable everyday item so an empty decoy
+         does not give away that it is fake (UI/UX spec §10.3). "Wi-Fi" stays untranslated like the
+         seeded service names (Gmail, Netflix, …), which are real brand names shown as-is in every
+         locale; translating only this one title would make it stand out. -->
+    <string name="settings_decoy_wifi_title" translatable="false">Wi-Fi</string>
+    <!-- "HarperHouse" is the decoy's fixed, fictional network name and stays as written; %1$s is the
+         generated decoy password. -->
+    <string name="settings_decoy_wifi_note">Home network: HarperHouse\nKey: %1$s</string>
+
+    <!-- ViewModel-resolved errors and messages (SettingsMessage) -->
+    <string name="settings_error_screen_unavailable">This settings screen is unavailable on this device</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_message_pro_restored">Pro is active on this device.</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_error_no_pro_purchase">No Pro purchase found. Check you\'re online and signed in to the Google account you bought it with.</string>
+    <string name="settings_message_autolock_updated">Auto-lock updated</string>
+    <!-- %1$d is MIN_PASSWORD_LENGTH. -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="settings_error_password_too_short">New password must be at least %1$d characters</string>
+    <!-- States that the vault file is attackable offline. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_error_password_too_weak">That password is too easy to guess. Your vault file can be attacked offline, so this is the one thing protecting it.</string>
+    <string name="settings_error_wrong_current_password">That isn\'t your current master password.</string>
+    <string name="settings_error_password_unchanged">Your new master password must be different from your current one. Nothing was changed.</string>
+    <!-- Also tier F. %1$d is MIN_PASSWORD_LENGTH. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_error_duress_same_as_master">Your duress password has to be different from your master password — the same password cannot open both vaults.</string>
+    <string name="settings_error_duress_password_too_short">Duress password must be at least %1$d characters</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_message_duress_configured">Duress vault configured</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_message_duress_removed">Duress vault removed</string>
+    <string name="settings_error_biometric_unavailable">Strong biometric authentication is unavailable</string>
+    <!-- Covers both the framework's transient cool-off and the permanent lockout that holds until
+         the device credential is entered: the two differ only in how long, and the one action
+         named here resolves either. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="settings_error_biometric_lockout">Too many biometric attempts. Biometrics are locked for now — wait a moment, or unlock your phone with its PIN, then try again.</string>
+    <string name="settings_message_biometric_enabled">Biometric unlock enabled</string>
+    <string name="settings_message_biometric_disabled">Biometric unlock turned off</string>
+    <!-- Only for a failure nothing is known about. -->
+    <string name="settings_error_generic">That didn\'t go through. Try again.</string>
+    <!-- A key derivation that runs inside the open app (duress setup, master-password change, KDF
+         re-wrap) ran out of heap. Named rather than generic: "try again" reproduces it. The remedy
+         mirrors unlock_error_needs_more_memory in feature/unlock. Carries no tier. -->
+    <string name="settings_error_kdf_needs_more_memory">This vault\'s encryption settings need more memory than this device gives the app while it is open. Nothing was changed. On a phone with more memory, lower them under Settings › Backup — after that this works here too.</string>
+    <!-- The throttle shared with unlock. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_error_retry_after">
+        <item quantity="one">Too many attempts. Try again in %1$d second.</item>
+        <item quantity="other">Too many attempts. Try again in %1$d seconds.</item>
+    </plurals>
+    <!-- %1$s is one of the settings_op_* phrases below, chosen by vaultOperationRes from
+         VaultSessionEndedException.operation. The exception's own text is an English literal by
+         design (exception text never reaches the UI) — the mapping is what
+         keeps this sentence fully translated. -->
+    <string name="settings_error_vault_session_ended">The vault locked while trying to %1$s. Nothing was changed — unlock and try again.</string>
+    <!-- Localised names for the operations VaultLockManager can interrupt, phrased to follow
+         "while trying to %1$s". One entry per operation literal in VaultLockManager; a literal
+         with no mapping falls back to settings_error_vault_session_ended_generic rather than
+         splicing English into a translated sentence (see VaultOperationResTest). -->
+    <string name="settings_op_prepare_recovery_kit">prepare the Recovery Kit</string>
+    <string name="settings_op_save_recovery_kit">save the Recovery Kit</string>
+    <string name="settings_op_save_changes">save your changes</string>
+    <string name="settings_op_set_up_duress">set up duress</string>
+    <string name="settings_op_remove_duress">remove duress</string>
+    <string name="settings_op_inspect_duress">inspect duress</string>
+    <string name="settings_op_update_encryption_settings">update the encryption settings</string>
+    <string name="settings_op_change_master_password">change the master password</string>
+    <string name="settings_op_rotate_encryption_key">rotate the encryption key</string>
+    <string name="settings_op_enable_biometric_unlock">enable biometric unlock</string>
+    <!-- Fallback for an operation literal with no settings_op_* mapping: says less rather than
+         showing the exception's English fragment inside a translated sentence. -->
+    <string name="settings_error_vault_session_ended_generic">The vault locked while an operation was running. Nothing was changed — unlock and try again.</string>
+
+    <!-- Change-password success message, assembled from optional clauses. -->
+    <string name="settings_password_changed">Master password changed.</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_changed_recovery_kit_voided">Your old Recovery Kit no longer works — make a new one under Security → Recovery Kit.</string>
+    <string name="settings_password_changed_biometric_note">Biometric unlock was turned off — enable it again to use it.</string>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_rekeyed">
+        <item quantity="one">The %1$d local backup copy on this phone — a snapshot or the previous vault file — moved to the new password too.</item>
+        <item quantity="other">The %1$d local backup copies on this phone — the snapshots and the previous vault file — moved to the new password too.</item>
+    </plurals>
+    <plurals name="settings_password_changed_blobs_pending">
+        <item quantity="one">%1$d stored file is still being re-encrypted. It will finish the next time you unlock; nothing is lost.</item>
+        <item quantity="other">%1$d stored files are still being re-encrypted. They will finish the next time you unlock; nothing is lost.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_destroyed">
+        <item quantity="one">%1$d older local backup copy could no longer be read and was deleted rather than left open to your old password.</item>
+        <item quantity="other">%1$d older local backup copies could no longer be read and were deleted rather than left open to your old password.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_left_behind">
+        <item quantity="one">Warning: %1$d local backup copy could not be updated or removed, so your old password still opens it. Export your vault and reinstall LocalKeep to clear this.</item>
+        <item quantity="other">Warning: %1$d local backup copies could not be updated or removed, so your old password still opens them. Export your vault and reinstall LocalKeep to clear this.</item>
+    </plurals>
+    <plurals name="settings_duration_seconds">
+        <item quantity="one">%1$d second</item>
+        <item quantity="other">%1$d seconds</item>
+    </plurals>
+    <plurals name="settings_duration_minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+
+    <!-- ============================================================================================
+         Hidden items (make-invisible recovery screen). Several of these assert a security property —
+         what an authenticated gate proves, where concealed data lives, that concealment is not
+         encryption — so they are owed the full security-copy protocol. That protocol has since been
+         applied: every string below that carries a claim has its own marker, its own entry in
+         TierGClaimsTest, and a fr/de/es/pt translation, and the markers and the values-*/ files
+         moved together as this comment required. This paragraph said the marker was deliberately
+         withheld and the group was English-only until 2026-09-21, which stopped being true when the
+         translations landed — a comment describing the opposite of the file it heads, on the one
+         group whose whole point is that a reviewer can tell tagged from untagged.
+
+         Three strings here carry no marker on purpose: settings_hidden_view_entry,
+         settings_hidden_peek_empty and settings_hidden_peek_taken name a control, the absence of a
+         preview and a capture time, and make no claim about what concealment protects.
+         settings_hidden_peek_reprompt is the one exception in that run — it explains why a screen
+         lock prompt will appear, which is the re-authentication tier rather than this group's.
+
+         Nothing in this group may carry a count or a state word on the Settings row itself: the row
+         is always present, and a summary that changed with what is hidden would be the leak the
+         always-present row exists to avoid.
+         ============================================================================================ -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_group_privacy">Privacy</string>
+    <!-- The switch behind the File editor's "Don't ask again" (2026-10-09). On by default. -->
+    <string name="settings_original_delete_title">Offer to delete originals</string>
+    <string name="settings_original_delete_summary">After you save a photo or file, ask whether to delete the copy left outside LocalKeep.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_items_title">Invisible items</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_items_summary">Bring back entries you made invisible, and change your reveal phrase.</string>
+
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_title">Invisible items</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_back">Back</string>
+
+    <!-- The gate. Shown instead of any content until a biometric or the current vault password
+         passes; "vault password" and never "master password", so the same words are true in a decoy
+         session, where the current vault password is the decoy's. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_gate_title">Confirm it\'s you</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_gate_body">This list is shown only after biometric confirmation or your vault password.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_gate_body_password_only">This list is shown only after you enter your vault password.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_gate_biometric">Use biometrics</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_gate_password_label">Vault password</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_gate_password_submit">Continue</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_error_password">That is not the current vault password.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_error_session_ended">The vault locked. Unlock it and open this screen again.</string>
+
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_empty_title">Nothing is invisible</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_empty_body">Anything you make invisible is listed here, so you can always bring it back.</string>
+
+    <!-- One row per explicitly-leased entry. The lease is the whole row detail; %1$s is a date and
+         time formatted for the reader's locale. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_until">Invisible until %1$s</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_indefinite">Invisible with no end date</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_folder_label">Folder</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_stop">Make visible</string>
+    <string name="settings_hidden_view_entry">View entry</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="settings_hidden_peek_reprompt">This entry asks for your screen lock each time it opens. Make it visible to read it.</string>
+    <string name="settings_hidden_peek_empty">This entry has no preview. Make it visible to open it in full.</string>
+    <string name="settings_hidden_peek_taken">Captured %1$s</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_change_duration">Change duration</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_stopped">%1$s is visible again</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_duration_changed">%1$s stays invisible for the new duration</string>
+
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_duration_title">Make %1$s invisible for</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_preset_5min">5 minutes</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_preset_30min">30 minutes</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_preset_1hour">1 hour</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_preset_1day">1 day</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_preset_indefinite">Indefinitely</string>
+
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_change_phrase">Change reveal phrase</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_phrase_body">The phrase you type into search to bring invisible entries back for one session. Changing it does not make anything visible again.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_phrase_label">New reveal phrase</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_phrase_confirm">Save phrase</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_phrase_collision">That phrase already finds an entry in your vault, so it could not double as the reveal phrase. Choose another.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_phrase_changed">Reveal phrase changed</string>
+
+    <!-- The two consequences a user cannot see from anywhere else, stated on the one screen that
+         exists to explain them. Neither may be softened: concealment is a projection, not a second
+         layer of encryption, and the security dashboard genuinely counts fewer entries while
+         something is hidden. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_explainer_health">Making an entry invisible takes it out of the security dashboard\'s counts, so your score moves when it goes invisible and again when it comes back.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_hidden_explainer_storage">Invisible entries stay in your vault and in every backup. Making them invisible removes them from the app\'s screens; it is not a second layer of encryption.</string>
+</resources>

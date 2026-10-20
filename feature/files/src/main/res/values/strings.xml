@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared across this module's screens. -->
+    <string name="files_back">Back</string>
+    <string name="files_close">Close</string>
+    <string name="files_remove">Remove</string>
+    <!-- Shared button/progress-label text: the Save/Attach actions in this module all say the
+         same thing while a blob is being written. -->
+    <string name="files_encrypting_ellipsis">Encrypting…</string>
+
+    <!-- Shown when adding past the free tier's file-and-photo cap (AttachmentPicker, FileItemEditScreen).
+         Names the number rather than the tier, matching AttachmentQuota.LIMIT_MESSAGE's copy — that
+         constant lives in :core:vault, a String its two callers here could not consume once `error`
+         became @StringRes Int, so this module now owns its own copy of the same sentence, built from
+         AttachmentQuota.FREE_LIMIT (an Int, not a String, so no cross-module resource dependency). -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="files_error_quota_exceeded">Free vaults hold %1$d files and photos, counting files inside folders and files attached to other items. Remove %2$d</string>
+    <!-- The sentence above ends where the count does; one of the two clauses below finishes it,
+         chosen on Entitlement.canPurchase (see refusalStringIds). Same wording as the vault list's
+         dialog suffixes, so the two screens that show this refusal cannot teach different things. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="files_error_quota_exceeded_suffix_purchase">, or unlock Pro for unlimited.</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="files_error_quota_exceeded_suffix_no_purchase">, or unlock Pro in the Play version.</string>
+
+    <!-- ==================== AttachmentPicker.kt ==================== -->
+    <string name="files_attachments_title">Files &amp; media</string>
+    <!-- Header subtitle: how many attachments this item already has. -->
+    <plurals name="files_attachments_count">
+        <item quantity="one">%1$d encrypted file</item>
+        <item quantity="other">%1$d encrypted files</item>
+    </plurals>
+    <!-- Accessibility label while a picked file is being encrypted; the visible button text is
+         just "Encrypting…". -->
+    <string name="files_attachments_attach_progress_label">Encrypting the file, please wait</string>
+    <string name="files_attachments_encrypting_note">Encrypting this file. Large videos can take a while.</string>
+    <!-- TalkBack announcement paired with the note above; deliberately shorter. -->
+    <string name="files_attachments_encrypting_announce">Encrypting this file</string>
+    <string name="files_attachments_empty_title">Nothing attached</string>
+    <string name="files_attachments_empty_body">Files added here are encrypted with the same key as the rest of the vault and never leave this device unless you export them.</string>
+    <!-- Per-row remove button, named per attachment so a screen reader can tell rows apart. -->
+    <string name="files_attachments_remove_label">Remove %1$s</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_attachments_remove_dialog_title">Remove “%1$s”?</string>
+    <!-- Corrected 2026-08-30, both clauses. It claimed "no copy anywhere
+         else", which a prior .vault export contradicts — VaultExporter streams every blob into the
+         bundle, so an export taken before the removal still holds this file. The same overclaim was
+         already corrected once for the trash purge dialog (vaultlist_trash_empty_no_undo_clause,
+         2026-07-29); the attachment path simply never got the fix. It also said the copy "is
+         deleted", present tense, while AttachmentPickerViewModel.remove() only drops the reference —
+         BlobGarbageCollector removes the file on the next unlock. -->
+    <!-- SECURITY-COPY: tier A -->
+    <!-- — an irreversible action, and a claim about where the file still
+         exists. Both clauses were wrong until 2026-08-30: it said the copy "is deleted from this
+         device" (the blob goes on the next unlock, not now) and that there is "no copy anywhere
+         else" (an export or a snapshot may hold one — the same overclaim corrected for the trash
+         purge dialog on 2026-07-29, which this path never inherited). -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_attachments_remove_dialog_body">The encrypted copy is removed from this vault, and erased from this device the next time you unlock. There is no undo here, though an earlier snapshot or backup may still hold it.</string>
+    <string name="files_attachments_error_attach_failed">Could not attach that file. It may be too large, or the app that provided it may no longer have it.</string>
+    <string name="files_attachments_error_unstrippable_image">Could not remove the location and camera details from that photo, so it wasn\'t saved. Take it again with your camera set to JPEG.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_attachments_reveal_unavailable">This device has no screen lock, so LocalKeep cannot check it is still you. Set a screen lock to open this file.</string>
+    <!-- Deliberately says what Android's backup does NOT carry. data_extraction_rules.xml and
+         full_backup_content.xml both exclude blobs/, so a restored vault brings back every typed
+         field of an Identity and none of its photographs. Never soften this into a claim that
+         the photo is backed up. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_attachments_photo_note">Images have their location and camera details removed. Attachments are not included in Android\'s backup — the typed fields are, so keep your own copy.</string>
+    <!-- The attachment picker's twin of files_edit_metadata_video_note: photos go through
+         ExifStripper, videos never do, and until 2026-09-15 the picker said so for photos only. Same
+         claim, same words, same register, in every language; the two keys share one entry shape
+         in TierGClaimsTest. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_attachments_video_metadata_note">Videos are kept as imported — LocalKeep does not remove location or camera data from them.</string>
+    <string name="files_attachments_error_remove_failed">Could not remove that attachment. It is still in the vault.</string>
+
+    <!-- ==================== MediaErrors.kt ====================
+         The user-facing text for a failed media operation. None of these carry e.message — see
+         the KDoc on MediaErrors for why. -->
+    <string name="files_error_corrupted_file">This file is corrupted or was tampered with and cannot be decrypted.</string>
+    <string name="files_error_corrupted_video">This video is corrupted or was tampered with and cannot be decrypted.</string>
+    <string name="files_error_open_failed">Could not open this file. Its encrypted copy may be missing, or there may not be enough free space to decrypt it.</string>
+    <string name="files_error_video_open_failed">Could not open this video. Its encrypted copy may be missing, or this device may not be able to play it.</string>
+    <string name="files_error_restore_failed">Could not restore this file to your gallery. There may not be enough free space, or your gallery may have refused the file.</string>
+    <string name="files_error_import_failed">Could not import that file. It may be too large, or the app that provided it may no longer have it.</string>
+    <string name="files_error_capture_failed">Could not save that photo. There may not be enough free space, or your vault may have locked before it was written.</string>
+    <string name="files_error_save_failed">Could not save this file to your vault. Your vault may have locked while you were editing, or there may not be enough free space.</string>
+    <string name="files_error_pdf_open_failed">Could not open this PDF. It may be damaged, or it may be password-protected — this viewer cannot open an encrypted PDF. You can still save it to your device and open it in a PDF reader.</string>
+    <string name="files_error_text_too_large">This file is too large to show here. Save it to your device to read it.</string>
+    <!-- The bytes are intact and decrypted; this device just has no codec for the format. Never
+         phrase this as a decryption or corruption failure — that is files_error_corrupted_file. -->
+    <string name="files_error_image_undecodable">This image decrypted correctly but isn\'t in a format this device can decode. Export it to your gallery to open it in another app.</string>
+    <string name="files_error_image_too_large">This image is too large for this device to open here. Export it to your gallery to open it in another app.</string>
+    <!-- Writing to the gallery uses the scoped-storage MediaStore insert, which is Android 10+.
+         Below that there is no route that does not ask for a storage permission this app refuses
+         to declare, so the honest answer is the OS version and nothing else. -->
+    <string name="files_error_export_needs_newer_android">Exporting to your gallery needs Android 10 or later. This device runs an older version.</string>
+    <!-- ENOSPC. Separated from the generic messages above because the generic ones name a cause
+         that is not this one ("too large", "the app that provided it may no longer have it") and
+         invite a retry that fails identically every time. Mirrors itemedit_error_out_of_space,
+         which the item editor's save path already distinguishes. -->
+    <string name="files_error_out_of_space">This device is out of storage space, so the file could not be stored. Free up space, then try again.</string>
+
+    <!-- ==================== FileItemEditScreen.kt ==================== -->
+    <string name="files_edit_title_new">New file</string>
+    <string name="files_edit_title_existing">File</string>
+    <string name="files_edit_subtitle">Encrypted on this device · never uploaded</string>
+    <string name="files_edit_field_title">Title</string>
+    <!-- "Folder, tags and more" disclosure on the File editor (4C-11, 2026-09-20). Mirrors the
+         item editor's itemedit_edit_more_* set word for word: the two screens draw the same row,
+         and two phrasings for one control is how it starts reading as two different controls. -->
+    <string name="files_edit_more_label">Folder, tags and more</string>
+    <string name="files_edit_more_summary_none">none set</string>
+    <string name="files_edit_more_summary_favourite">favorite</string>
+    <string name="files_edit_more_summary_note">note</string>
+    <plurals name="files_edit_more_summary_tags">
+        <item quantity="one">%1$d tag</item>
+        <item quantity="other">%1$d tags</item>
+    </plurals>
+    <string name="files_edit_more_expand_a11y">Show folder, tags and more</string>
+    <string name="files_edit_more_collapse_a11y">Hide folder, tags and more</string>
+    <string name="files_edit_more_state_expanded">Expanded</string>
+    <string name="files_edit_more_state_collapsed">Collapsed</string>
+    <string name="files_edit_tags_label">Tags</string>
+    <string name="files_edit_tag_add_label">Add tag</string>
+    <string name="files_edit_tag_add_placeholder">e.g. work</string>
+    <string name="files_edit_tag_remove_a11y">Remove tag %1$s</string>
+    <string name="files_edit_favourite_checkbox_label">Favorite</string>
+    <!-- The user's own note on a stored file (4C-11, 2026-09-21). A File carried no writable text
+         but its title until schema 8 added the field; the wording matches the item editor's notes
+         well, which is the same field doing the same job on another item type. -->
+    <string name="files_edit_notes_label">Notes</string>
+    <string name="files_edit_notes_placeholder">What this file is, or why you kept it</string>
+    <!-- Carries no placeholder, unlike the item editor's itemedit_error_already_tagged: this
+         screen formats every message in its single error slot with the attachment-quota arguments,
+         so an argument here would be filled with a file count. -->
+    <string name="files_edit_error_already_tagged">This file already has that tag.</string>
+    <!-- Placeholder shown in the empty title field before a file is named. -->
+    <string name="files_edit_title_placeholder">Passport scan</string>
+    <!-- The title offered for an image the picker names only by its media id; %1$s is the date. -->
+    <string name="files_edit_generated_photo_title">Photo %1$s</string>
+    <string name="files_edit_view">View</string>
+    <string name="files_edit_manage_attachments">Manage attachments</string>
+    <!-- Android 9/10 cannot request the gallery original be deleted automatically; below API 30
+         (Build.VERSION_CODES.R) the user is told to remove it by hand. -->
+    <string name="files_edit_legacy_delete_note">This device (Android 9/10) can\'t auto-delete the original — please remove it from your Gallery app manually.</string>
+    <string name="files_edit_empty_title">No file yet</string>
+    <string name="files_edit_empty_body">Import a file from your device, or capture a photo that never touches your gallery.</string>
+    <!-- Accessibility label AND the action name for the empty state's tappable plate. Until
+         2026-09-15 this said "Import a file from your gallery" while the plate silently ran only
+         the gallery import, though three sources exist (gallery, camera, documents) — the same
+         mismatch the sentence above describes correctly. The plate now opens the same three-way
+         chooser the row of buttons below it does, so the label names the action rather than one
+         of its three outcomes. -->
+    <string name="files_edit_empty_icon_tap_label">Add a file</string>
+    <!-- Title of the bottom sheet the empty-state plate (and nothing else) opens: a three-row
+         chooser between the gallery, the camera and the document picker. -->
+    <string name="files_edit_source_sheet_title">Add a file</string>
+    <!-- The same chooser opened from "Replace file…" on a form that already holds a file. It
+         replaced three buttons labelled From gallery / Capture / From documents that silently
+         swapped the stored file and read as "add another" (2026-10-09), so it says what happens. -->
+    <string name="files_edit_source_sheet_title_replace">Replace this file</string>
+    <string name="files_edit_source_sheet_replace_body">The file you choose takes this one\'s place when you save.</string>
+    <string name="files_edit_replace_file">Replace file…</string>
+    <!-- States what the stored image may hold. "may" is load-bearing and is not hedging: since
+         2026-10-09 the editor reads the image's bytes (MetadataProbe) and says what it found, and
+         this sentence is shown only where the bytes cannot answer — HEIF, a damaged file, a read
+         that failed. There the app genuinely does not know. Never write a form of this string that
+         asserts metadata IS present, or that it has been removed. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_edit_metadata_present_note">This image may still carry location and camera data.</string>
+    <!-- Shown only when MetadataProbe read the image's bytes and found something Delete all
+         metadata would remove (2026-10-09). It may say the metadata is there, because it was
+         measured; it may not say what it holds, because the probe does not parse it — a comment
+         segment and a GPS tag count alike. "can include" is the whole of the claim about content. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_edit_metadata_found_note">This image carries metadata, which can include where and when it was taken.</string>
+    <!-- "(GPS & EXIF)" was dropped 2026-10-09 at the principal's direction: jargon, and the cleanup
+         removes more than those two. -->
+    <string name="files_edit_metadata_removed">Metadata removed.</string>
+    <!-- Found 2026-09-09. Unlike files_edit_metadata_present_note above, this is
+         NOT hedged: PhotoPickerImport.stageFile never runs ExifStripper (or anything else) on a
+         video, so unlike an image's cleanup-is-opt-in ambiguity, whether a video's metadata is
+         still there is not in question — it always is. Asserts a security property (what the app
+         does, and does not, do to stored data), so it is tier G and is tagged as one directly
+         below, with its register entry and per-language anchors in TierGClaimsTest.
+
+         This comment previously explained, in prose, that the string was not yet tagged — and
+         spelled the marker out to say so. That broke both guards at once: the register test
+         matches the marker anywhere inside a comment body, so the key read as tagged and
+         unregistered, while the strict extractor could not parse a marker buried in a sentence
+         and reported it dark. A tier marker is never prose; it is its own comment and nothing
+         else, which is the project rule, and this is what breaking it looks like. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_edit_metadata_video_note">Videos are kept as imported — LocalKeep does not remove location or camera data from them.</string>
+    <!-- This one-time action changes the stored image permanently. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_edit_delete_metadata">Delete all metadata</string>
+    <string name="files_edit_metadata_cleanup_failed">Metadata could not be removed. The original file is still intact.</string>
+    <string name="files_edit_metadata_cleanup_too_large">This image is too large to clean up. The original file is still intact.</string>
+    <string name="files_edit_metadata_cleanup_malformed">This image could not be read. The original file is still intact.</string>
+    <string name="files_edit_metadata_cleanup_unsupported">Metadata cannot be removed from this image format. The original file is still intact.</string>
+    <string name="files_edit_from_gallery">From gallery</string>
+    <string name="files_edit_from_documents">From documents</string>
+    <string name="files_edit_camera_denied_sentence">LocalKeep can\'t take a photo without camera access.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_edit_discard_dialog_title">Discard this file?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_edit_discard_dialog_body">The file you imported and its details haven\'t been saved to the vault yet.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_edit_discard_confirm">Discard</string>
+    <!-- The discard prompt for a file that is already in the vault: leaving drops the edits, not
+         the file. The import wording above is false there (C1 device pass, 2026-10-04). Same
+         words as itemedit_edit_discard_dialog_*, with the file as its subject. -->
+    <string name="files_edit_discard_changes_dialog_title">Discard changes?</string>
+    <string name="files_edit_discard_changes_dialog_body">This file has edits that haven\'t been saved.</string>
+    <string name="files_edit_keep_editing">Keep editing</string>
+    <string name="files_edit_save">Save</string>
+    <string name="files_edit_save_label_saving">Saving, please wait</string>
+    <string name="files_edit_save_label_blocked">Save, import or capture a file first</string>
+    <string name="files_edit_error_missing_file">Import or capture a file first</string>
+    <!-- A save refused because the file left the visible projection under the editor: its reveal
+         window closed, or it was hidden again, while the form was open. Deliberately neutral about
+         the cause — naming concealment here would announce a hidden file to whoever is holding the
+         phone. The second sentence is a fact, not reassurance: the edits stay in the form and
+         leaving still raises the unsaved-changes dialog. -->
+    <string name="files_edit_error_item_gone">That file is no longer available. Your changes are still here.</string>
+    <string name="files_edit_camera_dialog_title">Use the camera?</string>
+    <string name="files_edit_camera_dialog_body">LocalKeep uses the camera only to capture this photo directly into your vault. The original frame never touches your gallery, and no photo or video is sent anywhere off this device.</string>
+    <string name="files_edit_camera_dialog_confirm">Continue</string>
+    <string name="files_edit_camera_dialog_dismiss">Not now</string>
+
+    <!-- ==================== CaptureToVault.kt (play) ====================
+         Also used for FileItemEditScreen's "Capture" entry-point button — same word, same
+         action, one key. -->
+    <string name="files_capture_action">Capture</string>
+    <string name="files_capture_cancel">Cancel</string>
+    <string name="files_capture_failed">That picture did not save. Try again.</string>
+    <!-- Drawn in place of the viewfinder when the camera cannot start (no back camera, blocked by policy). -->
+    <string name="files_capture_camera_unavailable">The camera is unavailable.</string>
+
+    <!-- ==================== EncryptedPdfViewer.kt ==================== -->
+    <!-- Per-page accessibility label; not a count, so not a <plurals> — "of %2$d" only ever
+         reads correctly as a position within a fixed total. -->
+    <string name="files_pdf_page_label">Page %1$d of %2$d</string>
+    <!-- Two page numbers and a separator: the same in every language, and never spoken (the pill carries files_pdf_page_label as its content description). -->
+    <string name="files_pdf_page_indicator" translatable="false">%1$d / %2$d</string>
+    <string name="files_pdf_page_render_failed">Page %1$d could not be shown. It may be damaged.</string>
+
+    <!-- ==================== EncryptedVideoPlayer.kt ==================== -->
+    <string name="files_video_play_again">Play again</string>
+    <string name="files_video_pause">Pause</string>
+    <string name="files_video_play">Play</string>
+    <!-- Accessibility label for the scrub slider. -->
+    <string name="files_video_position_label">Position</string>
+    <!-- Accessibility label for the elapsed/total clock beside the scrubber. The visible text is
+         `m:ss / m:ss`, which a screen reader reads as digits; this spells it out in seconds.
+         %1$d is the elapsed seconds, %2$d the total. Not a count, so not a <plurals>. -->
+    <string name="files_video_position_a11y">%1$d seconds of %2$d</string>
+    <!-- %1$d/%2$d are MediaPlayer's `what`/`extra` decoder error codes — internal diagnostic
+         numbers, kept in the sentence because they are the detail a bug report needs. -->
+    <string name="files_video_decoder_error">Playback failed. The file may be corrupted, or in a format this device can\'t decode.</string>
+
+    <!-- ==================== SecureMediaViewer.kt ==================== -->
+    <string name="files_viewer_no_preview_title">No preview for this file</string>
+    <!-- Used when the filename has a recognisable extension. -->
+    <string name="files_viewer_no_preview_body_ext">It is stored encrypted and intact — this app just has no viewer for .%1$s files. Save it to your device to open it in an app that does.</string>
+    <!-- Used when the filename has no extension to name. -->
+    <string name="files_viewer_no_preview_body_generic">It is stored encrypted and intact — this app just has no viewer for this kind of file. Save it to your device to open it in an app that does.</string>
+    <!-- "Gallery" is only true of photos and video; a PDF or document goes to Downloads. -->
+    <string name="files_viewer_restore_to_gallery">Restore to gallery</string>
+    <string name="files_viewer_save_to_device">Save to device</string>
+    <!-- The act is Export (files_viewer_export_dialog_title, "Export this file?"), and "restore" is
+         this app's trash vocabulary: it is what Trash does to an item you put back. Saying
+         "Restored to Pictures/…" after an export named the wrong act in all five languages
+         (release sweep 2026-09-20, findings 4C.2d-4 / 1C-O2). -->
+    <string name="files_viewer_exported_to">Exported to %1$s</string>
+    <!-- Reprompt items re-ask before any of their secrets are released; the blob is the item's content. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_edit_viewer_reveal_title">Confirm it\'s you</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_edit_viewer_reveal_subtitle">Verify to view this file</string>
+    <string name="files_viewer_no_text_title">No text to show</string>
+    <string name="files_viewer_no_text_body">This document decrypted correctly, but no readable text could be pulled out of it. Save it to your device to open it in an app that understands the format.</string>
+    <!-- Office (Word/Excel/PowerPoint) extraction is text-only; layout, tables and images are lost. -->
+    <string name="files_viewer_office_note">Text only — layout, tables and images are not shown. Save the file to your device to see it as written.</string>
+    <string name="files_viewer_empty_text">This file is empty.</string>
+    <string name="files_viewer_empty_body">It has no content, so there is nothing to show.</string>
+    <string name="files_viewer_counter">%1$d of %2$d</string>
+    <!-- Filmstrip thumbnail. Names the page and its position, because the strip shows only a
+         file extension and every thumbnail in it therefore announced identically. -->
+    <string name="files_viewer_thumb_a11y">%1$s, %2$d of %3$d</string>
+    <string name="files_viewer_counter_with_folder">%1$d of %2$d · %3$s</string>
+    <string name="files_viewer_folder_separator"> / </string>
+    <string name="files_viewer_settings">File settings</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_viewer_auth_title">Couldn\'t verify you</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_viewer_auth_cancelled">Authentication was cancelled. The file remains hidden.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_viewer_auth_denied">Authentication was not accepted. Verify to view the file.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_viewer_auth_unavailable">Set up a screen lock or biometric authentication to view this file.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_viewer_auth_failed">Authentication failed. The file remains hidden.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="files_viewer_retry">Try again</string>
+    <string name="files_viewer_item_missing">That file is no longer available.</string>
+    <string name="files_viewer_out_of_scope">That file is no longer in the current view.</string>
+    <string name="files_viewer_zoom_toggle">Toggle zoom</string>
+    <string name="files_viewer_details">Details</string>
+    <string name="files_viewer_export">Export</string>
+    <string name="files_viewer_edit">Edit</string>
+    <string name="files_viewer_export_dialog_title">Export this file?</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_viewer_export_dialog_body">The exported copy is saved outside the vault and is not encrypted. Any app that can read your files will be able to open it.</string>
+    <string name="files_viewer_delete">Delete</string>
+    <!-- Confirmation for the standalone viewer's Trash action, which is `moveToTrash` and therefore
+         reversible — so deliberately NOT the tier-A files_attachments_remove_dialog_* copy the two
+         permanent mounts get, and not tier A itself. Same act and same claim as the vaultlist
+         bulk-trash confirmation, so the wording is that one made singular in all five languages.
+         Until 2026-08-31 this mount raised the tier-A dialog: a "Trash" button whose dialog said
+         "There is no undo here", next to each other, with the dialog the false half. -->
+    <string name="files_viewer_trash_dialog_title">Move “%1$s” to trash?</string>
+    <string name="files_viewer_trash_dialog_body">The file stays in Trash until you empty it, so this can be undone.</string>
+    <string name="files_viewer_trash_dialog_action">Move to trash</string>
+    <string name="files_viewer_decrypting">Decrypting</string>
+    <string name="files_viewer_hint">Swipe to browse · tap to hide chrome · swipe up for details</string>
+    <string name="files_viewer_meta_dimensions">Dimensions</string>
+    <string name="files_viewer_details_subtitle">%1$s · %2$s</string>
+    <string name="files_viewer_meta_size">Size on disk</string>
+    <string name="files_viewer_meta_cipher">Cipher</string>
+    <string name="files_viewer_meta_folder">Folder</string>
+    <string name="files_viewer_meta_notes">Notes</string>
+    <string name="files_viewer_meta_added">Added to vault</string>
+    <!-- Describes what export does to the file. Until 2026-08-25 this read
+         "exporting strips them unless you ask otherwise", which was false in both halves: nothing
+         strips on the way out (the export action decrypts the stored blob straight to the gallery)
+         and no "ask otherwise" control has ever existed. Never claim an export sanitizes anything. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_viewer_sheet_security_note">Decrypted in memory only. Exporting writes the file back exactly as the vault holds it, including any location and camera data it still carries.</string>
+    <!-- Confirmation posted after a file item is saved. See itemedit_notice_item_saved. -->
+    <string name="files_notice_item_saved">Item saved</string>
+    <!-- ==================== The original left outside the vault (2026-10-09) ====================
+         Asked after Save when a gallery photo or video, or a local document, still has its
+         original outside LocalKeep. For a gallery item Android's own "Allow LocalKeep to delete
+         this photo?" follows; the app cannot reword that sentence, which is why this question
+         comes first. A document has no system dialog and no bin, so for it this is the only
+         confirmation, and it says "permanently". -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_original_prompt_title_gallery">Delete the original from your Gallery?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_original_prompt_title_document">Delete the original file?</string>
+    <!-- %1$s is the item's title. "where LocalKeep does not protect it" is a claim about the copy
+         outside the vault and nothing more: it must not say the gallery is unsafe, public or
+         shared, which the app does not know. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_original_prompt_body_photo">“%1$s” is saved and encrypted in LocalKeep.\n\nThe original photo is still in your Gallery, where LocalKeep does not protect it.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_original_prompt_body_video">“%1$s” is saved and encrypted in LocalKeep.\n\nThe original video is still in your Gallery, where LocalKeep does not protect it.</string>
+    <!-- The only confirmation a document delete gets: no system dialog follows and there is no
+         bin. "permanent" must survive translation; a softened "will be removed" is the defect. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_original_prompt_body_document">“%1$s” is saved and encrypted in LocalKeep.\n\nThe original file is still on this device, where LocalKeep does not protect it.\n\nDeleting it is permanent: it does not go to a bin.</string>
+    <!-- The ellipsis says one more step follows: Android's own confirmation. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_original_prompt_confirm_gallery">Delete from Gallery…</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_original_prompt_confirm_document">Delete permanently</string>
+    <string name="files_original_prompt_keep">Keep it</string>
+    <string name="files_original_prompt_dont_ask">Don\'t ask again</string>
+    <string name="files_original_prompt_dont_ask_hint">You can turn this back on in Settings.</string>
+    <string name="files_notice_original_deleted_gallery">Deleted from your Gallery</string>
+    <string name="files_notice_original_kept_gallery">The original is still in your Gallery</string>
+    <string name="files_notice_original_deleted_document">Original file deleted</string>
+    <string name="files_notice_original_delete_failed">The original couldn\'t be deleted. It is still on this device.</string>
+    <!-- Posted instead of files_notice_item_saved when the folder the user filed the file into was
+         deleted from another surface between the pick and the save, so it was filed nowhere. Same
+         sentence as itemedit_folder_absent_notice and vaultlist_folder_absent_notice: one outcome,
+         one phrasing. -->
+    <string name="files_notice_folder_absent">That folder no longer exists. The item was saved without one.</string>
+    <!-- The file viewer's Trash confirmation and its Undo — the notice the list and the item
+         detail already post for the same action. Same words as itemedit_notice_*. -->
+    <string name="files_notice_moved_to_trash">Moved to trash</string>
+    <string name="files_notice_undo">Undo</string>
+    <string name="files_notice_restored">Restored</string>
+    <string name="files_notice_restore_failed">Couldn\'t put it back. It is still in Trash.</string>
+    <!-- Attachment size below 1 KB, the one branch of asReadableSize with a word in it.
+         KB/MB/GB stay as international symbols; only this needs translating.
+         %1$d is the byte count. -->
+    <plurals name="files_size_bytes">
+        <item quantity="one">%1$d byte</item>
+        <item quantity="other">%1$d bytes</item>
+    </plurals>
+    <!-- Deliberately word-for-word `itemedit_save_sheet_title` / `_confirm`. This sheet and the item
+         editor's are the same sheet doing the same job one tap apart, and they read "Name and save
+         it" / "Save file" against "Name it" / "Save item" — one concept with two presentations,
+         reachable within the same minute. Duplicated rather than shared because :feature:files and
+         :feature:itemedit have no common resource module. -->
+    <string name="files_edit_naming_title">Name it</string>
+    <string name="files_edit_naming_subtitle">The name is what search and the vault list have to go on.</string>
+    <string name="files_edit_naming_confirm">Save item</string>
+    <string name="files_error_folder_name_exists">A folder with that name already exists</string>
+    <string name="files_error_folder_action_failed">That didn\'t go through. Your changes are still here — try again.</string>
+    <string name="files_folder_picker_subfolder">%1$s, inside %2$s</string>
+    <string name="files_folder_name_suffix" translatable="false">%1$s (%2$d)</string>
+    <string name="files_viewer_trash">Trash</string>
+    <string name="files_error_delete_failed">That didn\'t go through. The file is still here — try again.</string>
+    <!-- What the secure viewer's header calls the kind of thing it is showing. One word each:
+         they appear as a title and, truncated to three characters, as a fallback badge. -->
+    <string name="files_kind_image">Image</string>
+    <string name="files_kind_playable">Media</string>
+    <string name="files_kind_pdf">PDF</string>
+    <string name="files_kind_text">Text</string>
+    <string name="files_kind_office">Document</string>
+    <string name="files_kind_other">File</string>
+    <!-- Filmstrip type badges, used only when a stored filename carries no extension to show.
+         Format tokens rather than words, and untranslated for the reason the do-not-translate list gives
+         for MIME types and file extensions. The badge used to be the first three characters of the
+         kind's screen title, which rendered "Text" as "Tex" beside another .txt file's honest "TXT"
+         (release sweep 2026-09-20, finding 4C.2-txt) and would have cut every localised word too. -->
+    <string name="files_badge_image" translatable="false">IMG</string>
+    <string name="files_badge_playable" translatable="false">MEDIA</string>
+    <string name="files_badge_pdf" translatable="false">PDF</string>
+    <string name="files_badge_text" translatable="false">TXT</string>
+    <string name="files_badge_office" translatable="false">DOC</string>
+    <string name="files_badge_other" translatable="false">FILE</string>
+    <!-- Spoken action labels for two full-surface clickables that had no named descendant, so a
+         screen reader announced each as an unlabelled button (G15). They name the action, not the
+         surface. -->
+    <string name="files_viewer_toggle_chrome_a11y">Show or hide the viewer\'s controls</string>
+    <string name="files_viewer_dismiss_details_a11y">Close the details sheet</string>
+</resources>

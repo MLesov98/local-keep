@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared item-type display names, used by both the detail screen and the edit form so the
+         two never drift into naming the same type differently. -->
+    <string name="itemedit_type_login">Login</string>
+    <string name="itemedit_type_note">Secure note</string>
+    <string name="itemedit_type_totp">2FA code</string>
+    <string name="itemedit_type_card">Card</string>
+    <string name="itemedit_type_identity">Identity</string>
+    <string name="itemedit_type_coordinate">Location</string>
+
+    <!-- Shared field labels/actions, identical wording and meaning on the detail screen and the
+         edit form. -->
+    <string name="itemedit_username_label">Username</string>
+    <string name="itemedit_password_label">Password</string>
+    <string name="itemedit_totp_issuer_label">Issuer</string>
+    <string name="itemedit_totp_account_label">Account</string>
+    <string name="itemedit_card_cvv_label">CVV</string>
+    <string name="itemedit_card_pin_label">PIN</string>
+    <string name="itemedit_notes_label">Notes</string>
+    <string name="itemedit_notes_too_long">Notes hold up to 20,000 characters, so that text wasn\'t added.</string>
+    <string name="itemedit_notice_discarded_on_lock">The vault locked, so your unsaved changes were discarded.</string>
+    <string name="itemedit_identity_company_label">Company</string>
+    <!-- The key still says ssn: it was named after the US Social Security Number this field
+         originally asked for. The displayed value went country-neutral on 2026-08-19 so a user
+         outside the US can map it onto their own scheme. Renaming the key would churn five
+         catalogues and their review history for nothing a user can see, so key and value disagree
+         on purpose. The glossary row is "national ID number". -->
+    <string name="itemedit_identity_ssn_label">National ID number</string>
+    <string name="itemedit_identity_email_label">Email</string>
+    <string name="itemedit_identity_address_heading">Address</string>
+    <string name="itemedit_tags_label">Tags</string>
+    <string name="itemedit_custom_fields_heading">Custom fields</string>
+    <string name="itemedit_dismiss_not_now">Not now</string>
+    <string name="itemedit_view_on_play">View on Google Play</string>
+    <!-- "Hide X" / "Show X" / "Copy X" / "Copy X, unlocks first" — the reveal/copy verbs shared by
+         every masked field on both the detail screen and the edit form. -->
+    <string name="itemedit_action_hide">Hide %1$s</string>
+    <string name="itemedit_action_show">Show %1$s</string>
+    <string name="itemedit_action_copy">Copy %1$s</string>
+    <string name="itemedit_action_copy_gated">Copy %1$s, unlocks first</string>
+
+    <!-- ═══ Detail screen (ItemDetailScreen.kt) ═══ -->
+    <string name="itemedit_detail_untitled">Untitled</string>
+    <string name="itemedit_detail_trash_dialog_title">Move to trash?</string>
+    <string name="itemedit_detail_trash_dialog_body">It stays in Trash until you empty it, so this can be undone.</string>
+    <string name="itemedit_detail_trash_confirm">Move to trash</string>
+    <string name="itemedit_detail_trash_dismiss">Keep it</string>
+    <string name="itemedit_detail_back">Back</string>
+    <string name="itemedit_detail_trash_icon_label">Move %1$s to trash</string>
+    <!-- The detail screen's favourite toggle. Same wording as the vault list's row action,
+         because it is the same act on the same item. %1$s is the item title. -->
+    <string name="itemedit_detail_favourite_add">Add %1$s to favorites</string>
+    <string name="itemedit_detail_favourite_remove">Remove %1$s from favorites</string>
+    <string name="itemedit_detail_edit">Edit</string>
+    <string name="itemedit_detail_reprompt_badge">Reprompt</string>
+    <!-- The item's own dates, shown on the detail screen. Nothing in the app said when an item was
+         added or last changed, while the health dashboard shipped an "Old passwords (90+ days)"
+         category whose whole basis is a date the user could never see (F-36, 2026-09-15). -->
+    <string name="itemedit_detail_dates_heading">Dates</string>
+    <string name="itemedit_detail_added_label">Added</string>
+    <string name="itemedit_detail_updated_label">Updated</string>
+    <!-- Logins only: the day the secret itself was last replaced, which is the date the health
+         dashboard's "old password" bucket actually counts from. -->
+    <string name="itemedit_detail_password_changed_label">Password changed</string>
+    <!-- Fallback label for a custom field the user never named. -->
+    <string name="itemedit_detail_field_fallback">Field %1$d</string>
+    <!-- Claims what does and does not leave the device from this screen.
+         Said "Nothing here is synced or sent anywhere" until 2026-07-30, contradicting
+         core_ui_always_on_leaves_device_detail one screen away: Auto Backup uploads vault.enc.
+         The subject is now the app, which really does send nothing; the OS-level disclosure
+         stays on the fact card instead of being repeated per screen. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_detail_screenshot_notice">This screen cannot be screenshotted. LocalKeep syncs nothing and sends nothing to a server — though anything you copy goes to the system clipboard until it clears.</string>
+    <!-- Names what is about to become visible once the reveal gate passes, which is what puts it
+         in the re-authentication tier of the security-copy protocol. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_detail_totp_secret_field_label">2FA secret</string>
+    <string name="itemedit_detail_websites_title">Websites</string>
+    <string name="itemedit_detail_totp_secret_label">Secret</string>
+    <string name="itemedit_detail_totp_code_label">Code</string>
+    <string name="itemedit_detail_totp_config_label">Code settings</string>
+    <!-- Technical parameters, not prose — same choice core_import_skip_unsupported_totp_settings made for the identical trio. -->
+    <string name="itemedit_detail_totp_config_value">%1$s, %2$s digits, %3$ss</string>
+    <string name="itemedit_detail_card_number_label">Number</string>
+    <string name="itemedit_detail_card_expires_label">Expires</string>
+    <!-- Amber, not coral: an expired card in a vault is a fact worth knowing, not a failure. The
+         app accepted a past expiry silently, on the wizard's review step and on the saved item. -->
+    <string name="itemedit_detail_card_expired">This card\'s expiry date has passed.</string>
+    <string name="itemedit_detail_card_expiry_unset" translatable="false">——/——</string>
+    <string name="itemedit_detail_card_number_hidden_a11y">number hidden</string>
+    <!-- Spoken for the card face on the wizard's REVIEW step, where the last four digits are
+         drawn (see REVIEW_VISIBLE_DIGITS). It said "number hidden" there until 2026-09-11, which
+         left a screen-reader user unable to check the number on the one step whose whole job is
+         "Check it over", while a sighted user could. %1$s = the digits actually on screen. -->
+    <string name="itemedit_card_review_number_ending_a11y">ending %1$s</string>
+    <string name="itemedit_detail_card_face_a11y_generic">Card</string>
+    <string name="itemedit_detail_card_face_a11y">%1$s card, %2$s, expires %3$s</string>
+    <!-- Used when the card's network was not recognised — loyalty and gift cards live here too.
+         Substituting itemedit_detail_card_face_a11y_generic into the pattern above made a screen
+         reader say "Card card, ...". -->
+    <string name="itemedit_detail_card_face_a11y_no_brand">Card, %1$s, expires %2$s</string>
+    <string name="itemedit_detail_identity_name_label">Name</string>
+    <string name="itemedit_detail_identity_phone_label">Phone</string>
+    <string name="itemedit_detail_note_empty">This note is empty.</string>
+    <!-- "42s" — a glued digit + unit abbreviation, not the word "second(s)"; not a <plurals> case. -->
+    <string name="itemedit_detail_totp_seconds_expiring">%1$ds · expiring</string>
+    <string name="itemedit_detail_totp_seconds">%1$ds</string>
+    <!-- Accessibility: spoken digit by digit so TTS does not read the code as one large number. -->
+    <string name="itemedit_detail_totp_code_spoken">Code %1$s</string>
+    <string name="itemedit_detail_totp_code_hidden">Code hidden</string>
+    <!-- Accessibility label on the countdown ring; uses the word "seconds", so unlike the glued
+         "42s" caption above this one needs the plural form. -->
+    <plurals name="itemedit_detail_totp_ring_seconds">
+        <item quantity="one">%1$d second until this code changes</item>
+        <item quantity="other">%1$d seconds until this code changes</item>
+    </plurals>
+    <plurals name="itemedit_detail_totp_refresh_caption">
+        <item quantity="one">Refreshes every %1$d second</item>
+        <item quantity="other">Refreshes every %1$d seconds</item>
+    </plurals>
+    <string name="itemedit_detail_totp_hide">Hide two-factor code</string>
+    <string name="itemedit_detail_totp_show">Show two-factor code</string>
+    <!-- The clipboard entry's own label when a live 2FA code is copied. -->
+    <string name="itemedit_detail_totp_clipboard_label">2FA code</string>
+    <string name="itemedit_detail_totp_copy_gated">Copy two-factor code, unlocks first</string>
+    <string name="itemedit_detail_totp_copy">Copy two-factor code</string>
+    <!-- Accessibility: label and value merged as one node so a screen reader doesn't read the
+         label, then need a second swipe to reach the value it belongs to. -->
+    <string name="itemedit_detail_field_readout">%1$s: %2$s</string>
+    <!-- Tap-to-edit-in-place onClickLabel, view mode (T1, 2026-08-12). -->
+    <string name="itemedit_detail_field_edit">Edit %1$s</string>
+    <string name="itemedit_detail_website_row_label">Website %1$s</string>
+    <string name="itemedit_detail_website_clipboard_label">Website</string>
+    <string name="itemedit_detail_attachments">Attachments</string>
+    <!-- The same row once the item carries files, so it says what is behind it rather than naming a
+         category. "Photos" only when every file is an image — one PDF among them makes "Photos" a
+         lie about what opening the row will show. -->
+    <plurals name="itemedit_detail_attachments_photos">
+        <item quantity="one">%1$d photo</item>
+        <item quantity="other">%1$d photos</item>
+    </plurals>
+    <plurals name="itemedit_detail_attachments_files">
+        <item quantity="one">%1$d file</item>
+        <item quantity="other">%1$d files</item>
+    </plurals>
+
+    <!-- ═══ Edit form (ItemEditScreen.kt) ═══ -->
+    <string name="itemedit_edit_encrypting">Encrypting…</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_edit_saving_body">Sealing it into your vault file. Nothing leaves this device.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_edit_saving_body_note">Sealing the note into your vault file. Nothing leaves this device.</string>
+    <string name="itemedit_edit_saved_title">Saved</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_edit_saved_body">Encrypted into your vault with the same key as everything else.</string>
+    <string name="itemedit_edit_save">Save</string>
+    <!-- Accessibility: a button whose text becomes a spinner is nameless to a screen reader without this. -->
+    <string name="itemedit_edit_saving_a11y">Saving, please wait</string>
+    <string name="itemedit_edit_discard_dialog_title">Discard changes?</string>
+    <string name="itemedit_edit_discard_dialog_body">This item has edits that haven\'t been saved.</string>
+    <string name="itemedit_edit_discard_confirm">Discard</string>
+    <string name="itemedit_edit_discard_dismiss">Keep editing</string>
+    <string name="itemedit_edit_new_item_title">New item</string>
+    <string name="itemedit_edit_edit_item_title">Edit item</string>
+    <!-- A claim about when encryption protects this item's data. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_edit_header_subtitle">Encrypted the moment you save it</string>
+    <!-- The tag comment below is deliberately bare, carrying the tier and nothing else.
+         scripts/i18n/verify_pack.py requires the tier letter to be followed straight by the end of
+         the comment and then the tagged element; prose in the same comment makes the key invisible
+         to pack generation, so it silently never reaches the verification protocol it is tagged
+         for. Several keys in this repo are tagged that way and are in no pack. Rationale therefore
+         goes in its own comment, above the tag. (This paragraph cannot show you the exact syntax:
+         an XML comment may not contain two consecutive hyphens.)
+
+         These three bodies said "This item type is part of Pro" until 2026-09-03. That was true
+         while a free vault was allowed none of these types and went false the moment one card and
+         one identity became free: it told a user holding a card that the type was unavailable to
+         them. The identical falsehood had already shipped and been fixed once for the file quota.
+         The cap is a format argument fed from ProTypeQuota.FREE_LIMIT, never a literal, so the
+         sentence cannot drift from the constant; the noun beside it is fixed-singular, which is
+         correct only while the cap is 1. ProAllowanceDialogCopyTest, in this module, fails the
+         build if it moves — ProTypeQuotaCopyTest cannot, it reads its own module's catalogue. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_edit_pro_dialog_title">Free tier limit</string>
+    <!-- %1$s is PRO_PRICE — keep it a format arg fed by Play\'s own localised price, never a
+         translated literal (a security-copy rule). %2$d is
+         ProTypeQuota.FREE_LIMIT. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_edit_pro_dialog_body_purchasable">A free vault holds %2$d card and %2$d identity. Remove one to make room, or unlock Pro (one-time %1$s) for unlimited.</string>
+    <!-- Shown when Play has not told us the price (and always in foss, which sells nothing).
+         States no amount at all rather than a literal. %1$d is ProTypeQuota.FREE_LIMIT. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_edit_pro_dialog_body_purchasable_no_price">A free vault holds %1$d card and %1$d identity. Remove one to make room, or unlock Pro (a one-time purchase) for unlimited.</string>
+    <!-- %1$d is ProTypeQuota.FREE_LIMIT. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_edit_pro_dialog_body_not_purchasable">A free vault holds %1$d card and %1$d identity. Remove one to make room. Pro, which lifts that, lives in the Play Store version of the app.</string>
+    <!-- %1$s is PRO_PRICE, see the note above. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_edit_pro_unlock_button">Unlock Pro — %1$s</string>
+    <!-- Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_edit_pro_unlock_button_no_price">Unlock Pro</string>
+    <string name="itemedit_edit_title_field_label">Title</string>
+    <string name="itemedit_edit_title_required_caption">A title is required — it is the name you will find this by.</string>
+    <string name="itemedit_edit_title_required_a11y">A title is required</string>
+    <string name="itemedit_edit_manage_attachments_button">Manage attachments</string>
+
+    <!-- Folder picker -->
+    <string name="itemedit_folder_none">None</string>
+    <string name="itemedit_folder_label">Folder</string>
+    <string name="itemedit_folder_name_suffix">%1$s (%2$d)</string>
+    <!-- Under the new-folder field. Deliberately makes no claim about a character limit: the
+         model enforces none, and a hint that invents one is a hint that will be wrong. -->
+    <!-- Sibling names must be unique, so this one is a refusal stated before the tap rather than
+         an error after it. -->
+
+    <!-- Folder row on the item view screen (view-mode move/remove sheet) -->
+    <string name="itemedit_folder_change_action">Change folder</string>
+    <string name="itemedit_folder_sheet_title">Folder</string>
+    <string name="itemedit_folder_move">Move to folder…</string>
+    <string name="itemedit_folder_add_action">Add to folder</string>
+    <string name="itemedit_folder_remove">Remove from folder</string>
+
+    <!-- Tag editor -->
+    <string name="itemedit_tag_add_label">Add tag</string>
+    <string name="itemedit_tag_add_placeholder">e.g. work</string>
+    <string name="itemedit_tag_remove_a11y">Remove tag %1$s</string>
+
+    <!-- Login fields -->
+    <string name="itemedit_login_website_placeholder" translatable="false">example.com</string>
+    <string name="itemedit_login_website_fallback_name">website %1$d</string>
+    <string name="itemedit_login_website_remove_a11y">Remove %1$s</string>
+    <string name="itemedit_login_website_add_button">Add website</string>
+    <!-- Removing a website raises the same confirmation shape a file removal does: what goes, and
+         whether it comes back. -->
+    <string name="itemedit_login_website_remove_title">Remove %1$s?</string>
+    <string name="itemedit_login_website_remove_body">The website comes off this login when you save. Autofill will stop offering it there.</string>
+    <string name="itemedit_login_website_remove_confirm">Remove website</string>
+    <string name="itemedit_login_totp_heading">Two-factor</string>
+    <string name="itemedit_login_totp_badge">2FA</string>
+    <!-- "42s" glued abbreviation, not the word "seconds" — see the note on the detail screen\'s
+         seconds strings above. %1$s (not %1$d): totpPeriodSec is form-input text, not a parsed Int. -->
+    <string name="itemedit_login_totp_caption_default">Codes refresh every %1$ss</string>
+    <string name="itemedit_login_totp_remove_button">Remove two-factor</string>
+    <!-- The confirm button permanently deletes the stored 2FA seed. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="itemedit_login_totp_remove_dialog_title">Remove two-factor?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="itemedit_login_totp_remove_dialog_body">The seed for this login\'s 2FA codes is deleted when you save. If it is not stored anywhere else you will need to re-enrol with the site.</string>
+    <string name="itemedit_login_totp_remove_confirm">Remove</string>
+
+    <!-- Note fields -->
+    <string name="itemedit_note_label">Secure note</string>
+    <string name="itemedit_note_placeholder">Too sensitive for a plain notes app.</string>
+    <plurals name="itemedit_note_character_count">
+        <item quantity="one">%1$d character</item>
+        <item quantity="other">%1$d characters</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_note_assurance">Search inside the app can still find text in this note.</string>
+
+    <!-- TOTP fields -->
+    <string name="itemedit_totp_camera_denial_sentence">LocalKeep can\'t scan a QR code without camera access.</string>
+    <string name="itemedit_totp_scan_button">Scan the QR code</string>
+    <string name="itemedit_totp_scan_hint">Point your camera at the QR code the site shows you.</string>
+    <string name="itemedit_totp_manual_divider">Or enter it yourself</string>
+    <string name="itemedit_totp_secret_field_label">Secret key (required)</string>
+    <string name="itemedit_totp_secret_hint">The key the site shows you — letters A–Z and digits 2–7.</string>
+    <string name="itemedit_totp_secret_error">LocalKeep can\'t read this key. It should be letters A–Z and digits 2–7, copied exactly.</string>
+    <string name="itemedit_totp_algorithm_label">Algorithm</string>
+    <string name="itemedit_totp_different_algorithm_button">Different algorithm?</string>
+    <string name="itemedit_totp_digits_label">Digits</string>
+    <string name="itemedit_totp_period_label">Period (s)</string>
+    <!-- Field-level refusals for the two 2FA parameters. They carried a coral ring and no
+         words, so a screen reader got nothing and nothing on screen stated the rule. -->
+    <string name="itemedit_totp_digits_error">Codes are 6 or 8 digits long.</string>
+    <string name="itemedit_totp_period_error">The period is a number of seconds, above zero.</string>
+    <string name="itemedit_totp_steam_label">Steam Guard codes</string>
+    <string name="itemedit_totp_steam_button">Steam Guard token?</string>
+    <string name="itemedit_totp_preview_label">Preview</string>
+    <!-- A claim about what the camera does and does not do with what it sees. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_totp_camera_dialog_title">Use the camera?</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_totp_camera_dialog_body">LocalKeep uses the camera only while scanning this authenticator QR code. No photo or video is saved or sent.</string>
+    <string name="itemedit_totp_camera_dialog_continue">Continue</string>
+
+    <!-- Save current location. "Location", never "GPS" or "GNSS": those name the machinery. -->
+    <string name="itemedit_coordinate_section_label">Location</string>
+    <!-- Says the two things that decide whether this is what the user wants: it is one reading, and
+         it does not follow them afterwards. -->
+    <string name="itemedit_coordinate_explainer">LocalKeep finds your location once, when you tap. It does not follow you afterwards.</string>
+    <string name="itemedit_coordinate_capture_button">Find my location</string>
+    <string name="itemedit_coordinate_replace_button">Find again</string>
+    <string name="itemedit_coordinate_capturing">Finding you…</string>
+    <!-- Shown while no satellite fix has arrived. Rewritten 2026-08-19: it used to end "This is
+         quicker outdoors", which is an instruction to someone who may be indoors on purpose —
+         saving a storage unit, a locker, a parking space. Outdoors is now offered as a fact about
+         where the wait is shorter, not as the thing they ought to be doing. Same rule as
+         itemedit_coordinate_indoor_hint below, applied to the branch that shows first. -->
+    <string name="itemedit_coordinate_searching">Waiting for a satellite fix. Under open sky it usually comes sooner.</string>
+    <!-- Names what the user ends up with, not what the app stops doing. Interim readings land in
+         the form as they arrive, so tapping this keeps the best one — "Stop looking" said the
+         opposite, and indoors this is the ordinary way to finish. "Keep", not "Use", since
+         2026-09-02: it is the verb the rough variant below already used, and it is the plain
+         opposite of the Cancel it replaces on screen, which now genuinely discards. -->
+    <string name="itemedit_coordinate_cancel_capture">Keep location</string>
+    <!-- Shown in place of itemedit_coordinate_cancel_capture while no fix has arrived yet. The
+         button does the same thing either way; only one of the two labels is ever true, and
+         offering to keep a reading that does not exist is the kind of small lie that makes a user
+         stop trusting the rest of the screen.
+         "Stop waiting" until 2026-08-21, reported from a phone as misleading. It named the user's
+         posture rather than the button's effect, and read as a complaint about the wait rather
+         than as the way out of it — with nothing said about what happens to the search. This is
+         the plain destructive exit and the app already has one word for that in all five
+         languages (core_ui_dialog_cancel); a second synonym invented here would be the "two copies
+         of a noun" failure the vaultlist catalogue records. -->
+    <string name="itemedit_coordinate_stop_capture">Cancel</string>
+    <!-- The live line for a satellite reading that carries no accuracy at all — the fallback under
+         the three banded lines below, which are the ones normally shown. An unknown error is not a
+         small one, so this says nothing about quality rather than guessing a band. -->
+    <string name="itemedit_coordinate_refining">Still improving.</string>
+    <!-- The settled fallback for a reading with no accuracy. Reads as a completion ("Ready"), not
+         a shrug — "This has stopped improving." was reviewed 2026-09-02 as a finish nobody could
+         tell from a stall. -->
+    <string name="itemedit_coordinate_settled">Ready. It will not get closer here.</string>
+    <!-- A wifi/cell position has landed but no satellite has answered. Its own sentence rather
+         than the "still improving" one, because a network estimate is not a satellite reading and
+         no metre figure is printed for it: LocationFixPolicy explains why that number describes a
+         database's confidence in an access point, not the phone's distance from it. -->
+    <string name="itemedit_coordinate_network_only">A rough position from nearby networks. Still waiting for satellites.</string>
+    <!-- THE LIVE LINE, ONE WHOLE SENTENCE PER BAND.
+
+         No metre figure appears in any of these, anywhere, by decision of 2026-09-03: a receiver's
+         20 m is an ordinary good urban fix and reads as a failure to anyone who does not know that,
+         and there is nothing the user could do about it either way. CoordinateFormat.kt's
+         AccuracyBand carries the full argument and the accepted cost.
+
+         Three bands, split at 10 m and 50 m: the word is now the entire claim, so each one has to
+         stay true across the whole of its own band. "Street level" is the phrase mapping apps have
+         already taught people, it is true at 20 m, and — the point — it names an ordinary outcome
+         instead of a failure, where the two-band version was forced to call the same reading
+         "rough". "Approximate" is the neutral word for the same fact "rough" stated pejoratively.
+
+         WHOLE SENTENCES, NOT A TEMPLATE PLUS A WORD. Translators: do not refactor these into a
+         "%1$s so far." frame with three separate adjectives. The band word is the subject of the
+         clause that follows it, so fr/es/pt need the following adjective to agree with the noun
+         and de needs it declined; and the word is sentence-initial here but lower-case after the
+         middot in the captions below. One fragment cannot be right in both places. Nine strings is
+         the price of never assembling a sentence at runtime.
+
+         The band word visibly improves as the fix converges (approximate -> street level ->
+         precise), which is what tells the user the wait is buying something now that no number
+         does. Keep that progression legible in every language: the three words must be plainly
+         different from each other and read as an ordering. -->
+    <string name="itemedit_coordinate_refining_precise">Precise so far. Still improving.</string>
+    <string name="itemedit_coordinate_refining_street">Street level so far. Still improving.</string>
+    <string name="itemedit_coordinate_refining_area">Approximate so far. Still improving.</string>
+    <!-- The same three, once the series has stopped improving. "Ready to save" answers the question
+         the user is actually weighing — waiting longer buys nothing here — and names the button
+         they are about to press (itemedit_edit_save). -->
+    <string name="itemedit_coordinate_settled_precise">Precise. Ready to save.</string>
+    <string name="itemedit_coordinate_settled_street">Street level. Ready to save.</string>
+    <string name="itemedit_coordinate_settled_area">Approximate. Ready to save.</string>
+    <!-- Why it stopped, shown only once it has stopped somewhere loose — see
+         indoorExplanationApplies(). Rewritten 2026-08-19: it read "Step outside for a closer
+         reading" and was shown on every capture, including outdoors with a clean lock. Two defects
+         in one sentence — it was false most of the time it appeared, and it prescribed a remedy for
+         a goal the user may not have. Someone saving a locker, a storage unit or a parking space
+         wants this room, and stepping outside would record the wrong place. Now it explains, offers
+         the outdoor option as available, and does not ask them to take it. -->
+    <string name="itemedit_coordinate_indoor_hint">Walls and roofs are usually the reason. Under open sky it can get closer, if that matters for this spot.</string>
+    <string name="itemedit_coordinate_value_label">Coordinates</string>
+    <string name="itemedit_coordinate_reveal">Show</string>
+    <string name="itemedit_coordinate_open_settings">Open settings</string>
+    <!-- Action label offered on itemedit_coordinate_error_provider_off — a distinct label from
+         itemedit_coordinate_open_settings because it leads somewhere different: the system's
+         location toggle, not this app's own permission page. -->
+    <string name="itemedit_coordinate_open_location_settings">Turn on location</string>
+    <!-- %1$s is a formatted date and time. -->
+    <string name="itemedit_coordinate_captured_caption">Taken %1$s</string>
+    <!-- The caption on a finished reading, one per band. %1$s is a formatted date and time and is
+         the only argument: the metre figure that used to be %2$d went on 2026-09-03 with every
+         other one in this feature (see the live-line block above). The band word is the same claim
+         the live line made while capturing, so a saved record and a running capture describe a
+         reading in one vocabulary — but written out in full here rather than substituted, because
+         it sits mid-sentence after the middot and is capitalised at the head of the live line. -->
+    <string name="itemedit_coordinate_captured_caption_precise">Taken %1$s · precise</string>
+    <string name="itemedit_coordinate_captured_caption_street">Taken %1$s · street level</string>
+    <string name="itemedit_coordinate_captured_caption_area">Taken %1$s · approximate</string>
+
+    <!-- A claim about when location is read and where the reading goes. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_coordinate_dialog_title">Use your location?</string>
+    <!-- Every clause here is a property the code has to keep: the reading is
+         taken only on the tap, it is stored in the encrypted vault, and this app sends nothing. It
+         deliberately does not claim anything about what the operating system or the satellites do. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_coordinate_dialog_body">LocalKeep reads your location only when you tap the button, and saves that one location in your encrypted vault. It is never sent anywhere.</string>
+    <string name="itemedit_coordinate_dialog_continue">Continue</string>
+    <!-- Names what the feature cannot do, in the app\'s voice — see PermissionDenial.after. -->
+    <string name="itemedit_coordinate_denial_sentence">LocalKeep can\'t save your location without location access.</string>
+
+    <string name="itemedit_coordinate_error_permission">LocalKeep needs location access to find your location.</string>
+    <!-- The one refusal that is not a denial: the user said yes, to the wrong kind of access. It
+         must not read as an error they caused, and it must say what to change. -->
+    <!-- "Precise location" here is the name of the Android permission toggle the user has to
+         find, not a claim about how good the reading will be. -->
+    <string name="itemedit_coordinate_error_approximate">Approximate location access is not enough to find your location. Switch this app to precise location in settings.</string>
+    <string name="itemedit_coordinate_error_provider_off">Location is switched off on this device.</string>
+    <string name="itemedit_coordinate_error_unavailable">Couldn\'t find a usable location. Try again with a clear view of the sky.</string>
+    <string name="itemedit_coordinate_error_timeout">No location yet. It is usually quicker outdoors.</string>
+
+    <!-- Card fields -->
+    <string name="itemedit_card_holder_field_label">Cardholder name</string>
+    <string name="itemedit_card_number_field_label">Card number (required)</string>
+    <!-- Shown under the card number well when a new card is refused for having none. The
+         form-wide "Check the item fields" banner cannot say which of seven fields it means, and
+         this is the only one it ever means. Added 2026-09-08. -->
+    <string name="itemedit_card_number_required_caption">A card number is required — it is the one field a card cannot be saved without.</string>
+    <string name="itemedit_card_exp_month_label">Exp. month</string>
+    <string name="itemedit_card_exp_year_label">Exp. year</string>
+    <string name="itemedit_card_exp_month_error">Month is 1–12, as printed on the card.</string>
+    <string name="itemedit_card_exp_year_error">Year is the four digits printed on the card.</string>
+    <!-- The year parsed fine and is simply decades out. Separate from the message above
+         because that one says "the four digits printed on the card", which a user who typed
+         55 would follow by typing 2055 — same rejection, same message, round the loop. -->
+    <string name="itemedit_card_exp_year_far_error">That year is too far ahead. Check the expiry printed on the card.</string>
+    <!-- Card network brand names — other companies\' product names, never translated, matching
+         the do-not-translate list\'s "other products\' names" category. -->
+    <string name="itemedit_card_brand_visa" translatable="false">Visa</string>
+    <string name="itemedit_card_brand_mastercard" translatable="false">Mastercard</string>
+    <string name="itemedit_card_brand_amex" translatable="false">American Express</string>
+    <string name="itemedit_card_brand_discover" translatable="false">Discover</string>
+    <string name="itemedit_card_brand_jcb" translatable="false">JCB</string>
+    <string name="itemedit_card_brand_diners" translatable="false">Diners Club</string>
+    <string name="itemedit_card_brand_unionpay" translatable="false">UnionPay</string>
+    <string name="itemedit_card_brand_maestro" translatable="false">Maestro</string>
+
+    <!-- Identity fields -->
+    <string name="itemedit_identity_personal_details_heading">Personal details</string>
+    <string name="itemedit_identity_first_name_label">First name</string>
+    <string name="itemedit_identity_last_name_label">Last name</string>
+    <string name="itemedit_identity_gov_ids_heading">Government IDs</string>
+    <string name="itemedit_identity_start_title">Add an identity</string>
+    <string name="itemedit_identity_start_body">Photograph the document, or type the details in yourself.</string>
+    <string name="itemedit_identity_start_photo">Photograph the document</string>
+    <string name="itemedit_identity_start_type">Enter the details by hand</string>
+    <string name="itemedit_identity_start_cancel">Cancel</string>
+    <string name="itemedit_identity_capture_front">Photograph the front</string>
+    <string name="itemedit_identity_capture_back">Photograph the back</string>
+    <string name="itemedit_identity_capture_more">Another page, if there is one</string>
+    <string name="itemedit_identity_capture_shutter">Take the picture</string>
+    <string name="itemedit_identity_capture_retake">Retake</string>
+    <string name="itemedit_identity_capture_preview_a11y">The photo you just took</string>
+    <string name="itemedit_identity_capture_continue">Continue</string>
+    <string name="itemedit_identity_capture_done">Done</string>
+    <string name="itemedit_identity_capture_cancel">Cancel</string>
+    <string name="itemedit_identity_capture_failed">That picture did not save. Try again.</string>
+    <!-- Refused shutter press on the identity photograph route. %1$d is
+         AttachmentQuota.FREE_LIMIT, %2$d is AttachmentQuota.mustRemove — never a literal. -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="itemedit_error_identity_photo_quota">Free vaults hold %1$d files and photos. Remove %2$d to store this page</string>
+    <!-- The sentence above ends where the count does; one of the two clauses below finishes it,
+         chosen on ItemEditUiState.canPurchase (see identityPhotoQuotaStringIds). Same wording as the
+         vault list's dialog suffixes. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_error_identity_photo_quota_suffix_purchase">, or unlock Pro for unlimited.</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="itemedit_error_identity_photo_quota_suffix_no_purchase">, or unlock Pro in the Play version.</string>
+    <string name="itemedit_identity_capture_needs_camera">LocalKeep needs the camera to photograph a document.</string>
+    <string name="itemedit_identity_capture_denied">LocalKeep can\'t photograph a document without camera access.</string>
+    <string name="itemedit_identity_capture_allow">Allow camera access</string>
+    <string name="itemedit_identity_capture_dialog_title">Use the camera?</string>
+    <string name="itemedit_identity_capture_dialog_body">LocalKeep uses the camera only to photograph this document straight into your vault. The picture never touches your gallery, its location and camera details are removed, and nothing is sent off this device.</string>
+    <string name="itemedit_identity_capture_dialog_continue">Continue</string>
+    <string name="itemedit_identity_capture_default_title">Identity</string>
+    <string name="itemedit_identity_capture_name_title">Name this identity</string>
+    <string name="itemedit_identity_capture_name_label">Name</string>
+    <string name="itemedit_identity_capture_add_page">Add another page</string>
+    <string name="itemedit_identity_start_photo_hint">Fastest — nothing to type</string>
+    <!-- Photo route disabled on the identity chooser because the attachment quota is already
+         full — shown as the tile's subtitle instead of itemedit_identity_start_photo_hint. %1$d
+         is AttachmentQuota.FREE_LIMIT, %2$d is AttachmentQuota.mustRemove — never a literal. -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="itemedit_identity_start_photo_blocked">Free vaults hold %1$d files and photos. Remove %2$d to photograph this one — or type it in by hand.</string>
+    <string name="itemedit_identity_wizard_body">Everything here is optional. Skip what you don\'t have.</string>
+    <string name="itemedit_identity_wizard_skip">Skip</string>
+    <string name="itemedit_identity_wizard_review_empty">Nothing entered yet. Go back and add at least one detail.</string>
+    <string name="itemedit_identity_wizard_save_disabled_a11y">Save, available once you add a detail</string>
+    <string name="itemedit_identity_capture_hint">Fill the frame · hold steady</string>
+    <string name="itemedit_identity_capture_rail_front">Front</string>
+    <string name="itemedit_identity_capture_rail_back">Back</string>
+    <string name="itemedit_identity_capture_rail_more">More</string>
+    <string name="itemedit_identity_capture_rail_captured">, captured</string>
+    <string name="itemedit_identity_saving_body">Sealing the pages into your vault file. Nothing leaves this device.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_identity_saved_reauth">Re-auth required to open or copy</string>
+    <plurals name="itemedit_identity_capture_pages">
+        <item quantity="one">%1$d page</item>
+        <item quantity="other">%1$d pages</item>
+    </plurals>
+    <plurals name="itemedit_identity_capture_name_body">
+        <item quantity="one">%1$d photo saved to this identity. Give it a name you will recognise, or keep this one.</item>
+        <item quantity="other">%1$d photos saved to this identity. Give it a name you will recognise, or keep this one.</item>
+    </plurals>
+    <plurals name="itemedit_identity_saved_body">
+        <item quantity="one">%1$d page encrypted into your vault.</item>
+        <item quantity="other">%1$d pages encrypted into your vault.</item>
+    </plurals>
+    <string name="itemedit_identity_passport_field_label">Passport number</string>
+    <string name="itemedit_identity_license_field_label">Driver\'s license</string>
+    <string name="itemedit_identity_contact_heading">Contact</string>
+    <string name="itemedit_identity_address_line1_label">Line 1</string>
+    <string name="itemedit_identity_address_line2_label">Line 2</string>
+    <string name="itemedit_identity_address_city_label">City</string>
+    <string name="itemedit_identity_address_state_label">State / region</string>
+    <string name="itemedit_identity_address_zip_label">ZIP / postal code</string>
+    <string name="itemedit_identity_address_country_label">Country</string>
+
+    <!-- Custom fields -->
+    <string name="itemedit_custom_field_name_label">Field name</string>
+    <!-- Names the choice the Text / Hidden chips make. The visible chip is a bare word, which
+         says nothing on its own about what is being chosen. %1$s is the chip's own label. -->
+    <string name="itemedit_custom_field_type_a11y">Field type: %1$s</string>
+    <string name="itemedit_custom_field_value_label">Field value</string>
+    <string name="itemedit_custom_field_value_hidden_label">Field value, hidden</string>
+    <string name="itemedit_custom_field_value_placeholder">Value</string>
+    <!-- Fallback name spoken in "Hide/Show/Remove ___" when the user never named the field. -->
+    <string name="itemedit_custom_field_fallback_name">custom field</string>
+    <string name="itemedit_custom_field_hide_a11y">Hide %1$s</string>
+    <string name="itemedit_custom_field_show_a11y">Show %1$s</string>
+    <string name="itemedit_custom_field_remove_a11y">Remove %1$s</string>
+    <string name="itemedit_custom_field_add_button">Add custom field</string>
+    <!-- Chip labels for the custom field's type row. TEXT/HIDDEN are the two offered by this
+         editor; BOOLEAN/LINKED are reachable only on a field already carrying one from an
+         imported vault (e.g. Bitwarden), which keeps its own chip in the row. -->
+    <string name="itemedit_custom_field_type_text">Text</string>
+    <string name="itemedit_custom_field_type_hidden">Hidden</string>
+    <string name="itemedit_custom_field_type_boolean">Boolean</string>
+    <string name="itemedit_custom_field_type_linked">Linked</string>
+
+    <string name="itemedit_generate_password_a11y">Generate a password</string>
+    <!-- The bit count beside the strength word, for a password this app generated. Same wording and
+         same thresholds as the Generator screen's own readout (generator_entropy_bits): one value
+         rated twice, in two vocabularies, one tap apart was F-29 (2026-09-15). -->
+    <plurals name="itemedit_entropy_bits">
+        <item quantity="one">%1$d bit</item>
+        <item quantity="other">%1$d bits</item>
+    </plurals>
+    <string name="itemedit_undo_generate_a11y">Undo the generated password</string>
+    <string name="itemedit_reprompt_checkbox_label">Reprompt before revealing secrets</string>
+    <!-- The editor's favourite toggle. Saved with the rest of the form, unlike the detail
+         screen's star, which lands on the tap. -->
+    <string name="itemedit_favourite_checkbox_label">Favorite</string>
+
+    <!-- ═══ "Folder, tags and more" — the filing accordion shared by every item type ═══ -->
+    <string name="itemedit_edit_more_label">Folder, tags and more</string>
+    <string name="itemedit_edit_more_summary_none">none set</string>
+    <string name="itemedit_edit_more_summary_reprompt">reprompt</string>
+    <string name="itemedit_edit_more_summary_favourite">favorite</string>
+    <string name="itemedit_edit_more_summary_totp">2FA</string>
+    <string name="itemedit_edit_more_summary_notes">notes</string>
+    <string name="itemedit_edit_more_expand_a11y">Show folder, tags and more</string>
+    <string name="itemedit_edit_more_collapse_a11y">Hide folder, tags and more</string>
+    <string name="itemedit_edit_more_state_expanded">Expanded</string>
+    <string name="itemedit_edit_more_state_collapsed">Collapsed</string>
+    <plurals name="itemedit_edit_more_summary_tags">
+        <item quantity="one">%1$d tag</item>
+        <item quantity="other">%1$d tags</item>
+    </plurals>
+    <plurals name="itemedit_edit_more_summary_fields">
+        <item quantity="one">%1$d field</item>
+        <item quantity="other">%1$d fields</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_reprompt_caption_on">Every secret in this item asks for your screen lock before it is shown or copied, even while the vault is open.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_reprompt_caption_off">Secrets here open with the vault. A card’s CVV, its PIN, a 2FA seed and a saved position always ask, whether this is on or off.</string>
+
+    <!-- ═══ QR scanner dialog — the scanner itself (QrScanner.kt) moved to :core:ui on
+         2026-09-10 so the Recovery Kit unlock flow could reuse it; the aim/read hints and the
+         cancel label moved with it (core_ui_qr_hint_aim, core_ui_qr_hint_read,
+         core_ui_dialog_cancel). These two stay here because they are TOTP-specific: the title
+         says what is being scanned, and the fallback names this screen's own otpauth:// paste
+         field, which the Recovery Kit flow does not have. Passed to QrScannerDialog by the
+         call site in ItemEditScreen.kt. ═══ -->
+    <string name="itemedit_qr_camera_unavailable">The camera is unavailable. Paste the otpauth:// link instead.</string>
+    <string name="itemedit_qr_dialog_title">Scan authenticator QR</string>
+
+    <!-- ═══ Reveal re-authentication (RevealAuthEffect.kt). Every string in this block either
+         explains why a prompt appeared or names what is about to become visible, which is the
+         re-authentication tier of the security-copy protocol. The banner used to carry
+         the tier for all five at once; a marker tags exactly one element, so each carries its own
+         below and this comment carries none. ═══ -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_reveal_no_activity">Can\'t verify it\'s you on this screen.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_reveal_no_auth_available">Set a screen lock or biometrics to reveal this field.</string>
+    <!-- The same refusal on API 28 and 29, where `RevealAuth.allowedAuthenticators` asks for
+         BIOMETRIC_STRONG alone: androidx.biometric rejects the STRONG|DEVICE_CREDENTIAL pair
+         there, so no screen lock can ever satisfy this gate and the sentence above is a
+         dead-end instruction. Says what is actually needed, and why the obvious remedy is not
+         it. Deliberately does not promise that enrolling will work - a Class 2 sensor still
+         will not satisfy a Class 3 gate. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_reveal_no_biometric_available">This field needs biometric unlock. On this version of Android a screen lock alone can\'t reveal it.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_reveal_prompt_title">Confirm it\'s you</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_reveal_prompt_subtitle">Verify your identity to reveal this secret</string>
+    <!-- The Copy-path twins of the three reveal strings above: a Copy tap raises the same gate, and
+         answering it with "reveal" wording told the user about an act they did not ask for. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_copy_no_auth_available">Set a screen lock or biometrics to copy this field.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_copy_no_biometric_available">This field needs biometric unlock. On this version of Android a screen lock alone can\'t copy it.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="itemedit_copy_prompt_subtitle">Verify your identity to copy this secret</string>
+
+    <!-- ═══ ViewModel errors and notices (ItemEditViewModel.kt) ═══ -->
+    <string name="itemedit_error_item_not_found">Item could not be found</string>
+    <string name="itemedit_error_unsupported_type">This item type can\'t be edited here yet.</string>
+    <string name="itemedit_error_readonly_cannot_save">This item can\'t be edited here, so it wasn\'t saved.</string>
+    <string name="itemedit_error_title_required">Give this a title — it is what you will look for in the vault.</string>
+    <string name="itemedit_error_totp_secret_required">Enter the secret key, or scan the site\'s QR code.</string>
+    <string name="itemedit_error_coordinate_required">Find your location before saving — this item is the place, not the name.</string>
+    <string name="itemedit_error_invalid_otpauth_link">That isn\'t a valid two-factor setup link.</string>
+    <string name="itemedit_error_folder_name_exists">A folder with that name already exists</string>
+    <string name="itemedit_error_already_tagged">Already tagged “%1$s”.</string>
+    <!-- Generic save-time validation fallback. Replaces echoing a caught exception\'s raw .message
+         into the UI (the rule: never echo e.message into the UI) — the specific reasons
+         (card expiry, TOTP digit/period range) are already shown inline by the field that owns
+         them before Save is ever pressed; this is the backstop for the rest. -->
+    <string name="itemedit_error_check_fields">Check the item fields</string>
+    <string name="itemedit_error_action_failed">That didn\'t go through. Your changes are still here — try again.</string>
+    <!-- "safe and unchanged" is a claim about what protects the stored vault. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_error_vault_too_large">This vault has grown too large for this device\'s memory, so the change could not be saved. Everything already stored is safe and unchanged. Deleting or exporting some items — large files and photos first — will bring it back under the limit.</string>
+    <string name="itemedit_error_out_of_space">This device is out of storage space, so the change could not be saved. Free up space, then try again.</string>
+    <string name="itemedit_error_bucket_exhausted">This vault has grown too large to save this change in its current layout. Everything already stored is safe and unchanged. Deleting or exporting some items — large files and photos first — will bring it back under the limit.</string>
+    <string name="itemedit_conflict_notice">Your changes were saved, but this login\'s password had already been updated elsewhere — by an autofill save, most likely — while this screen was open. The newer password was kept and is shown above.</string>
+    <!-- Confirmations posted from the ViewModel. Resource ids since 2026-07-30: LkNotices.post
+         took only a String, so these four shipped as English literals in every language. -->
+    <string name="itemedit_notice_moved_to_trash">Moved to trash</string>
+    <string name="itemedit_notice_custom_field_removed">Custom field removed</string>
+    <string name="itemedit_notice_phrase_replaced">Recovery phrase replaced</string>
+    <string name="itemedit_notice_undo">Undo</string>
+    <!-- The other half of the Undo above, for the detail screen's trash (4A-F7, 2026-09-20).
+         The restore itself runs on an app-lifetime scope because this screen is gone by then —
+         see TrashUndoBus. The failure line is the one place this app announces a failure through
+         LkNotices: there is no screen left to carry it, and the retry is in Trash. -->
+    <string name="itemedit_notice_restored">Restored</string>
+    <string name="itemedit_notice_restore_failed">Couldn\'t put it back. It is still in Trash.</string>
+    <!-- Pasted phrase had more words than the selected word count, so the extra ones were
+         dropped. No Undo: they never landed, so there is no prior grid to restore. %1$d is the
+         count dropped, never the word count. -->
+    <plurals name="itemedit_notice_phrase_paste_overflow">
+        <item quantity="one">%1$d extra word wasn\'t used</item>
+        <item quantity="other">%1$d extra words weren\'t used</item>
+    </plurals>
+    <!-- A website URI on this Login matched one already in the list, so it was not added a
+         second time. Posted on save rather than on entry, matching where the drop actually
+         happens (toContent's dedup). %1$d is the count dropped, never the total website count. -->
+    <plurals name="itemedit_notice_duplicate_website_dropped">
+        <item quantity="one">%1$d duplicate website wasn\'t saved</item>
+        <item quantity="other">%1$d duplicate websites weren\'t saved</item>
+    </plurals>
+
+    <!-- ═══ Password history (ItemDetailScreen.kt) ═══
+         The app recorded a login's replaced passwords from the day autofill's save prompt
+         shipped and displayed them nowhere. These are the strings that make the retention
+         visible and reversible. -->
+    <string name="itemedit_detail_password_history_title">Previous passwords</string>
+    <!--
+         The label of one history row, and what a screen reader reads before "hidden" or
+         the revealed secret. %1$s is a localised medium date. -->
+    <string name="itemedit_detail_password_history_entry_label">Replaced %1$s</string>
+    <!--
+         States the retention rule beside the retained data. %1$d is
+         PasswordHistory.MAX_ENTRIES. Not a <plurals>: the constant is fixed above 1, so a
+         singular form would be a translation nobody can ever see. -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="itemedit_detail_password_history_retention">LocalKeep keeps the %1$d most recent passwords for a login. Older ones are discarded automatically.</string>
+    <string name="itemedit_detail_password_history_clear_action">Delete password history</string>
+    <!--
+         Irreversible — unlike the trash, nothing is recoverable
+         afterwards, so the wording must not borrow the trash dialog's reassurance. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="itemedit_detail_password_history_clear_dialog_title">Delete password history?</string>
+    <string name="itemedit_detail_password_history_clear_confirm">Delete permanently</string>
+    <string name="itemedit_detail_password_history_clear_dismiss">Keep</string>
+    <string name="itemedit_notice_password_history_cleared">Password history deleted</string>
+    <!--
+         Also tier F — irreversible, and it states a count the user is
+         acting on. "Permanently" carries the whole warning; it must survive translation. -->
+    <!-- SECURITY-COPY: tier A -->
+    <plurals name="itemedit_detail_password_history_clear_dialog_body">
+        <item quantity="one">%1$d previous password is stored for this item. Deleting it is permanent and cannot be undone.</item>
+        <item quantity="other">%1$d previous passwords are stored for this item. Deleting them is permanent and cannot be undone.</item>
+    </plurals>
+    <string name="itemedit_card_wizard_progress">%1$d of %2$d</string>
+    <string name="itemedit_card_wizard_progress_a11y">Step %1$d of %2$d</string>
+    <string name="itemedit_card_wizard_number_title">Card number</string>
+    <string name="itemedit_card_wizard_number_body">The long number across the front of the card.</string>
+    <string name="itemedit_card_wizard_expiry_title">When does it expire?</string>
+    <string name="itemedit_card_wizard_expiry_body">The two-digit month and year printed under the number.</string>
+    <string name="itemedit_card_wizard_expiry_label">Expiry</string>
+    <string name="itemedit_card_wizard_expiry_placeholder">MM/YY</string>
+    <string name="itemedit_card_wizard_cvv_title">Security code</string>
+    <string name="itemedit_card_wizard_cvv_body">The three digits on the signature strip on the back.</string>
+    <string name="itemedit_card_wizard_cvv_body_amex">The four digits printed above the number on the front.</string>
+    <string name="itemedit_card_wizard_cvv_set">Security code added</string>
+    <string name="itemedit_card_wizard_who_title">Whose card is it?</string>
+    <string name="itemedit_card_wizard_who_body">The name on the front. A PIN and a note are optional.</string>
+    <string name="itemedit_card_wizard_review_title">Ready to save</string>
+    <!-- Heading when the identity review has nothing to show: "Ready to save" over an empty page
+         promises a save that would store a blank item. -->
+    <string name="itemedit_identity_wizard_review_empty_title">Nothing to save yet</string>
+    <string name="itemedit_card_wizard_review_body">Check it over. You will name it in the next step.</string>
+    <string name="itemedit_card_wizard_continue">Continue</string>
+    <!-- F49, 2026-09-13. Keyed on the number step's own empty-field condition, never on the
+         button's enabled state, which also gates on isSaving — that would announce this reason
+         over a card number the user already typed, while a save is running. -->
+    <string name="itemedit_card_wizard_continue_disabled_number_a11y">Continue, available once you enter a card number</string>
+    <string name="itemedit_card_wizard_back">Back</string>
+    <string name="itemedit_card_wizard_manual">Enter everything at once</string>
+    <!-- Shown when the typed length is not one the detected network issues. Advisory only: the
+         same field holds loyalty and gift numbers, so nothing is ever rejected on it. -->
+    <string name="itemedit_card_number_length_hint">%1$s cards have %2$s digits.</string>
+    <!-- The unrecognised-number case, which had no hint of any kind until 2026-08-11: with no
+         network detected, itemedit_card_number_length_hint has no name and no lengths to print, so
+         six digits went through the wizard in complete silence. Says only what is certainly true —
+         no network issues a number below twelve digits — and never that the number is wrong, since
+         a short loyalty or gift number is a legitimate thing to keep here. -->
+    <string name="itemedit_card_number_unrecognised_hint">No card network prints a number this short.</string>
+    <!-- The second line, shown only once the user has tried to continue past a length no card is
+         printed at. It has to name the way forward in the same breath as the doubt: the button is
+         never disabled, so a user with a genuine loyalty number must be able to read one sentence
+         and know exactly what to do. -->
+    <string name="itemedit_card_number_challenge">Check the number before you continue. Tap Continue again to save it as typed.</string>
+    <string name="itemedit_card_cvv_length_hint">%1$s codes have %2$d digits.</string>
+    <!-- Punctuation only, and identical in all five catalogues; kept as resources so the Kotlin
+         holds no literal, marked untranslatable so they never enter a translation batch. -->
+    <string name="itemedit_card_length_separator" translatable="false">", "</string>
+    <!-- A run of consecutive lengths, written as a span rather than listed out: Maestro accepts
+         every length from 12 to 19 and enumerating all eight reads as noise. -->
+    <string name="itemedit_card_length_range" translatable="false">%1$d–%2$d</string>
+    <string name="itemedit_detail_note_empty_tap">This note is empty. Tap to write one.</string>
+    <string name="itemedit_detail_note_empty_action">Write this note</string>
+    <string name="itemedit_detail_empty_body">Nothing saved in this item yet. Tap to fill it in.</string>
+    <string name="itemedit_detail_empty_action">Add details</string>
+    <string name="itemedit_folder_absent_notice">That folder no longer exists. The item was saved without one.</string>
+    <string name="itemedit_saved_into_trash_notice">That folder was moved to Trash. The item was saved there too.</string>
+    <string name="itemedit_folder_picker_subfolder">%1$s, inside %2$s</string>
+    <string name="itemedit_save_sheet_title">Name it</string>
+    <string name="itemedit_save_sheet_subtitle">The name is what search and the vault list have to go on.</string>
+    <string name="itemedit_save_sheet_confirm">Save item</string>
+    <string name="itemedit_title_suggestion_card_no_brand">Card •••• %1$s</string>
+    <!-- %1$d is the smallest number no live login is already named with. The noun is the item
+         type's own word (itemedit_type_login), so the suggestion matches the screen title. -->
+    <string name="itemedit_title_suggestion_login">Login %1$d</string>
+    <!-- %1$s is a localized date and time. The noun is the category's own — "Location", the same
+         word the drawer and the Add sheet use — never "Reading": a saved coordinate is a place, and
+         "Reading, Sep 2, 2026" read as a fragment (or an English town). Reviewed 2026-09-02. -->
+    <string name="itemedit_title_suggestion_location">Location, %1$s</string>
+    <string name="itemedit_title_suggestion_card" translatable="false">%1$s •••• %2$s</string>
+    <string name="itemedit_coordinate_chip_searching">Searching</string>
+    <string name="itemedit_coordinate_chip_refining">Refining</string>
+    <string name="itemedit_coordinate_chip_settled">Ready</string>
+    <string name="itemedit_coordinate_hold_to_copy">Hold to copy</string>
+    <string name="itemedit_coordinate_copied">Copied</string>
+    <string name="itemedit_coordinate_copied_a11y">Coordinates copied to the clipboard</string>
+    <string name="itemedit_card_face_holder_placeholder">Cardholder</string>
+    <string name="itemedit_card_face_cvv_hint">The signature strip and the code box.</string>
+    <string name="itemedit_card_face_cvv_hint_amex">Amex prints its code on the front.</string>
+    <!-- The item editor's folder picker lists only folders this item type actually lives in
+         (see FolderRelevance). Six keys rather than one interpolated sentence: the category noun
+         is gendered in fr/es/pt and takes an article, so a single %1$s template produces
+         "un identite" and its friends. Same reason vaultlist keeps six emptyTitleRes values. -->
+
+    <!-- ── Recovery phrase (SeedPhrase) item type ──
+         A stored BIP-39 seed phrase, checked against the wordlist and its own checksum. The four
+         verdict-banner bodies, the vault-kit body and the passphrase caption each assert a security
+         property rather than describe an action, so each carries its own marker below and its own
+         entry in TierGClaimsTest. This comment named them as a group and tagged none of them until
+         2026-09-21: a marker tags exactly one element, and one written in prose is seen by neither
+         parser, so four of the six had no register entry and none of the six was extractable. -->
+    <string name="itemedit_type_phrase">Recovery phrase</string>
+    <string name="itemedit_phrase_count_label">How many words</string>
+    <string name="itemedit_phrase_words_label">Words</string>
+    <string name="itemedit_phrase_paste_all">Paste all</string>
+    <!-- "Paste all" with an empty clipboard changed nothing and said nothing, which is the one
+         silent failure on a screen that narrates every other one ("No match", "0 of 12 words"). -->
+    <string name="itemedit_phrase_paste_all_empty">Nothing on the clipboard to paste.</string>
+    <string name="itemedit_phrase_reveal">Reveal</string>
+    <string name="itemedit_phrase_hide">Hide</string>
+    <!-- Grid entry: the label of the slot being typed, and the placeholder in its field. -->
+    <string name="itemedit_phrase_word_label">Word %1$02d</string>
+    <string name="itemedit_phrase_type_four">Type four letters</string>
+    <!-- Entry hints. No BIP-39 word shares its first four letters with another, so the fourth
+         keystroke always resolves to one word. -->
+    <string name="itemedit_phrase_hint_one">One match</string>
+    <string name="itemedit_phrase_hint_none">No match</string>
+    <string name="itemedit_phrase_hint_four">Four letters decide it</string>
+    <!-- Verdict banner. -->
+    <string name="itemedit_phrase_banner_incomplete_title">%1$d of %2$d words</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_phrase_banner_incomplete_body">Nothing is checked until the last one lands — the checksum is over the whole phrase.</string>
+    <string name="itemedit_phrase_banner_badword_title">Slot %1$d is not a BIP-39 word</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_phrase_banner_badword_body">A note would have kept it. Restore is the first place you would find out.</string>
+    <string name="itemedit_phrase_banner_checksum_title">Real words, but the phrase fails its checksum</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_phrase_banner_checksum_body">One of them is wrong, or two are in the wrong order. Nothing outside this screen can tell you that.</string>
+    <string name="itemedit_phrase_banner_valid_title">Checksum valid</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_phrase_banner_valid_body">The last word encodes a checksum over the other %1$d. This phrase is internally consistent.</string>
+    <!-- A neutral identification, not a property claim — the warning it heads is the body below,
+         which is the Tier G string. -->
+    <string name="itemedit_phrase_banner_vaultkit_title">These are this vault\'s own Recovery Kit words</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_phrase_banner_vaultkit_body">Saving them here puts the key to the vault inside the vault. Keep them on paper, outside it.</string>
+    <!-- F49, 2026-09-13. Keyed on phraseStatus, not on the Save button's enabled state, which also
+         gates on isSaving/readOnly — that would announce this reason over a phrase that already
+         passed its checksum, while a save is running. Covers the two states where the grid is not
+         yet a phrase at all (incomplete, bad word). A failed checksum stopped being a blocked state
+         on 2026-09-20 (4C-14) — it saves with a coral warning; the other blocked state,
+         VAULTKIT, is checksum-VALID and takes itemedit_phrase_save_disabled_vaultkit_a11y instead,
+         since telling that user to make the phrase valid names no action that could ever satisfy
+         it. The banner right above the grid gives the specific reason to sighted users. -->
+    <string name="itemedit_phrase_save_disabled_a11y">Save, available once the recovery phrase is valid</string>
+    <!-- The VAULTKIT arm of the same reason. Written whole per language, never assembled from
+         itemedit_phrase_save_disabled_a11y plus itemedit_phrase_banner_vaultkit_title: the two
+         clauses join with different punctuation and different word order in each of the five, and
+         runtime concatenation is exactly what the positional-resource rule exists to prevent. The
+         vault-kit clause is taken from that banner title so a screen-reader user and a sighted user
+         are told the same thing in the same words. Carries no tier: it names a refused control, not
+         a property of the Recovery Kit, and the banner title it borrows from carries none either
+         for the same reason (the warning is its body, which is tagged). -->
+    <string name="itemedit_phrase_save_disabled_vaultkit_a11y">Save, these are this vault\'s own Recovery Kit words</string>
+    <!-- The optional BIP-39 25th word. -->
+    <string name="itemedit_phrase_passphrase_label">Passphrase (optional)</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="itemedit_phrase_passphrase_caption">Stored beside the words but never checked against them — nothing on this device knows whether it is right.</string>
+    <!-- Detail (view) screen. -->
+    <string name="itemedit_detail_phrase_label">Recovery phrase</string>
+    <string name="itemedit_detail_phrase_passphrase_label">Passphrase</string>
+    <!-- Shown on the stored item when its words do not add up (4C-14). The editor accepts a
+         checksum-invalid phrase since 2026-09-20, so the warning has to outlive the form that
+         accepted it. Carries no tier: it states a fact about the words the user typed, not a claim
+         about where vault data lives or what protects it. -->
+    <string name="itemedit_detail_phrase_checksum_invalid">These words do not pass their BIP-39 checksum. They are stored exactly as you entered them.</string>
+    <plurals name="itemedit_detail_phrase_word_count">
+        <item quantity="one">%1$d word</item>
+        <item quantity="other">%1$d words</item>
+    </plurals>
+
+    <!-- ── Passkey item type ──
+         Read-only: created by the credential provider (PasskeyCreator), never by this editor.
+         F40, 2026-09-13. No form exists for this type, so there is no "add"/"edit" string block
+         above like the other types have — only the type label and the detail (view) screen. -->
+    <string name="itemedit_type_passkey">Passkey</string>
+    <string name="itemedit_detail_passkey_site_label">Website</string>
+    <!-- "Account", not "Username": the value is `userDisplayName` first (ItemEditViewModel
+         .withPasskeyContent), which WebAuthn defines as the human-readable NAME, and only falls
+         back to `userName`. The glossary binds `username` to the field inside a login, which this
+         is not; `account` is its own glossary row. -->
+    <string name="itemedit_detail_passkey_username_label">Account</string>
+    <!-- Nominal, with no preposition: ReadField speaks this through
+         itemedit_detail_field_readout ("%1$s: %2$s"), so a trailing "on"/"le"/"am" landed in front
+         of the colon. It also removes a gender agreement this row has no antecedent for. -->
+    <string name="itemedit_detail_passkey_created_label">Created</string>
+    <!-- The WebAuthn signature counter increments in PasskeySigner before the assertion is
+         returned, so it counts what LocalKeep served, not sign-ins the user completed. -->
+    <string name="itemedit_detail_passkey_sign_counter_label">Times used</string>
+    <!-- Display labels for the two custom fields a passkey created for an Android app carries
+         (4A-F9, 2026-09-20). The stored keys stay `credential.boundPackage` /
+         `credential.boundCertSha256` — :credential matches on them exactly at ceremony time — so
+         these name them for a reader without renaming anything. -->
+    <string name="itemedit_custom_field_bound_package">App it is bound to</string>
+    <string name="itemedit_custom_field_bound_cert">Signing certificate of that app</string>
+</resources>

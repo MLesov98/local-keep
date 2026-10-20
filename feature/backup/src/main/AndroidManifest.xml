@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    No permissions. The stale-export reminder used to be a WorkManager job posting a system
+    notification, which cost POST_NOTIFICATIONS here and dragged WAKE_LOCK, ACCESS_NETWORK_STATE,
+    RECEIVE_BOOT_COMPLETED and FOREGROUND_SERVICE into the merged manifest of every build via
+    androidx.work — six permissions, in an app whose whole pitch is that it needs none. The
+    reminder is now StaleExportReminder, an in-app banner. See app/src/foss/AndroidManifest.xml
+    for the guarded permission set.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" />

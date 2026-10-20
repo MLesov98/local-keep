@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<autofill-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:settingsActivity="com.localkeep.app.MainActivity"
+    android:supportsInlineSuggestions="true">
+
+    <!--
+        Compatibility mode, requested for the browsers that do not hand their page content to the
+        autofill framework natively. Without a request here the platform never enables it for us,
+        so a login typed into a web page in one of these browsers was offered nothing and captured
+        nothing. The tag itself is the platform's, documented in the SDK's own attrs.xml
+        (android-36/data/res/values/attrs.xml, declare-styleable
+        "AutofillService_CompatibilityPackage"): "Use compatibility-package as a child tag of
+        autofill-service ... to specify a package and an optional max version code for which to
+        request compatibility mode."
+
+        Two things this tag deliberately does NOT carry, because it cannot:
+
+        1. The URL bar resource id. Those live in the device's own allowlist, not here. The
+           framework reads them from the DeviceConfig property "compat_mode_allowed_packages"
+           (AutofillFeatureFlags.DEVICE_CONFIG_AUTOFILL_COMPAT_MODE_ALLOWED_PACKAGES), whose format
+           its javadoc gives as "p1[url_bar]:p2:p3[url_foo,url_bas]", and hands them to
+           AutofillCompatState.addCompatibilityModeRequest in
+           services/autofill/java/com/android/server/autofill/AutofillManagerService.java. The
+           styleable above accepts "name" and "maxLongVersionCode" and nothing else, so an id
+           written here would be silently ignored rather than applied.
+        2. A max version code. Omitting it means every version
+           (AutofillServiceInfo.parseCompatibilityPackages defaults maxVersionCode to
+           Long.MAX_VALUE when the attribute is absent). The attribute exists to stop asking for
+           compat mode once a browser supports autofill natively, and we have no verified version
+           per browser at which that becomes true. Naming a made-up cut-off would disable filling
+           in a browser that still needs it; asking for a version that no longer needs it costs
+           nothing, because the same AutofillManagerService intersects this list with the device's
+           allowlist and logs "Ignoring not allowed compat package" for the rest.
+
+        Package ids verified against their Google Play listings on 2026-09-17
+        (https://play.google.com/store/apps/details?id=<id>).
+    -->
+    <!-- Google Chrome -->
+    <compatibility-package android:name="com.android.chrome" />
+    <!-- Firefox Fast and Private Browser -->
+    <compatibility-package android:name="org.mozilla.firefox" />
+    <!-- Brave Private Web Browser -->
+    <compatibility-package android:name="com.brave.browser" />
+    <!-- Microsoft Edge -->
+    <compatibility-package android:name="com.microsoft.emmx" />
+    <!-- Samsung Internet Browser -->
+    <compatibility-package android:name="com.sec.android.app.sbrowser" />
+    <!-- Opera: Private Web Browser -->
+    <compatibility-package android:name="com.opera.browser" />
+    <!-- DuckDuckGo Private Browser -->
+    <compatibility-package android:name="com.duckduckgo.mobile.android" />
+</autofill-service>

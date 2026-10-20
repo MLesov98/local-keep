@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Signing-certificate checks need package visibility. This narrow launcher query covers
+         user-facing autofill targets without requesting QUERY_ALL_PACKAGES. Headless packages
+         remain invisible and therefore fail closed. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
+    <application>
+        <service
+            android:name=".LocalAutofillService"
+            android:exported="true"
+            android:label="LocalKeep"
+            android:permission="android.permission.BIND_AUTOFILL_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.autofill.AutofillService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.autofill"
+                android:resource="@xml/autofill_service" />
+        </service>
+
+        <activity
+            android:name=".AuthActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:theme="@style/Theme.LocalKeep.Base" />
+
+        <activity
+            android:name=".ConfirmDomainActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:theme="@style/Theme.LocalKeep.Base" />
+
+        <activity
+            android:name=".PickerActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:theme="@style/Theme.LocalKeep.Base" />
+
+        <!--
+            taskAffinity="" puts the save-confirm screen in its own task rather than LocalKeep's.
+            Without it the platform launched it into the app's existing task (which usually exists —
+            the user unlocked the vault minutes ago), brought that task to the front, and `finish()`
+            then exposed the vault list instead of returning to the app the user was logging into.
+            Every first login in a new app ended with a context switch into the password manager,
+            showing the whole vault to someone who had just tapped "Save" somewhere else (G18).
+            excludeFromRecents already keeps this out of Recents, so the extra task is not visible.
+        -->
+        <activity
+            android:name=".SaveConfirmActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.LocalKeep.Base" />
+    </application>
+</manifest>

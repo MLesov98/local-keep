@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- ===================== VaultListScreen — header, search, filter bar ===================== -->
+    <string name="vaultlist_screen_title">Vault</string>
+    <string name="vaultlist_menu_open">Open menu</string>
+    <string name="vaultlist_search_placeholder">Search titles, usernames, sites, notes, tags, folders</string>
+    <string name="vaultlist_chip_favourites">Favorites</string>
+    <string name="vaultlist_chip_all">All</string>
+    <!-- Off position of the folder strip, shown only when the vault has folders. -->
+
+    <!-- ===================== Folders as containers ===================== -->
+    <!-- The vault list is a folder browser: folder rows above the items, a breadcrumb above those,
+         and the root listing only what is filed nowhere. -->
+    <string name="vaultlist_folder_browse_empty_title">This folder is empty</string>
+    <string name="vaultlist_folder_browse_empty_body">Nothing is filed here yet. Add an item and it will land in this folder.</string>
+    <string name="vaultlist_folder_browse_empty_button">Add an item here</string>
+    <string name="vaultlist_folder_no_items">No items in this folder</string>
+    <string name="vaultlist_breadcrumb_a11y">Folder path</string>
+    <string name="vaultlist_breadcrumb_root">All items</string>
+    <plurals name="vaultlist_folder_row_description">
+        <item quantity="one">Folder %1$s, %2$d item</item>
+        <item quantity="other">Folder %1$s, %2$d items</item>
+    </plurals>
+    <plurals name="vaultlist_count_folders">
+        <item quantity="one">%1$d folder</item>
+        <item quantity="other">%1$d folders</item>
+    </plurals>
+    <!-- The two count suffixes again, with the folder count folded in. Separate keys rather than a
+         nested composition so ComposedPluralAgreementTest can still see that a plural reaches them:
+         it follows a plural bound to a local into the call that uses it, and an intermediate
+         variable would have hidden both of the originals from it. Same agreement ruling as their
+         plain siblings — a noun and a label, nothing that inflects.
+
+         The first one carries the same encryption claim as
+         vaultlist_count_device_suffix and inherits every decision made about it: no exclusivity is
+         claimed, and fr/de/es/pt keep the locational noun while English names the mechanism. Do not
+         "align" the four to the English — see the note on vaultlist_count_device_suffix. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_count_device_folders_suffix">%1$s · %2$s · encrypted with your vault password</string>
+    <string name="vaultlist_count_filtered_folders_suffix">%1$s · %2$s · filter: %3$s</string>
+    <!-- Two folders can legally share a name when they sit under different parents, and a merge of
+         two vaults produces exactly that. Shown only where the ambiguity is actually on screen. -->
+    <string name="vaultlist_folder_row_disambiguated">%1$s · in %2$s</string>
+    <string name="vaultlist_fab_add_to_folder">Add to %1$s</string>
+    <string name="vaultlist_search_outside_folder">Search outside %1$s</string>
+    <string name="vaultlist_folder_absent_notice">That folder no longer exists. The item was saved without one.</string>
+    <string name="vaultlist_move_new_folder">New folder</string>
+    <!-- Appended to a promoted folder's name when it would otherwise clash with a new sibling.
+         Resolved by the composable and handed to the repository as a closure — the module that
+         writes the vault holds no display strings. -->
+    <string name="vaultlist_folder_name_suffix">%1$s (%2$d)</string>
+    <string name="vaultlist_folder_picker_subfolder">%1$s, inside %2$s</string>
+    <string name="vaultlist_folder_renamed_notice">%1$s was renamed to %2$s to avoid a clash.</string>
+
+    <!-- The control that unfolds a folder list longer than three rows, and folds it back. Counts
+         what is *hidden*, not the total: the three on screen are already visible, so "Show all 7"
+         would be asking the reader to subtract. -->
+    <plurals name="vaultlist_folders_show_more">
+        <item quantity="one">Show %1$d more folder</item>
+        <item quantity="other">Show %1$d more folders</item>
+    </plurals>
+    <string name="vaultlist_folders_show_fewer">Show fewer folders</string>
+    <!-- Folder management: move, promote-on-delete, repair. -->
+    <string name="vaultlist_folders_move_action">Move %1$s to another folder</string>
+    <string name="vaultlist_folders_move_title">Move %1$s</string>
+    <string name="vaultlist_folders_move_root">No folder (top level)</string>
+    <string name="vaultlist_folders_move_dismiss">Cancel</string>
+    <string name="vaultlist_folders_new_in">Inside %1$s</string>
+    <string name="vaultlist_folders_new_in_root">At the top level</string>
+    <string name="vaultlist_folders_new_parent_choose">Choose where the new folder goes</string>
+    <string name="vaultlist_folders_new_parent_title">Where does it go?</string>
+    <!-- Writes to the vault, and says exactly what it moves. Offered only
+         when the stored tree really is broken. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_folders_repair_title">Repair folders?</string>
+    <string name="vaultlist_folders_repair_body">Some folders point at a parent that is missing, at each other, or too deep to show. Repairing moves them to the top level and gives back any item whose folder is gone. Nothing is deleted.</string>
+    <string name="vaultlist_folders_repair_confirm">Repair</string>
+    <string name="vaultlist_folders_repair_dismiss">Not now</string>
+    <string name="vaultlist_folders_repair_action">Repair folders</string>
+    <string name="vaultlist_folders_repair_banner">Some folders could not be read correctly.</string>
+    <!-- The short 2FA badge on a vault row. It began life as one of three quick-filter chips under
+         the search field; the chips went on 2026-09-02 and this is the key's one remaining use. -->
+    <string name="vaultlist_chip_totp">2FA</string>
+    <!-- The filter control beside the search field, its sheet, and the active-filter strip. -->
+    <string name="vaultlist_filter_open">Filter</string>
+    <string name="vaultlist_filter_sheet_title">Filter</string>
+    <string name="vaultlist_filter_section_type">Type</string>
+    <!-- Heading of the sheet's tag section. The tag values under it are user data, shown as
+         authored, and are never resources. Omitted entirely when the vault has no tags. -->
+    <string name="vaultlist_filter_section_tags">Tags</string>
+    <string name="vaultlist_filter_clear_all">Clear all</string>
+    <!-- Accessible name of one token in the active-filter strip; its visible label is only the
+         filter's name. %1$s is that label — a category ("Logins"), "Favorites", "Only invisible
+         entries", or a tag as the user wrote it. Says what the control is and what a tap does,
+         because a screen reader stopped on it used to hear a bare "Logins". -->
+    <string name="vaultlist_filter_token_remove">Remove filter: %1$s</string>
+    <!-- Names the tag narrowing in the count line: "4 items · tag work". %1$s is the tag as the
+         user wrote it. Lowercase, like vaultlist_narrowed_favourites, because it reads mid-sentence. -->
+    <string name="vaultlist_narrowed_tag">tag %1$s</string>
+    <string name="vaultlist_error_retry">Retry</string>
+    <string name="vaultlist_error_action">That didn\'t go through. Try again.</string>
+    <string name="vaultlist_error_load_vault">Couldn\'t read the vault, so this list may be incomplete.</string>
+    <string name="vaultlist_error_load_trash">Couldn\'t read the trash, so this list may be incomplete.</string>
+
+    <!-- Selection-mode header, replacing the ordinary title/subtitle while rows are being picked. -->
+    <plurals name="vaultlist_selection_count_title">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
+    <string name="vaultlist_selection_subtitle">Tap rows to add or remove</string>
+    <!-- Shown instead of vaultlist_selection_subtitle whenever some of the selection is hidden by
+         the current filter, search, or sort — the selection itself is untouched by any of those,
+         but the header has to say so or the hidden rows read as silently deselected. Bulk actions
+         still act on them; see VaultListUiState.hiddenSelectedCount. -->
+    <plurals name="vaultlist_selection_hidden_subtitle">
+        <item quantity="one">%1$d hidden by filter</item>
+        <item quantity="other">%1$d hidden by filter</item>
+    </plurals>
+    <!-- Shown instead of vaultlist_selection_hidden_subtitle when at least one of the hidden rows
+         is off screen because of where the list is browsing, not because of a filter: a
+         selection dragged into another folder stays selected, and "hidden by filter" was
+         false with no filter applied (device pass 2026-10-04). True whatever hid them. -->
+    <plurals name="vaultlist_selection_not_in_list_subtitle">
+        <item quantity="one">%1$d not in this list</item>
+        <item quantity="other">%1$d not in this list</item>
+    </plurals>
+    <string name="vaultlist_selection_cancel">Cancel selection</string>
+    <string name="vaultlist_selection_deselect_all">Deselect all shown items</string>
+    <string name="vaultlist_selection_select_all">Select all shown items</string>
+
+    <!-- Count line under the title. -->
+    <plurals name="vaultlist_count_items">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+    <!-- Was "locked to this device" until 2026-07-30, which was false in the
+         same way unlock_subtitle's old footer was: nothing binds the vault to the hardware. The key
+         comes from the master password alone, the file is exportable, and Android Auto Backup
+         uploads it unless the user disabled cloud backup. What is true is the part that matters —
+         encryption, and it happens here. No exclusivity is claimed.
+
+         A noun, not a participle, and that is deliberate in two ways. `%1$s` is filled by the
+         `vaultlist_count_items` plural, so a participle here agrees with a head noun it cannot
+         see: "12 éléments · chiffré" was masculine-singular against a plural, and pluralising it
+         only inverts the error at one item. A noun agrees with nothing. It also removes the
+         reading English left open — "encrypted on this device" could be heard as "and nowhere
+         else", which is the very claim this string was fixed to stop making.
+         Guarded per language by TierGClaimsTest.
+
+         **All five name the mechanism, as of 2026-09-16.** From 2026-08-10 English alone said
+         "encrypted with your vault password" while fr/de/es/pt kept a locational noun
+         ("chiffrement sur cet appareil"), because a past participle there would have to agree
+         with the plural %1$s fills and could not. The 2026-09-15 visual pass filed the divergence
+         (F-42: one screen, two different claims), and the fix keeps the agreement rule while
+         dropping the place: a NOUN phrase that names the password — "chiffrement par votre mot de
+         passe du coffre", "Verschlüsselung mit Ihrem Tresor-Passwort", "con cifrado mediante su
+         contraseña de la caja fuerte", "criptografia com sua senha do cofre" — agrees with
+         nothing and asserts exactly what the English does. Translated through the security-copy
+         gauntlet (3 votes, back-translated) on 2026-09-16; the folders variant below carries the
+         identical phrase so the header cannot assert a place or a mechanism depending on folder
+         count.
+
+         "vault password", not "master password", since 2026-08-30. The decoy session renders this
+         same line, and there the master password is not what opened the vault — so the English was
+         false on exactly the screen where a wrong word costs the most, and a coercer comparing the
+         two sessions had a tell. The repo already states the rule twice in the strings it governs
+         (the Recovery Kit gate's label and the duress body); this is the third place it applies.
+         The claim is unchanged in substance: the vault on screen is encrypted with the password
+         that opened it, whichever of the two that is. F14 UX persona. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_count_device_suffix">%1$s · encrypted with your vault password</string>
+    <!-- Stands in for the item count until the first projection lands. Never "0 items", which is a
+         claim about the user's vault and was being made about a 15,000-item one for five seconds
+         after unlock on a slow device (G6). -->
+    <string name="vaultlist_count_opening">Opening your vault…</string>
+    <string name="vaultlist_count_filtered_suffix">%1$s · filter: %2$s</string>
+    <!-- Section headings pinning the favourites block above the rest of the list. -->
+    <string name="vaultlist_section_all_items">All items</string>
+    <string name="vaultlist_section_favourites">Favorites</string>
+    <string name="vaultlist_section_in_subfolders">In subfolders</string>
+    <string name="vaultlist_narrowed_favourites">favorites</string>
+    <string name="vaultlist_narrowed_search">search</string>
+    <!-- Quoted to preserve the surrounding spaces: joins "favourites" and "search". -->
+    <string name="vaultlist_narrowed_and">" and "</string>
+
+    <!--
+      One whole sentence per category rather than "No %1$s yet" with the name dropped in.
+
+      The template could not be made right in any language, because the words around a noun change
+      with the noun: French elides ("Pas encore d'identifiants", not "de identifiants"), Portuguese
+      agrees in gender and number ("Nenhum notas ainda"), German capitalises. English was wrong too —
+      "Add a identity". Every patch to the interpolation cost the same as this and stayed ungrammatical.
+    -->
+    <string name="vaultlist_empty_no_logins_yet">No logins yet</string>
+    <string name="vaultlist_empty_no_totp_yet">No 2FA codes yet</string>
+    <string name="vaultlist_empty_no_cards_yet">No cards yet</string>
+    <string name="vaultlist_empty_no_identities_yet">No identities yet</string>
+    <string name="vaultlist_empty_no_notes_yet">No notes yet</string>
+    <string name="vaultlist_empty_no_files_yet">No files yet</string>
+    <string name="vaultlist_empty_no_passkeys_yet">No passkeys yet</string>
+    <string name="vaultlist_empty_no_coordinates_yet">No GPS locations yet</string>
+    <string name="vaultlist_empty_no_phrases_yet">No recovery phrases yet</string>
+    <string name="vaultlist_empty_no_matches">No matching items</string>
+    <string name="vaultlist_empty_vault_title">Your vault is empty</string>
+    <string name="vaultlist_empty_body_search_filtered">Nothing matches “%1$s” with the filters you have applied.</string>
+    <string name="vaultlist_empty_body_search">Nothing in this vault matches “%1$s”.</string>
+    <string name="vaultlist_empty_body_addable">Add one, or clear the filter to see the rest of your vault.</string>
+    <!-- The same state inside a folder: the vault may hold plenty of this type elsewhere, and clearing
+         the filter shows this folder's other items, not the rest of the vault. -->
+    <string name="vaultlist_empty_body_addable_in_folder">Add one to this folder, or clear the filter to see what else it holds.</string>
+    <string name="vaultlist_empty_body_passkey">Passkeys appear here once a site creates one with LocalKeep.</string>
+    <string name="vaultlist_empty_body_filtered">Nothing matches the filters you have applied.</string>
+    <!-- Names several types rather than one, because the button below opens the chooser, not a
+         form. "Everything is encrypted", not "It is": the subject of the second sentence used to be
+         the login the first sentence had just named, and with the enumeration in front of it there
+         is no single noun left to agree with — which in fr/de/es/pt is a gender and number problem,
+         not a stylistic one. Same reason the vaultlist_empty_no_*_yet sentences are written out. -->
+    <string name="vaultlist_empty_body_default">Add a login, a card, a note or anything else you want kept safe. Everything is encrypted the moment you save it.</string>
+    <!-- One sentence per type, for the same reason as vaultlist_empty_no_*_yet above. -->
+    <string name="vaultlist_empty_add_password">Add a password</string>
+    <string name="vaultlist_empty_add_login">Add a login</string>
+    <string name="vaultlist_empty_add_totp">Add a 2FA code</string>
+    <string name="vaultlist_empty_add_note">Add a note</string>
+    <string name="vaultlist_empty_add_file">Add a file</string>
+    <string name="vaultlist_empty_add_card">Add a card</string>
+    <string name="vaultlist_empty_add_identity">Add an identity</string>
+    <string name="vaultlist_empty_add_coordinate">Save a GPS location</string>
+    <string name="vaultlist_empty_add_phrase">Add a recovery phrase</string>
+    <!-- Was vaultlist_empty_add_first_login, "Add your first login", until 2026-09-08. The key and
+         the label both named a type, and the button names neither: `onAddFirst` raises the add
+         sheet, so what happens next is a choice between nine types. "item" is the app's own word
+         for one vault entry of any type (per the glossary), and the same word the FAB uses. -->
+    <string name="vaultlist_empty_add_first_item">Add your first item</string>
+    <string name="vaultlist_empty_clear_search_filters">Clear search and filters</string>
+    <string name="vaultlist_empty_clear_search">Clear search</string>
+    <string name="vaultlist_empty_clear_filters">Clear filters</string>
+    <!--
+      The way out of a search that matched nothing under the current chip. Counted, because "there
+      is more" and "there is exactly one more" are different amounts of reason to tap.
+    -->
+    <plurals name="vaultlist_empty_body_search_elsewhere">
+        <item quantity="one">Nothing here matches “%1$s”, but %2$d item elsewhere in your vault does.</item>
+        <item quantity="other">Nothing here matches “%1$s”, but %2$d items elsewhere in your vault do.</item>
+    </plurals>
+    <string name="vaultlist_empty_search_everywhere">Search all items</string>
+
+    <string name="vaultlist_add_item_label">Add item</string>
+
+    <!-- ===================== Bulk action bar ===================== -->
+    <string name="vaultlist_bulk_working">Working…</string>
+    <string name="vaultlist_bulk_move_label">Move</string>
+    <plurals name="vaultlist_bulk_move_description">
+        <item quantity="one">Move %1$d item to a folder</item>
+        <item quantity="other">Move %1$d items to a folder</item>
+    </plurals>
+    <string name="vaultlist_bulk_tag_label">Tag</string>
+    <plurals name="vaultlist_bulk_tag_description">
+        <item quantity="one">Add a tag to %1$d item</item>
+        <item quantity="other">Add a tag to %1$d items</item>
+    </plurals>
+    <string name="vaultlist_bulk_trash_label">Trash</string>
+    <plurals name="vaultlist_bulk_trash_description">
+        <item quantity="one">Move %1$d item to trash</item>
+        <item quantity="other">Move %1$d items to trash</item>
+    </plurals>
+
+    <!-- Confirmation before a bulk trash — reversible, so not SECURITY-COPY tier A. -->
+    <plurals name="vaultlist_bulk_trash_confirm_title">
+        <item quantity="one">Move %1$d item to trash?</item>
+        <item quantity="other">Move %1$d items to trash?</item>
+    </plurals>
+    <string name="vaultlist_bulk_trash_confirm_body">They stay in Trash until you empty it, so this can be undone.</string>
+    <string name="vaultlist_bulk_trash_confirm_action">Move to trash</string>
+
+    <!-- ===================== Bulk move sheet ===================== -->
+    <plurals name="vaultlist_move_sheet_title">
+        <item quantity="one">Move %1$d item</item>
+        <item quantity="other">Move %1$d items</item>
+    </plurals>
+    <string name="vaultlist_move_sheet_subtitle">Pick a folder. This replaces whatever folder they are in now.</string>
+    <string name="vaultlist_move_no_folder_text">No folder</string>
+    <string name="vaultlist_move_no_folder_label">Move to no folder</string>
+    <!-- %1$s is the destination folder\'s name. -->
+    <string name="vaultlist_move_to_folder_label">Move to %1$s</string>
+    <string name="vaultlist_move_no_folders_hint">You have no folders yet. Make one while editing any item, then come back.</string>
+
+    <!-- ===================== Bulk tag dialog ===================== -->
+    <plurals name="vaultlist_tag_dialog_title">
+        <item quantity="one">Tag %1$d item</item>
+        <item quantity="other">Tag %1$d items</item>
+    </plurals>
+    <string name="vaultlist_tag_dialog_body">The tag is added to each one. Tags they already have are kept.</string>
+    <string name="vaultlist_tag_dialog_confirm">Add tag</string>
+    <string name="vaultlist_tag_dialog_field_label">Tag name</string>
+
+    <!-- ===================== Pro / quota dialogs ===================== -->
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <!-- The purchase button; carries the price. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="vaultlist_unlock_pro_action">Unlock Pro — %1$s</string>
+    <!-- Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="vaultlist_unlock_pro_action_no_price">Unlock Pro</string>
+    <string name="vaultlist_view_on_play_action">View on Google Play</string>
+    <string name="vaultlist_dialog_not_now">Not now</string>
+
+    <!-- The free-tier attachment quota — the standing example in
+         the security-copy protocol ("5 of 5 used"). %1$d is what the vault is
+         actually using and %2$d the cap; they were the same argument twice until 2026-08-25,
+         which made the title a literal rather than a count and left a vault above the cap
+         reading "5 of 5 used" after every deletion.
+
+         "X of Y used" went with it on 2026-09-16 (F-38), in all three titles. Both numbers were
+         already true; the *form* was not, because "of" reads as a fraction and neither cap is a
+         ceiling on what the vault may hold — import is never charged against either (see
+         AttachmentQuota's invariant), so an over-cap vault is a supported state and "Cards — 5 of
+         1 used" is the sentence it produced. It is not merely ugly: a reader who takes "of" at
+         face value computes the remedy as 5 - 1 = 4, and the true answer is 5, because the cap
+         bounds what the vault holds *after* the add. Two plain facts side by side — how many are
+         in the vault, what the limit is — make no arithmetic claim for the body to contradict.
+         The body then says what the removal buys ("for a new one"), which is what closes the gap
+         between "the limit is 1" and "remove 5".
+
+         The new form also carries nothing that inflects, in any of the five: a preposition, a
+         noun and two numerals. The old one ended in a past participle agreeing with a head noun
+         it could not see, which is why fr, es and pt each needed three quantity items to say one
+         thing. They keep them (the categories are pinned against the file quota's), but nothing
+         depends on them any more.
+
+         The tier marker below is deliberately alone in its own comment. verify_pack.py only
+         recognises a marker that is the entire comment, immediately above the element, so prose in
+         the same comment makes the key invisible to the tool it is tagged for. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_quota_blocked_title">
+        <item quantity="one">Files &amp; media — %1$d in the vault, limit %2$d</item>
+        <item quantity="other">Files &amp; media — %1$d in the vault, limit %2$d</item>
+    </plurals>
+    <!-- Same quota, spelled out in the dialog body. %1$d is how many have
+         to go (the plural quantity — it is the number the reader acts on), %2$d the cap, %3$d what
+         is in use. Names where the slots are because two of the three places are off-screen from
+         where this dialog is read: a file inside a folder is not on the vault list, and an
+         attachment is not a row at all.
+
+         The quantity is %1$d, so the noun beside %2$d ("files and photos") is fixed-plural and is
+         only correct while FREE_LIMIT is above one. That was previously guarded by keying the
+         plural on the cap; the count the reader acts on is the better quantity, so the guard moved
+         into QuotaBlockedCopyTest instead of being dropped. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_quota_blocked_body_base">
+        <item quantity="one">A free vault holds %2$d files and photos and you have %3$d, counting files inside folders and files attached to other items. Remove %1$d to make room for a new one</item>
+        <item quantity="other">A free vault holds %2$d files and photos and you have %3$d, counting files inside folders and files attached to other items. Remove %1$d to make room for a new one</item>
+    </plurals>
+
+    <!-- The free tier's one-each Card / Identity allowance (2026-09-03),
+         which replaced an outright Pro gate. Deliberately NOT core_ui_pro_gate_lock_title: that one
+         says "Cards - part of Pro", which is true of a tier that may hold none and false the moment
+         a free vault holds one. Same lesson the file quota learned a month earlier.
+
+         One key per category, with the noun written in. This was ONE key taking the category as
+         %1$s until the 3-vote check rejected it: no participle can agree with a noun it is handed
+         at runtime, so French read "Cartes - 1 sur 1 utilise" and Spanish "Tarjetas - 1 de 1
+         usado", masculine against feminine plural. Not an edge case either - the dialog fires when
+         the user holds one and tries to add a second, so the `one` item is what almost everyone
+         sees. Baked in, gender is settled per language per noun and a later category cannot get it
+         wrong. Same reason the bodies below are per type, and the same reason
+         ItemTypeFilter.emptyTitleRes holds whole sentences rather than a template.
+
+         %1$d is what the vault actually holds and %2$d the cap - two arguments, never the cap
+         twice, which is what made the files title a literal wearing a count's clothes until
+         2026-08-25 and left an over-cap vault reading "1 of 1 used" after every deletion. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_card_quota_blocked_title">
+        <item quantity="one">Cards — %1$d in the vault, limit %2$d</item>
+        <item quantity="other">Cards — %1$d in the vault, limit %2$d</item>
+    </plurals>
+    <!-- Identities, same allowance and same reasoning as the Cards title above; it needs its own
+         comment because a tier marker only ever tags the single element beneath it, so a key that
+         merely follows a tagged sibling carries no tag at all. The noun is written in here too:
+         Identites is feminine plural in fr, es and pt, and Cartoes is masculine in pt, so the two
+         categories cannot share a participle. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_identity_quota_blocked_title">
+        <item quantity="one">Identities — %1$d in the vault, limit %2$d</item>
+        <item quantity="other">Identities — %1$d in the vault, limit %2$d</item>
+    </plurals>
+    <!-- The same allowance spelled out. %1$d is how many have to go — the
+         plural quantity, because it is the number the reader acts on — %2$d the cap, %3$d what is
+         stored. One key per type rather than one template taking the noun: a category name
+         interpolated into a sentence cannot be made grammatical, which is the reason
+         ItemTypeFilter.emptyTitleRes holds whole sentences too (fr elides before a vowel, es and pt
+         agree in gender, de capitalises).
+
+         The noun beside %2$d is fixed-SINGULAR and is only correct while FREE_LIMIT is one — the
+         mirror image of the files body, whose noun is fixed-plural and needs a cap above one.
+         Guarded in ProTypeQuotaCopyTest rather than left to be discovered in a catalogue. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_card_quota_blocked_body_base">
+        <item quantity="one">A free vault holds %2$d card and you have %3$d. Remove %1$d to make room for a new one</item>
+        <item quantity="other">A free vault holds %2$d card and you have %3$d. Remove %1$d to make room for a new one</item>
+    </plurals>
+    <!-- Identities, the same sentence as the Cards body above with its own noun, and its own
+         marker for the same reason: the tag applies to one element only. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_identity_quota_blocked_body_base">
+        <item quantity="one">A free vault holds %2$d identity and you have %3$d. Remove %1$d to make room for a new one</item>
+        <item quantity="other">A free vault holds %2$d identity and you have %3$d. Remove %1$d to make room for a new one</item>
+    </plurals>
+
+    <!-- "unlimited" is a commercial claim. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="vaultlist_quota_blocked_suffix_purchase">, or unlock Pro for unlimited.</string>
+    <!-- Its sibling above carries a tier and this did not, which is the coverage failure
+         the security-copy protocol describes rather than a judgement that this one is safe: it makes the same
+         two commercial claims the sibling does, that Pro exists and that it lifts the cap, and adds
+         one the sibling has no need for — that the way to buy it is the Play build. It says nothing
+         about "unlimited", so it inherits the tier and not the sibling's own banned phrase. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="vaultlist_quota_blocked_suffix_no_purchase">, or unlock Pro in the Play version.</string>
+
+    <!-- ===================== Quick copy (row pill + clipboard label) ===================== -->
+    <string name="vaultlist_quickcopy_copy">Copy</string>
+    <!-- Names what is about to reach the clipboard. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="vaultlist_quickcopy_copy_password">Copy password</string>
+    <string name="vaultlist_quickcopy_code">Code</string>
+    <!-- Names what is about to reach the clipboard. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="vaultlist_quickcopy_copy_totp">Copy two-factor code</string>
+    <!-- %1$s is the action label above (e.g. "Copy password"), %2$s is the item title. -->
+    <string name="vaultlist_quickcopy_description">%1$s for %2$s</string>
+    <!-- The system clipboard UI\'s label for the copied value, distinct from the row pill above. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="vaultlist_clipboard_label_password">Password</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="vaultlist_clipboard_label_totp">2FA code</string>
+    <string name="vaultlist_totp_generate_error">Couldn\'t generate a code for this item.</string>
+
+    <!-- ===================== Add-to-vault sheet ===================== -->
+    <string name="vaultlist_add_sheet_title">Add to vault</string>
+    <string name="vaultlist_add_sheet_subtitle">Encrypted the moment you save it</string>
+    <!-- The badge on an add-sheet cell whose free allowance is spent, replacing a PRO badge that
+         had outlived its meaning (2026-09-04). Nothing in this app is tier-gated any more: Cards
+         and Identity documents became one-each quotas on 2026-09-03, files were already one, and
+         AddDestinationTest asserts that no route can produce ProBlocked at all. So a badge reading
+         "Pro" on a row whose only problem is "you already have your one" named a gate that does not
+         exist - the same defect the refusal dialog was given its own strings to avoid, left behind
+         on the badge. Reported: "Identity says that it's pro only but not card?"
+
+         One key per category, because the participle agrees with a noun this string does not
+         contain and the three categories do not share a gender: fr Fichier is masculine against
+         Carte and Identite feminine, pt Cartao is masculine against Identidade feminine, es Archivo
+         against Tarjeta and Identidad. A single key would be right for some rows and wrong for
+         others in three of the five languages. Same argument, and the same remedy, as the quota
+         titles above. German is invariable here and takes one word three times, deliberately: the
+         keys stay split so a future category cannot inherit the wrong gender.
+
+         Rendered uppercase by LkBadge, and reused verbatim as the spoken suffix on the cell, so
+         there is no second string to keep in step with this one. -->
+    <!-- The badge on an add-sheet cell whose free allowance is spent. Reads "LIMIT 1 - 1 HELD"
+         beside Card, "LIMIT 7 - 7 HELD" beside File.
+
+         It was a fraction until 2026-09-17, and a fraction is the one shape this pair of numbers
+         cannot always take. Import never charges against the cap, so a vault that arrived from
+         another manager sits above it: a 10-card vault against a limit of 1 rendered "10 OF 1"
+         (V3-05), which is true and unreadable. Naming each number instead - the cap, then the
+         holding - is true at every count, and is the pair the refusal dialog behind the tap
+         already uses in that order.
+
+         It said "USED" for a few hours on 2026-09-04 and that was not enough. A badge that names a
+         state without naming a number cannot answer the only question a reader actually has, which
+         is "is this about my data, or is this type special?" - and that question was asked three
+         times in one evening, of three different versions of this badge. The count answers it on
+         sight: 1 of 1 is plainly a thing you filled, not a thing you were denied. Same words as the
+         refusal dialog behind the tap, deliberately.
+
+         %1$d is what the vault holds, %2$d the cap - two arguments, never the cap twice. The
+         quantity is %1$d, matching the quota titles: it is the number the reader acts on. The
+         argument order in the sentence is deliberately not the argument order in the call: the cap
+         is named first because it is what the reader is being told, and positional args exist so
+         that a translation can order the two however its language wants.
+
+         ONE key, unlike the badge it replaces and unlike those titles. Both of those needed a key
+         per category because they carry a word that agrees with a noun - "used" is a participle,
+         and fr Fichier is masculine where Carte and Identite are feminine. Nothing here agrees
+         with anything: en "held" does not inflect, and fr "en tout", de "gesamt", es "en total"
+         and pt "no total" are adverbials with no noun to agree with. That is a constraint on any
+         future rewording, not an accident - SpentBadgeCopyTest pins the vocabulary word by word,
+         so a participle cannot be introduced without the test naming it.
+
+         Length is the other constraint. The badge sits under the label in a cell half a 392 dp
+         device wide, which leaves it about 128 dp; at LkText.badge's 9 sp uppercase that is
+         roughly 26 characters, and every language above is inside it. A longer wording wraps
+         inside the pill.
+
+         Tier F review, 2026-09-04, of the superseded "N of M" wording: clean on the prepositions,
+         on above-cap rendering (which it called truthful - it is, and it is still unreadable, which
+         is what V3-05 caught three sweeps later), and on keeping one shared key. One finding was REJECTED rather
+         than applied: the reviewer called the fr/es/pt one/many/other set malformed, said "many"
+         does not exist in those languages, and warned of a crash. All three parts are wrong. CLDR
+         38 added "many" to fr/es/pt for compact decimals; Android falls back to "other" for any
+         quantity a catalogue does not map, so an unused category cannot crash anything; and this
+         very catalogue already ships one/many/other on 20+ fr, es and pt plurals that went through
+         this same protocol. Matching the siblings is also what ProTypeQuotaCopyTest requires, so
+         acting on the finding would have made this key the only one out of step. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_badge_allowance_spent">
+        <item quantity="one">limit %2$d · %1$d held</item>
+        <item quantity="other">limit %2$d · %1$d held</item>
+    </plurals>
+
+    <!-- One row per NewItemType in AddItemSheet. The short labels were left as plain Kotlin Strings
+         during extraction, on the reasoning that they were short tokens read by tests with no
+         Android context. The en-XA pseudolocale device pass (2026-07-30) showed what that cost:
+         every row title in the Add sheet, and every row in the drawer's ITEMS section, rendered in
+         English while the prose around them was translated. They are enum constructor arguments,
+         so checkNoHardcodedUiStrings never saw them. -->
+    <string name="vaultlist_type_password">Password</string>
+    <string name="vaultlist_type_login">Login</string>
+    <string name="vaultlist_type_totp">2FA code</string>
+    <string name="vaultlist_type_note">Secure note</string>
+    <string name="vaultlist_type_file">File</string>
+    <string name="vaultlist_type_card">Card</string>
+    <string name="vaultlist_type_identity">Identity</string>
+    <!-- Was "Location", never "GPS" — on the reasoning that GPS names the machinery while the user
+         is describing what they want kept. Reversed 2026-09-02 by the principal, deliberately and
+         with that argument in view. What broke it: among the nine categories, "Locations" was the
+         only label that did not say what it held, and a vault-list filter row's job is to tell
+         siblings apart. Once the category said "GPS locations", item copy reading plain "location"
+         made one feature answer to two names. So the qualifier is added everywhere rather than
+         nowhere. The original point still holds for the *value*: a position never appears in a row,
+         a search result or a row description — see vaultlist_subtitle_coordinate below. -->
+    <string name="vaultlist_type_coordinate">GPS location</string>
+    <string name="vaultlist_type_phrase">Recovery phrase</string>
+
+    <!-- The category names: what the app calls a *kind* of item rather than one item. The drawer,
+         the Add sheet's Pro prompt and the empty states must all say the same word — they disagreed
+         once in English already, which is why they share these seven and not one set each. -->
+    <string name="vaultlist_category_logins">Logins</string>
+    <string name="vaultlist_category_totp">2FA codes</string>
+    <string name="vaultlist_category_cards">Cards</string>
+    <string name="vaultlist_category_identities">Identities</string>
+    <string name="vaultlist_category_notes">Notes</string>
+    <string name="vaultlist_category_files">Files &amp; media</string>
+    <string name="vaultlist_category_passkeys">Passkeys</string>
+    <string name="vaultlist_category_coordinates">GPS locations</string>
+    <string name="vaultlist_category_phrases">Recovery phrases</string>
+
+    <string name="vaultlist_type_password_description">A strong password, generated for you</string>
+    <string name="vaultlist_type_login_description">Username, password and websites</string>
+    <string name="vaultlist_type_totp_description">Six-digit codes that refresh every 30 seconds</string>
+    <string name="vaultlist_type_note_description">Free-form encrypted text</string>
+    <string name="vaultlist_type_file_description">Encrypted documents and photos</string>
+    <string name="vaultlist_type_card_description">Card number, expiry, CVV and PIN</string>
+    <string name="vaultlist_type_identity_description">Name, address and document numbers</string>
+    <!-- Says the two things that decide whether this is the row you want: it records where you are
+         now, and it records it once. Nothing here tracks. -->
+    <string name="vaultlist_type_coordinate_description">Where you are right now, saved once</string>
+    <string name="vaultlist_type_phrase_description">A seed phrase, spell-checked and kept in order</string>
+
+    <!-- ===================== Vault item row ===================== -->
+    <string name="vaultlist_item_untitled">Untitled</string>
+    <!-- %1$s is the item title. -->
+    <string name="vaultlist_row_remove_favourite">Remove %1$s from favorites</string>
+    <string name="vaultlist_row_add_favourite">Add %1$s to favorites</string>
+    <string name="vaultlist_row_deselect">Deselect %1$s</string>
+    <string name="vaultlist_row_select">Select %1$s</string>
+    <string name="vaultlist_row_open">Open %1$s</string>
+    <string name="vaultlist_row_extend_selection">Extend selection</string>
+    <string name="vaultlist_row_more_actions">More actions</string>
+    <string name="vaultlist_menu_settings">Edit</string>
+    <!-- Accessibility description. %1$s title, %2$s subtitle, %3$s selection state
+         (vaultlist_row_state_selected / vaultlist_row_state_not_selected). -->
+    <string name="vaultlist_row_description_selecting">%1$s, %2$s, %3$s</string>
+    <string name="vaultlist_row_state_selected">selected</string>
+    <string name="vaultlist_row_state_not_selected">not selected</string>
+    <!-- %1$s title, %2$s subtitle. -->
+    <string name="vaultlist_row_description">%1$s, %2$s</string>
+    <!-- Row description for a favourited row. %1$s title, %2$s subtitle; the state word is baked
+         into the whole sentence per language rather than concatenated, so it stays grammatical.
+         Only favourited rows use this — a "not favourite" clause on every other row is noise. -->
+    <string name="vaultlist_row_description_favourite">%1$s, %2$s, favorite</string>
+    <string name="vaultlist_row_move_to_trash">Move %1$s to trash</string>
+    <string name="vaultlist_row_select_multiple">Select multiple items</string>
+    <!-- Explains why a reveal gate exists on this row. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="vaultlist_row_requires_confirmation">%1$s requires confirmation to reveal</string>
+
+    <string name="vaultlist_menu_remove_favourite">Remove from favorites</string>
+    <string name="vaultlist_menu_add_favourite">Add to favorites</string>
+    <!-- Spoken confirmation after the favourite toggle: the control is only a 5dp dot, so the
+         outcome is otherwise silent to a screen reader and the list silently re-sorts around it. -->
+    <string name="vaultlist_notice_favourited">Added to favorites</string>
+    <string name="vaultlist_notice_unfavourited">Removed from favorites</string>
+    <string name="vaultlist_menu_select_multiple">Select multiple…</string>
+    <string name="vaultlist_menu_move_to_trash">Move to trash</string>
+
+    <!-- Row subtitle fallbacks, shown when the identifying field is blank. -->
+    <string name="vaultlist_subtitle_login_fallback">Login</string>
+    <string name="vaultlist_subtitle_totp_fallback">2FA code</string>
+    <string name="vaultlist_subtitle_card_fallback">Card</string>
+    <string name="vaultlist_subtitle_identity_fallback">Identity</string>
+    <string name="vaultlist_subtitle_note">Secure note</string>
+    <string name="vaultlist_subtitle_file">File</string>
+    <string name="vaultlist_subtitle_passkey">Passkey</string>
+    <!-- The row line for a coordinate item, and it is a constant on purpose: the position itself
+         never appears in a list row, a search result or a row description. The title the user gave
+         it is what tells two of them apart. -->
+    <string name="vaultlist_subtitle_coordinate">Saved GPS location</string>
+    <string name="vaultlist_subtitle_phrase">Recovery phrase</string>
+
+    <!-- ===================== Trash ===================== -->
+    <string name="vaultlist_trash_title">Trash</string>
+    <plurals name="vaultlist_trash_count_subtitle">
+        <item quantity="one">%1$d item · still encrypted</item>
+        <item quantity="other">%1$d items · still encrypted</item>
+    </plurals>
+    <!-- The header when folders are in the trash too. Composed from the two plurals the folder rows
+         use, because one plural cannot agree with two counts. -->
+    <string name="vaultlist_trash_count_subtitle_with_folders">%1$s, %2$s · still encrypted</string>
+    <string name="vaultlist_trash_back">Back</string>
+    <string name="vaultlist_trash_search_placeholder">Search deleted items</string>
+    <string name="vaultlist_trash_empty_no_matches">No matches</string>
+    <string name="vaultlist_trash_empty_title">Trash is empty</string>
+    <string name="vaultlist_trash_empty_body_search">Nothing in the trash matches that.</string>
+    <string name="vaultlist_trash_empty_body">Deleted items rest here until you empty it. Nothing is removed on a timer.</string>
+    <!-- Used both as the screen button and as the confirm-dialog action that
+         actually destroys the trash contents. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_empty_button">Empty trash</string>
+    <string name="vaultlist_trash_restore_action">Restore %1$s</string>
+    <!-- The Trash row's own tap: a read-only look at the entry before choosing between the two
+         acts beside it. %1$s is the entry's title. -->
+    <string name="vaultlist_trash_preview_action">Preview %1$s</string>
+    <string name="vaultlist_trash_preview_restore">Restore</string>
+    <string name="vaultlist_trash_preview_close">Close</string>
+    <string name="vaultlist_trash_preview_no_files">No files attached to this entry.</string>
+    <!-- %1$s is the file name. -->
+    <string name="vaultlist_trash_preview_open_file">Open %1$s</string>
+    <!-- Labels the per-row irreversible delete control. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_delete_forever_action">Delete %1$s forever</string>
+
+    <!-- Empty-trash confirmation dialog. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_empty_confirm_title">Empty the trash?</string>
+    <!-- Built from emptyTrashBody(); totalCount always drives the count. -->
+    <!-- SECURITY-COPY: tier A -->
+    <plurals name="vaultlist_trash_empty_removes_phrase">
+        <item quantity="one">This permanently removes %1$d item</item>
+        <item quantity="other">This permanently removes all %1$d items</item>
+    </plurals>
+    <!-- Appended after the phrase above when the trash also holds folders, so the sentence names
+         everything the purge takes — the per-folder confirmation already counts both. The count is
+         every trashed folder, nested ones included. -->
+    <!-- SECURITY-COPY: tier A -->
+    <plurals name="vaultlist_trash_empty_and_folders">
+        <item quantity="one">and %1$d folder</item>
+        <item quantity="other">and %1$d folders</item>
+    </plurals>
+    <!-- Replaces the items phrase when the trash holds only folders, so the sentence never says "all 0 items". -->
+    <!-- SECURITY-COPY: tier A -->
+    <plurals name="vaultlist_trash_empty_removes_folders_only">
+        <item quantity="one">This permanently removes %1$d folder</item>
+        <item quantity="other">This permanently removes all %1$d folders</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_empty_hiding_clause">, including the ones your search is hiding</string>
+    <!-- Corrected copy (2026-07-29): no longer claims there is no copy
+         anywhere else — a rolling snapshot or an Auto Backup copy may still hold the item. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_empty_no_undo_clause">. There is no undo here, though an earlier snapshot or backup may still hold a copy.</string>
+
+    <!-- Per-item permanent-delete confirmation. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_delete_confirm_title">Delete “%1$s” forever?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_delete_confirm_body">This cannot be undone. The item is removed from the vault on the next save.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_delete_confirm_action">Delete forever</string>
+
+    <!-- ===================== Transient LkNotices confirmations ===================== -->
+    <!-- Resolved by the composable and passed into the ViewModel, which cannot hold a Context to
+         resolve them itself (LkNotices.post takes a plain String; core/ui is out of scope here). -->
+    <string name="vaultlist_notice_moved_to_trash">Moved to trash</string>
+    <string name="vaultlist_notice_undo">Undo</string>
+    <string name="vaultlist_notice_restored">Restored</string>
+    <string name="vaultlist_notice_item_restored">Item restored</string>
+    <!-- The original folder is still in the trash, so the item came back somewhere else. Naming
+         the destination is the difference between a restore the user can find and one they cannot,
+         mirroring vaultlist_notice_folder_restored_to below for the folder-restore case. -->
+    <string name="vaultlist_notice_item_restored_to">Item restored to %1$s</string>
+    <string name="vaultlist_notice_item_restored_to_root">Item restored to the top level</string>
+    <!-- The undo attached to a restore confirmation. Restore was the one reversible action on the
+         Trash screen with no way to reverse it, while both irreversible ones ask first. -->
+    <string name="vaultlist_notice_restore_undone">Moved back to trash</string>
+    <string name="vaultlist_notice_item_deleted_forever">Item permanently deleted</string>
+    <string name="vaultlist_notice_trash_emptied">Trash emptied</string>
+    <string name="vaultlist_notice_no_bulk_change">Nothing changed — every selected item was already that way</string>
+    <!-- Bulk-action confirmations. %1$d is the number of items the action actually CHANGED, which
+         is not always the number selected — a tag an item already carries, or a row already in the
+         trash, is left alone and not counted. These were Kotlin templates around an English
+         "1 item"/"N items" helper until 2026-07-31, so a multi-select in any other language
+         announced English. -->
+    <plurals name="vaultlist_bulk_moved">
+        <item quantity="one">%1$d item moved</item>
+        <item quantity="other">%1$d items moved</item>
+    </plurals>
+    <plurals name="vaultlist_bulk_removed_from_folder">
+        <item quantity="one">%1$d item removed from folder</item>
+        <item quantity="other">%1$d items removed from folder</item>
+    </plurals>
+    <plurals name="vaultlist_bulk_tagged">
+        <item quantity="one">%1$d item tagged</item>
+        <item quantity="other">%1$d items tagged</item>
+    </plurals>
+    <plurals name="vaultlist_bulk_trashed">
+        <item quantity="one">%1$d item moved to trash</item>
+        <item quantity="other">%1$d items moved to trash</item>
+    </plurals>
+    <!-- Posted after the bulk-trash notice's undo action restores the ids it touched, in one
+         commit. %1$d is the number actually restored, which can be less than the number trashed
+         if a per-item restore from the Trash screen beat the undo tap to some of them. -->
+    <plurals name="vaultlist_bulk_restored">
+        <item quantity="one">%1$d item restored</item>
+        <item quantity="other">%1$d items restored</item>
+    </plurals>
+    <string name="vaultlist_row_description_folder">%1$s, in %2$s</string>
+    <!-- Row detail line: the item carries encrypted attachments. Same wording as the item
+         detail's own row (itemedit_detail_attachments_files), so the two agree. -->
+    <plurals name="vaultlist_row_attachments">
+        <item quantity="one">%1$d file</item>
+        <item quantity="other">%1$d files</item>
+    </plurals>
+    <string name="vaultlist_row_description_attachments">%1$s, %2$s</string>
+    <string name="vaultlist_folders_title">Folders</string>
+    <string name="vaultlist_folders_subtitle">Hold items and other folders. Deleting a folder moves it to Trash with everything inside, and Trash can put it back.</string>
+    <string name="vaultlist_folders_back">Back</string>
+    <string name="vaultlist_folders_new_label">New folder</string>
+    <string name="vaultlist_folders_new_create">Create folder</string>
+    <string name="vaultlist_folders_new_cancel">Cancel</string>
+    <string name="vaultlist_folders_new_placeholder">Work, Family, Banking…</string>
+    <string name="vaultlist_folders_empty_title">No folders yet</string>
+    <string name="vaultlist_folders_empty_body">Create one below.</string>
+    <string name="vaultlist_folders_open_action">Show only %1$s</string>
+    <string name="vaultlist_folders_rename_action">Rename %1$s</string>
+    <string name="vaultlist_folders_rename_label">New name for %1$s</string>
+    <string name="vaultlist_folders_rename_confirm">Save name</string>
+    <string name="vaultlist_folders_rename_cancel">Cancel rename</string>
+    <!-- Untagged, and the de-tiering is the point. This was SECURITY-COPY tier A while folders had
+         no trash and the confirm button destroyed something no undo could reach. Folders have a
+         trash now, so this is a reversible action and belongs beside vaultlist_bulk_trash_confirm_title
+         ("reversible, so not SECURITY-COPY tier A"), not beside the purge.
+
+         The permanence clause added 2026-08-11 is gone with the permanence. It was right then:
+         sweep 3's third adversarial vote found this dialog carried no reversibility language in any
+         of the five languages while itemedit_folder_delete_confirm_body stated it for the identical
+         action. That parity requirement still holds and still binds both dialogs — they now have to
+         agree that the folder can be brought back, and a user must not get a *stronger* warning for
+         reaching a recoverable outcome by one route than by the other. -->
+    <string name="vaultlist_folders_delete_action">Delete %1$s</string>
+    <string name="vaultlist_folders_delete_title">Delete %1$s?</string>
+    <string name="vaultlist_folders_delete_confirm">Delete folder</string>
+    <string name="vaultlist_folders_delete_dismiss">Keep it</string>
+    <string name="vaultlist_folders_error_name_exists">A folder with that name already exists.</string>
+    <string name="vaultlist_folders_error_name_in_trash">A folder with that name is in Trash. Restore it, or delete it forever, to use the name here.</string>
+    <string name="vaultlist_folders_error_too_deep">Folders can nest eight levels deep. Choose a parent nearer the top.</string>
+    <string name="vaultlist_folders_error_action">That didn\'t work. Nothing was changed.</string>
+    <!-- Folders > Duplicate refused because the copy would take a free vault past its file, card or
+         identity allowance (2026-10-02). Names no number, so it cannot disagree with either cap,
+         and makes no purchase claim; the add sheet is where the counts and the upgrade live. -->
+    <string name="vaultlist_folders_error_duplicate_allowance">Not copied. A free vault has no room for copies of the files, cards or identities in this folder.</string>
+    <!-- The count is a number the user acts on, and it is the
+         count of items that SURVIVE the delete, not the count destroyed — reading it the other way
+         round is the failure this string exists to prevent. FolderScreen passes row.itemCount as
+         both the plural quantity and the format argument, so selection and display cannot diverge.
+         A zero-item folder is reachable (folders are created empty), so the "one" branch must read
+         correctly at zero in fr and pt, where CLDR "one" covers 0 as well as 1. -->
+    <!-- SECURITY-COPY: tier A -->
+    <plurals name="vaultlist_folders_delete_body">
+        <item quantity="one">The folder goes to the trash, subfolders included — %1$d\u00a0item in all. You can put it back from Trash.</item>
+        <item quantity="other">The folder goes to the trash, subfolders included — %1$d\u00a0items in all. You can put it back from Trash.</item>
+    </plurals>
+    <!-- A folder holding nothing: the counted body would say "0 items in all", a total of nothing. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_folders_delete_body_empty">The folder goes to the trash, subfolders included — it holds no items. You can put it back from Trash.</string>
+    <!-- A folder holding nothing and containing no folders: the sentence above says subfolders are
+         included, which is a claim about something that is not there. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_folders_delete_body_childless">The folder goes to the trash — it holds no items and no subfolders. You can put it back from Trash.</string>
+
+    <!-- Names FolderManagementRow's own long-press for TalkBack (opens this same menu:
+         rename/duplicate/delete) — distinct from vaultlist_folders_rename_action, which names the
+         separate Rename icon button beside the row. -->
+    <string name="vaultlist_folder_action_more">More actions for %1$s</string>
+    <!-- Folder long-press menu (Task 3) and folder-create entry points (Task 6). -->
+    <string name="vaultlist_folder_action_rename">Rename</string>
+    <!-- Long-press menu. Matches the row's inline Move control, which a just-created folder does not offer. -->
+    <string name="vaultlist_folder_action_move">Move…</string>
+    <string name="vaultlist_folder_action_duplicate">Duplicate</string>
+    <string name="vaultlist_folder_action_delete">Delete</string>
+    <!-- Appended to a duplicated folder's name. Same closure pattern as vaultlist_folder_name_suffix. -->
+    <string name="vaultlist_folder_copy_suffix">%1$s (copy)</string>
+    <string name="vaultlist_folder_copy_suffix_n">%1$s (copy %2$d)</string>
+    <string name="vaultlist_add_new_folder">New folder</string>
+    <!-- Confirm button on the New Folder dialog opened from the add sheet and the folder strip's "+". -->
+    <string name="vaultlist_folders_new_confirm">Create folder</string>
+
+    <!-- T4: the empty state shown when browsing INTO a folder that has nothing filed in it — not
+         a search or chip that matched nothing, which is why this is a separate branch of EmptyVault
+         rather than folded into "filtered". -->
+    <string name="vaultlist_empty_folder_title">This folder is empty</string>
+    <string name="vaultlist_empty_folder_body">Add an item here, or go back to all items.</string>
+    <string name="vaultlist_empty_folder_action">Back to all items</string>
+
+    <!-- ===================== Trash: folder rows ===================== -->
+    <!-- A trashed folder is one row standing for its whole subtree. The summary is composed from
+         TWO plurals rather than being one, because Android selects a plural variant from exactly
+         one quantity argument: "1 item, 3 folders" — singular item beside plural folder — cannot be
+         expressed in a single <plurals> and goes silently wrong in languages whose categories
+         differ. ImpliedQuantity lint will not catch that, because such a string is still nominally
+         a <plurals>. The template does the joining and stays free of both numbers. -->
+    <string name="vaultlist_trash_folders_section">Folders</string>
+    <string name="vaultlist_trash_folder_summary">%1$s, %2$s</string>
+    <!-- Numbers the user acts on: they say what a restore returns and what
+         a delete-forever destroys, and both counts come from the predicate those operations use. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_trash_folder_folder_count">
+        <item quantity="one">%1$d folder</item>
+        <item quantity="other">%1$d folders</item>
+    </plurals>
+    <plurals name="vaultlist_trash_folder_item_count">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+    <string name="vaultlist_trash_folder_restore_action">Restore %1$s and everything in it</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_folder_delete_action">Delete %1$s and everything in it forever</string>
+    <string name="vaultlist_notice_folder_restored">Folder restored</string>
+    <!-- The original parent is still in the trash, so the folder came back somewhere else. Naming
+         the destination is the difference between a restore the user can find and one they cannot. -->
+    <string name="vaultlist_notice_folder_restored_to">Folder restored to %1$s</string>
+    <string name="vaultlist_notice_folder_restored_to_root">Folder restored to the top level</string>
+    <string name="vaultlist_notice_folder_deleted_forever">Folder deleted forever</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_notice_purge_stale">The trash changed. Nothing was deleted — check it and try again.</string>
+    <!-- SECURITY-COPY: tier A. Irreversible, like the item purge beside it. Says the subtree count
+         because "delete forever" on a folder destroys things the user cannot see from this row. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_folder_delete_confirm_title">Delete “%1$s” forever?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_trash_folder_delete_confirm_body">This destroys %1$s and %2$s in all, and cannot be undone.</string>
+
+    <!-- ===================== Drag and drop ===================== -->
+    <!-- Drag is gesture-only, so every capability it offers needs a non-gesture route. Four of the
+         five already had one: tapping a folder navigates into it, the breadcrumb navigates out, and
+         BulkMoveSheet lists the whole tree plus "No folder" at every depth. Folder-trash did not,
+         which is what the custom action below is for. -->
+    <string name="vaultlist_folder_action_move_to_trash">Move %1$s to Trash</string>
+    <string name="vaultlist_item_action_move_to_folder">Move to folder…</string>
+    <string name="vaultlist_folder_action_move_folder">Move %1$s…</string>
+    <string name="vaultlist_folder_action_open">Open %1$s</string>
+    <!-- Stands in for the folders left out of a long path on an item row. -->
+    <string name="vaultlist_row_folder_trail_ellipsis">…</string>
+    <!-- %1$s is the folder being moved. Heading of the destination picker reached from the
+         folder row's "Move %1$s…" accessibility action. -->
+    <string name="vaultlist_move_sheet_title_folder">Move %1$s</string>
+    <string name="vaultlist_move_sheet_subtitle_folder">Pick where it goes. Everything inside it moves too.</string>
+    <string name="vaultlist_drag_to_parent">Move to %1$s</string>
+    <string name="vaultlist_drag_to_root">Move to the top level</string>
+    <string name="vaultlist_drag_remove_from_folder">Remove from folder</string>
+    <string name="vaultlist_drag_trash_dock">Move to Trash</string>
+    <string name="vaultlist_drag_undo">Undo</string>
+    <string name="vaultlist_drag_undone">Move undone</string>
+    <plurals name="vaultlist_drag_moved_items">
+        <item quantity="one">%1$d item moved</item>
+        <item quantity="other">%1$d items moved</item>
+    </plurals>
+    <string name="vaultlist_drag_moved_folder">Folder moved</string>
+    <string name="vaultlist_drag_unfiled_folder">Folder moved to the top level</string>
+    <!-- The folder-trash confirmation names the subtree, because the dock destroys nothing the row
+         shows. Two counts, so two plurals joined by a template — see vaultlist_trash_folder_summary
+         for why this cannot be one <plurals>. Untagged rather than SECURITY-COPY tier A: the trash
+         is reversible, matching vaultlist_bulk_trash_confirm_title. -->
+    <string name="vaultlist_drag_trashed_folder">%1$s, %2$s moved to trash</string>
+
+    <!-- ============================================================================================
+         Make-Invisible (hidden entries) strings. Every one of them is tagged SECURITY-COPY tier G,
+         because the feature's whole risk is a string that overstates it: concealment is a projection
+         over the decrypted vault, not a second encrypted region, and a hidden entry is still in
+         vault.enc and in every backup. The opposite failure is just as real — a string that reads as
+         destructive would stop people using something entirely reversible.
+
+         Tier G means TierGClaimsTest decides, per key and per language, what the string may never
+         say and which clause must survive. The fr/de/es/pt catalogues landed with this tag, not
+         after it: the marker and the values-*/ files move together, or the register and the
+         resources drift apart the moment one is added without the other.
+         ============================================================================================ -->
+    <!-- The persistent banner shown only while the reveal phrase has been entered this session and
+         hidden entries are visible. States the two facts the user needs: this is temporary, and it
+         ends with the session. Amber (LkColors) — a state, not a failure. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_revealed_header">Entries you made invisible are showing for this session</string>
+    <!-- The reveal session ends on its own after RevealSession.WINDOW_MS. The banner is
+         persistent because the state is, and this is the line that stops it reading as a nag:
+         it answers "when does this stop?" without the user having to press anything. -->
+    <string name="vaultlist_revealed_countdown">Hides again in %1$s</string>
+    <!-- Minutes and zero-padded seconds. A clock, not prose. -->
+    <string name="vaultlist_revealed_countdown_clock" translatable="false">%1$d:%2$02d</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_revealed_state_description">Reveal session active</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_again">Stop showing</string>
+    <!-- Polite one-shot announcement when the session becomes revealed. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_revealed_announcement">Entries you made invisible are revealed for this session, and will hide again on their own</string>
+
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_action">Make invisible…</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_sheet_title">Make %1$s invisible</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_preset_5min">5 minutes</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_preset_30min">30 minutes</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_preset_1hour">1 hour</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_preset_1day">1 day</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_preset_indefinite">Indefinitely</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_preset_custom">Custom…</string>
+    <!-- The custom-duration entry: a positive whole number plus a unit. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_custom_amount_label">Amount</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_custom_unit_minutes">Minutes</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_custom_unit_hours">Hours</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_custom_unit_days">Days</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_custom_confirm">Make invisible for this long</string>
+    <!-- Returns to the preset durations from the custom-duration face of the same sheet.
+         Reuses the wording of core_ui_folder_screen_back, which is the app's existing "Back". -->
+    <string name="vaultlist_hide_custom_back">Back</string>
+    <!-- Shown inline when the typed duration is not usable (zero, or longer than ten years). -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_custom_error">Enter a whole number of 1 or more, up to ten years in total.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_phrase_title">Set a reveal phrase</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_phrase_body">Type this phrase in the search box to show invisible entries. If you forget it, you can always bring them back from Settings with your vault password or biometric.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_phrase_label">Reveal phrase</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_phrase_confirm">Make invisible</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_hide_error_collision">That phrase matches an item you can see. Choose another.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_marker_hidden">Invisible</string>
+    <!-- The filter sheet's invisible-entries section, composed only inside a reveal session — see
+         FilterSheetContent for why it must never be on screen otherwise. A section heading and a
+         switch that narrows the list to the entries the session is showing; the switch's label is
+         also the token in the active-filter strip. Neither may read as a protection claim. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_filter_section_hidden">Invisible entries</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_filter_hidden_only">Only invisible entries</string>
+    <!-- Names the same narrowing in the count line: "3 items · invisible only". Lowercase, like
+         vaultlist_narrowed_favourites, because it reads mid-sentence. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_narrowed_hidden">invisible only</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="vaultlist_stop_hiding">Make visible</string>
+
+    <!-- Offered once, on the vault list, to a session opened with the Recovery Kit. The user has
+         just proved they do not know the master password and the next lock will ask for it again;
+         the reset existed but nothing pointed at it (G3). -->
+    <string name="vaultlist_recovery_kit_set_password">You opened this vault with your Recovery Kit. Set a new master password now, so the next unlock doesn\'t need the 24 words again.</string>
+    <string name="vaultlist_recovery_kit_set_password_action">Set a new master password</string>
+</resources>

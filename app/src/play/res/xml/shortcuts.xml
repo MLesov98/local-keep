@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The two long-press launcher shortcuts of design spec §12.8, "long-press app-shortcuts
+  (search / new item)", for the play flavour.
+
+  **Static, and explicitly targeted.** A static shortcut's intent is launched by the home screen, so
+  it has to name where it goes: without `targetPackage`/`targetClass` the intent is implicit, and the
+  only way to make one resolve is to add exported intent-filters for these actions to MainActivity —
+  a new entry point into a password manager, reachable by any app on the device, bought for nothing.
+
+  **One file per flavour, with the package written out.** This was a single file in the main source
+  set taking the package from `@string/lk_application_id`, on the belief that the platform resolves
+  the reference. It does not: the shortcut service stored the literal `@2131756249` as the package,
+  and every tap on either shortcut failed with "Shortcut could not be started" (device pass,
+  2026-10-04). Resource XML cannot read `applicationId`, so each flavour states its own here, and
+  AppShortcutsTest compares both files against app/build.gradle.kts. The other flavour's copy is
+  app/src/foss/res/xml/shortcuts.xml.
+
+  **Aimed at ShortcutTrampolineActivity, not MainActivity.** The platform starts a static shortcut
+  with NEW_TASK | CLEAR_TASK and XML cannot change that; aimed at MainActivity, the clear destroyed
+  an open editor and its unsaved text. The trampoline takes the clear in its own task and passes the
+  action on to MainActivity, which receives it in onNewIntent.
+
+  Neither intent carries anything the app trusts. A shortcut names a destination; the vault is
+  opened by the unlock screen exactly as it always is. See AppShortcuts.kt.
+-->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="search"
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_search"
+        android:shortcutShortLabel="@string/app_shortcut_search_short"
+        android:shortcutLongLabel="@string/app_shortcut_search_long">
+        <intent
+            android:action="com.localkeep.action.SEARCH"
+            android:targetPackage="com.localkeep"
+            android:targetClass="com.localkeep.app.ShortcutTrampolineActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="new_item"
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_new_item"
+        android:shortcutShortLabel="@string/app_shortcut_new_item_short"
+        android:shortcutLongLabel="@string/app_shortcut_new_item_long">
+        <intent
+            android:action="com.localkeep.action.NEW_ITEM"
+            android:targetPackage="com.localkeep"
+            android:targetClass="com.localkeep.app.ShortcutTrampolineActivity" />
+    </shortcut>
+</shortcuts>

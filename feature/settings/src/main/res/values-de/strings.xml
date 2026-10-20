@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Screen header / search -->
+    <string name="settings_screen_title">Einstellungen</string>
+    <string name="settings_back">Zurück</string>
+    <string name="settings_search_placeholder">Einstellungen durchsuchen</string>
+    <!-- Shown above the results while an operation (save, biometric enrol, purchase check…) is running. -->
+    <string name="settings_working">Wird bearbeitet…</string>
+    <string name="settings_empty_title">Keine Treffer</string>
+    <!-- %1$s is the user's search text; %2$s is the third example word, which is "backup" during a
+         decoy session and "decoy" otherwise — naming the duress feature in a help string during a
+         decoy session would give away that a real vault exists. -->
+    <string name="settings_empty_body">Nichts hier passt zu „%1$s“. Versuchen Sie ein Wort für das, was Sie ändern möchten, statt dessen Namen — „Vibration“, „Fingerabdruck“, „%2$s“.</string>
+    <string name="settings_empty_word_decoy">Tarnung</string>
+    <string name="settings_empty_word_backup">Sicherung</string>
+    <string name="settings_clear_search">Suche löschen</string>
+
+    <!-- Group titles -->
+    <string name="settings_group_security">Sicherheit</string>
+    <string name="settings_group_autofill">Autofill</string>
+    <string name="settings_group_vault_backup">Tresor &amp; Sicherung</string>
+    <string name="settings_group_appearance">Darstellung</string>
+    <string name="settings_group_how_this_works">So funktioniert es</string>
+    <string name="settings_group_about">Info</string>
+    <string name="settings_group_pro">LocalKeep Pro</string>
+    <string name="settings_group_debug">Entwickler (Debug-Build)</string>
+
+    <!-- Accessibility state words appended to an expandable row's description. -->
+    <string name="settings_state_expanded">Ausgeklappt</string>
+    <string name="settings_state_collapsed">Eingeklappt</string>
+
+    <!-- Security · Auto-lock -->
+    <string name="settings_autolock_title">Auto-Sperre</string>
+    <!-- SECURITY-COPY: tier F -->
+    <!-- %1$s is the preset name (e.g. "Balanced"); %2$d/%3$d are seconds. Compact "10s" unit
+         notation, not a countable noun, so it does not need <plurals>. -->
+    <string name="settings_autolock_chip_legend">Jede Option zeigt die Zeit bis zum Sperren: Leerlauf / im Hintergrund.</string>
+    <string name="settings_autolock_summary">%1$s · %2$s inaktiv, %3$s im Hintergrund</string>
+
+    <!-- Security · Biometric unlock -->
+    <string name="settings_biometric_title">Biometrisches Entsperren</string>
+    <string name="settings_biometric_summary_on">Auf diesem Gerät aktiviert</string>
+    <string name="settings_biometric_summary_off">Deaktiviert — nur Ihr Master-Passwort</string>
+    <string name="settings_biometric_summary_unavailable">Auf diesem Gerät nicht verfügbar</string>
+    <string name="settings_biometric_summary_not_enrolled">Noch keine Biometrie registriert</string>
+    <string name="settings_biometric_summary_no_hardware">Dieses Gerät hat keinen biometrischen Sensor</string>
+    <string name="settings_biometric_summary_sensor_busy">Biometrischer Sensor derzeit nicht verfügbar</string>
+    <string name="settings_biometric_summary_needs_update">Biometrie benötigt ein Sicherheitsupdate des Systems</string>
+    <string name="settings_biometric_enrol_button">Biometrie einrichten</string>
+    <string name="settings_biometric_body">Öffnet LocalKeep biometrisch, statt Ihr Master-Passwort einzutippen. Eine praktische Ergänzung, kein Ersatz.</string>
+    <!-- Also used as the system BiometricPrompt title from SettingsViewModel.enableBiometric. -->
+    <string name="settings_biometric_enable_button">Biometrisches Entsperren aktivieren</string>
+    <string name="settings_biometric_disable_button">Biometrisches Entsperren deaktivieren</string>
+    <string name="settings_biometric_dialog_title">Biometrisches Entsperren verwenden?</string>
+    <string name="settings_biometric_dialog_body">Durch die Registrierung kann der biometrische Sensor Ihres Geräts LocalKeep anstelle Ihres Master-Passworts entsperren. Ihre biometrischen Daten verlassen niemals die sichere Hardware des Geräts und werden von LocalKeep nicht eingesehen.</string>
+    <string name="settings_biometric_dialog_continue">Weiter</string>
+    <string name="settings_biometric_dialog_dismiss">Jetzt nicht</string>
+    <!-- The system BiometricPrompt subtitle, read via Context.getString from the ViewModel — this
+         dialog is an imperative Android API call, not composed, so it cannot use stringResource. -->
+    <string name="settings_biometric_prompt_subtitle">Bestätigen, um diesen Tresorschlüssel zu schützen</string>
+
+    <!-- Security · Change master password -->
+    <string name="settings_password_title">Master-Passwort ändern</string>
+    <string name="settings_password_summary">Benötigt Ihr aktuelles Passwort</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_body">Dies ersetzt den Schlüssel, der Ihren Tresor schützt. Ihr bisheriges Wiederherstellungskit funktioniert nicht mehr, also erstellen Sie anschließend ein neues, und das biometrische Entsperren muss erneut registriert werden.</string>
+    <string name="settings_password_forgot_cta">Ich habe mein Master-Passwort vergessen</string>
+    <string name="settings_password_current_cta">Ich kenne mein aktuelles Passwort</string>
+    <string name="settings_password_kit_label">Wörter des Wiederherstellungskits</string>
+    <string name="settings_password_kit_placeholder">Alle 24 Wörter, durch Leerzeichen getrennt</string>
+    <string name="settings_password_kit_body">Geben Sie statt Ihres aktuellen Passworts die 24 Wörter Ihres Wiederherstellungskits ein. Ein neues Passwort ersetzt den Verschlüsselungsschlüssel dieses Tresors: das hier eingegebene Kit funktioniert danach nicht mehr, und Sie brauchen ein neues.</string>
+    <string name="settings_error_wrong_recovery_kit">Das sind nicht die Wiederherstellungskit-Wörter dieses Tresors. Prüfen Sie Reihenfolge und Schreibweise.</string>
+    <string name="settings_password_current_label">Aktuelles Passwort</string>
+    <string name="settings_password_new_label">Neues Passwort</string>
+    <string name="settings_password_confirm_label">Neues Passwort bestätigen</string>
+    <string name="settings_password_mismatch">Diese stimmen noch nicht überein.</string>
+    <string name="settings_password_submit">Passwort ändern</string>
+
+    <!-- Security · Password health -->
+    <string name="settings_health_title">Passwort-Gesundheit</string>
+    <string name="settings_health_summary">Schwache und wiederverwendete Passwörter finden</string>
+
+    <!-- Security · Recovery Kit -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_recovery_kit_title">Wiederherstellungskit</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_recovery_kit_summary">24 Wörter erstellen, die diesen Tresor ohne Ihr Passwort öffnen</string>
+    <string name="settings_recovery_kit_summary_missing">Noch nicht gespeichert — wenn Sie Ihr Master-Passwort vergessen, lässt sich dieser Tresor nicht mehr öffnen</string>
+
+    <!-- Security · Duress vault. Entire feature is SECURITY-COPY tier D. -->
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_title">Notfall-Tresor</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_summary_pro">Ein zweites Passwort, das eine Tarnung öffnet</string>
+    <!-- SECURITY-COPY: tier D. "Pro" is the app's paid-tier name and stays untranslated
+         in every locale. -->
+    <string name="settings_duress_summary_free">Pro · ein zweites Passwort, das eine Tarnung öffnet</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_body_explain">Dieses Passwort auf dem Sperrbildschirm öffnet einen separaten Notfall-Tresor, gefüllt mit unauffälligen Zugangsdaten, die Sie bearbeiten können. Ihr echter Tresor bleibt unberührt, und nichts in der Tarnung weist auf ihn hin. Das verschafft Ihnen unter Druck eine glaubwürdige Antwort; ein Schutz ist es nicht. Wer bereits weiß, dass diese App die Funktion hat, kann einfach ein zweites Passwort verlangen, und biometrisches Entsperren wie auch das Wiederherstellungskit öffnen den echten Tresor, was immer Sie sagen.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_body_replace_warning">Ein erneutes Ausführen ersetzt jedes bereits festgelegte Notfall-Passwort und baut den Notfall-Tresor von Grund auf neu auf — alle darin vorgenommenen Änderungen werden verworfen.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_password_label">Notfall-Passwort</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_confirm_label">Notfall-Passwort bestätigen</string>
+    <!-- SECURITY-COPY: tier D. Also reused as the confirm label of the "replace" dialog below. -->
+    <string name="settings_duress_setup_button">Notfall-Tresor einrichten</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_button">Notfall-Tresor entfernen</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_gate_body">Geben Sie Ihr Tresor-Passwort ein, um diese Änderung zu bestätigen.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_gate_label">Tresor-Passwort</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_dialog_title">Notfall-Tresor entfernen?</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_dialog_body">Das Notfall-Passwort öffnet nichts mehr und die Tarnung wird überschrieben. Falls der Notfall-Tresor nie eingerichtet wurde, bewirkt dies nichts. Ihr echter Tresor wird nicht berührt.</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_remove_confirm">Entfernen</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_replace_dialog_title">Notfall-Tresor ersetzen?</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_duress_replace_dialog_body">Dies legt das Notfall-Passwort fest und erstellt einen neuen Notfall-Tresor. Falls der Notfall-Tresor bereits eingerichtet ist, funktioniert das alte Passwort nicht mehr und alle Änderungen am Notfall-Tresor gehen verloren. Ihr echter Tresor wird nicht berührt.</string>
+    <!-- SECURITY-COPY: tier D. Passed to ProUpsell as the reason Pro is required. -->
+    <string name="settings_duress_upsell_purpose">um einen Notfall-Tresor einzurichten</string>
+
+    <!-- Security · Panic lock -->
+    <string name="settings_panic_title">Panik-Sperre</string>
+    <string name="settings_panic_summary">Jetzt sperren und das biometrische Entsperren endgültig deaktivieren</string>
+    <string name="settings_panic_body">Sperrt den Tresor sofort und verlangt Ihr Master-Passwort — eine biometrische Entsperrung, zu der jemand Sie zwingen könnte, öffnet ihn nicht wieder. Das biometrische Entsperren wird endgültig deaktiviert; zum Reaktivieren müssen Sie es unter Sicherheit erneut registrieren.</string>
+    <string name="settings_panic_button">Jetzt sperren</string>
+
+    <!-- Autofill -->
+    <string name="settings_autofill_service_title">Autofill-Dienst</string>
+    <string name="settings_autofill_service_summary_on">Aktiviert — LocalKeep füllt Ihre Zugangsdaten aus</string>
+    <string name="settings_autofill_service_summary_off">Deaktiviert — tippen, um LocalKeep auszuwählen</string>
+    <string name="settings_autofill_inline_title">Inline-Vorschläge</string>
+    <string name="settings_autofill_inline_summary">Gespeicherte Zugangsdaten erscheinen in der Vorschlagsleiste Ihrer Tastatur</string>
+    <string name="settings_autofill_inline_summary_off">Aus, solange LocalKeep nicht Ihr Autofill-Dienst ist</string>
+    <string name="settings_autofill_inline_body">Wenn Autofill aktiviert ist und Ihre Tastatur Inline-Vorschläge unterstützt, bietet LocalKeep passende Zugangsdaten in der Leiste über den Tasten an. Es gibt hier keinen Schalter: Ihre Tastatur entscheidet, ob sie angezeigt werden.</string>
+    <string name="settings_trusted_title">Vertrauenswürdige Apps</string>
+    <string name="settings_trusted_summary">Websites, die Sie für einen Browser bestätigt haben</string>
+    <string name="trusted_apps_subtitle">Websites, die Sie für einen Browser bestätigt haben, damit Autofill dort Zugangsdaten anbieten kann, ohne erneut zu fragen, sowie Apps, deren Signatur sich LocalKeep gemerkt hat. Sie können sie jederzeit entfernen.</string>
+    <string name="trusted_apps_back">Zurück</string>
+    <string name="trusted_apps_empty_title">Noch nichts vertraut</string>
+    <string name="trusted_apps_empty_body">Hier erscheint nichts, bis Sie eine Website bestätigen.</string>
+    <string name="trusted_apps_no_sites">Signatur gemerkt, als diese App LocalKeep zum Ausfüllen aufgefordert hat. Für sie wurde keine Website erlaubt.</string>
+    <string name="trusted_apps_remove_site">%1$s nicht mehr ausfüllen</string>
+    <string name="trusted_apps_forget_app_label">%1$s vergessen</string>
+    <string name="trusted_apps_forget_title">%1$s vergessen?</string>
+    <string name="trusted_apps_forget_body">LocalKeep vergisst die Signatur dieser App und jede Website, die Sie für sie erlaubt haben. Die Signatur wird erneut gemerkt, wenn diese App LocalKeep das nächste Mal zum Ausfüllen auffordert, und jede Website muss erneut bestätigt werden.</string>
+    <string name="trusted_apps_forget_action">Vergessen</string>
+    <string name="settings_passkey_title">Passkey-Anbieter</string>
+    <string name="settings_passkey_summary">Passkeys neben Passwörtern speichern und anbieten</string>
+    <string name="settings_passkey_summary_unavailable">Erfordert Android 14 oder neuer</string>
+    <string name="settings_passkey_value_unavailable">Erfordert Android 14</string>
+
+    <!-- Vault & Backup -->
+    <string name="settings_backup_title">Sicherung &amp; Export</string>
+    <string name="settings_backup_summary">Eine verschlüsselte Kopie speichern oder eine wiederherstellen</string>
+    <string name="settings_import_title">Aus einer anderen App importieren</string>
+    <string name="settings_cloud_backup_title">Cloud-Sicherung</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_cloud_backup_summary">Tresordatei aus Android Auto Backup fernhalten</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="settings_cloud_backup_summary_included">Tresor im Android Auto Backup enthalten</string>
+
+    <!-- Appearance -->
+    <string name="settings_haptics_title">Haptik reduzieren</string>
+    <!-- Also used as the switch hint when the system has not already silenced haptics. -->
+    <string name="settings_haptics_summary">Vibrationsfeedback der App ausschalten</string>
+    <string name="settings_haptics_hint_system_off">Bereits aus: Das Berührungsfeedback ist systemweit deaktiviert</string>
+
+    <!-- How this works -->
+    <string name="settings_dark_title">Warum LocalKeep dunkel ist</string>
+    <string name="settings_dark_summary">Es gibt kein helles Design — hier ist die Begründung</string>
+    <string name="settings_dark_body">Ein helles Design wäre ein zweites Design, kein Helligkeitswechsel: Die Farben tragen hier bei sehr geringem Kontrast Bedeutung, und diese Bedeutung überlebt einen weißen Hintergrund nicht. Animationen folgen Ihrer Systemeinstellung „Animationen entfernen“.</string>
+    <string name="settings_breach_title">Datenlecks</string>
+    <string name="settings_breach_summary">Der Korpus, gegen den Ihre Passwörter geprüft werden</string>
+    <string name="settings_breach_body">Die Liste ist in der App enthalten und stammt aus einer öffentlichen Sammlung von Passwörtern aus früheren Datenlecks. Sie ändert sich nur, wenn die App aktualisiert wird.</string>
+    <string name="settings_breach_vintage">Stand der Liste: %1$s</string>
+    <string name="settings_breach_checking">Wird geprüft…</string>
+    <string name="settings_breach_unavailable">Die Datenleck-Liste konnte auf diesem Gerät nicht gelesen werden, daher können keine Datenleck-Prüfungen durchgeführt werden.</string>
+
+    <!-- About -->
+    <string name="settings_version_title">Version</string>
+    <string name="settings_version_unknown">unbekannt</string>
+    <!-- Also the LicensesDialog title below. -->
+    <string name="settings_licenses_title">Open-Source-Lizenzen</string>
+    <string name="settings_licenses_summary">Jede Abhängigkeit, die dieser Build einbindet</string>
+    <string name="settings_licenses_dialog_body">Jede Abhängigkeit von Drittanbietern, die dieser Build einbindet, und die Lizenz, unter der sie bereitgestellt wird.</string>
+    <string name="settings_licenses_dialog_close">Schließen</string>
+
+    <!-- Pro upsell (shown inside the locked branch of a Pro-gated setting) -->
+    <!-- SECURITY-COPY: tier E. %1$s is PRO_PRICE (Play's own localised price); %2$s is a purpose
+         phrase such as settings_duress_upsell_purpose. -->
+    <string name="settings_pro_row_title">LocalKeep Pro</string>
+    <string name="settings_pro_row_summary_free">Einmalige Zahlung, kein Abo</string>
+    <string name="settings_pro_row_summary_pro">Freigeschaltet</string>
+    <string name="settings_pro_row_summary_foss">Pro ist in der Play-Version enthalten</string>
+    <string name="settings_pro_row_body_removes_caps">Hebt die Begrenzung für das Hinzufügen neuer Dateien &amp; Medien, Karten und Identitäten auf. Import und Anzeige waren nie begrenzt.</string>
+    <string name="settings_pro_row_body_pro">Die Erstellungsgrenzen sind aufgehoben. Fügen Sie Dateien &amp; Medien, Karten und Identitäten ohne Begrenzung hinzu.</string>
+
+    <plurals name="settings_pro_row_usage_files">
+        <item quantity="one">Dateien &amp; Medien — %1$d von %2$d genutzt</item>
+        <item quantity="other">Dateien &amp; Medien — %1$d von %2$d genutzt</item>
+    </plurals>
+    <plurals name="settings_pro_row_usage_cards">
+        <item quantity="one">Karten — %1$d von %2$d genutzt</item>
+        <item quantity="other">Karten — %1$d von %2$d genutzt</item>
+    </plurals>
+    <plurals name="settings_pro_row_usage_identities">
+        <item quantity="one">Identitäten — %1$d von %2$d genutzt</item>
+        <item quantity="other">Identitäten — %1$d von %2$d genutzt</item>
+    </plurals>
+    <plurals name="settings_pro_row_over_cap_files">
+        <item quantity="one">Dateien &amp; Medien — %1$d gespeichert, alle behalten. Die kostenlose Version erstellt maximal %2$d.</item>
+        <item quantity="other">Dateien &amp; Medien — %1$d gespeichert, alle behalten. Die kostenlose Version erstellt maximal %2$d.</item>
+    </plurals>
+    <plurals name="settings_pro_row_over_cap_cards">
+        <item quantity="one">Karten — %1$d gespeichert, alle behalten. Die kostenlose Version erstellt maximal %2$d.</item>
+        <item quantity="other">Karten — %1$d gespeichert, alle behalten. Die kostenlose Version erstellt maximal %2$d.</item>
+    </plurals>
+    <plurals name="settings_pro_row_over_cap_identities">
+        <item quantity="one">Identitäten — %1$d gespeichert, alle behalten. Die kostenlose Version erstellt maximal %2$d.</item>
+        <item quantity="other">Identitäten — %1$d gespeichert, alle behalten. Die kostenlose Version erstellt maximal %2$d.</item>
+    </plurals>
+    <string name="settings_pro_upsell_body">Pro freischalten (einmalig %1$s) %2$s.</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="settings_pro_upsell_body_no_price">Pro freischalten (einmalig) %1$s.</string>
+    <!-- SECURITY-COPY: tier E. %1$s is PRO_PRICE. -->
+    <string name="settings_pro_upsell_button">Pro freischalten — %1$s</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="settings_pro_upsell_button_no_price">Pro freischalten</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_pro_upsell_foss_body">Pro ist in der Play Store-Version der App enthalten.</string>
+    <!-- SECURITY-COPY: tier E. "Google Play" is a product name, never translated. -->
+    <string name="settings_pro_upsell_view_play">Auf Google Play ansehen</string>
+
+    <!-- Pro group (play build only) — restore purchases -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_title">Käufe wiederherstellen</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_summary_active">Pro ist aktiv — erneut bei Google Play prüfen</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_restore_summary_inactive">Pro bereits gekauft? Erneut bei Google Play prüfen</string>
+
+    <!-- Developer (debug build) — TEMPORARY, on-device QA only. -->
+    <string name="settings_debug_pro_title">Pro-Override</string>
+    <string name="settings_debug_pro_summary">Die kostenpflichtige Version ohne Kauf testen</string>
+    <string name="settings_debug_pro_switch_label">Pro-Funktionen freischalten</string>
+    <string name="settings_debug_pro_switch_hint">Nur Debug-Builds. Kein Kauf — Ausschalten, um die kostenlose Version zu sehen.</string>
+
+    <!-- "HarperHouse" is the decoy's fixed, fictional network name and stays as written; %1$s is the
+         generated decoy password. -->
+    <string name="settings_decoy_wifi_note">Heimnetzwerk: HarperHouse\nSchlüssel: %1$s</string>
+
+    <!-- ViewModel-resolved errors and messages (SettingsMessage) -->
+    <string name="settings_error_screen_unavailable">Dieser Einstellungsbildschirm ist auf diesem Gerät nicht verfügbar</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_message_pro_restored">Pro ist auf diesem Gerät aktiv.</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="settings_error_no_pro_purchase">Kein Pro-Kauf gefunden. Prüfen Sie, ob Sie online und bei dem Google-Konto angemeldet sind, mit dem Sie Pro gekauft haben.</string>
+    <string name="settings_message_autolock_updated">Auto-Sperre aktualisiert</string>
+    <!-- SECURITY-COPY: tier F. %1$d is MIN_PASSWORD_LENGTH. -->
+    <string name="settings_error_password_too_short">Das neue Passwort muss mindestens %1$d Zeichen lang sein</string>
+    <!-- SECURITY-COPY: tier G — states that the vault file is attackable offline. -->
+    <string name="settings_error_password_too_weak">Dieses Passwort ist zu leicht zu erraten. Ihre Tresordatei kann offline angegriffen werden, daher ist dies das Einzige, was sie schützt.</string>
+    <string name="settings_error_wrong_current_password">Das ist nicht Ihr aktuelles Master-Passwort.</string>
+    <string name="settings_error_password_unchanged">Ihr neues Master-Passwort muss sich vom aktuellen unterscheiden. Es wurde nichts geändert.</string>
+    <!-- SECURITY-COPY: tier D, tier F. %1$d is MIN_PASSWORD_LENGTH. -->
+    <string name="settings_error_duress_same_as_master">Ihr Notfall-Passwort muss sich von Ihrem Master-Passwort unterscheiden — dasselbe Passwort kann nicht beide Tresore öffnen.</string>
+    <string name="settings_error_duress_password_too_short">Das Notfall-Passwort muss mindestens %1$d Zeichen lang sein</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_message_duress_configured">Notfall-Tresor konfiguriert</string>
+    <!-- SECURITY-COPY: tier D -->
+    <string name="settings_message_duress_removed">Notfall-Tresor entfernt</string>
+    <string name="settings_error_biometric_unavailable">Starke biometrische Authentifizierung ist nicht verfügbar</string>
+    <string name="settings_error_biometric_lockout">Zu viele biometrische Versuche. Die Biometrie ist vorerst gesperrt — warten Sie einen Moment oder entsperren Sie Ihr Telefon mit der PIN und versuchen Sie es erneut.</string>
+    <string name="settings_message_biometric_enabled">Biometrisches Entsperren aktiviert</string>
+    <string name="settings_message_biometric_disabled">Biometrisches Entsperren deaktiviert</string>
+    <!-- Only for a failure nothing is known about. -->
+    <string name="settings_error_generic">Das hat nicht geklappt. Versuchen Sie es erneut.</string>
+    <string name="settings_error_kdf_needs_more_memory">Die Verschlüsselungseinstellungen dieses Tresors benötigen mehr Arbeitsspeicher, als dieses Gerät der geöffneten App gibt. Nichts wurde geändert. Senken Sie sie auf einem Telefon mit mehr Arbeitsspeicher unter Einstellungen › Sicherung — danach funktioniert es auch hier.</string>
+    <!-- SECURITY-COPY: tier F. The throttle shared with unlock. -->
+    <plurals name="settings_error_retry_after">
+        <item quantity="one">Zu viele Versuche. Versuchen Sie es in %1$d Sekunde erneut.</item>
+        <item quantity="other">Zu viele Versuche. Versuchen Sie es in %1$d Sekunden erneut.</item>
+    </plurals>
+    <!-- %1$s is one of the settings_op_* zu-infinitive clauses below (see the EN file's note). -->
+    <string name="settings_error_vault_session_ended">Der Tresor hat sich gesperrt, während versucht wurde, %1$s. Es wurde nichts geändert — entsperren Sie ihn und versuchen Sie es erneut.</string>
+    <string name="settings_op_prepare_recovery_kit">das Wiederherstellungskit vorzubereiten</string>
+    <string name="settings_op_save_recovery_kit">das Wiederherstellungskit zu speichern</string>
+    <string name="settings_op_save_changes">Ihre Änderungen zu speichern</string>
+    <string name="settings_op_set_up_duress">den Notfall-Tresor einzurichten</string>
+    <string name="settings_op_remove_duress">den Notfall-Tresor zu entfernen</string>
+    <string name="settings_op_inspect_duress">den Notfall-Tresor zu prüfen</string>
+    <string name="settings_op_update_encryption_settings">die Verschlüsselungseinstellungen zu aktualisieren</string>
+    <string name="settings_op_change_master_password">das Master-Passwort zu ändern</string>
+    <string name="settings_op_rotate_encryption_key">den Verschlüsselungsschlüssel zu erneuern</string>
+    <string name="settings_op_enable_biometric_unlock">das biometrische Entsperren zu aktivieren</string>
+    <string name="settings_error_vault_session_ended_generic">Der Tresor hat sich während eines Vorgangs gesperrt. Es wurde nichts geändert — entsperren Sie ihn und versuchen Sie es erneut.</string>
+
+    <!-- Change-password success message, assembled from optional clauses. -->
+    <string name="settings_password_changed">Master-Passwort geändert.</string>
+    <!-- SECURITY-COPY: tier B -->
+    <string name="settings_password_changed_recovery_kit_voided">Ihr altes Wiederherstellungskit funktioniert nicht mehr — erstellen Sie ein neues unter Sicherheit → Wiederherstellungskit.</string>
+    <string name="settings_password_changed_biometric_note">Das biometrische Entsperren wurde deaktiviert — aktivieren Sie es erneut, um es zu nutzen.</string>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_rekeyed">
+        <item quantity="one">Die %1$d lokale Sicherungskopie auf diesem Telefon — ein Schnappschuss oder die vorherige Tresordatei — wurde ebenfalls auf das neue Passwort umgestellt.</item>
+        <item quantity="other">Die %1$d lokalen Sicherungskopien auf diesem Telefon — die Schnappschüsse und die vorherige Tresordatei — wurden ebenfalls auf das neue Passwort umgestellt.</item>
+    </plurals>
+    <plurals name="settings_password_changed_blobs_pending">
+        <item quantity="one">%1$d gespeicherte Datei wird noch neu verschlüsselt. Der Vorgang wird beim nächsten Entsperren abgeschlossen; es geht nichts verloren.</item>
+        <item quantity="other">%1$d gespeicherte Dateien werden noch neu verschlüsselt. Der Vorgang wird beim nächsten Entsperren abgeschlossen; es geht nichts verloren.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_destroyed">
+        <item quantity="one">%1$d ältere lokale Sicherungskopie konnte nicht mehr gelesen werden und wurde gelöscht, anstatt sich weiterhin mit Ihrem alten Passwort öffnen zu lassen.</item>
+        <item quantity="other">%1$d ältere lokale Sicherungskopien konnten nicht mehr gelesen werden und wurden gelöscht, anstatt sich weiterhin mit Ihrem alten Passwort öffnen zu lassen.</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="settings_password_changed_left_behind">
+        <item quantity="one">Warnung: %1$d lokale Sicherungskopie konnte nicht aktualisiert oder entfernt werden, daher öffnet Ihr altes Passwort sie weiterhin. Exportieren Sie Ihren Tresor und installieren Sie LocalKeep neu, um dies zu beheben.</item>
+        <item quantity="other">Warnung: %1$d lokale Sicherungskopien konnten nicht aktualisiert oder entfernt werden, daher öffnet Ihr altes Passwort sie weiterhin. Exportieren Sie Ihren Tresor und installieren Sie LocalKeep neu, um dies zu beheben.</item>
+    </plurals>
+    <plurals name="settings_duration_seconds">
+        <item quantity="one">%1$d Sekunde</item>
+        <item quantity="other">%1$d Sekunden</item>
+    </plurals>
+    <plurals name="settings_duration_minutes">
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minuten</item>
+    </plurals>
+    <string name="settings_entry_action_label">%1$s. %2$s</string>
+    <string name="settings_value_row_label">%1$s, %2$s</string>
+
+    <!-- ===================== Ausgeblendete Einträge (Settings) ===================== -->
+    <string name="settings_group_privacy">Privatsphäre</string>
+    <string name="settings_hidden_items_title">Unsichtbare Einträge</string>
+    <string name="settings_hidden_items_summary">Einträge, die Sie unsichtbar gemacht haben, wieder sichtbar machen und Ihre Enthüllungsphrase ändern.</string>
+
+    <string name="settings_hidden_title">Unsichtbare Einträge</string>
+    <string name="settings_hidden_back">Zurück</string>
+
+    <string name="settings_hidden_gate_title">Identität bestätigen</string>
+    <string name="settings_hidden_gate_body">Diese Liste wird erst nach biometrischer Bestätigung oder Ihrem Tresor-Passwort angezeigt.</string>
+    <string name="settings_hidden_gate_body_password_only">Diese Liste wird erst nach Eingabe Ihres Tresor-Passworts angezeigt.</string>
+    <string name="settings_hidden_gate_biometric">Biometrisch bestätigen</string>
+    <string name="settings_hidden_gate_password_label">Tresor-Passwort</string>
+    <string name="settings_hidden_gate_password_submit">Weiter</string>
+    <string name="settings_hidden_error_password">Das ist nicht Ihr aktuelles Tresor-Passwort.</string>
+    <string name="settings_hidden_error_session_ended">Der Tresor hat sich gesperrt. Entsperren Sie ihn und öffnen Sie diesen Bildschirm erneut.</string>
+
+    <string name="settings_hidden_empty_title">Nichts ist unsichtbar</string>
+    <string name="settings_hidden_empty_body">Alles, was Sie unsichtbar machen, wird hier aufgeführt, damit Sie es jederzeit zurückholen können.</string>
+
+    <string name="settings_hidden_until">Unsichtbar bis %1$s</string>
+    <string name="settings_hidden_indefinite">Unsichtbar ohne Enddatum</string>
+    <string name="settings_hidden_folder_label">Ordner</string>
+    <string name="settings_hidden_stop">Sichtbar machen</string>
+    <string name="settings_hidden_view_entry">Eintrag ansehen</string>
+    <string name="settings_hidden_peek_reprompt">Dieser Eintrag fragt bei jedem Öffnen nach der Displaysperre. Machen Sie ihn sichtbar, um ihn zu lesen.</string>
+    <string name="settings_hidden_peek_empty">Dieser Eintrag hat keine Vorschau. Machen Sie ihn sichtbar, um ihn vollständig zu öffnen.</string>
+    <string name="settings_hidden_peek_taken">Erfasst am %1$s</string>
+    <string name="settings_hidden_change_duration">Dauer ändern</string>
+    <string name="settings_hidden_stopped">%1$s ist wieder sichtbar</string>
+    <string name="settings_hidden_duration_changed">%1$s bleibt für die neue Dauer unsichtbar</string>
+
+    <string name="settings_hidden_duration_title">Wie lange soll %1$s unsichtbar sein?</string>
+    <string name="settings_hidden_preset_5min">5 Minuten</string>
+    <string name="settings_hidden_preset_30min">30 Minuten</string>
+    <string name="settings_hidden_preset_1hour">1 Stunde</string>
+    <string name="settings_hidden_preset_1day">1 Tag</string>
+    <string name="settings_hidden_preset_indefinite">Unbegrenzt</string>
+
+    <string name="settings_hidden_change_phrase">Enthüllungsphrase ändern</string>
+    <string name="settings_hidden_phrase_body">Die Phrase, die Sie ins Suchfeld eingeben, um unsichtbare Einträge für eine Sitzung anzuzeigen. Das Ändern der Phrase macht keine Einträge sichtbar.</string>
+    <string name="settings_hidden_phrase_label">Neue Enthüllungsphrase</string>
+    <string name="settings_hidden_phrase_confirm">Phrase speichern</string>
+    <string name="settings_hidden_phrase_collision">Diese Phrase findet bereits einen Eintrag in Ihrem Tresor und kann daher nicht zugleich als Enthüllungsphrase dienen. Wählen Sie eine andere.</string>
+    <string name="settings_hidden_phrase_changed">Enthüllungsphrase geändert</string>
+
+    <string name="settings_hidden_explainer_health">Wenn Sie einen Eintrag unsichtbar machen, wird er im Sicherheits-Dashboard nicht mehr mitgezählt, daher ändert sich Ihr Ergebnis, wenn er unsichtbar wird und wieder, wenn er zurückkommt.</string>
+    <string name="settings_hidden_explainer_storage">Unsichtbare Einträge bleiben in Ihrem Tresor und in jeder Sicherung. Das Unsichtbarmachen entfernt sie nur aus den Bildschirmen der App; es ist keine zusätzliche Verschlüsselungsebene.</string>
+    <string name="settings_original_delete_title">Löschen von Originalen anbieten</string>
+    <string name="settings_original_delete_summary">Nach dem Speichern eines Fotos oder einer Datei fragen, ob die außerhalb von LocalKeep verbliebene Kopie gelöscht werden soll.</string>
+</resources>

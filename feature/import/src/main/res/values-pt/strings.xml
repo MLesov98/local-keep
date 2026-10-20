@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- ==================== ImportWizardScreen.kt ==================== -->
+    <string name="import_screen_title">Importar</string>
+    <string name="import_nav_close">Fechar</string>
+    <string name="import_nav_back">Voltar</string>
+
+    <!-- "Step X of 4" subtitle under the header — the wizard has no progress rail, so this
+         carries it. PASSWORD and INSTRUCTIONS deliberately share "Step 2 of 4". -->
+    <string name="import_step_progress_pick_source">Etapa 1 de 4 · escolher uma fonte</string>
+    <string name="import_step_progress_instructions">Etapa 2 de 4 · exportar o arquivo</string>
+    <string name="import_step_progress_password">Etapa 2 de 4 · desbloquear o banco de dados</string>
+    <string name="import_step_progress_export_password">Etapa 2 de 4 · desbloquear a exportação</string>
+    <string name="import_step_progress_preview">Etapa 3 de 4 · revisar o que chega</string>
+    <string name="import_step_progress_done">Etapa 4 de 4 · limpar</string>
+
+    <!-- Shown on the PREVIEW step while the import is being written to the vault. -->
+    <string name="import_working_saving">Adicionando itens ao seu cofre…</string>
+    <!-- Shown on every other step while the picked file is being read or parsed. -->
+    <string name="import_working_reading">Lendo o arquivo…</string>
+
+    <!-- ==================== Source picker ==================== -->
+    <string name="import_source_title">Onde estão suas senhas agora?</string>
+    <string name="import_source_body">O Android não permite que um aplicativo leia as senhas salvas de outro — a mesma proteção que mantém o cofre do LocalKeep privado. Portanto, isso não pode ser totalmente automático: você exporta um arquivo e o LocalKeep cuida do resto.</string>
+    <!-- Accessibility description of a source tile that can't be used yet. %1$s is the source name (e.g. "Apple Passwords"). -->
+    <string name="import_source_tile_blocked_description">%1$s, ainda não disponível</string>
+    <!-- Caption on a source tile that can't be used yet. -->
+    <string name="import_source_tile_unavailable">Ainda não disponível</string>
+
+    <!-- ==================== Instructions step ==================== -->
+    <!-- Section label above the export steps. %1$s is the source name. -->
+    <string name="import_instructions_export_from">Exportar de %1$s</string>
+    <!-- Button that launches the other app, when it's installed. %1$s is the source name. -->
+    <string name="import_instructions_open_source_app">Abrir %1$s</string>
+    <string name="import_instructions_open_export_page">Abrir a página de exportação</string>
+    <string name="import_instructions_copy_steps">Copiar estas etapas</string>
+    <string name="import_instructions_steps_copied">Etapas copiadas para a área de transferência</string>
+    <string name="import_instructions_export_page_copied">Não foi possível abrir automaticamente. Em vez disso, o link foi copiado para a área de transferência.</string>
+    <string name="import_instructions_worth_knowing">Vale a pena saber</string>
+    <string name="import_instructions_choose_file">Escolher o arquivo exportado</string>
+
+    <!-- The amber "you have to do this part yourself" panel. -->
+    <string name="import_why_manual_title_computer">Esta exportação precisa de um computador</string>
+    <!-- %1$s is the source name (e.g. "1Password"). -->
+    <string name="import_why_manual_body_computer">%1$s só pode exportar pelo aplicativo de desktop, então esta etapa não pode ser feita no seu celular. Faça em um computador, transfira o arquivo para este dispositivo e volte — todo o resto é automático.</string>
+
+    <!-- Accessibility description of one export step, merged into a single node.
+         %1$d = step number, %2$d = total steps, %3$s = the step's instruction. -->
+    <string name="import_step_row_description">Etapa %1$d de %2$d. %3$s</string>
+    <!-- Visible step number badge, e.g. "STEP 2". -->
+    <string name="import_step_row_number">ETAPA %1$d</string>
+
+    <!-- ==================== Password step ==================== -->
+    <string name="import_password_default_filename">Banco de dados selecionado</string>
+    <string name="import_password_default_filename_export">Exportação selecionada</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="import_password_body">Este banco de dados está criptografado. A senha dele é usada uma vez, na memória, para lê-lo — ela nunca é armazenada e nunca se torna sua senha mestra do LocalKeep.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="import_password_body_export">Esta exportação está criptografada. A senha dela é usada uma vez, na memória, para lê-la — ela nunca é armazenada e nunca se torna sua senha mestra do LocalKeep.</string>
+    <string name="import_password_field_label">Senha do banco de dados</string>
+    <string name="import_password_field_label_export">Senha da exportação</string>
+    <string name="import_password_submit">Abrir banco de dados</string>
+    <string name="import_password_submit_export">Abrir exportação</string>
+    <string name="import_password_key_file_add">Adicionar arquivo de chave</string>
+    <string name="import_password_key_file_chosen">Arquivo de chave: %1$s</string>
+    <string name="import_password_key_file_unnamed">Arquivo de chave</string>
+
+    <!-- ==================== Preview step ==================== -->
+    <plurals name="import_preview_items_found">
+        <item quantity="one">%1$d item encontrado</item>
+        <item quantity="many">%1$d itens encontrados</item>
+        <item quantity="other">%1$d itens encontrados</item>
+    </plurals>
+    <!-- Appends the detected format after the item count, e.g. "42 items found · CSV". %1$s is
+         the already-pluralised item count, %2$s is the format name (an importer identifier). -->
+    <string name="import_preview_items_found_with_format">%1$s · %2$s</string>
+    <plurals name="import_preview_duplicate_count">
+        <item quantity="one">%1$d já parece uma entrada que você tem.</item>
+        <item quantity="many">%1$d já parecem entradas que você tem.</item>
+        <item quantity="other">%1$d já parecem entradas que você tem.</item>
+    </plurals>
+    <plurals name="import_preview_file_duplicate_count">
+        <item quantity="one">%1$d se repete dentro do próprio arquivo.</item>
+        <item quantity="many">%1$d se repetem dentro do próprio arquivo.</item>
+        <item quantity="other">%1$d se repetem dentro do próprio arquivo.</item>
+    </plurals>
+
+    <!-- The two merge-mode chips. -->
+    <string name="import_mode_merge">Mesclar duplicatas</string>
+    <string name="import_mode_add_all">Adicionar tudo</string>
+    <string name="import_mode_merge_description">Entradas correspondentes são combinadas, mantendo a cópia mais recente.</string>
+    <string name="import_mode_add_all_description">Tudo selecionado é adicionado, mesmo quando você já tem. Você ficará com duas cópias desses itens.</string>
+
+    <string name="import_preview_select_all">Selecionar tudo</string>
+    <string name="import_preview_select_none">Nenhum</string>
+    <string name="import_preview_skip_duplicates">Pular duplicatas</string>
+
+    <plurals name="import_preview_import_button">
+        <item quantity="one">Importar %1$d item</item>
+        <item quantity="many">Importar %1$d itens</item>
+        <item quantity="other">Importar %1$d itens</item>
+    </plurals>
+    <string name="import_preview_nothing_selected">Nada selecionado</string>
+
+    <!-- What the parser couldn't carry, shown on the preview and again before clean-up.
+         %1$d = skipped count, %2$s = the reasons list (built in Kotlin from importer-reported
+         reasons, not translated here). -->
+    <plurals name="import_skipped_summary">
+        <item quantity="one">%1$d entrada nesse arquivo não pôde ser importada e não está nesta lista: %2$s. Mantenha sua exportação até copiá-la manualmente.</item>
+        <item quantity="many">%1$d entradas nesse arquivo não puderam ser importadas e não estão nesta lista: %2$s. Mantenha sua exportação até tê-las copiado manualmente.</item>
+        <item quantity="other">%1$d entradas nesse arquivo não puderam ser importadas e não estão nesta lista: %2$s. Mantenha sua exportação até tê-las copiado manualmente.</item>
+    </plurals>
+
+    <plurals name="import_carried_columns_summary">
+        <item quantity="one">%1$d coluna não tem um campo correspondente no LocalKeep, então foi mantida como campo personalizado: %2$s.</item>
+        <item quantity="many">%1$d colunas não têm um campo correspondente no LocalKeep, então foram mantidas como campos personalizados: %2$s.</item>
+        <item quantity="other">%1$d colunas não têm um campo correspondente no LocalKeep, então foram mantidas como campos personalizados: %2$s.</item>
+    </plurals>
+
+    <plurals name="import_unusable_totp_summary">
+        <item quantity="one">%1$d código de dois fatores não pode ser gerado aqui: sua semente foi mantida no item como campo oculto para que você possa transferi-la.</item>
+        <item quantity="many">%1$d códigos de dois fatores não podem ser gerados aqui: suas sementes foram mantidas nos itens como campos ocultos para que você possa transferi-las.</item>
+        <item quantity="other">%1$d códigos de dois fatores não podem ser gerados aqui: suas sementes foram mantidas nos itens como campos ocultos para que você possa transferi-las.</item>
+    </plurals>
+
+    <plurals name="import_unresolved_reference_summary">
+        <item quantity="one">%1$d item toma um campo de outra entrada do KeePass que não foi encontrada, então a referência foi mantida como texto em vez de um valor.</item>
+        <item quantity="many">%1$d itens tomam um campo de outra entrada do KeePass que não foi encontrada, então as referências foram mantidas como texto em vez de valores.</item>
+        <item quantity="other">%1$d itens tomam um campo de outra entrada do KeePass que não foi encontrada, então as referências foram mantidas como texto em vez de valores.</item>
+    </plurals>
+
+    <plurals name="import_passkey_only_summary">
+        <item quantity="one">%1$d login trazia apenas uma chave de acesso, que não pode ser importada: continue entrando com ela onde está.</item>
+        <item quantity="many">%1$d logins traziam apenas uma chave de acesso, que não pode ser importada: continue entrando com elas onde estão.</item>
+        <item quantity="other">%1$d logins traziam apenas uma chave de acesso, que não pode ser importada: continue entrando com elas onde estão.</item>
+    </plurals>
+
+    <!-- Accessibility state words appended to a preview row's name. -->
+    <string name="import_preview_row_selected">selecionado</string>
+    <string name="import_preview_row_not_selected">não selecionado</string>
+    <!-- Merges a preview row into one accessibility node: %1$s = title, %2$s = selection word,
+         %3$s = the disposition sentence (see import_disposition_*). -->
+    <string name="import_preview_row_description">%1$s, %2$s. %3$s</string>
+
+    <!-- Second line of a preview row when the item updates one already in the vault.
+         %1$s = the item's own subtitle, %2$s = the title of the existing entry it collides with. -->
+    <string name="import_disposition_updates_existing">%1$s · mais recente que seu \"%2$s\"</string>
+    <!-- Second line of a preview row when the vault already has a newer copy. %1$s = subtitle. -->
+    <string name="import_disposition_already_current">%1$s · você já tem uma cópia mais recente</string>
+    <string name="import_disposition_updates_earlier_row">%1$s · mais recente que uma linha anterior deste arquivo</string>
+    <string name="import_disposition_already_in_file">%1$s · repetido mais acima neste arquivo</string>
+    <string name="import_disposition_undated_keeps_yours">%1$s · este arquivo não tem datas, então o seu item é mantido</string>
+
+    <!-- ==================== Done step ==================== -->
+    <!-- Announced live: the wizard auto-advances into this step with no user action, so a screen
+         reader needs this read without the user going looking for it. -->
+    <plurals name="import_done_updated_summary">
+        <item quantity="one">%1$d item atualizado</item>
+        <item quantity="other">%1$d itens atualizados</item>
+    </plurals>
+    <plurals name="import_done_imported_summary">
+        <item quantity="one">%1$d item importado</item>
+        <item quantity="many">%1$d itens importados</item>
+        <item quantity="other">%1$d itens importados</item>
+    </plurals>
+    <!-- %1$s = already-pluralised "N items imported", %2$s = already-pluralised "N merged...". -->
+    <string name="import_done_notice_combined">%1$s; %2$s</string>
+    <plurals name="import_done_notice_imported">
+        <item quantity="one">%1$d item importado</item>
+        <item quantity="many">%1$d itens importados</item>
+        <item quantity="other">%1$d itens importados</item>
+    </plurals>
+    <plurals name="import_done_notice_merged">
+        <item quantity="one">%1$d mesclado em uma entrada que você já tinha.</item>
+        <item quantity="many">%1$d mesclados em entradas que você já tinha.</item>
+        <item quantity="other">%1$d mesclados em entradas que você já tinha.</item>
+    </plurals>
+    <plurals name="import_done_notice_repeated">
+        <item quantity="one">%1$d item repetia um item anterior do arquivo e foi mesclado com ele.</item>
+        <item quantity="many">%1$d itens repetiam itens anteriores do arquivo e foram mesclados com eles.</item>
+        <item quantity="other">%1$d itens repetiam itens anteriores do arquivo e foram mesclados com eles.</item>
+    </plurals>
+
+    <string name="import_done_cleanup_title">Limpar</string>
+    <string name="import_done_file_deleted">O arquivo de exportação foi excluído.</string>
+    <!-- SECURITY-COPY: tier A. A .kdbx stays encrypted on disk; this must never say "plain,
+         unencrypted copy" the way the generic export warning below does. -->
+    <string name="import_done_delete_warning_encrypted">Esse arquivo ainda está no seu armazenamento, protegido apenas pela própria senha. Se você terminou com ele, exclua-o agora.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_warning_plain">Esse arquivo de exportação é uma cópia não criptografada das suas senhas no seu armazenamento. Exclua-o agora.</string>
+    <!-- SECURITY-COPY: tier G. States a security property (ordinary delete, not a secure erase) —
+         must never be softened into implying remnants can't survive. -->
+    <string name="import_done_delete_footnote">Esta é uma exclusão normal, não uma limpeza segura — o Android não dá aos aplicativos o acesso de baixo nível que isso exigiria. Para qualquer dado altamente sensível, considere que a exportação existiu.</string>
+
+    <string name="import_done_delete_button_working">Excluindo…</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_button_keepass">Excluir o arquivo de banco de dados</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="import_done_delete_button_generic">Excluir o arquivo de exportação</string>
+    <string name="import_preview_discard_confirm_title">Descartar esta prévia?</string>
+    <string name="import_preview_discard_confirm_body">Voltar descarta as entradas lidas e as escolhas que você fez sobre elas. Nada foi importado ainda e seu arquivo está intacto — você começaria de novo pela leitura dele.</string>
+    <string name="import_preview_discard_confirm_button">Descartar</string>
+    <string name="import_done_delete_confirm_title">Excluir este arquivo permanentemente?</string>
+    <string name="import_done_delete_confirm_body">Ele é excluído do seu dispositivo de forma definitiva. Não há como desfazer.</string>
+
+    <string name="import_done_keep_app_footnote">Mantenha o outro aplicativo instalado até verificar alguns itens — especialmente códigos 2FA. Nada foi removido dele.</string>
+    <string name="import_done_finish_button">Concluído</string>
+
+    <!-- ==================== ImportWizardViewModel.kt — error messages ==================== -->
+    <!-- The ViewModel never holds display strings; it exposes these ids via ImportError and the
+         composable resolves them with stringResource, per GeneratorViewModel.error. -->
+    <string name="import_error_read_failed">Não foi possível ler esse arquivo.</string>
+    <string name="import_error_unrecognised_format">Esse arquivo não está em um formato que o LocalKeep reconheça. Se veio de um gerenciador de senhas, exporte-o novamente escolhendo um formato simples e não criptografado.</string>
+    <string name="import_error_localkeep_backup">Esse arquivo é um backup do LocalKeep, não uma exportação de outro aplicativo. Restaure-o em Backup e exportação, em “Importar um arquivo .vault”.</string>
+    <string name="import_open_backup_button">Abrir Backup e exportação</string>
+    <string name="import_error_source_file_empty">Esse arquivo está vazio: 0 bytes. A exportação não terminou de gravá-lo; exporte novamente e verifique o tamanho do arquivo antes de escolhê-lo.</string>
+    <string name="import_error_csv_header_unrecognised">O LocalKeep descobre o que é cada coluna a partir da linha de cabeçalho, e o cabeçalho deste arquivo não tem nenhuma coluna reconhecida como senha. Renomeie a coluna da senha para "Password" ou exporte em um formato que o LocalKeep aceite.</string>
+    <string name="import_error_vault_read_failed">Não foi possível ler seu cofre atual, então não é possível saber quais destes você já tem. Seu cofre pode ter sido bloqueado enquanto o arquivo era lido — abra-o novamente e tente de novo.</string>
+    <string name="import_error_empty_file">Esse arquivo foi analisado corretamente, mas não continha itens.</string>
+    <string name="import_error_nothing_selected">Nada está selecionado para importar.</string>
+    <string name="import_error_save_failed">Não foi possível salvar os itens importados.</string>
+    <string name="import_error_save_vault_too_large">Este cofre cresceu demais para salvar os itens importados neste dispositivo. Importe menos itens de cada vez, ou exclua ou exporte alguns itens — arquivos grandes e fotos primeiro.</string>
+    <string name="import_error_save_out_of_space">Este dispositivo está sem espaço de armazenamento, portanto os itens importados não puderam ser salvos. Libere espaço e tente novamente.</string>
+    <string name="import_error_delete_failed">Não foi possível excluir daqui — exclua-o manualmente em Arquivos e depois esvazie a lixeira.</string>
+    <string name="import_error_open_app_failed">Nenhum aplicativo neste dispositivo pode abrir isso.</string>
+    <string name="core_import_error_malformed_export">Isto não parece uma exportação válida do %1$s.</string>
+    <string name="core_import_error_container_encrypted">Esta exportação do %1$s está protegida por senha. Desative a criptografia ao exportá-la e tente novamente.</string>
+    <string name="core_import_error_account_encrypted">Esta exportação está protegida com a chave da sua conta do %1$s, que o LocalKeep não pode usar. Exporte-a novamente sem criptografia ou protegida por senha.</string>
+    <string name="core_import_error_wrong_password">Senha incorreta — ou esse não é o arquivo de chave deste banco de dados. O KeePass verifica os dois juntos e não consegue dizer qual falhou.</string>
+    <string name="core_import_error_wrong_export_password">Senha incorreta para esta exportação do %1$s.</string>
+    <string name="core_import_error_wrong_password_or_key_file">Senha incorreta — ou este banco de dados também precisa do seu arquivo de chave.</string>
+    <string name="core_import_error_unreadable_key_file">Não foi possível ler esse arquivo de chave. Verifique se escolheu o arquivo certo.</string>
+    <string name="core_import_error_not_kdbx_file">Este arquivo não é um banco de dados KeePass.</string>
+    <string name="core_import_error_legacy_keepass1_file">Este é um banco de dados do KeePass 1 (.kdb). Abra-o no KeePass, salve-o como .kdbx e importe esse arquivo.</string>
+    <string name="core_import_error_damaged_kdbx_file">Não foi possível ler o banco de dados KeePass — o arquivo parece danificado.</string>
+    <string name="core_import_error_kdbx_support_broken">O suporte a KDBX está com defeito nesta versão do LocalKeep — o problema não é sua senha nem seu arquivo. Relate isso.</string>
+    <string name="core_import_error_kdbx_kdf_too_large">A criptografia deste banco de dados precisa de mais memória do que este dispositivo permite a um aplicativo, então ele não pode ser aberto aqui. No KeePass, reduza a memória de derivação de chave em Segurança do banco de dados e exporte novamente.</string>
+    <string name="core_import_error_export_needs_more_memory">A leitura desta exportação do %1$s precisa de mais memória do que este dispositivo permite a um aplicativo, então ela não pode ser lida aqui.</string>
+    <string name="core_import_error_onepux_missing_export_data">Este arquivo .1pux não contém uma exportação do 1Password.</string>
+    <string name="core_import_error_export_too_large">Esta exportação excede o limite de importação de %1$d MB.</string>
+    <string name="core_import_error_unexpected">Não foi possível ler este arquivo. Ele pode estar corrompido ou em um formato que o LocalKeep não suporta.</string>
+    <string name="core_import_skip_reason_count">%1$s (%2$d)</string>
+    <string name="core_import_skip_incomplete_entry">Entrada incompleta na exportação</string>
+    <string name="core_import_skip_ssh_key">Chave SSH — o LocalKeep não tem um tipo de item para isso</string>
+    <string name="core_import_skip_unsupported_bitwarden_type">Tipo do Bitwarden não suportado (%1$d)</string>
+    <string name="core_import_skip_unsupported_aegis_type">Código %1$s — o LocalKeep só oferece suporte a TOTP</string>
+    <string name="core_import_skip_unsupported_totp_settings">Configurações de TOTP não suportadas (%1$s, %2$d dígitos, %3$d s)</string>
+    <string name="core_import_skip_onepassword_archived">Item arquivado</string>
+    <string name="core_import_skip_source_recycle_bin">Item na lixeira do outro aplicativo</string>
+    <string name="core_import_skip_onepassword_category_unsupported">Tipo do 1Password não suportado</string>
+    <string name="core_import_skip_no_login_fields">Sem endereço, nome de usuário ou senha</string>
+    <string name="core_import_onepassword_category_password">Senha</string>
+    <string name="core_import_onepassword_category_document">Documento</string>
+    <string name="core_import_onepassword_category_software_license">Licença de software</string>
+    <string name="core_import_onepassword_category_bank_account">Conta bancária</string>
+    <string name="core_import_onepassword_category_database">Banco de dados</string>
+    <string name="core_import_onepassword_category_driver_license">Carteira de motorista</string>
+    <string name="core_import_onepassword_category_outdoor_license">Licença de atividades ao ar livre</string>
+    <string name="core_import_onepassword_category_membership">Associação</string>
+    <string name="core_import_onepassword_category_passport">Passaporte</string>
+    <string name="core_import_onepassword_category_reward_program">Programa de recompensas</string>
+    <string name="core_import_onepassword_category_ssn">Número de identificação nacional</string>
+    <string name="core_import_onepassword_category_wireless_router">Roteador sem fio</string>
+    <string name="core_import_onepassword_category_server">Servidor</string>
+    <string name="core_import_onepassword_category_email_account">Conta de e-mail</string>
+    <string name="core_import_onepassword_category_api_credential">Credencial de API</string>
+    <string name="core_import_onepassword_category_medical_record">Registro médico</string>
+    <string name="core_import_onepassword_category_ssh_key">Chave SSH</string>
+    <string name="core_import_default_untitled_item">Item sem título</string>
+    <string name="core_import_default_imported_item">Item importado</string>
+    <string name="core_import_default_untitled_code">Código sem título</string>
+    <string name="core_import_default_imported_code">Código 2FA importado</string>
+    <string name="core_import_default_untitled_row">Linha sem título</string>
+    <string name="core_import_default_untitled_folder">Importado</string>
+    <string name="core_import_default_rescued_totp_field_name">Semente TOTP</string>
+    <string name="core_import_default_identity_notes_field_name">Notas</string>
+
+    <!-- ==================== ImportSource.kt — export steps, per source ==================== -->
+    <string name="import_source_chrome_step_1">Abra o Chrome neste dispositivo e toque em ⋮ → Configurações.</string>
+    <string name="import_source_chrome_step_2">Toque em Gerenciador de senhas e depois no ícone ⚙ Configurações dentro dele.</string>
+    <string name="import_source_chrome_step_3">Toque em Exportar senhas e confirme com seu bloqueio de tela.</string>
+    <string name="import_source_chrome_step_4">Escolha um local que você possa encontrar de novo — Downloads é suficiente.</string>
+    <string name="import_source_chrome_caveat_1">O Chrome exporta apenas logins. Cartões e endereços salvos não estão incluídos — você precisará adicioná-los manualmente ou importá-los de outro gerenciador.</string>
+    <string name="import_source_chrome_caveat_2">O arquivo exportado é texto não criptografado. Exclua-o assim que a importação terminar; a última etapa deste assistente pode fazer isso por você.</string>
+
+    <string name="import_source_apple_step_1">Em um Mac: abra o aplicativo Senhas, depois Arquivo → Exportar todas as senhas.</string>
+    <string name="import_source_apple_step_2">Em iPhone/iPad: Ajustes → Senhas → ⋯ → Exportar senhas (iOS 18 ou posterior).</string>
+    <string name="import_source_apple_step_3">Salve o CSV e transfira-o para este dispositivo como você normalmente move arquivos.</string>
+    <string name="import_source_apple_caveat_1">A Apple exporta logins, seus códigos 2FA e a nota de cada login. Cartões e notas avulsas não têm exportação.</string>
+    <string name="import_source_apple_caveat_2">Chaves de acesso não podem ser exportadas por nenhuma versão atual — elas permanecem nos seus dispositivos Apple.</string>
+
+    <string name="import_source_bitwarden_step_1">Abra o cofre web do Bitwarden em vault.bitwarden.com (o aplicativo móvel não pode exportar).</string>
+    <string name="import_source_bitwarden_step_2">Vá em Ferramentas → Exportar cofre.</string>
+    <string name="import_source_bitwarden_step_3">Escolha o formato .json. Um criptografado também funciona, desde que escolha \"Password protected\" e não \"Account restricted\".</string>
+    <string name="import_source_bitwarden_step_4">Confirme com sua senha mestra e salve o arquivo.</string>
+    <string name="import_source_bitwarden_caveat_1">Uma exportação .json protegida por senha abre aqui — o LocalKeep pede essa senha. Uma exportação restrita à conta só pode ser aberta pelo próprio Bitwarden.</string>
+    <string name="import_source_bitwarden_caveat_2">Anexos não estão incluídos em nenhuma exportação do Bitwarden.</string>
+    <string name="import_source_bitwarden_caveat_3">As coleções são importadas como tags, porque um item pode pertencer a várias. Suas próprias pastas continuam sendo pastas.</string>
+    <string name="import_source_bitwarden_caveat_4">As chaves de acesso estão na exportação, mas o LocalKeep não as importa — elas permanecem no Bitwarden. Mantenha sua conta do Bitwarden se ainda precisar delas.</string>
+
+    <string name="import_source_onepassword_step_1">Abra o aplicativo de desktop do 1Password (o aplicativo móvel não pode exportar).</string>
+    <string name="import_source_onepassword_step_2">Escolha Arquivo → Exportar → a conta desejada.</string>
+    <string name="import_source_onepassword_step_3">Escolha o formato 1Password Unencrypted Export (.1pux).</string>
+    <string name="import_source_onepassword_step_4">Digite a senha da sua conta e salve o arquivo.</string>
+    <string name="import_source_onepassword_caveat_1">Um arquivo .1pux é um zip de JSON não criptografado. Trate-o como uma cópia impressa do seu cofre até que seja eliminado.</string>
+    <string name="import_source_onepassword_caveat_2">Um arquivo salvo como Documento do 1Password é importado. Um arquivo anexado a um login, cartão ou identidade não — mantenha sua conta do 1Password, ou salve esses em outro lugar primeiro.</string>
+
+    <string name="import_source_keepass_step_1">Encontre seu arquivo de banco de dados — ele termina em .kdbx.</string>
+    <string name="import_source_keepass_step_2">Em um celular, copie-o para Arquivos ou Drive para poder selecioná-lo aqui.</string>
+    <string name="import_source_keepass_step_3">Escolha-o abaixo e digite a senha mestra desse banco de dados.</string>
+    <string name="import_source_keepass_caveat_1">O banco de dados permanece criptografado o tempo todo — o LocalKeep o abre apenas na memória.</string>
+    <string name="import_source_keepass_caveat_2">Arquivos de chave funcionam: após a etapa da senha, você pode adicionar um. Chaves de hardware como uma YubiKey não são suportadas.</string>
+    <!-- 2FA seeds import too: a login that had one now shows its own rolling code on the login
+         itself, so this tells the user to verify that before uninstalling their authenticator. -->
+    <string name="import_source_keepass_caveat_3">Sementes 2FA também são importadas: um login que tinha uma mostra seu código no próprio login. Verifique se uma funciona antes de desinstalar seu autenticador.</string>
+    <string name="import_source_keepass_caveat_4">Arquivos anexados aos itens não são importados. Mantenha seu banco de dados, ou salve esses arquivos em outro lugar primeiro.</string>
+
+    <string name="import_source_aegis_step_1">Abra o Aegis e vá em Configurações → Import &amp; Export.</string>
+    <string name="import_source_aegis_step_2">Toque em Exportar e escolha o formato JSON não criptografado.</string>
+    <string name="import_source_aegis_step_3">Confirme o aviso e salve o arquivo.</string>
+    <string name="import_source_aegis_caveat_1">Escolha a exportação JSON não criptografada; a criptografada usa o formato próprio do Aegis.</string>
+    <string name="import_source_aegis_caveat_2">Isso importa seus códigos 2FA. Mantenha o Aegis instalado até confirmar que um código funciona no LocalKeep — perder o acesso ao 2FA é muito pior do que uma duplicata.</string>
+
+    <!-- Keeper, Enpass, Proton Pass and Dashlane, added 2026-09-17 with their importers.
+         The brand names are import_source_label_*, already translatable="false". Menu paths
+         inside the other apps are left in English on purpose: they are what the user will see
+         on that app's own screen, and translating them would send them looking for a label
+         that is not there. Every caveat states a limitation that was measured against a real
+         export, not a general disclaimer. -->
+    <string name="import_source_keeper_step_1">Abra o Keeper Web Vault em um navegador — o aplicativo do celular não exporta.</string>
+    <string name="import_source_keeper_step_2">Vá em Settings e depois em Export.</string>
+    <string name="import_source_keeper_step_3">Escolha JSON. O CSV do Keeper também funciona, mas só a exportação JSON leva suas pastas, tipos de registro e campos personalizados.</string>
+    <string name="import_source_keeper_step_4">Salve o arquivo e traga-o para este telefone.</string>
+    <string name="import_source_keeper_caveat_1">Chaves SSH não são importadas — o LocalKeep não tem um tipo de item para elas. Elas são listadas por nome na prévia, para você saber o que ficou para trás.</string>
+    <string name="import_source_keeper_caveat_2">Um registro arquivado em mais de uma pasta do Keeper chega na primeira delas; as demais ficam no item em um campo chamado folders.</string>
+    <string name="import_source_keeper_caveat_3">A exportação CSV do Keeper não tem linha de cabeçalho, então é lida por posição de coluna. Se seu CSV foi editado ou salvo novamente por uma planilha, exporte JSON.</string>
+    <string name="import_source_keeper_caveat_4">Anexos e registros de arquivo ou foto não são levados — apenas os campos do próprio registro.</string>
+    <string name="import_source_enpass_step_1">Abra o Enpass.</string>
+    <string name="import_source_enpass_step_2">Vá em Settings, depois Advanced e depois Export.</string>
+    <string name="import_source_enpass_step_3">Escolha JSON. O CSV do Enpass também funciona, mas só a exportação JSON leva suas pastas e suas categorias de itens.</string>
+    <string name="import_source_enpass_step_4">Confirme com sua senha mestra do Enpass.</string>
+    <string name="import_source_enpass_caveat_1">Itens na lixeira do Enpass não são importados. Eles são listados por nome na prévia.</string>
+    <string name="import_source_enpass_caveat_2">Uma exportação CSV do Enpass só com notas seguras não é reconhecida — suas linhas não têm nada que as identifique como do Enpass. Exporte JSON.</string>
+    <string name="import_source_enpass_caveat_3">Anexos não são levados — apenas os campos do próprio item.</string>
+    <string name="import_source_protonpass_step_1">Abra o Proton Pass, ou o cofre web.</string>
+    <string name="import_source_protonpass_step_2">Vá em Settings e depois em Export.</string>
+    <string name="import_source_protonpass_step_3">Escolha JSON, não \"encrypted\".</string>
+    <string name="import_source_protonpass_step_4">O Proton Pass salva um .zip. Descompacte-o e escolha o data.json que está dentro.</string>
+    <string name="import_source_protonpass_caveat_1">O Proton Pass exporta um zip. Descompacte-o primeiro e escolha o arquivo .json que está dentro — este aplicativo lê o JSON, não o arquivo compactado.</string>
+    <string name="import_source_protonpass_caveat_2">Itens na lixeira do Proton Pass não são importados, e chaves SSH também não. Ambos são listados por nome na prévia.</string>
+    <string name="import_source_protonpass_caveat_3">Cada cofre do Proton Pass vira uma pasta.</string>
+    <string name="import_source_protonpass_caveat_4">Chaves de acesso não são levadas.</string>
+    <string name="import_source_dashlane_step_1">Abra o Dashlane em um computador — o aplicativo do celular não exporta.</string>
+    <string name="import_source_dashlane_step_2">Vá em My Account, depois Settings e depois Export.</string>
+    <string name="import_source_dashlane_step_3">Escolha CSV.</string>
+    <string name="import_source_dashlane_step_4">O Dashlane salva um zip com vários arquivos. Traga-os para este telefone e importe um de cada vez.</string>
+    <string name="import_source_dashlane_caveat_1">O Dashlane exporta um arquivo por tipo de registro: credentials.csv para seus logins, payments.csv para cartões e contas bancárias, id.csv para documentos, personal-info.csv e securenotes.csv. Importe cada um separadamente, ou você só terá parte dos seus dados.</string>
+    <string name="import_source_dashlane_caveat_2">Uma conta bancária do Dashlane é salva como nota, com os números da conta e de roteamento mascarados — não é um cartão de pagamento.</string>
+    <string name="import_source_dashlane_caveat_3">personal-info.csv tem uma linha por dado, não uma por pessoa, então cada linha vira sua própria entrada.</string>
+    <string name="import_source_csv_step_1">Exporte seus dados do outro gerenciador como CSV.</string>
+    <string name="import_source_csv_step_2">A maioria dos gerenciadores coloca isso em Configurações, Ferramentas ou Exportar.</string>
+    <string name="import_source_csv_step_3">O LocalKeep descobre qual coluna é qual a partir da linha de cabeçalho.</string>
+    <string name="import_source_csv_caveat_1">Um CSV precisa de uma linha de cabeçalho nomeando as colunas. Sem uma, não há como distinguir um nome de usuário de uma senha.</string>
+</resources>

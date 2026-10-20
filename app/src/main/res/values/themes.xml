@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Everything lives in Theme.LocalKeep.Base (:core:ui) so the autofill, credential and
+         save-confirm activities in other modules launch on exactly the same chrome. -->
+    <style name="Theme.LocalKeep" parent="Theme.LocalKeep.Base" />
+</resources>

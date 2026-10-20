@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared across this module's screens. -->
+    <string name="files_back">Zurück</string>
+    <string name="files_close">Schließen</string>
+    <string name="files_remove">Entfernen</string>
+    <!-- Shared button/progress-label text: the Save/Attach actions in this module all say the
+         same thing while a blob is being written. -->
+    <string name="files_encrypting_ellipsis">Wird verschlüsselt…</string>
+
+    <!-- Shown when adding past the free tier's file-and-photo cap (AttachmentPicker, FileItemEditScreen).
+         Names the number rather than the tier, matching AttachmentQuota.LIMIT_MESSAGE's copy — that
+         constant lives in :core:vault, a String its two callers here could not consume once `error`
+         became @StringRes Int, so this module now owns its own copy of the same sentence, built from
+         AttachmentQuota.FREE_LIMIT (an Int, not a String, so no cross-module resource dependency). -->
+    <!-- SECURITY-COPY: tier F -->
+    <string name="files_error_quota_exceeded">Kostenlose Tresore können %1$d Dateien und Fotos enthalten — mitgezählt werden Dateien in Ordnern und Dateien, die an andere Einträge angehängt sind. Entfernen Sie %2$d davon</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="files_error_quota_exceeded_suffix_purchase">, oder schalten Sie Pro für unbegrenzte Nutzung frei.</string>
+    <!-- SECURITY-COPY: tier E -->
+    <string name="files_error_quota_exceeded_suffix_no_purchase">, oder schalten Sie Pro in der Play-Version frei.</string>
+
+    <!-- ==================== AttachmentPicker.kt ==================== -->
+    <string name="files_attachments_title">Dateien &amp; Medien</string>
+    <!-- Header subtitle: how many attachments this item already has. -->
+    <plurals name="files_attachments_count">
+        <item quantity="one">%1$d verschlüsselte Datei</item>
+        <item quantity="other">%1$d verschlüsselte Dateien</item>
+    </plurals>
+    <!-- Accessibility label while a picked file is being encrypted; the visible button text is
+         just "Encrypting…". -->
+    <string name="files_attachments_attach_progress_label">Datei wird verschlüsselt, bitte warten</string>
+    <string name="files_attachments_encrypting_note">Diese Datei wird verschlüsselt. Große Videos können etwas dauern.</string>
+    <!-- TalkBack announcement paired with the note above; deliberately shorter. -->
+    <string name="files_attachments_encrypting_announce">Diese Datei wird verschlüsselt</string>
+    <string name="files_attachments_empty_title">Keine Anhänge</string>
+    <string name="files_attachments_empty_body">Hier hinzugefügte Dateien werden mit demselben Schlüssel wie der Rest des Tresors verschlüsselt und verlassen dieses Gerät nie, außer Sie exportieren sie.</string>
+    <!-- Per-row remove button, named per attachment so a screen reader can tell rows apart. -->
+    <string name="files_attachments_remove_label">%1$s entfernen</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_attachments_remove_dialog_title">„%1$s“ entfernen?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_attachments_remove_dialog_body">Die verschlüsselte Kopie wird aus diesem Tresor entfernt und beim nächsten Entsperren von diesem Gerät gelöscht. Das lässt sich hier nicht rückgängig machen, ein älterer Schnappschuss oder eine ältere Sicherung kann sie aber noch enthalten.</string>
+    <string name="files_attachments_error_attach_failed">Diese Datei konnte nicht angehängt werden. Sie ist möglicherweise zu groß, oder die bereitstellende App hat sie nicht mehr.</string>
+    <string name="files_attachments_error_unstrippable_image">Standort- und Kameradaten konnten nicht aus diesem Foto entfernt werden, deshalb wurde es nicht gespeichert. Stellen Sie die Kamera auf JPEG und nehmen Sie es erneut auf.</string>
+    <string name="files_attachments_reveal_unavailable">Dieses Gerät hat keine Bildschirmsperre, deshalb kann LocalKeep nicht prüfen, ob Sie es noch sind. Richten Sie eine Bildschirmsperre ein, um diese Datei zu öffnen.</string>
+    <!-- Deliberately says what Android's backup does NOT carry. data_extraction_rules.xml and
+         full_backup_content.xml both exclude blobs/, so a restored vault brings back every typed
+         field of an Identity and none of its photographs. Never soften this into a claim that
+         the photo is backed up. -->
+    <string name="files_attachments_photo_note">Bei Bildern werden Standort- und Kameradaten entfernt. Anhänge sind nicht in der Android-Sicherung enthalten — die eingegebenen Felder schon. Bewahren Sie eine eigene Kopie auf.</string>
+    <string name="files_attachments_error_remove_failed">Dieser Anhang konnte nicht entfernt werden. Er befindet sich noch im Tresor.</string>
+
+    <!-- ==================== MediaErrors.kt ====================
+         The user-facing text for a failed media operation. None of these carry e.message — see
+         the KDoc on MediaErrors for why. -->
+    <string name="files_error_corrupted_file">Diese Datei ist beschädigt oder wurde manipuliert und kann nicht entschlüsselt werden.</string>
+    <string name="files_error_corrupted_video">Dieses Video ist beschädigt oder wurde manipuliert und kann nicht entschlüsselt werden.</string>
+    <string name="files_error_open_failed">Diese Datei konnte nicht geöffnet werden. Ihre verschlüsselte Kopie fehlt möglicherweise, oder es ist nicht genügend freier Speicherplatz zum Entschlüsseln vorhanden.</string>
+    <string name="files_error_video_open_failed">Dieses Video konnte nicht geöffnet werden. Die verschlüsselte Kopie fehlt möglicherweise, oder dieses Gerät kann es möglicherweise nicht abspielen.</string>
+    <string name="files_error_restore_failed">Diese Datei konnte nicht in Ihre Galerie wiederhergestellt werden. Möglicherweise ist nicht genügend freier Speicherplatz vorhanden, oder Ihre Galerie hat die Datei abgelehnt.</string>
+    <string name="files_error_import_failed">Diese Datei konnte nicht importiert werden. Sie ist möglicherweise zu groß, oder die bereitstellende App hat sie nicht mehr.</string>
+    <string name="files_error_capture_failed">Dieses Foto konnte nicht gespeichert werden. Möglicherweise ist nicht genügend freier Speicherplatz vorhanden, oder Ihr Tresor wurde gesperrt, bevor es geschrieben wurde.</string>
+    <string name="files_error_save_failed">Diese Datei konnte nicht in Ihrem Tresor gespeichert werden. Ihr Tresor wurde möglicherweise während der Bearbeitung gesperrt, oder es ist nicht genügend freier Speicherplatz vorhanden.</string>
+    <string name="files_error_pdf_open_failed">Dieses PDF konnte nicht geöffnet werden. Es ist möglicherweise beschädigt oder passwortgeschützt — dieser Betrachter kann kein verschlüsseltes PDF öffnen. Sie können es dennoch auf Ihrem Gerät speichern und in einem PDF-Reader öffnen.</string>
+    <string name="files_error_text_too_large">Diese Datei ist zu groß, um hier angezeigt zu werden. Speichern Sie sie auf Ihrem Gerät, um sie zu lesen.</string>
+    <string name="files_error_image_undecodable">Dieses Bild wurde korrekt entschlüsselt, ist aber in einem Format, das dieses Gerät nicht decodieren kann. Exportieren Sie es in Ihre Galerie, um es in einer anderen App zu öffnen.</string>
+    <string name="files_error_image_too_large">Dieses Bild ist zu groß, um hier auf diesem Gerät geöffnet zu werden. Exportieren Sie es in Ihre Galerie, um es in einer anderen App zu öffnen.</string>
+    <string name="files_error_export_needs_newer_android">Der Export in Ihre Galerie erfordert Android 10 oder neuer. Auf diesem Gerät läuft eine ältere Version.</string>
+    <string name="files_error_out_of_space">Auf diesem Gerät ist kein Speicherplatz mehr frei, daher konnte die Datei nicht gespeichert werden. Geben Sie Speicherplatz frei und versuchen Sie es dann erneut.</string>
+
+    <!-- ==================== FileItemEditScreen.kt ==================== -->
+    <string name="files_edit_title_new">Neue Datei</string>
+    <string name="files_edit_title_existing">Datei</string>
+    <string name="files_edit_subtitle">Auf diesem Gerät verschlüsselt · nie hochgeladen</string>
+    <string name="files_edit_field_title">Titel</string>
+    <string name="files_edit_more_label">Ordner, Schlagwörter und mehr</string>
+    <string name="files_edit_more_summary_none">nichts festgelegt</string>
+    <string name="files_edit_more_summary_favourite">Favorit</string>
+    <string name="files_edit_more_summary_note">Notiz</string>
+    <plurals name="files_edit_more_summary_tags">
+        <item quantity="one">%1$d Schlagwort</item>
+        <item quantity="other">%1$d Schlagwörter</item>
+    </plurals>
+    <string name="files_edit_more_expand_a11y">Ordner, Schlagwörter und mehr einblenden</string>
+    <string name="files_edit_more_collapse_a11y">Ordner, Schlagwörter und mehr ausblenden</string>
+    <string name="files_edit_more_state_expanded">Ausgeklappt</string>
+    <string name="files_edit_more_state_collapsed">Eingeklappt</string>
+    <string name="files_edit_tags_label">Schlagwörter</string>
+    <string name="files_edit_tag_add_label">Schlagwort hinzufügen</string>
+    <string name="files_edit_tag_add_placeholder">z. B. Arbeit</string>
+    <string name="files_edit_tag_remove_a11y">Schlagwort %1$s entfernen</string>
+    <string name="files_edit_favourite_checkbox_label">Favorit</string>
+    <string name="files_edit_notes_label">Notizen</string>
+    <string name="files_edit_notes_placeholder">Was diese Datei ist oder warum Sie sie behalten haben</string>
+    <string name="files_edit_error_already_tagged">Diese Datei hat dieses Schlagwort bereits.</string>
+    <!-- Placeholder shown in the empty title field before a file is named. -->
+    <string name="files_edit_title_placeholder">Reisepass-Scan</string>
+    <string name="files_edit_generated_photo_title">Foto %1$s</string>
+    <string name="files_edit_view">Anzeigen</string>
+    <string name="files_edit_manage_attachments">Anhänge verwalten</string>
+    <!-- Android 9/10 cannot request the gallery original be deleted automatically; below API 30
+         (Build.VERSION_CODES.R) the user is told to remove it by hand. -->
+    <string name="files_edit_legacy_delete_note">Dieses Gerät (Android 9/10) kann das Original nicht automatisch löschen — bitte entfernen Sie es manuell aus Ihrer Galerie-App.</string>
+    <string name="files_edit_empty_title">Noch keine Datei</string>
+    <string name="files_edit_empty_body">Importieren Sie eine Datei von Ihrem Gerät oder nehmen Sie ein Foto auf, das nie in Ihre Galerie gelangt.</string>
+    <string name="files_edit_empty_icon_tap_label">Datei hinzufügen</string>
+    <string name="files_edit_source_sheet_title">Datei hinzufügen</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_edit_metadata_present_note">Dieses Bild enthält möglicherweise noch Standort- und Kameradaten.</string>
+    <string name="files_edit_metadata_removed">Metadaten entfernt.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_edit_metadata_video_note">Videos werden unverändert übernommen — LocalKeep entfernt keine Standort- oder Kameradaten daraus.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_attachments_video_metadata_note">Videos werden unverändert übernommen — LocalKeep entfernt keine Standort- oder Kameradaten daraus.</string>
+    <string name="files_edit_delete_metadata">Alle Metadaten löschen</string>
+    <string name="files_edit_metadata_cleanup_failed">Metadaten konnten nicht entfernt werden. Die Originaldatei ist weiterhin intakt.</string>
+    <string name="files_edit_metadata_cleanup_too_large">Dieses Bild ist zu groß für die Bereinigung. Die Originaldatei ist weiterhin intakt.</string>
+    <string name="files_edit_metadata_cleanup_malformed">Dieses Bild konnte nicht gelesen werden. Die Originaldatei ist weiterhin intakt.</string>
+    <string name="files_edit_metadata_cleanup_unsupported">Aus diesem Bildformat können Metadaten nicht entfernt werden. Die Originaldatei ist weiterhin intakt.</string>
+    <string name="files_edit_from_gallery">Aus der Galerie</string>
+    <string name="files_edit_from_documents">Aus Dokumenten</string>
+    <string name="files_edit_camera_denied_sentence">LocalKeep kann ohne Kamerazugriff kein Foto aufnehmen.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_edit_discard_dialog_title">Diese Datei verwerfen?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_edit_discard_dialog_body">Die von Ihnen importierte Datei und ihre Details wurden noch nicht im Tresor gespeichert.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="files_edit_discard_confirm">Verwerfen</string>
+    <string name="files_edit_discard_changes_dialog_title">Änderungen verwerfen?</string>
+    <string name="files_edit_discard_changes_dialog_body">Diese Datei enthält Änderungen, die nicht gespeichert wurden.</string>
+    <string name="files_edit_keep_editing">Weiter bearbeiten</string>
+    <string name="files_edit_save">Speichern</string>
+    <string name="files_edit_save_label_saving">Wird gespeichert, bitte warten</string>
+    <string name="files_edit_save_label_blocked">Speichern, zuerst eine Datei importieren oder aufnehmen</string>
+    <string name="files_edit_error_missing_file">Importieren Sie zuerst eine Datei oder nehmen Sie eine auf</string>
+    <string name="files_edit_error_item_gone">Diese Datei ist nicht mehr verfügbar. Ihre Änderungen sind noch da.</string>
+    <string name="files_edit_camera_dialog_title">Kamera verwenden?</string>
+    <string name="files_edit_camera_dialog_body">LocalKeep verwendet die Kamera nur, um dieses Foto direkt in Ihren Tresor aufzunehmen. Das Originalbild gelangt nie in Ihre Galerie, und kein Foto oder Video wird irgendwohin außerhalb dieses Geräts gesendet.</string>
+    <string name="files_edit_camera_dialog_confirm">Weiter</string>
+    <string name="files_edit_camera_dialog_dismiss">Jetzt nicht</string>
+
+    <!-- ==================== CaptureToVault.kt (play) ====================
+         Also used for FileItemEditScreen's "Capture" entry-point button — same word, same
+         action, one key. -->
+    <string name="files_capture_action">Aufnehmen</string>
+    <string name="files_capture_cancel">Abbrechen</string>
+    <string name="files_capture_failed">Das Bild wurde nicht gespeichert. Versuchen Sie es erneut.</string>
+    <string name="files_capture_camera_unavailable">Die Kamera ist nicht verfügbar.</string>
+
+    <!-- ==================== EncryptedPdfViewer.kt ==================== -->
+    <!-- Per-page accessibility label; not a count, so not a <plurals> — "of %2$d" only ever
+         reads correctly as a position within a fixed total. -->
+    <string name="files_pdf_page_label">Seite %1$d von %2$d</string>
+    <string name="files_pdf_page_render_failed">Seite %1$d konnte nicht angezeigt werden. Sie ist möglicherweise beschädigt.</string>
+
+    <!-- ==================== EncryptedVideoPlayer.kt ==================== -->
+    <string name="files_video_play_again">Erneut abspielen</string>
+    <string name="files_video_pause">Pause</string>
+    <string name="files_video_play">Abspielen</string>
+    <!-- Accessibility label for the scrub slider. -->
+    <string name="files_video_position_label">Position</string>
+    <string name="files_video_position_a11y">%1$d von %2$d Sekunden</string>
+    <!-- %1$d/%2$d are MediaPlayer's `what`/`extra` decoder error codes — internal diagnostic
+         numbers, kept in the sentence because they are the detail a bug report needs. -->
+    <string name="files_video_decoder_error">Wiedergabe fehlgeschlagen. Die Datei ist möglicherweise beschädigt oder in einem Format, das dieses Gerät nicht decodieren kann.</string>
+
+    <!-- ==================== SecureMediaViewer.kt ==================== -->
+    <string name="files_viewer_no_preview_title">Keine Vorschau für diese Datei</string>
+    <!-- Used when the filename has a recognisable extension. -->
+    <string name="files_viewer_no_preview_body_ext">Sie ist verschlüsselt und intakt gespeichert — diese App hat nur keinen Betrachter für .%1$s-Dateien. Speichern Sie sie auf Ihrem Gerät, um sie in einer App zu öffnen, die das kann.</string>
+    <!-- Used when the filename has no extension to name. -->
+    <string name="files_viewer_no_preview_body_generic">Sie ist verschlüsselt und intakt gespeichert — diese App hat nur keinen Betrachter für diese Art von Datei. Speichern Sie sie auf Ihrem Gerät, um sie in einer App zu öffnen, die das kann.</string>
+    <!-- "Gallery" is only true of photos and video; a PDF or document goes to Downloads. -->
+    <string name="files_viewer_restore_to_gallery">In Galerie wiederherstellen</string>
+    <string name="files_viewer_save_to_device">Auf Gerät speichern</string>
+    <string name="files_viewer_exported_to">Nach %1$s exportiert</string>
+    <string name="files_viewer_no_text_title">Kein Text anzuzeigen</string>
+    <string name="files_viewer_no_text_body">Dieses Dokument wurde korrekt entschlüsselt, aber es konnte kein lesbarer Text daraus extrahiert werden. Speichern Sie es auf Ihrem Gerät, um es in einer App zu öffnen, die das Format versteht.</string>
+    <!-- Office (Word/Excel/PowerPoint) extraction is text-only; layout, tables and images are lost. -->
+    <string name="files_viewer_office_note">Nur Text — Layout, Tabellen und Bilder werden nicht angezeigt. Speichern Sie die Datei auf Ihrem Gerät, um sie wie geschrieben zu sehen.</string>
+    <string name="files_viewer_empty_text">Diese Datei ist leer.</string>
+    <string name="files_viewer_empty_body">Sie enthält keine Daten, daher gibt es nichts anzuzeigen.</string>
+    <string name="files_viewer_counter">%1$d von %2$d</string>
+    <string name="files_viewer_thumb_a11y">%1$s, %2$d von %3$d</string>
+    <string name="files_viewer_counter_with_folder">%1$d von %2$d · %3$s</string>
+    <string name="files_viewer_folder_separator"> / </string>
+    <string name="files_viewer_settings">Dateieinstellungen</string>
+    <string name="files_viewer_auth_title">Ihre Identität konnte nicht bestätigt werden</string>
+    <string name="files_viewer_auth_cancelled">Die Authentifizierung wurde abgebrochen. Die Datei bleibt verborgen.</string>
+    <string name="files_viewer_auth_denied">Die Authentifizierung wurde nicht akzeptiert. Bestätigen Sie Ihre Identität, um die Datei anzuzeigen.</string>
+    <string name="files_viewer_auth_unavailable">Richten Sie eine Bildschirmsperre oder biometrische Authentifizierung ein, um diese Datei anzuzeigen.</string>
+    <string name="files_viewer_auth_failed">Die Authentifizierung ist fehlgeschlagen. Die Datei bleibt verborgen.</string>
+    <string name="files_viewer_retry">Erneut versuchen</string>
+    <string name="files_viewer_item_missing">Diese Datei ist nicht mehr verfügbar.</string>
+    <string name="files_viewer_out_of_scope">Diese Datei ist nicht mehr in der aktuellen Ansicht.</string>
+    <string name="files_viewer_zoom_toggle">Zoom umschalten</string>
+    <string name="files_viewer_details">Details</string>
+    <string name="files_viewer_export">Exportieren</string>
+    <string name="files_viewer_edit">Bearbeiten</string>
+    <string name="files_viewer_export_dialog_title">Diese Datei exportieren?</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_viewer_export_dialog_body">Die exportierte Kopie wird außerhalb des Tresors gespeichert und ist nicht verschlüsselt. Jede App, die Ihre Dateien lesen kann, kann sie öffnen.</string>
+    <string name="files_viewer_delete">Löschen</string>
+    <string name="files_viewer_trash_dialog_title">„%1$s“ in den Papierkorb verschieben?</string>
+    <string name="files_viewer_trash_dialog_body">Die Datei bleibt im Papierkorb, bis Sie ihn leeren. Dies kann daher rückgängig gemacht werden.</string>
+    <string name="files_viewer_trash_dialog_action">In den Papierkorb verschieben</string>
+    <string name="files_viewer_decrypting">Wird entschlüsselt</string>
+    <string name="files_viewer_hint">Wischen zum Durchsuchen · Tippen zum Ausblenden · Nach oben wischen für Details</string>
+    <string name="files_viewer_meta_dimensions">Abmessungen</string>
+    <string name="files_viewer_details_subtitle">%1$s · %2$s</string>
+    <string name="files_viewer_meta_size">Größe auf dem Datenträger</string>
+    <string name="files_viewer_meta_cipher">Verschlüsselung</string>
+    <string name="files_viewer_meta_folder">Ordner</string>
+    <string name="files_viewer_meta_notes">Notizen</string>
+    <string name="files_viewer_meta_added">Zum Tresor hinzugefügt</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="files_viewer_sheet_security_note">Nur im Speicher entschlüsselt. Beim Exportieren wird die Datei genau so geschrieben, wie der Tresor sie speichert – einschließlich aller noch enthaltenen Standort- und Kameradaten.</string>
+    <!-- Confirmation posted after a file item is saved. See itemedit_notice_item_saved. -->
+    <string name="files_notice_item_saved">Eintrag gespeichert</string>
+    <string name="files_notice_folder_absent">Diesen Ordner gibt es nicht mehr. Der Eintrag wurde ohne Ordner gespeichert.</string>
+    <string name="files_notice_moved_to_trash">In den Papierkorb verschoben</string>
+    <string name="files_notice_undo">Rückgängig</string>
+    <string name="files_notice_restored">Wiederhergestellt</string>
+    <string name="files_notice_restore_failed">Konnte nicht zurückgelegt werden. Es liegt weiterhin im Papierkorb.</string>
+    <plurals name="files_size_bytes">
+        <item quantity="one">%1$d Byte</item>
+        <item quantity="other">%1$d Byte</item>
+    </plurals>
+    <string name="files_edit_viewer_reveal_title">Bestätigen Sie, dass Sie es sind</string>
+    <string name="files_edit_viewer_reveal_subtitle">Zum Anzeigen dieser Datei verifizieren</string>
+    <string name="files_edit_naming_title">Benennen</string>
+    <string name="files_edit_naming_subtitle">Suche und Tresorliste haben nur diesen Namen.</string>
+    <string name="files_edit_naming_confirm">Eintrag speichern</string>
+    <string name="files_error_folder_name_exists">Ein Ordner mit diesem Namen existiert bereits</string>
+    <string name="files_error_folder_action_failed">Das hat nicht geklappt. Ihre Änderungen sind noch da — versuchen Sie es erneut.</string>
+    <string name="files_folder_picker_subfolder">%1$s, in %2$s</string>
+    <string name="files_viewer_trash">Papierkorb</string>
+    <string name="files_error_delete_failed">Das hat nicht geklappt. Die Datei ist noch da — versuchen Sie es erneut.</string>
+    <string name="files_kind_image">Bild</string>
+    <string name="files_kind_playable">Medien</string>
+    <string name="files_kind_pdf">PDF</string>
+    <string name="files_kind_text">Text</string>
+    <string name="files_kind_office">Dokument</string>
+    <string name="files_kind_other">Datei</string>
+    <string name="files_viewer_toggle_chrome_a11y">Bedienelemente des Betrachters ein- oder ausblenden</string>
+    <string name="files_viewer_dismiss_details_a11y">Detailansicht schließen</string>
+    <string name="files_edit_source_sheet_title_replace">Diese Datei ersetzen</string>
+    <string name="files_edit_source_sheet_replace_body">Die gewählte Datei tritt beim Speichern an die Stelle dieser Datei.</string>
+    <string name="files_edit_replace_file">Datei ersetzen…</string>
+    <string name="files_edit_metadata_found_note">Dieses Bild enthält Metadaten, zu denen Ort und Zeitpunkt der Aufnahme gehören können.</string>
+    <string name="files_original_prompt_title_gallery">Original aus Ihrer Galerie löschen?</string>
+    <string name="files_original_prompt_title_document">Originaldatei löschen?</string>
+    <string name="files_original_prompt_body_photo">„%1$s“ ist in LocalKeep gespeichert und verschlüsselt.\n\nDas Originalfoto befindet sich weiterhin in Ihrer Galerie, wo LocalKeep es nicht schützt.</string>
+    <string name="files_original_prompt_body_video">„%1$s“ ist in LocalKeep gespeichert und verschlüsselt.\n\nDas Originalvideo befindet sich weiterhin in Ihrer Galerie, wo LocalKeep es nicht schützt.</string>
+    <string name="files_original_prompt_body_document">„%1$s“ ist in LocalKeep gespeichert und verschlüsselt.\n\nDie Originaldatei befindet sich weiterhin auf diesem Gerät, wo LocalKeep sie nicht schützt.\n\nDas Löschen ist endgültig: Die Datei wird in keinen Papierkorb verschoben.</string>
+    <string name="files_original_prompt_confirm_gallery">Aus der Galerie löschen…</string>
+    <string name="files_original_prompt_confirm_document">Endgültig löschen</string>
+    <string name="files_original_prompt_keep">Behalten</string>
+    <string name="files_original_prompt_dont_ask">Nicht mehr fragen</string>
+    <string name="files_original_prompt_dont_ask_hint">Sie können dies in den Einstellungen wieder aktivieren.</string>
+    <string name="files_notice_original_deleted_gallery">Aus Ihrer Galerie gelöscht</string>
+    <string name="files_notice_original_kept_gallery">Das Original befindet sich weiterhin in Ihrer Galerie</string>
+    <string name="files_notice_original_deleted_document">Originaldatei gelöscht</string>
+    <string name="files_notice_original_delete_failed">Das Original konnte nicht gelöscht werden. Es befindet sich weiterhin auf diesem Gerät.</string>
+</resources>

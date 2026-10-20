@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The adaptive foreground for the "Search" long-press shortcut.
+
+  The strokes are `LkIcons.Search` verbatim — the magnifier path plus the circle `circle()` builds
+  from (10.8, 10.8) r 6.3 — rather than a second magnifier drawn for the launcher. LkIcons.kt owns
+  glyph meaning, and a shortcut that wore a different search glyph would be the launcher disagreeing
+  with the screen it opens.
+
+  The group is the whole adaptation: LkIcons draws in a 24 viewport, an adaptive icon is 108 with a
+  72 safe zone, so the 24 units are scaled 2.25x (54) and centred at 27. Scaling by group rather
+  than by rewriting the coordinates also scales the 1.6 stroke with them, which is what keeps the
+  weight matching the in-app icon.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="2.25"
+        android:scaleY="2.25"
+        android:translateX="27"
+        android:translateY="27">
+        <path
+            android:pathData="M15.6 15.6 19.5 19.5"
+            android:strokeColor="#FF96FBE1"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M4.5 10.8a6.3 6.3 0 1 0 12.6 0a6.3 6.3 0 1 0 -12.6 0"
+            android:strokeColor="#FF96FBE1"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="generator_title">Generator</string>
+    <!-- Reassurance line under the title. "secure random generator" is deliberate plain
+         language for CSPRNG — keep it non-technical in every locale. -->
+    <string name="generator_subtitle">Made on this device, with the system\'s secure random generator</string>
+    <string name="generator_save_as_login">Save as a new login</string>
+
+    <!-- Slider card heading in random mode / passphrase mode. -->
+    <string name="generator_length">Length</string>
+    <string name="generator_words">Words</string>
+    <!-- Accessibility label of the slider in passphrase mode. -->
+    <string name="generator_word_count">Word count</string>
+
+    <!-- Character-class toggles. The hints beside them (A–Z, 0–9, l1 O0, !@#$) describe
+         literal characters and are translatable="false". -->
+    <string name="generator_uppercase">Uppercase</string>
+    <string name="generator_lowercase">Lowercase</string>
+    <string name="generator_digits">Digits</string>
+    <string name="generator_symbols">Symbols</string>
+    <string name="generator_avoid_ambiguous">Avoid ambiguous</string>
+    <string name="generator_hint_uppercase" translatable="false">A–Z</string>
+    <string name="generator_hint_lowercase" translatable="false">a–z</string>
+    <string name="generator_hint_digits" translatable="false">0–9</string>
+    <string name="generator_hint_symbols" translatable="false">!@#$</string>
+    <string name="generator_hint_ambiguous" translatable="false">I l 1 O 0</string>
+    <!-- PasswordGenerator.generatePassphrase appends random.nextInt(1_000).toString().padStart(3, '0'), a zero-padded three-digit string, not a single 0-9 digit. Verified against the generator source (F42, 2026-09-13). -->
+    <string name="generator_hint_number" translatable="false">000–999</string>
+    <string name="generator_capitalize_words">Capitalize words</string>
+    <string name="generator_include_number">Include a number</string>
+    <string name="generator_hint_capitalize" translatable="false">Aa</string>
+
+    <string name="generator_separator">Separator</string>
+    <string name="generator_separator_placeholder" translatable="false">-</string>
+
+    <!-- The two positions of the mode toggle. -->
+    <string name="generator_mode_random">Random</string>
+    <string name="generator_mode_passphrase">Passphrase</string>
+    <!-- Accessibility: appended to the selected mode's name. -->
+    <string name="generator_mode_selected">%1$s, selected</string>
+
+    <string name="generator_regenerate">Regenerate</string>
+    <string name="generator_copy">Copy generated password</string>
+    <!-- The clipboard entry's label, shown by the system clipboard UI. -->
+    <string name="generator_clipboard_label">Generated password</string>
+
+    <!-- Accessibility announcement after a regenerate. Deliberately does NOT read the
+         value aloud — see OutputCard's comment. -->
+    <plurals name="generator_announce_generated">
+        <item quantity="one">New password generated, %1$d character</item>
+        <item quantity="other">New password generated, %1$d characters</item>
+    </plurals>
+
+    <!-- Entropy readout: number and word are separate nodes on screen. -->
+    <plurals name="generator_entropy_bits">
+        <item quantity="one">%1$d bit</item>
+        <item quantity="other">%1$d bits</item>
+    </plurals>
+
+    <!-- Deliberately carries no tier. It sits next to strings that do, and it counts nothing
+         the user acts on - it is a validation notice, not a claim. Worded without the marker
+         phrase on purpose: written as "tier F adjacent" it matched the extractor's colon
+         form and tagged this string tier F, which is the opposite of what the sentence says. -->
+    <string name="generator_error_no_options">Choose at least one valid option</string>
+    <!-- PASSPHRASE mode's one reachable generation failure: the bundled EFF word list is loaded off
+         the main thread at app startup (LocalKeepApplication.onCreate) and this screen can in
+         principle be reached before that finishes. Says what actually happened and what to do,
+         rather than generator_error_no_options's "choose an option", which names nothing on this
+         screen. Not a security claim — an operational status. -->
+    <string name="generator_error_wordlist_unavailable">Word list still loading — try again in a moment</string>
+</resources>

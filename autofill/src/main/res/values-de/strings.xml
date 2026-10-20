@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared by every gate that opens the vault from inside another app's window: the
+         AuthActivity default title, the "Unlock LocalKeep" suggestion row before a fill, and
+         the same prompt reached from SaveConfirmActivity when a save needs an unlock first. -->
+    <string name="autofill_unlock_title">LocalKeep entsperren</string>
+    <string name="autofill_unlock_subtitle">Ihr Tresor ist gesperrt</string>
+    <!-- SECURITY-COPY: tier C — the reprompt-gate title; explains why this app is asking for
+         the master password again for one specific item. -->
+    <string name="autofill_auth_reprompt_title">Bestätigen Sie, dass Sie es sind</string>
+
+    <!-- Every case below is AuthPromptMessage.authPromptMessage naming the real cause instead
+         of "Wrong password" — the identical mapping the unlock screen uses, worded for a prompt
+         that appears inside another app's window with no vault UI on screen to contradict it.
+         See the Kotlin comments in AuthPromptMessage.kt for why each is worded as it is. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_vault_unreadable">Die Tresor-Datei konnte nicht gelesen werden. Ihr Passwort ist wahrscheinlich in Ordnung — öffnen Sie LocalKeep und versuchen Sie, eine Sicherung wiederherzustellen.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_vault_newer_version">Dieser Tresor braucht eine neuere Version von LocalKeep. Öffnen Sie die App, um zu aktualisieren.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_interrupted">Der Vorgang hat zu lange gedauert, sodass sich der Tresor erneut gesperrt hat. Versuchen Sie es erneut.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_biometric_unavailable">Das biometrische Entsperren ist nicht mehr verfügbar. Ihr Master-Passwort funktioniert weiterhin.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_needs_more_memory">Dieser Tresor braucht mehr Arbeitsspeicher, als dieses Gerät einer App erlaubt. Ihr Passwort ist in Ordnung — öffnen Sie ihn auf einem Gerät mit mehr Arbeitsspeicher.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_memory_transient">LocalKeep hat gerade zu wenig Arbeitsspeicher. Ihr Passwort ist in Ordnung — schließen Sie die App vollständig und versuchen Sie es erneut.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_wrong_password">Falsches Passwort</string>
+    <!-- SECURITY-COPY: tier C — lockout countdown after too many wrong attempts at this gate,
+         same reasoning as unlock_retry_after_seconds. -->
+    <plurals name="autofill_auth_throttled">
+        <item quantity="one">Zu viele Versuche. Versuchen Sie es in %1$d Sekunde erneut.</item>
+        <item quantity="other">Zu viele Versuche. Versuchen Sie es in %1$d Sekunden erneut.</item>
+    </plurals>
+
+    <!-- SECURITY-COPY: tier C — the one-time app/domain trust prompt; this pairing is pinned
+         permanently once allowed, so the prompt has to say what it is actually deciding. -->
+    <string name="autofill_confirm_domain_message">%1$s erlauben, gespeicherte Zugangsdaten für %2$s auszufüllen?</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_confirm_domain_explanation">Nur erlauben, wenn Sie sowohl die App als auch die Website erkennen. LocalKeep merkt sich diese Zuordnung und fragt nicht erneut.</string>
+    <string name="autofill_confirm_domain_allow">Zulassen</string>
+    <string name="autofill_confirm_domain_deny">Verweigern</string>
+
+    <!-- SECURITY-COPY: tier C — subtitle of the suggestion row for a reprompt-gated item;
+         explains why picking this row will ask for the master password again. -->
+    <string name="autofill_dataset_confirm_to_fill">Bestätigen zum Ausfüllen</string>
+    <!-- Suggestion-row title for the one-time-code dataset: the item's title with a "2FA"
+         marker appended, so it reads apart from the credentials row for the same login.
+         "2FA" is kept in every locale, per the glossary. -->
+    <string name="autofill_dataset_totp_row_title">%1$s · 2FA</string>
+    <!-- SECURITY-COPY: tier F — the TOTP code expires on this countdown; the user has to act
+         before it reaches zero. -->
+    <plurals name="autofill_dataset_totp_remaining">
+        <item quantity="one">%1$d Sekunde</item>
+        <item quantity="other">%1$d Sekunden</item>
+    </plurals>
+
+    <!-- SECURITY-COPY: tier C — same domain-pinning gate as autofill_confirm_domain_message,
+         this is the suggestion row that launches it. -->
+    <string name="autofill_confirm_app_site_title">App und Website bestätigen</string>
+
+    <!-- Fixed strings, deliberately. These cross into the platform's own autofill UI and are
+         read by whatever app requested the fill, so they must never carry a cause, a path, or
+         a vault detail — see LocalAutofillService.onFillRequest / onSaveRequest. -->
+    <string name="autofill_service_fill_failed">LocalKeep konnte Vorschläge nicht laden.</string>
+    <string name="autofill_service_save_failed">LocalKeep konnte diese Zugangsdaten nicht speichern.</string>
+
+    <string name="autofill_password_prompt_continue">Weiter</string>
+    <string name="autofill_password_prompt_unlocking">Wird entsperrt…</string>
+    <string name="autofill_password_prompt_hint">Master-Passwort</string>
+
+    <!-- Fallback for the site/app name when neither a web domain nor a package label is
+         available, used inside autofill_save_confirm_password_title_*. -->
+    <string name="autofill_save_confirm_target_fallback">diese App</string>
+    <string name="autofill_save_confirm_card_title">Karte mit Endung %1$s in LocalKeep speichern?</string>
+    <string name="autofill_save_confirm_password_title_locked">Passwort für %1$s auf %2$s speichern?</string>
+    <string name="autofill_save_confirm_password_title_update">Gespeichertes Passwort für %1$s auf %2$s aktualisieren?</string>
+    <string name="autofill_save_confirm_password_title_new">Neue Zugangsdaten für %1$s auf %2$s speichern?</string>
+    <string name="autofill_save_confirm_password_title_queued">Auf %2$s erfasste Zugangsdaten für %1$s speichern?</string>
+    <string name="autofill_save_confirm_password_title_no_username">Passwort für %1$s speichern?</string>
+    <string name="autofill_save_confirm_password_title_update_no_username">Gespeichertes Passwort für %1$s aktualisieren?</string>
+    <!-- SECURITY-COPY: tier C — shown only while the vault is locked; explains why an unlock
+         prompt is about to follow this confirmation. -->
+    <string name="autofill_save_confirm_locked_notice">LocalKeep ist gesperrt — Sie geben als Nächstes Ihr Master-Passwort ein.</string>
+    <string name="autofill_save_confirm_update">Aktualisieren</string>
+    <string name="autofill_save_confirm_save">Speichern</string>
+    <string name="autofill_save_confirm_discard">Verwerfen</string>
+    <string name="autofill_save_confirm_summary_target">App oder Website</string>
+    <string name="autofill_save_confirm_summary_username">Benutzername</string>
+    <string name="autofill_save_confirm_summary_card">Karte</string>
+    <string name="autofill_save_confirm_summary_password">Passwort</string>
+    <string name="autofill_save_confirm_summary_queued">Erfasst, während LocalKeep gesperrt war</string>
+    <!-- SECURITY-COPY: tier C — the unlock detour launched from this screen; explains why
+         storing the captured login needs the master password first. -->
+    <string name="autofill_save_confirm_unlock_subtitle">Ihr Tresor ist gesperrt. Entsperren Sie ihn, um diese Zugangsdaten zu speichern.</string>
+    <string name="autofill_save_confirm_toast_saved">Gespeichert</string>
+    <string name="autofill_save_confirm_toast_failed">Konnte nicht speichern</string>
+    <!-- Fallback vault-item title for a captured card when neither a web domain nor a package
+         label is available, e.g. "Card ****1234". -->
+    <string name="autofill_save_confirm_card_title_fallback">Karte</string>
+    <string name="autofill_save_confirm_toast_expired">Dieser Speichervorgang ist abgelaufen — öffnen Sie LocalKeep, um ihn hinzuzufügen</string>
+    <string name="autofill_save_confirm_toast_card_no_room">Karte nicht gespeichert — in einem kostenlosen Tresor ist kein Platz für eine weitere Karte. Öffnen Sie LocalKeep, um Platz zu schaffen.</string>
+
+    <string name="autofill_suggest_generate_title">Vorgeschlagenes Passwort verwenden</string>
+    <string name="autofill_suggest_generate_subtitle">Starkes Passwort von LocalKeep</string>
+    <string name="autofill_suggest_search_title">In LocalKeep suchen</string>
+    <string name="autofill_suggest_search_subtitle">Gespeicherte Zugangsdaten wählen</string>
+    <string name="autofill_generate_heading">Vorgeschlagenes Passwort</string>
+    <string name="autofill_generate_explanation">LocalKeep bietet an, es zu speichern, sobald Sie die Registrierung abgeschlossen haben.</string>
+    <string name="autofill_generate_use">Passwort verwenden</string>
+    <string name="autofill_generate_regenerate">Neu generieren</string>
+    <string name="autofill_generate_cancel">Abbrechen</string>
+    <string name="autofill_generate_failed">Passwort konnte nicht erstellt werden</string>
+    <string name="autofill_picker_search_hint">Zugangsdaten suchen</string>
+    <string name="autofill_picker_empty">Noch keine Zugangsdaten gespeichert</string>
+    <string name="autofill_picker_no_results">Keine passenden Zugangsdaten</string>
+    <string name="autofill_picker_unlock_subtitle">Ihr Tresor ist gesperrt. Entsperren Sie ihn, um gespeicherte Zugangsdaten zu wählen.</string>
+    <string name="autofill_picker_untrusted">Die Signatur dieser App hat sich geändert, seit LocalKeep sie zum ersten Mal gesehen hat. Es wurde nichts ausgefüllt.</string>
+
+    <string name="autofill_picker_target">Zugangsdaten für %1$s ausfüllen</string>
+</resources>

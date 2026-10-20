@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared by every gate that opens the vault from inside another app's window: the
+         AuthActivity default title, the "Unlock LocalKeep" suggestion row before a fill, and
+         the same prompt reached from SaveConfirmActivity when a save needs an unlock first. -->
+    <string name="autofill_unlock_title">Déverrouiller LocalKeep</string>
+    <string name="autofill_unlock_subtitle">Votre coffre est verrouillé</string>
+    <!-- SECURITY-COPY: tier C — the reprompt-gate title; explains why this app is asking for
+         the master password again for one specific item. -->
+    <string name="autofill_auth_reprompt_title">Confirmer que c\'est vous</string>
+
+    <!-- Every case below is AuthPromptMessage.authPromptMessage naming the real cause instead
+         of "Wrong password" — the identical mapping the unlock screen uses, worded for a prompt
+         that appears inside another app's window with no vault UI on screen to contradict it.
+         See the Kotlin comments in AuthPromptMessage.kt for why each is worded as it is. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_vault_unreadable">Le fichier du coffre n\'a pas pu être lu. Votre mot de passe est probablement correct — ouvrez LocalKeep et essayez de restaurer une sauvegarde.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_vault_newer_version">Ce coffre nécessite une version plus récente de LocalKeep. Ouvrez l\'application pour la mettre à jour.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_interrupted">L\'opération a trop duré et le coffre s\'est verrouillé à nouveau. Réessayez.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_biometric_unavailable">Le déverrouillage biométrique n\'est plus disponible. Votre mot de passe principal fonctionne toujours.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_needs_more_memory">Ce coffre nécessite plus de mémoire que cet appareil n\'en autorise pour une application. Votre mot de passe n\'est pas en cause — ouvrez-le sur un appareil avec plus de mémoire.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_memory_transient">LocalKeep manque de mémoire pour le moment. Votre mot de passe n\'est pas en cause — fermez complètement l\'application et réessayez.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_wrong_password">Mot de passe incorrect</string>
+    <!-- SECURITY-COPY: tier C — lockout countdown after too many wrong attempts at this gate,
+         same reasoning as unlock_retry_after_seconds. -->
+    <plurals name="autofill_auth_throttled">
+        <item quantity="one">Trop de tentatives. Réessayez dans %1$d seconde.</item>
+        <item quantity="many">Trop de tentatives. Réessayez dans %1$d secondes.</item>
+        <item quantity="other">Trop de tentatives. Réessayez dans %1$d secondes.</item>
+    </plurals>
+
+    <!-- SECURITY-COPY: tier C — the one-time app/domain trust prompt; this pairing is pinned
+         permanently once allowed, so the prompt has to say what it is actually deciding. -->
+    <string name="autofill_confirm_domain_message">Autoriser %1$s à remplir les identifiants enregistrés pour %2$s\u00a0?</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_confirm_domain_explanation">N\'autorisez ceci que si vous reconnaissez à la fois l\'application et le site. LocalKeep mémorise cet appariement et ne redemandera plus.</string>
+    <string name="autofill_confirm_domain_allow">Autoriser</string>
+    <string name="autofill_confirm_domain_deny">Refuser</string>
+
+    <!-- SECURITY-COPY: tier C — subtitle of the suggestion row for a reprompt-gated item;
+         explains why picking this row will ask for the master password again. -->
+    <string name="autofill_dataset_confirm_to_fill">Confirmer pour remplir</string>
+    <!-- Suggestion-row title for the one-time-code dataset: the item\'s title with a "2FA"
+         marker appended, so it reads apart from the credentials row for the same login.
+         "2FA" is kept in every locale, per the glossary. -->
+    <string name="autofill_dataset_totp_row_title">%1$s · 2FA</string>
+    <!-- SECURITY-COPY: tier F — the TOTP code expires on this countdown; the user has to act
+         before it reaches zero. -->
+    <plurals name="autofill_dataset_totp_remaining">
+        <item quantity="one">%1$d seconde</item>
+        <item quantity="many">%1$d secondes</item>
+        <item quantity="other">%1$d secondes</item>
+    </plurals>
+
+    <!-- SECURITY-COPY: tier C — same domain-pinning gate as autofill_confirm_domain_message,
+         this is the suggestion row that launches it. -->
+    <string name="autofill_confirm_app_site_title">Confirmer l\'application et le site</string>
+
+    <!-- Fixed strings, deliberately. These cross into the platform\'s own autofill UI and are
+         read by whatever app requested the fill, so they must never carry a cause, a path, or
+         a vault detail — see LocalAutofillService.onFillRequest / onSaveRequest. -->
+    <string name="autofill_service_fill_failed">LocalKeep n\'a pas pu charger les suggestions.</string>
+    <string name="autofill_service_save_failed">LocalKeep n\'a pas pu enregistrer cet identifiant.</string>
+
+    <string name="autofill_password_prompt_continue">Continuer</string>
+    <string name="autofill_password_prompt_unlocking">Déverrouillage…</string>
+    <string name="autofill_password_prompt_hint">Mot de passe principal</string>
+
+    <!-- Fallback for the site/app name when neither a web domain nor a package label is
+         available, used inside autofill_save_confirm_password_title_*. -->
+    <string name="autofill_save_confirm_target_fallback">cette application</string>
+    <string name="autofill_save_confirm_card_title">Enregistrer la carte finissant par %1$s dans LocalKeep\u00a0?</string>
+    <string name="autofill_save_confirm_password_title_locked">Enregistrer le mot de passe pour %1$s sur %2$s\u00a0?</string>
+    <string name="autofill_save_confirm_password_title_update">Mettre à jour le mot de passe enregistré pour %1$s sur %2$s\u00a0?</string>
+    <string name="autofill_save_confirm_password_title_new">Enregistrer un nouvel identifiant pour %1$s sur %2$s\u00a0?</string>
+    <string name="autofill_save_confirm_password_title_queued">Enregistrer l\'identifiant pour %1$s capturé sur %2$s\u00a0?</string>
+    <string name="autofill_save_confirm_password_title_no_username">Enregistrer le mot de passe pour %1$s\u00a0?</string>
+    <string name="autofill_save_confirm_password_title_update_no_username">Mettre à jour le mot de passe enregistré pour %1$s\u00a0?</string>
+    <!-- SECURITY-COPY: tier C — shown only while the vault is locked; explains why an unlock
+         prompt is about to follow this confirmation. -->
+    <string name="autofill_save_confirm_locked_notice">LocalKeep est verrouillé — vous saisirez votre mot de passe principal ensuite.</string>
+    <string name="autofill_save_confirm_update">Mettre à jour</string>
+    <string name="autofill_save_confirm_save">Enregistrer</string>
+    <string name="autofill_save_confirm_discard">Abandonner</string>
+    <string name="autofill_save_confirm_summary_target">Application ou site</string>
+    <string name="autofill_save_confirm_summary_username">Nom d\'utilisateur</string>
+    <string name="autofill_save_confirm_summary_card">Carte</string>
+    <string name="autofill_save_confirm_summary_password">Mot de passe</string>
+    <string name="autofill_save_confirm_summary_queued">Capturé pendant que LocalKeep était verrouillé</string>
+    <!-- SECURITY-COPY: tier C — the unlock detour launched from this screen; explains why
+         storing the captured login needs the master password first. -->
+    <string name="autofill_save_confirm_unlock_subtitle">Votre coffre est verrouillé. Déverrouillez-le pour enregistrer cet identifiant.</string>
+    <string name="autofill_save_confirm_toast_saved">Enregistré</string>
+    <string name="autofill_save_confirm_toast_failed">Impossible d\'enregistrer</string>
+    <!-- Fallback vault-item title for a captured card when neither a web domain nor a package
+         label is available, e.g. "Card ****1234". -->
+    <string name="autofill_save_confirm_card_title_fallback">Carte</string>
+    <string name="autofill_save_confirm_toast_expired">Cet enregistrement a expiré — ouvrez LocalKeep pour l\'ajouter</string>
+    <string name="autofill_save_confirm_toast_card_no_room">Carte non enregistrée — un coffre gratuit n\'a pas de place pour une carte de plus. Ouvrez LocalKeep pour faire de la place.</string>
+
+    <string name="autofill_suggest_generate_title">Utiliser le mot de passe proposé</string>
+    <string name="autofill_suggest_generate_subtitle">Mot de passe fort de LocalKeep</string>
+    <string name="autofill_suggest_search_title">Rechercher dans LocalKeep</string>
+    <string name="autofill_suggest_search_subtitle">Choisir un identifiant enregistré</string>
+    <string name="autofill_generate_heading">Mot de passe proposé</string>
+    <string name="autofill_generate_explanation">LocalKeep proposera de l\'enregistrer une fois votre inscription terminée.</string>
+    <string name="autofill_generate_use">Utiliser ce mot de passe</string>
+    <string name="autofill_generate_regenerate">Régénérer</string>
+    <string name="autofill_generate_cancel">Annuler</string>
+    <string name="autofill_generate_failed">Impossible de créer un mot de passe</string>
+    <string name="autofill_picker_search_hint">Rechercher des identifiants</string>
+    <string name="autofill_picker_empty">Aucun identifiant enregistré pour l\'instant</string>
+    <string name="autofill_picker_no_results">Aucun identifiant ne correspond</string>
+    <string name="autofill_picker_unlock_subtitle">Votre coffre est verrouillé. Déverrouillez-le pour choisir un identifiant enregistré.</string>
+    <string name="autofill_picker_untrusted">La signature de cette application a changé depuis que LocalKeep l\'a vue pour la première fois. Rien n\'a été rempli.</string>
+
+    <string name="autofill_picker_target">Remplir un identifiant pour %1$s</string>
+</resources>

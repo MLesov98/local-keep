@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name="com.localkeep.app.LocalKeepApplication"
+        android:allowBackup="true"
+        android:backupAgent="com.localkeep.app.LocalKeepBackupAgent"
+        android:fullBackupOnly="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/full_backup_content"
+        android:largeHeap="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:enableOnBackInvokedCallback="true"
+        android:localeConfig="@xml/locales_config"
+        android:theme="@style/Theme.LocalKeep">
+
+        <activity
+            android:name="com.localkeep.app.MainActivity"
+            android:excludeFromRecents="false"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.LocalKeep"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- The long-press launcher shortcuts. Declared on this activity because that is what
+                 makes them this app's shortcuts; the intents inside name their component
+                 explicitly, so no second exported intent-filter is added here. See
+                 res/xml/shortcuts.xml. -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <!-- What the two shortcuts actually start. The launcher clears the task of whatever a
+             static shortcut names, and naming MainActivity destroyed an open editor's unsaved
+             work. This one has its own task, draws nothing, and passes the shortcut on to
+             MainActivity. Not exported: no intent-filter, and only this app's shortcuts name it. -->
+        <activity
+            android:name="com.localkeep.app.ShortcutTrampolineActivity"
+            android:excludeFromRecents="false"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity="${applicationId}.shortcut"
+            android:theme="@android:style/Theme.NoDisplay" />
+    </application>
+</manifest>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared by every gate that opens the vault from inside another app's window: the
+         AuthActivity default title, the "Unlock LocalKeep" suggestion row before a fill, and
+         the same prompt reached from SaveConfirmActivity when a save needs an unlock first. -->
+    <string name="autofill_unlock_title">Unlock LocalKeep</string>
+    <string name="autofill_unlock_subtitle">Your vault is locked</string>
+    <!-- The reprompt-gate title; explains why this app is asking for the master password again
+         for one specific item. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_reprompt_title">Confirm it\'s you</string>
+
+    <!-- Every case below is AuthPromptMessage.authPromptMessage naming the real cause instead
+         of "Wrong password" — the identical mapping the unlock screen uses, worded for a prompt
+         that appears inside another app's window with no vault UI on screen to contradict it.
+         See the Kotlin comments in AuthPromptMessage.kt for why each is worded as it is. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_vault_unreadable">The vault file couldn\'t be read. Your password is probably fine — open LocalKeep and try restoring a backup.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_vault_newer_version">This vault needs a newer version of LocalKeep. Open the app to update.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_interrupted">That took long enough for the vault to re-lock. Try again.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_biometric_unavailable">Biometric unlock is no longer available. Your master password still works.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_needs_more_memory">This vault needs more memory than this device allows an app. Your password is fine — open it on a device with more memory.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_memory_transient">LocalKeep is short of memory right now. Your password is fine — close the app completely and try again.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_auth_error_wrong_password">Wrong password</string>
+    <!-- Lockout countdown after too many wrong attempts at this gate, same reasoning as
+         unlock_retry_after_seconds. -->
+    <!-- SECURITY-COPY: tier C -->
+    <plurals name="autofill_auth_throttled">
+        <item quantity="one">Too many attempts. Try again in %1$d second.</item>
+        <item quantity="other">Too many attempts. Try again in %1$d seconds.</item>
+    </plurals>
+
+    <!-- The one-time app/domain trust prompt; this pairing is pinned permanently once allowed,
+         so the prompt has to say what it is actually deciding. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_confirm_domain_message">Allow %1$s to fill saved logins for %2$s?</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_confirm_domain_explanation">Only allow this if you recognize both the app and site. LocalKeep remembers this pairing and won\'t ask again.</string>
+    <string name="autofill_confirm_domain_allow">Allow</string>
+    <string name="autofill_confirm_domain_deny">Deny</string>
+
+    <!-- Subtitle of the suggestion row for a reprompt-gated item; explains why picking this
+         row will ask for the master password again. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_dataset_confirm_to_fill">Confirm to fill</string>
+    <!-- Decorative masked-password placeholder shown in the password suggestion row. Not
+         language content. -->
+    <string name="autofill_dataset_password_mask" translatable="false">••••••••</string>
+    <!-- Suggestion-row title for the one-time-code dataset: the item's title with a "2FA"
+         marker appended, so it reads apart from the credentials row for the same login.
+         "2FA" is kept in every locale, per the glossary. -->
+    <string name="autofill_dataset_totp_row_title">%1$s · 2FA</string>
+    <!-- The TOTP code expires on this countdown; the user has to act before it reaches zero. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="autofill_dataset_totp_remaining">
+        <item quantity="one">%1$d second</item>
+        <item quantity="other">%1$d seconds</item>
+    </plurals>
+
+    <!-- Same domain-pinning gate as autofill_confirm_domain_message, this is the suggestion
+         row that launches it. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_confirm_app_site_title">Confirm app and site</string>
+
+    <!-- Fixed strings, deliberately. These cross into the platform's own autofill UI and are
+         read by whatever app requested the fill, so they must never carry a cause, a path, or
+         a vault detail — see LocalAutofillService.onFillRequest / onSaveRequest. -->
+    <string name="autofill_service_fill_failed">LocalKeep could not load suggestions.</string>
+    <string name="autofill_service_save_failed">LocalKeep could not save this login.</string>
+
+    <string name="autofill_password_prompt_continue">Continue</string>
+    <!-- Submit button label while VaultLockManager.unlock runs its multi-second Argon2id
+         derivation — see PromptSubmitState. -->
+    <string name="autofill_password_prompt_unlocking">Unlocking…</string>
+    <string name="autofill_password_prompt_hint">Master password</string>
+
+    <!-- Fallback for the site/app name when neither a web domain nor a package label is
+         available, used inside autofill_save_confirm_password_title_*. -->
+    <string name="autofill_save_confirm_target_fallback">this app</string>
+    <string name="autofill_save_confirm_card_title">Save the card ending %1$s to LocalKeep?</string>
+    <string name="autofill_save_confirm_password_title_locked">Save the password for %1$s on %2$s?</string>
+    <string name="autofill_save_confirm_password_title_update">Update the saved password for %1$s on %2$s?</string>
+    <string name="autofill_save_confirm_password_title_new">Save a new login for %1$s on %2$s?</string>
+    <!-- The delayed offer: this login was captured while the vault was locked and the platform
+         refused to show the confirmation at the time, so it is being offered at the next unlock
+         instead. Says where and when it came from because the user has long since left that
+         site. -->
+    <string name="autofill_save_confirm_password_title_queued">Save the login for %1$s you captured on %2$s?</string>
+    <!-- The titles above for a form that carried no username — a password reset or change page,
+         or a sign-up whose identifier box was not recognised. %1$s is the site or app, as in the
+         titles above. -->
+    <string name="autofill_save_confirm_password_title_no_username">Save the password for %1$s?</string>
+    <string name="autofill_save_confirm_password_title_update_no_username">Update the saved password for %1$s?</string>
+    <!-- Shown only while the vault is locked; explains why an unlock prompt is about to follow
+         this confirmation. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_save_confirm_locked_notice">LocalKeep is locked — you\'ll enter your master password next.</string>
+    <string name="autofill_save_confirm_update">Update</string>
+    <string name="autofill_save_confirm_save">Save</string>
+    <string name="autofill_save_confirm_discard">Discard</string>
+    <!-- The summary card between the title and the two actions: what is about to be written to
+         the vault, on the last screen where it can still be refused. The password row is a fixed
+         run of bullets with no reveal and no copy, so these labels name fields rather than
+         carrying any value of their own. -->
+    <string name="autofill_save_confirm_summary_target">App or site</string>
+    <string name="autofill_save_confirm_summary_username">Username</string>
+    <string name="autofill_save_confirm_summary_card">Card</string>
+    <string name="autofill_save_confirm_summary_password">Password</string>
+    <!-- Shown only on an offer captured while the vault was locked and held for the next unlock.
+         The user has long since left the site, so the card says when this came from. -->
+    <string name="autofill_save_confirm_summary_queued">Captured while LocalKeep was locked</string>
+    <!-- The unlock detour launched from this screen; explains why storing the captured login
+         needs the master password first. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_save_confirm_unlock_subtitle">Your vault is locked. Unlock it to store this login.</string>
+    <string name="autofill_save_confirm_toast_saved">Saved</string>
+    <string name="autofill_save_confirm_toast_failed">Couldn\'t save</string>
+    <!-- Fallback vault-item title for a captured card when neither a web domain nor a package
+         label is available, e.g. "Card ****1234". -->
+    <string name="autofill_save_confirm_card_title_fallback">Card</string>
+    <!-- Shown instead of the confirmation when the captured credential has already expired.
+         PendingSaveStore holds a proposed save for 120 seconds and then wipes it, so a user
+         who taps the platform's own Save prompt after stepping away arrives to nothing. It
+         used to finish() in silence, which is indistinguishable from a dead button. Says what
+         to do instead, and names no site and no credential — this can appear over another
+         app. -->
+    <string name="autofill_save_confirm_toast_expired">This save expired — open LocalKeep to add it</string>
+    <!-- Shown instead of storing a card captured at checkout when the free tier's card allowance
+         is already spent. The capture route used to refuse every non-Pro user in silence, after
+         the platform's own save prompt had already been accepted; the allowance now governs, and
+         a refusal is said out loud.
+
+         Deliberately carries NO count. The in-app refusal names the cap because it is a dialog the
+         user reads at leisure with the vault in front of them; this is a toast over a merchant's
+         checkout page, and a number here would be a second thing to reconcile rather than an
+         instruction. Keeping it out also keeps the sentence true if the cap ever moves. Names no
+         site, no app and no digits of the card — this can appear on a screen someone else is
+         looking at. No mention of Pro either: the toast is not a place to sell. -->
+    <string name="autofill_save_confirm_toast_card_no_room">Card not saved — a free vault has no room for another card. Open LocalKeep to make room.</string>
+
+    <!-- LocalKeep's own offers on a form, as opposed to a credential it already holds. Shown when
+         nothing is stored for this site or app, and — for the generator — on any form that is
+         setting a password rather than recalling one. Both lines reach the platform's autofill
+         menu and the keyboard's inline strip, which is why the subtitles are short. -->
+    <string name="autofill_suggest_generate_title">Use suggested password</string>
+    <string name="autofill_suggest_generate_subtitle">Strong password from LocalKeep</string>
+    <string name="autofill_suggest_search_title">Search LocalKeep</string>
+    <string name="autofill_suggest_search_subtitle">Pick a saved login</string>
+
+    <!-- The generator sheet reached from the suggestion above. -->
+    <string name="autofill_generate_heading">Suggested password</string>
+    <!-- Says where the password goes next. Without it the user has a random string on screen and
+         no reason to believe LocalKeep will still have it after the form is submitted. -->
+    <string name="autofill_generate_explanation">LocalKeep will offer to save it once you finish signing up.</string>
+    <string name="autofill_generate_use">Use password</string>
+    <string name="autofill_generate_regenerate">Regenerate</string>
+    <string name="autofill_generate_cancel">Cancel</string>
+    <string name="autofill_generate_failed">Couldn\'t create a password</string>
+
+    <!-- The hand-search sheet: every saved login, filtered by title or username. -->
+    <string name="autofill_picker_search_hint">Search logins</string>
+    <string name="autofill_picker_empty">No logins saved yet</string>
+    <string name="autofill_picker_no_results">No logins match that</string>
+    <!-- The vault locked between the suggestion being offered and the user tapping it;
+         explains why a master-password prompt follows. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_picker_unlock_subtitle">Your vault is locked. Unlock it to pick a saved login.</string>
+    <!-- The signing-certificate check refused this caller. Says what was checked and, plainly,
+         that nothing left the vault. Names no app and no site: this can appear over the very
+         app it is refusing. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="autofill_picker_untrusted">This app\'s signature has changed since LocalKeep first saw it. Nothing was filled.</string>
+
+    <!-- Heading of the hand-search sheet. Names who is about to receive the credential —
+         the site if there is one, otherwise the app's own label. The user is picking a login to
+         hand to whatever asked for it, and the only thing that makes that an informed choice is
+         seeing what asked. -->
+    <string name="autofill_picker_target">Fill a login for %1$s</string>
+</resources>

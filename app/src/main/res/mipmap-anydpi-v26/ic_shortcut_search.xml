@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive, not a bare vector, and for a contrast reason rather than a stylistic one: a launcher
+  draws a plain shortcut drawable straight onto its own sheet, which is near-white under a light
+  system theme, and the jade stroke this app uses is unreadable there. Wrapping it in the launcher
+  icon's own ground gives the glyph the dark plate it was drawn for and makes the two shortcuts look
+  like they belong to the icon they hang off. Same layout as ic_launcher.xml — minSdk is 28, so
+  -v26 always applies and no legacy raster fallback is needed.
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_shortcut_search_foreground" />
+</adaptive-icon>

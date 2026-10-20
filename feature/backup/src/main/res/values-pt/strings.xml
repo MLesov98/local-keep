@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="backup_screen_title">Backup e exportação</string>
+    <string name="backup_screen_subtitle">Cópias criptografadas, snapshots locais e backup na nuvem</string>
+    <string name="backup_screen_back">Voltar</string>
+
+    <string name="backup_cloud_section">Backup na nuvem</string>
+    <!-- Positive assertion, added 2026-09-09. The row was "Disable cloud backup" with the
+         switch ON meaning backup was OFF — a double negative on the one control that
+         decides whether vault ciphertext can leave the device via Android Auto Backup.
+         The stored preference is still `disableCloudBackup`; only the presentation is
+         inverted, so ON now means the thing the label names is happening. -->
+    <string name="backup_cloud_include_label">Incluir o cofre no backup do Android</string>
+    <string name="backup_cloud_disable_hint_on">O Android Auto Backup não incluirá seu cofre</string>
+    <string name="backup_cloud_disable_hint_off">O Auto Backup inclui o cofre criptografado (limite de ~25 MB)</string>
+    <string name="backup_cloud_footnote">O que o Google armazena é texto cifrado; restaurá-lo ainda precisa de sua senha mestra.</string>
+    <string name="backup_cloud_schedule_footnote">O Android decide quando enviar — normalmente por Wi-Fi, carregando e inativo — por isso uma alteração recente pode ainda não estar no backup.</string>
+    <string name="backup_cloud_attachments_footnote">Os anexos não são incluídos — o Auto Backup leva apenas o cofre, então restaurar do Google traz seus itens de volta sem os arquivos e as fotos.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="backup_cloud_schedule_footnote_off">O Android decide quando os backups são executados, por isso uma cópia enviada antes de você desativar isso pode permanecer na sua conta do Google até a próxima execução.</string>
+
+    <string name="backup_kdf_section">Configurações de criptografia para este dispositivo</string>
+    <string name="backup_kdf_intro">A dificuldade de desbloqueio acompanha o cofre. Vale a pena verificar se você o restaurou de outro telefone.</string>
+    <string name="backup_kdf_check_button">Verificar velocidade de desbloqueio</string>
+    <!-- Shown when a re-benchmark finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_kdf_keep_slow">Verificado — lento aqui (%1$d ms), mas já na configuração mais baixa que o LocalKeep usará.</string>
+    <string name="backup_kdf_keep_ok">Verificado — as configurações do seu cofre são adequadas para este dispositivo.</string>
+    <!-- Offer to lower the Argon2id cost because unlocking is slow on this device. -->
+    <string name="backup_kdf_faster_headline">O desbloqueio leva %1$d ms neste dispositivo, o que é lento o suficiente para valer a pena aliviar.</string>
+    <string name="backup_kdf_faster_consequence">Isso reduz o trabalho que um atacante precisa fazer por tentativa. Só é a troca certa se a demora estiver impedindo você de bloquear seu cofre.</string>
+    <!-- Offer to lower the Argon2id cost so the vault can open on older, lower-memory phones. -->
+    <string name="backup_kdf_portable_headline">Este cofre foi configurado para precisar de mais memória do que telefones antigos dão a um aplicativo, então não abriria em um deles.</string>
+    <string name="backup_kdf_portable_consequence">Aliviar isso agora significa que o cofre ainda abre se você um dia restaurá-lo em um telefone antigo. Isso reduz o trabalho que um atacante precisa fazer por tentativa, para a configuração que cofres novos já usam.</string>
+    <!-- Offer to raise the Argon2id cost because this device unlocks fast enough to afford it. -->
+    <string name="backup_kdf_stronger_headline">Este dispositivo desbloqueia seu cofre em %1$d ms — rápido o suficiente para poder trabalhar mais.</string>
+    <string name="backup_kdf_stronger_consequence">Aumentar isso custa a você uma fração de segundo e custa proporcionalmente mais a qualquer um que atacar o arquivo.</string>
+    <string name="backup_kdf_master_password_field_label">Senha mestra, para confirmar a alteração</string>
+    <string name="backup_kdf_update_button">Atualizar para este dispositivo</string>
+    <string name="backup_kdf_leaving_fine_footnote">Manter como está não tem problema. Seu Kit de recuperação e seu desbloqueio biométrico não são afetados de qualquer forma.</string>
+    <string name="backup_kdf_summary_unchecked">Não verificado</string>
+    <string name="backup_kdf_summary_ok">Verificado · adequado para este dispositivo</string>
+    <string name="backup_kdf_summary_slow">Verificado · lento aqui</string>
+    <string name="backup_kdf_summary_offer">Verificado · há uma alteração disponível</string>
+
+    <string name="backup_export_section">Exportar um arquivo .vault</string>
+    <!-- Shared field label, used both for the export-confirmation password and the KDF recalibration password. -->
+    <string name="backup_master_password_label">Senha mestra</string>
+    <string name="backup_export_master_password_field_label">Senha mestra, para confirmar a exportação</string>
+    <string name="backup_export_separate_passphrase_label">Usar uma frase-senha de exportação separada</string>
+    <!-- Shared for both the field label above the passphrase well and the well\'s own label. -->
+    <string name="backup_export_passphrase_label">Frase-senha de exportação</string>
+    <string name="backup_export_passphrase_footnote">Uma frase-senha separada significa que este arquivo sobrevive a uma alteração de senha mestra — e que perdê-la torna o arquivo ilegível. Não há caminho de recuperação para uma exportação.</string>
+    <string name="backup_export_passphrase_too_weak">Essa frase-senha é muito fácil de adivinhar. Escolha uma mais forte.</string>
+    <string name="backup_export_button">Exportar .vault</string>
+    <!-- %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_export_last_export">Última exportação: %1$s</string>
+    <string name="backup_export_summary_never">Ainda não exportado</string>
+
+    <string name="backup_import_section">Importar um arquivo .vault</string>
+    <string name="backup_import_vault_password_label">Senha do cofre</string>
+    <string name="backup_import_password_field_label">Senha do arquivo importado</string>
+    <string name="backup_import_choose_button">Escolher arquivo .vault</string>
+    <string name="backup_import_decrypted_note">Arquivo descriptografado. Escolha como aplicá-lo.</string>
+    <string name="backup_import_merge_button">Mesclar neste cofre</string>
+    <string name="backup_import_replace_button">Substituir este cofre</string>
+    <string name="backup_import_cancel_button">Cancelar</string>
+
+    <string name="backup_snapshots_section">Snapshots locais automáticos</string>
+    <string name="backup_snapshots_empty_title">Nenhum snapshot ainda</string>
+    <!-- %1$d is RollingBackupManager.MAX_SNAPSHOTS, the number of rolling copies kept on-device. -->
+    <plurals name="backup_snapshots_empty_body">
+        <item quantity="one">O LocalKeep mantém a %1$d cópia mais recente do cofre neste dispositivo conforme você salva. Uma aparecerá aqui após sua próxima alteração.</item>
+        <item quantity="many">O LocalKeep mantém as %1$d cópias mais recentes do cofre neste dispositivo conforme você salva. Uma aparecerá aqui após sua próxima alteração.</item>
+        <item quantity="other">O LocalKeep mantém as %1$d cópias mais recentes do cofre neste dispositivo conforme você salva. Uma aparecerá aqui após sua próxima alteração.</item>
+    </plurals>
+    <string name="backup_snapshot_restore_button">Restaurar</string>
+    <string name="backup_snapshots_footnote">Restaurar substitui o cofre atual por aquele snapshot. Tudo o que foi salvo desde então é perdido.</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_title">Descartar este backup?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_body">Este backup está descriptografado e aguarda Mesclar ou Substituir. Se você sair agora, ele será descartado. Nenhum dos seus itens foi alterado e o arquivo permanece intacto: você pode escolhê-lo novamente.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_discard_import_dialog_confirm">Descartar</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_title">Substituir este cofre?</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_body">Cada item neste cofre é descartado — incluindo seus arquivos e fotos — e o arquivo importado toma seu lugar. As mídias da importação são restauradas, re-criptografadas com a chave deste cofre. Isso não pode ser desfeito, embora um snapshot local ou backup anterior ainda possa conter o cofre antigo.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_replace_dialog_confirm">Substituir tudo</string>
+
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_title">Restaurar este snapshot?</string>
+    <!-- SECURITY-COPY: tier A. %1$s is a localized date/time, e.g. "29 Jul 2026, 14:03". -->
+    <string name="backup_restore_dialog_body">O cofre volta ao estado em que estava em %1$s. Tudo o que foi salvo desde então é perdido. Snapshots locais contêm apenas o cofre, portanto quaisquer arquivos ou fotos adicionados desde então não estarão mais anexados a nada. Em seguida ele é bloqueado: desbloqueie-o com a sua senha mestra atual.</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="backup_restore_dialog_confirm">Restaurar</string>
+    <string name="backup_restore_master_password_field_label">Senha mestra, para confirmar a restauração</string>
+
+    <!-- Status/error banner shown at the top of the screen, from BackupSettingsViewModel. -->
+    <string name="backup_status_cloud_disabled">Backup na nuvem desativado</string>
+    <string name="backup_status_cloud_enabled">Backup na nuvem ativado</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault already at the lowest Argon2id setting LocalKeep uses. -->
+    <string name="backup_status_kdf_check_slow">O desbloqueio leva %1$d ms aqui, mas seu cofre já está na configuração mais baixa que o LocalKeep usará — não há nada seguro para sacrificar.</string>
+    <!-- %1$d is the measured unlock time in milliseconds. Shown after "Check unlock speed"
+         finds the vault\'s settings already suit this device. -->
+    <string name="backup_status_kdf_check_ok">As configurações de criptografia são adequadas para este dispositivo (%1$d ms para desbloquear).</string>
+    <string name="backup_status_kdf_recalibrated">Configurações de criptografia atualizadas para este dispositivo. Seu Kit de recuperação e seu desbloqueio biométrico não são afetados.</string>
+    <string name="backup_working">Processando…</string>
+    <string name="backup_status_exporting">Exportando…</string>
+    <string name="backup_notice_locked_while_choosing_file">Bloqueado durante a escolha de um arquivo. Nada foi exportado nem importado.</string>
+    <!-- %1$d is the exported .vault file\'s size in bytes. -->
+    <string name="backup_status_exported">Exportado: %1$s</string>
+    <string name="backup_status_reading_file">Lendo o arquivo…</string>
+    <string name="backup_status_file_read">Arquivo lido — escolha Mesclar ou Substituir</string>
+    <string name="backup_status_merging">Mesclando…</string>
+    <string name="backup_status_replacing_vault">Substituindo este cofre…</string>
+    <string name="backup_status_import_complete">Importação concluída</string>
+    <string name="backup_status_merge_complete">Mesclagem concluída — novos: %1$d, atualizados: %2$d, já atualizados: %3$d</string>
+    <string name="backup_status_replace_complete">Substituição concluída — itens: %1$d, pastas: %2$d</string>
+    <plurals name="backup_status_import_complete_missing_files">
+        <item quantity="one">Importação concluída — %1$d arquivo referenciado não estava neste backup.</item>
+        <item quantity="many">Importação concluída — %1$d arquivos referenciados não estavam neste backup.</item>
+        <item quantity="other">Importação concluída — %1$d arquivos referenciados não estavam neste backup.</item>
+    </plurals>
+    <string name="backup_status_restoring">Restaurando…</string>
+    <plurals name="backup_status_restore_complete_missing_files">
+        <item quantity="one">Restaurado — %1$d arquivo referenciado não está mais neste dispositivo.</item>
+        <item quantity="many">Restaurado — %1$d arquivos referenciados não estão mais neste dispositivo.</item>
+        <item quantity="other">Restaurado — %1$d arquivos referenciados não estão mais neste dispositivo.</item>
+    </plurals>
+
+    <string name="backup_error_kdf_check_failed">Não foi possível medir as configurações de criptografia do seu cofre neste dispositivo.</string>
+    <string name="backup_error_kdf_wrong_password">Essa não é sua senha mestra.</string>
+    <!-- SECURITY-COPY: tier D. Deliberately does not name duress: the feature only works while
+         an observer does not learn it exists. True as far as it goes — this vault's setup does
+         not allow the change — and says nothing more. -->
+    <string name="backup_error_kdf_recalibrate_blocked">A configuração de segurança deste cofre não permite alterar isso aqui.</string>
+    <string name="backup_error_export_wrong_password">Senha mestra incorreta. Digite-a para tentar novamente.</string>
+    <string name="backup_error_restore_wrong_password">Senha mestra incorreta. Digite-a para tentar novamente.</string>
+    <string name="backup_error_export_vault_locked">O cofre está bloqueado</string>
+    <string name="backup_error_vault_file_missing">Seu arquivo de cofre está ausente ou danificado, por isso este backup não pôde ser criado.</string>
+    <string name="backup_error_export_write_failed">Não foi possível gravar a exportação no local que você escolheu.</string>
+    <string name="backup_error_export_device_full">Não há espaço livre suficiente neste dispositivo. A exportação é criada aqui primeiro, mesmo que você a salve em outro lugar: libere espaço e tente novamente.</string>
+    <string name="backup_error_export_build_failed">Não foi possível criar a exportação com uma frase-senha separada.</string>
+    <string name="backup_error_import_read_failed">Não foi possível ler o arquivo que você escolheu.</string>
+    <string name="backup_error_import_too_large">Esse arquivo é grande demais para ser aberto neste dispositivo.</string>
+    <string name="backup_error_import_open_failed">Não foi possível abrir o arquivo que você escolheu.</string>
+    <string name="backup_error_import_invalid_file">Esse não é um arquivo .vault válido.</string>
+    <string name="backup_error_import_wrong_password">Senha incorreta para este arquivo. Digite-a novamente e escolha o arquivo de novo.</string>
+    <string name="backup_error_import_decrypt_failed">Não foi possível descriptografar o arquivo que você escolheu.</string>
+    <!-- SECURITY-COPY: tier C -->
+    <string name="backup_error_import_newer_version">Este backup foi gravado por uma versão mais recente do LocalKeep. Atualize o aplicativo para abri-lo — o arquivo está intacto, e sua senha estava correta.</string>
+    <string name="backup_error_import_attachments_failed">Nada foi importado — alguns anexos deste backup não puderam ser restaurados.</string>
+    <string name="backup_error_import_vault_locked">O cofre foi bloqueado enquanto o arquivo era lido. Desbloqueie-o e escolha o arquivo novamente — nada foi importado.</string>
+    <string name="backup_error_merge_failed">A mesclagem do cofre importado falhou.</string>
+    <string name="backup_error_replace_failed">A substituição do cofre falhou.</string>
+    <string name="backup_error_restore_read_failed">Não foi possível ler esse snapshot local neste dispositivo. Nada foi alterado — tente um mais antigo.</string>
+    <string name="backup_error_restore_invalid_file">Esse snapshot local não é um arquivo de cofre válido, por isso não foi restaurado. Tente um mais antigo.</string>
+    <string name="backup_error_restore_corrupt">Esse snapshot local está danificado, por isso não foi restaurado. Tente um mais antigo.</string>
+    <string name="backup_error_restore_newer_version">Esse snapshot local foi gravado por uma versão mais recente do LocalKeep. Atualize o aplicativo para abri-lo — nada foi alterado.</string>
+    <string name="backup_error_generic">Algo deu errado. Tente novamente.</string>
+    <string name="backup_error_kdf_needs_more_memory">As configurações de criptografia deste cofre precisam de mais memória do que este dispositivo dá ao aplicativo enquanto ele está aberto. Nada foi alterado. Em um telefone com mais memória, reduza-as em Configurações › Backup — depois disso, isso funcionará aqui também.</string>
+</resources>

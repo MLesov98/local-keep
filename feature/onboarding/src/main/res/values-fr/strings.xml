@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared across several steps' primary button. -->
+    <string name="onboarding_action_continue">Continuer</string>
+
+    <string name="onboarding_screen_deriving_title">Création de votre coffre</string>
+    <string name="onboarding_screen_busy_biometric_title">Activation du déverrouillage biométrique</string>
+    <string name="onboarding_screen_busy_recovery_title">Enregistrement de votre Kit de récupération</string>
+
+    <!-- Welcome step: the brand moment, no chrome. -->
+    <string name="onboarding_welcome_tagline">Votre coffre. Votre appareil.</string>
+    <!-- SECURITY-COPY: tier G. Claims what LocalKeep can and cannot see/reset — keep the
+         locational and confidentiality claims accurate; do not translate in a way that implies
+         the vault never leaves the device (Android Auto Backup can still take vault.enc). -->
+    <string name="onboarding_welcome_body">Les mots de passe sont chiffrés ici — il n\'y a ni compte, ni serveur de synchronisation, et aucun moyen pour nous de lire ou de réinitialiser quoi que ce soit.</string>
+    <string name="onboarding_welcome_cta">Commencer</string>
+
+    <!-- Create-master-password step. -->
+    <string name="onboarding_password_title">Créer votre mot de passe principal</string>
+    <!-- SECURITY-COPY: tier G. Claims LocalKeep never sees the master password and cannot reset it. -->
+    <string name="onboarding_password_body">C\'est la seule clé de votre coffre.\nLocalKeep ne la voit jamais, c\'est aussi pourquoi nous ne pouvons jamais la réinitialiser.</string>
+    <!-- SECURITY-COPY: tier B. Names the Recovery Kit as the only way back in. -->
+    <string name="onboarding_password_recovery_kit_promise">Un Kit de récupération de 24 mots vous est proposé lors de la configuration — le seul moyen de retrouver l\'accès si vous oubliez ce mot de passe.</string>
+    <!-- Used both as the field's visible label and as its accessibility label. -->
+    <string name="onboarding_password_field_label">Mot de passe principal</string>
+    <string name="onboarding_password_suggest_one">Suggérer</string>
+    <string name="onboarding_password_confirm_label">Confirmer</string>
+    <string name="onboarding_password_confirm_placeholder">Saisissez-le à nouveau</string>
+    <string name="onboarding_password_confirm_field_label">Confirmer le mot de passe principal</string>
+    <string name="onboarding_password_mismatch">Ils ne correspondent pas encore.</string>
+    <!-- SECURITY-COPY: tier G. Explains why a short password is not actually rate-limited: the
+         vault is a file, not an account behind a server. -->
+    <string name="onboarding_password_weak_consent_title">Utiliser ce mot de passe quand même</string>
+    <string name="onboarding_password_weak_consent_body">Votre coffre est un fichier sur cet appareil. Si quelqu\'un le copie, il peut deviner le mot de passe hors ligne aussi vite que son matériel le permet — il n\'y a pas de serveur pour le ralentir ni de compte à verrouiller. Un mot de passe court représente quelques minutes de travail.</string>
+    <!-- zxcvbn strength verdicts. -->
+    <string name="onboarding_password_strength_guessed_instantly">Deviné instantanément</string>
+    <string name="onboarding_password_strength_guessed_seconds">Deviné en quelques secondes</string>
+    <string name="onboarding_password_strength_guessed_hours">Deviné en quelques heures</string>
+    <string name="onboarding_password_strength_strong_enough">Assez fort</string>
+    <string name="onboarding_password_strength_very_strong">Très fort</string>
+    <!-- %2$s is zxcvbn's own advice string (e.g. "add another word"), which is library output in
+         English only and is not itself translated by this extraction. -->
+    <string name="onboarding_password_strength_summary">%1$s — %2$s</string>
+    <!-- Accessibility variant of the line above, read by a screen reader as one sentence. -->
+    <string name="onboarding_password_strength_summary_description">%1$s. %2$s</string>
+    <string name="onboarding_password_error_empty">Saisir un mot de passe principal</string>
+    <string name="onboarding_password_error_weak">Ce mot de passe est facile à deviner. Confirmez ci-dessous que vous souhaitez l\'utiliser quand même, ou choisissez-en un plus fort.</string>
+    <string name="onboarding_password_error_mismatch">Les mots de passe ne correspondent pas</string>
+    <string name="onboarding_password_error_creation_failed">Échec de la création du coffre. Les données existantes n\'ont pas été écrasées. Aucun mot de passe n\'a été enregistré. Si vous en avez noté un, vous pouvez le jeter et en choisir un autre.</string>
+    <string name="onboarding_password_error_suggest_failed">Impossible de générer une phrase secrète. Appuyez à nouveau sur Suggérer, ou saisissez la vôtre.</string>
+    <string name="onboarding_password_notice_suggested">Notez-le avant de continuer — c\'est votre mot de passe principal.</string>
+
+    <!-- Biometric-enrollment step. -->
+    <string name="onboarding_biometric_title">Déverrouiller avec la biométrie</string>
+    <!-- SECURITY-COPY: tier G. Claims biometric unlock is a convenience layered on top of the master
+         password and can never recover the vault on its own. -->
+    <string name="onboarding_biometric_body">La biométrie peut ouvrir LocalKeep au lieu de saisir votre mot de passe principal à chaque fois.\n\nC\'est une commodité supplémentaire, jamais un remplacement : votre mot de passe principal continue de fonctionner, et la biométrie ne peut jamais récupérer le coffre à elle seule.</string>
+    <!-- Reused as the BiometricPrompt system dialog's title. -->
+    <string name="onboarding_biometric_enable_cta">Activer le déverrouillage biométrique</string>
+    <string name="onboarding_biometric_not_now">Pas maintenant</string>
+    <!-- SECURITY-COPY: tier C. Explains why the biometric prompt appeared. -->
+    <string name="onboarding_biometric_prompt_subtitle">Confirmer pour protéger cette clé du coffre</string>
+    <!-- SECURITY-COPY: tier G. Reiterates that the master password still works after enrollment. -->
+    <string name="onboarding_biometric_enabled_notice">Déverrouillage biométrique activé. Votre mot de passe principal fonctionne toujours.</string>
+    <string name="onboarding_biometric_enable_failed">Le déverrouillage biométrique n\'a pas été activé. Vous pourrez l\'activer plus tard dans les Paramètres.</string>
+    <string name="onboarding_biometric_skip_no_lock">Le déverrouillage biométrique nécessite un verrouillage d\'écran de l\'appareil. Ajoutez un code PIN, un schéma ou un mot de passe dans les paramètres système, puis activez-le depuis les paramètres de LocalKeep.</string>
+    <string name="onboarding_biometric_skip_no_sensor">Cet appareil n\'a aucun capteur biométrique fort enregistré, donc le déverrouillage biométrique n\'est pas disponible. Votre mot de passe principal fonctionne toujours.</string>
+
+    <!-- Recovery Kit step, embedded in first-run onboarding. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recovery_title">Votre Kit de récupération</string>
+    <string name="onboarding_recovery_body">Ces 24 mots sont le seul moyen de revenir dans votre coffre si vous oubliez votre mot de passe principal — il ne peut pas être réinitialisé, car personne d\'autre que vous ne détient la clé qui l\'ouvre.\n\nQuiconque possède ces mots peut ouvrir le vrai coffre.</string>
+    <!-- Accessibility label for the Continue button while it is disabled, since a screen reader
+         gets neither the visual dimming nor the adjacency to the consent row above it. -->
+    <string name="onboarding_recovery_continue_disabled_label">Continuer, disponible dès que vous enregistrez votre Kit de récupération</string>
+    <string name="onboarding_password_continue_disabled_empty">Continuer, disponible dès que vous saisissez un mot de passe principal</string>
+    <string name="onboarding_password_continue_disabled_confirm">Continuer, disponible dès que vous confirmez votre mot de passe principal</string>
+    <string name="onboarding_password_continue_disabled_mismatch">Continuer, disponible dès que les deux mots de passe correspondent</string>
+    <string name="onboarding_password_continue_disabled_weak">Continuer, disponible dès que vous confirmez vouloir ce mot de passe facile à deviner</string>
+    <!-- Heading over the numbered word grid. Shared by the onboarding step and the standalone
+         Recovery Kit screen. -->
+    <string name="onboarding_recovery_words_label">Mots de récupération</string>
+    <string name="onboarding_recovery_qr_render_error">Impossible de générer le code QR — enregistrez le PDF à la place.</string>
+    <string name="onboarding_recovery_qr_instruction">Photographiez-le avec un autre appareil, puis confirmez ci-dessous.</string>
+    <string name="onboarding_recovery_qr_captured_cta">J\'ai photographié le code QR</string>
+    <string name="onboarding_recovery_save_pdf">Enregistrer au format PDF</string>
+    <string name="onboarding_recovery_show_qr">Afficher le code QR à la place</string>
+    <string name="onboarding_recovery_footnote">Préférez l\'enregistrement sur cet appareil. Certaines destinations de partage téléversent vers le cloud, ce qui placerait vos mots de récupération sur l\'ordinateur de quelqu\'un d\'autre.</string>
+    <string name="onboarding_recovery_qr_content_description">Code QR du Kit de récupération</string>
+    <string name="onboarding_recovery_export_pdf_notice">Kit de récupération enregistré. Gardez-le hors ligne — quiconque l\'a peut ouvrir votre coffre.</string>
+    <string name="onboarding_recovery_export_pdf_error">Impossible d\'enregistrer le Kit de récupération. Tout fichier laissé à cet emplacement est incomplet et n\'ouvrira pas votre coffre — supprimez-le, puis réessayez.</string>
+    <string name="onboarding_recovery_qr_captured_notice">Kit de récupération photographié. Vérifiez que la photo est lisible avant de continuer.</string>
+    <string name="onboarding_recovery_confirm_notice">Enregistrez le Kit de récupération au format PDF, ou affichez le QR et photographiez-le — ou choisissez «\u00a0Configurer plus tard\u00a0».</string>
+    <string name="onboarding_recovery_defer">Configurer plus tard</string>
+    <string name="onboarding_recovery_pdf_title">Kit de récupération LocalKeep</string>
+    <string name="onboarding_recovery_pdf_warning_line1">Ces 24 mots sont le SEUL moyen de revenir dans votre coffre si vous oubliez votre mot de passe principal.</string>
+    <string name="onboarding_recovery_pdf_warning_line2">LocalKeep ne peut pas le réinitialiser pour vous — personne d\'autre que vous ne détient la clé qui l\'ouvre, et LocalKeep n\'a aucun serveur auquel envoyer votre coffre.</string>
+    <string name="onboarding_recovery_pdf_warning_line3">Quiconque possède ces mots peut ouvrir votre vrai coffre. Conservez cette page comme de l\'argent liquide.</string>
+    <!-- %1$s is today's date, ISO-formatted. -->
+    <string name="onboarding_recovery_pdf_footer">Généré le %1$s · conservez ceci sur papier, hors ligne, à un endroit que vous seul pouvez atteindre.</string>
+
+    <!-- General back-navigation notice, not Recovery Kit specific. -->
+    <string name="onboarding_notice_no_back">Votre coffre est déjà créé, il n\'y a donc aucune étape à laquelle revenir.</string>
+
+    <!-- Cloud-backup step. -->
+    <string name="onboarding_cloudbackup_title">Sauvegarder sur votre compte Google\u00a0?</string>
+    <!-- SECURITY-COPY: tier G. Claims Google only ever holds the encrypted file and the master
+         password never leaves the device — the canonical claim-about-where-data-lives case. -->
+    <string name="onboarding_cloudbackup_body">Android peut conserver une copie chiffrée de votre coffre dans votre compte Google, afin qu\'il survive à la perte de ce téléphone.\n\nGoogle ne détient jamais que le fichier chiffré — votre mot de passe principal ne quitte jamais cet appareil, donc personne là-bas ne peut l\'ouvrir.</string>
+    <string name="onboarding_cloudbackup_enable_cta">Garder la sauvegarde activée</string>
+    <string name="onboarding_cloudbackup_disable_cta">Pas de sauvegarde</string>
+    <!-- SECURITY-COPY: tier G. Claims this phone holds the only copy once backup is off. -->
+    <string name="onboarding_cloudbackup_footnote">Si vous la désactivez, ce téléphone détient la seule copie — exportez votre coffre vers un endroit sûr, ou perdre le téléphone, c\'est perdre le coffre. Dans les deux cas, vous pourrez modifier ceci plus tard dans Paramètres → Sauvegarde.</string>
+
+    <!-- Migration step. -->
+    <string name="onboarding_migrate_title">Importer vos mots de passe</string>
+    <string name="onboarding_migrate_body">Importez depuis Chrome, Apple Passwords, Bitwarden, 1Password, KeePass ou Aegis — ou un CSV depuis tout autre gestionnaire, y compris Firefox et LastPass.\n\nVous verrez tout ce qui a été trouvé et pourrez choisir ce que vous souhaitez conserver avant que quoi que ce soit ne soit enregistré.</string>
+    <!-- Reused on the Done step's primary button when the user asked to import. -->
+    <string name="onboarding_migrate_import_cta">Importer mes mots de passe</string>
+    <string name="onboarding_done_import_cta">Choisir une source d\'importation</string>
+    <string name="onboarding_migrate_skip_cta">Commencer avec un coffre vide</string>
+    <string name="onboarding_migrate_footnote">«\u00a0Commencer avec un coffre vide\u00a0» est un choix valable. Paramètres → Coffre &amp; Sauvegarde → Importer depuis une autre application exécute le même assistant quand vous le souhaitez — rien ici ne se fait une seule fois.</string>
+
+    <!-- Done step. -->
+    <string name="onboarding_done_title">Tout est prêt</string>
+    <!-- SECURITY-COPY: tier B. Recovery-kit-saved confirmation. -->
+    <string name="onboarding_done_body_recovery_saved">Votre coffre est chiffré sur cet appareil.\n\nConservez votre Kit de récupération dans un endroit sûr et hors ligne — c\'est le seul moyen d\'y revenir si vous oubliez votre mot de passe principal.</string>
+    <!-- SECURITY-COPY: tier B. Warns the user has no Recovery Kit yet. -->
+    <string name="onboarding_done_body_recovery_missing">Votre coffre est chiffré sur cet appareil.\n\nVous n\'avez pas encore de Kit de récupération, donc pour l\'instant votre mot de passe principal est le seul moyen d\'entrer — oubliez-le et le coffre est perdu.\n\nParamètres → Kit de récupération en crée un quand vous voulez.</string>
+    <string name="onboarding_done_open_vault_cta">Ouvrir mon coffre</string>
+    <string name="onboarding_done_autofill_cta">Configurer le remplissage automatique</string>
+    <string name="onboarding_done_autofill_done">Remplissage automatique activé</string>
+    <string name="onboarding_done_passkeys_cta">Configurer les clés d\'accès</string>
+
+    <!-- Progress rail across the top of every step. -->
+    <string name="onboarding_rail_progress">%1$d sur %2$d</string>
+    <string name="onboarding_rail_progress_description">Étape %1$d sur %2$d</string>
+
+    <string name="onboarding_settings_unavailable">Cet écran de paramètres n\'est pas disponible</string>
+
+    <!-- Standalone Recovery Kit screen (Settings → Recovery Kit), for a vault that already
+         exists. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recoverykit_gate_title">Confirmez votre identité</string>
+    <string name="onboarding_recoverykit_gate_body">Un Kit de récupération ouvre ce coffre sans le mot de passe principal, et en créer un remplace tout kit que vous possédez déjà. Confirmez avec la biométrie ou le mot de passe du coffre pour continuer.</string>
+    <!-- Shown instead of the body above when the gate has no biometric door to offer: a panic
+         lock took biometrics away from the gates, or the device has no strong sensor. The
+         shared body invited a fingerprint the screen then did not accept. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_gate_body_password_only">Un Kit de récupération ouvre ce coffre sans le mot de passe principal, et en créer un remplace tout kit que vous possédez déjà. Confirmez avec le mot de passe du coffre pour continuer.</string>
+    <string name="onboarding_recoverykit_gate_password_label">Mot de passe du coffre</string>
+    <string name="onboarding_recoverykit_gate_biometric">Utiliser la biométrie</string>
+    <string name="onboarding_recoverykit_gate_biometric_subtitle">Confirmez pour créer un Kit de récupération</string>
+    <string name="onboarding_recoverykit_gate_submit">Continuer</string>
+    <string name="onboarding_recoverykit_gate_error_password">Ce n\'est pas le mot de passe de ce coffre.</string>
+    <string name="onboarding_recoverykit_gate_error_memory">Les paramètres de chiffrement de ce coffre nécessitent plus de mémoire que ce que cet appareil accorde à l\'application lorsqu\'elle est ouverte. Rien n\'a été modifié. Sur un téléphone avec plus de mémoire, réduisez-les sous Paramètres › Sauvegarde — après cela, cela fonctionnera aussi ici.</string>
+    <string name="onboarding_recoverykit_gate_error_session_ended">Le coffre s\'est verrouillé avant la fin de l\'opération. Déverrouillez-le et réessayez.</string>
+    <plurals name="onboarding_recoverykit_gate_error_throttled">
+        <item quantity="one">Trop de tentatives. Réessayez dans %1$d seconde.</item>
+        <item quantity="other">Trop de tentatives. Réessayez dans %1$d secondes.</item>
+    </plurals>
+    <string name="onboarding_recoverykit_title">Kit de récupération</string>
+    <string name="onboarding_recoverykit_subtitle">Le seul moyen d\'y revenir si vous oubliez votre mot de passe principal</string>
+    <string name="onboarding_recoverykit_back_label">Retour</string>
+    <string name="onboarding_recoverykit_empty_body">Un Kit de récupération est composé de 24 mots qui ouvrent ce coffre sans le mot de passe principal. Il n\'y a pas de réinitialisation ni de compte, c\'est donc la seule voie de retour.\n\nEn créer un remplace tout kit que vous possédez déjà. Faites-le si vous n\'en avez jamais enregistré, si vous l\'avez perdu, ou si vous avez changé votre mot de passe principal depuis — cela change la clé pour laquelle l\'ancien kit a été créé, et l\'application le révoque plutôt que de vous laisser avec une page qui échoue au moment où vous en avez besoin.</string>
+    <string name="onboarding_recoverykit_working">Traitement en cours…</string>
+    <string name="onboarding_recoverykit_create_cta">Créer un Kit de récupération</string>
+    <string name="onboarding_recoverykit_done_cta">Terminé</string>
+    <string name="onboarding_recoverykit_replace_footnote">Les enregistrer remplacera tout Kit de récupération antérieur pour ce coffre. Tant que vous n\'enregistrez pas, le kit que vous possédez déjà reste valide\u00a0: partez sans enregistrer et rien ne change. Préférez un enregistrement sur cet appareil\u00a0: certaines cibles de partage passent par le cloud.</string>
+    <string name="onboarding_recoverykit_error_locked">Déverrouillez votre coffre d\'abord.</string>
+    <string name="onboarding_recoverykit_error_create_failed">Impossible de créer un Kit de récupération pour ce coffre.</string>
+    <string name="onboarding_recoverykit_error_commit_failed">Fichier enregistré, mais ce coffre a conservé son Kit de récupération précédent. Déverrouillez le coffre et réessayez — les mots que vous venez d\'enregistrer ne l\'ouvriront pas.</string>
+</resources>

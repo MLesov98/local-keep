@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Shared across several steps' primary button. -->
+    <string name="onboarding_action_continue">Continuar</string>
+
+    <string name="onboarding_screen_deriving_title">Criando seu cofre</string>
+    <string name="onboarding_screen_busy_biometric_title">Configurando o desbloqueio biométrico</string>
+    <string name="onboarding_screen_busy_recovery_title">Salvando seu Kit de recuperação</string>
+
+    <!-- Welcome step: the brand moment, no chrome. -->
+    <string name="onboarding_welcome_tagline">Seu cofre. Seu dispositivo.</string>
+    <!-- SECURITY-COPY: tier G. Claims what LocalKeep can and cannot see/reset — keep the
+         locational and confidentiality claims accurate; do not translate in a way that implies
+         the vault never leaves the device (Android Auto Backup can still take vault.enc). -->
+    <string name="onboarding_welcome_body">As senhas são criptografadas aqui — não há conta, nem servidor de sincronização, e nenhuma maneira de nós lermos ou redefinirmos qualquer coisa.</string>
+    <string name="onboarding_welcome_cta">Começar</string>
+
+    <!-- Create-master-password step. -->
+    <string name="onboarding_password_title">Criar sua senha mestra</string>
+    <!-- SECURITY-COPY: tier G. Claims LocalKeep never sees the master password and cannot reset it. -->
+    <string name="onboarding_password_body">Esta é a única chave para seu cofre.\nO LocalKeep nunca a vê, e é por isso que também nunca podemos redefini-la.</string>
+    <!-- SECURITY-COPY: tier B. Names the Recovery Kit as the only way back in. -->
+    <string name="onboarding_password_recovery_kit_promise">Durante a configuração é oferecido um Kit de recuperação de 24 palavras — a única maneira de voltar se esquecer esta senha.</string>
+    <!-- Used both as the field's visible label and as its accessibility label. -->
+    <string name="onboarding_password_field_label">Senha mestra</string>
+    <string name="onboarding_password_suggest_one">Sugerir uma</string>
+    <string name="onboarding_password_confirm_label">Confirmar</string>
+    <string name="onboarding_password_confirm_placeholder">Digite-a novamente</string>
+    <string name="onboarding_password_confirm_field_label">Confirmar senha mestra</string>
+    <string name="onboarding_password_mismatch">Estas ainda não correspondem.</string>
+    <!-- SECURITY-COPY: tier G. Explains why a short password is not actually rate-limited: the
+         vault is a file, not an account behind a server. -->
+    <string name="onboarding_password_weak_consent_title">Usar esta senha mesmo assim</string>
+    <string name="onboarding_password_weak_consent_body">Seu cofre é um arquivo neste dispositivo. Se alguém copiá-lo, pode tentar adivinhá-lo offline tão rápido quanto o hardware permitir — não há servidor para desacelerá-lo e nenhuma conta para bloquear. Uma senha curta é questão de minutos.</string>
+    <!-- zxcvbn strength verdicts. -->
+    <string name="onboarding_password_strength_guessed_instantly">Adivinhada instantaneamente</string>
+    <string name="onboarding_password_strength_guessed_seconds">Adivinhada em segundos</string>
+    <string name="onboarding_password_strength_guessed_hours">Adivinhada em horas</string>
+    <string name="onboarding_password_strength_strong_enough">Forte o suficiente</string>
+    <string name="onboarding_password_strength_very_strong">Muito forte</string>
+    <!-- %2$s is zxcvbn's own advice string (e.g. "add another word"), which is library output in
+         English only and is not itself translated by this extraction. -->
+    <string name="onboarding_password_strength_summary">%1$s — %2$s</string>
+    <!-- Accessibility variant of the line above, read by a screen reader as one sentence. -->
+    <string name="onboarding_password_strength_summary_description">%1$s. %2$s</string>
+    <string name="onboarding_password_error_empty">Digite uma senha mestra</string>
+    <string name="onboarding_password_error_weak">Esta senha é fácil de adivinhar. Confirme abaixo que deseja usá-la mesmo assim, ou escolha uma mais forte.</string>
+    <string name="onboarding_password_error_mismatch">As senhas não correspondem.</string>
+    <string name="onboarding_password_error_creation_failed">Falha ao criar o cofre. Os dados existentes não foram sobrescritos. Nenhuma senha foi salva. Se você anotou alguma, pode descartá-la e escolher novamente.</string>
+    <string name="onboarding_password_error_suggest_failed">Não foi possível gerar uma frase-senha. Toque em Sugerir novamente, ou digite a sua própria.</string>
+    <string name="onboarding_password_notice_suggested">Anote-a antes de continuar — é sua senha mestra.</string>
+
+    <!-- Biometric-enrollment step. -->
+    <string name="onboarding_biometric_title">Desbloquear com biometria</string>
+    <!-- SECURITY-COPY: tier G. Claims biometric unlock is a convenience layered on top of the master
+         password and can never recover the vault on its own. -->
+    <string name="onboarding_biometric_body">A biometria pode abrir o LocalKeep em vez de digitar sua senha mestra toda vez.\n\nÉ uma conveniência adicional, nunca um substituto: sua senha mestra continua funcionando, e a biometria nunca pode recuperar o cofre sozinha.</string>
+    <!-- Reused as the BiometricPrompt system dialog's title. -->
+    <string name="onboarding_biometric_enable_cta">Ativar desbloqueio biométrico</string>
+    <string name="onboarding_biometric_not_now">Agora não</string>
+    <!-- SECURITY-COPY: tier C. Explains why the biometric prompt appeared. -->
+    <string name="onboarding_biometric_prompt_subtitle">Confirme para proteger esta chave do cofre</string>
+    <!-- SECURITY-COPY: tier G. Reiterates that the master password still works after enrollment. -->
+    <string name="onboarding_biometric_enabled_notice">Desbloqueio biométrico ativado. Sua senha mestra continua funcionando.</string>
+    <string name="onboarding_biometric_enable_failed">O desbloqueio biométrico não foi ativado. Você pode ativá-lo depois em Configurações.</string>
+    <string name="onboarding_biometric_skip_no_lock">O desbloqueio biométrico precisa de um bloqueio de tela do dispositivo. Adicione um PIN, padrão ou senha nas configurações do sistema e ative-o nas configurações do LocalKeep.</string>
+    <string name="onboarding_biometric_skip_no_sensor">Este dispositivo não possui nenhum sensor biométrico forte registrado, portanto o desbloqueio biométrico não está disponível. Sua senha mestra continua funcionando.</string>
+
+    <!-- Recovery Kit step, embedded in first-run onboarding. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recovery_title">Seu Kit de recuperação</string>
+    <string name="onboarding_recovery_body">Estas 24 palavras são a única maneira de voltar ao seu cofre se você esquecer sua senha mestra — ela não pode ser redefinida, porque ninguém além de você possui a chave que o abre.\n\nQualquer pessoa com estas palavras pode abrir o cofre real.</string>
+    <!-- Accessibility label for the Continue button while it is disabled, since a screen reader
+         gets neither the visual dimming nor the adjacency to the consent row above it. -->
+    <string name="onboarding_recovery_continue_disabled_label">Continuar, disponível assim que você salvar seu Kit de recuperação</string>
+    <string name="onboarding_password_continue_disabled_empty">Continuar, disponível assim que você digitar uma senha mestra</string>
+    <string name="onboarding_password_continue_disabled_confirm">Continuar, disponível assim que você confirmar sua senha mestra</string>
+    <string name="onboarding_password_continue_disabled_mismatch">Continuar, disponível assim que as duas senhas coincidirem</string>
+    <string name="onboarding_password_continue_disabled_weak">Continuar, disponível assim que você confirmar que deseja esta senha fácil de adivinhar</string>
+    <!-- Heading over the numbered word grid. Shared by the onboarding step and the standalone
+         Recovery Kit screen. -->
+    <string name="onboarding_recovery_words_label">Palavras de recuperação</string>
+    <string name="onboarding_recovery_qr_render_error">Não foi possível renderizar o código QR — salve o PDF em vez disso.</string>
+    <string name="onboarding_recovery_qr_instruction">Fotografe isto com outro dispositivo e confirme abaixo.</string>
+    <string name="onboarding_recovery_qr_captured_cta">Capturei o código QR</string>
+    <string name="onboarding_recovery_save_pdf">Salvar como PDF</string>
+    <string name="onboarding_recovery_show_qr">Mostrar código QR em vez disso</string>
+    <string name="onboarding_recovery_footnote">Prefira salvar neste dispositivo. Alguns destinos de compartilhamento enviam para a nuvem, o que colocaria suas palavras de recuperação no computador de outra pessoa.</string>
+    <string name="onboarding_recovery_qr_content_description">Código QR do Kit de recuperação</string>
+    <string name="onboarding_recovery_export_pdf_notice">Kit de recuperação salvo. Mantenha-o offline — qualquer um que o tiver pode abrir seu cofre.</string>
+    <string name="onboarding_recovery_export_pdf_error">Não foi possível salvar o Kit de recuperação. Qualquer arquivo que tenha ficado nesse local está incompleto e não abrirá o seu cofre — exclua-o e tente novamente.</string>
+    <string name="onboarding_recovery_qr_captured_notice">Kit de recuperação capturado. Verifique se a foto está legível antes de continuar.</string>
+    <string name="onboarding_recovery_confirm_notice">Salve o Kit de recuperação como PDF, ou mostre o QR e capture-o — ou escolha “Configurar mais tarde”.</string>
+    <string name="onboarding_recovery_defer">Configurar mais tarde</string>
+    <string name="onboarding_recovery_pdf_title">Kit de recuperação do LocalKeep</string>
+    <string name="onboarding_recovery_pdf_warning_line1">Estas 24 palavras são a ÚNICA maneira de voltar ao seu cofre se você esquecer sua senha mestra.</string>
+    <string name="onboarding_recovery_pdf_warning_line2">O LocalKeep não pode redefini-la para você — somente você detém a chave que o abre, e o LocalKeep não tem nenhum servidor para onde enviar seu cofre.</string>
+    <string name="onboarding_recovery_pdf_warning_line3">Qualquer pessoa que possuir estas palavras pode abrir seu cofre real. Guarde esta página como dinheiro.</string>
+    <!-- %1$s is today's date, ISO-formatted. -->
+    <string name="onboarding_recovery_pdf_footer">Gerado %1$s · mantenha isso em papel, offline, em algum lugar que só você possa alcançar.</string>
+
+    <!-- General back-navigation notice, not Recovery Kit specific. -->
+    <string name="onboarding_notice_no_back">Seu cofre já foi criado, portanto não há nenhuma etapa para voltar.</string>
+
+    <!-- Cloud-backup step. -->
+    <string name="onboarding_cloudbackup_title">Fazer backup na sua conta do Google?</string>
+    <!-- SECURITY-COPY: tier G. Claims Google only ever holds the encrypted file and the master
+         password never leaves the device — the canonical claim-about-where-data-lives case. -->
+    <string name="onboarding_cloudbackup_body">O Android pode manter uma cópia criptografada do seu cofre na sua conta do Google, para que ele sobreviva à perda deste telefone.\n\nO Google só tem o arquivo criptografado — sua senha mestra nunca sai deste dispositivo, então ninguém lá pode abri-lo.</string>
+    <string name="onboarding_cloudbackup_enable_cta">Manter o backup ativado</string>
+    <string name="onboarding_cloudbackup_disable_cta">Sem backup</string>
+    <!-- SECURITY-COPY: tier G. Claims this phone holds the only copy once backup is off. -->
+    <string name="onboarding_cloudbackup_footnote">Se você desativá-lo, este telefone tem a única cópia — exporte seu cofre para algum lugar seguro, ou perder o telefone é perder o cofre. De qualquer forma, você pode mudar isso depois em Configurações → Backup.</string>
+
+    <!-- Migration step. -->
+    <string name="onboarding_migrate_title">Trazer suas senhas</string>
+    <string name="onboarding_migrate_body">Importe do Chrome, Apple Passwords, Bitwarden, 1Password, KeePass ou Aegis — ou um CSV de qualquer outro gerenciador, incluindo Firefox e LastPass.\n\nVocê verá tudo o que foi encontrado e poderá escolher o que manter antes que qualquer coisa seja salva.</string>
+    <!-- Reused on the Done step's primary button when the user asked to import. -->
+    <string name="onboarding_migrate_import_cta">Importar minhas senhas</string>
+    <string name="onboarding_done_import_cta">Escolher uma fonte de importação</string>
+    <string name="onboarding_migrate_skip_cta">Começar com um cofre vazio</string>
+    <string name="onboarding_migrate_footnote">Escolher “Começar com um cofre vazio” não tem problema. Configurações → Cofre e backup → Importar de outro aplicativo executa o mesmo assistente quando você quiser — nada aqui é feito uma só vez.</string>
+
+    <!-- Done step. -->
+    <string name="onboarding_done_title">Tudo pronto</string>
+    <!-- SECURITY-COPY: tier B. Recovery-kit-saved confirmation. -->
+    <string name="onboarding_done_body_recovery_saved">Seu cofre está criptografado neste dispositivo.\n\nMantenha seu Kit de recuperação em algum lugar seguro e offline — é a única maneira de voltar se você esquecer sua senha mestra.</string>
+    <!-- SECURITY-COPY: tier B. Warns the user has no Recovery Kit yet. -->
+    <string name="onboarding_done_body_recovery_missing">Seu cofre está criptografado neste dispositivo.\n\nVocê ainda não tem um Kit de recuperação, então por enquanto sua senha mestra é a única maneira de entrar — esqueça-a e o cofre se perde.\n\nConfigurações → Kit de recuperação cria um quando você quiser.</string>
+    <string name="onboarding_done_open_vault_cta">Abrir meu cofre</string>
+    <string name="onboarding_done_autofill_cta">Configurar preenchimento automático</string>
+    <string name="onboarding_done_autofill_done">Preenchimento automático ativado</string>
+    <string name="onboarding_done_passkeys_cta">Configurar chaves de acesso</string>
+
+    <!-- Progress rail across the top of every step. -->
+    <string name="onboarding_rail_progress">%1$d de %2$d</string>
+    <string name="onboarding_rail_progress_description">Etapa %1$d de %2$d</string>
+
+    <string name="onboarding_settings_unavailable">Esta tela de configurações não está disponível</string>
+
+    <!-- Standalone Recovery Kit screen (Settings → Recovery Kit), for a vault that already
+         exists. All SECURITY-COPY: tier B. -->
+    <string name="onboarding_recoverykit_gate_title">Confirme que é você</string>
+    <string name="onboarding_recoverykit_gate_body">Um Kit de recuperação abre este cofre sem a senha mestra, e criar um substitui qualquer kit que você já tenha. Confirme com biometria ou com a senha do cofre para continuar.</string>
+    <!-- Shown instead of the body above when the gate has no biometric door to offer: a panic
+         lock took biometrics away from the gates, or the device has no strong sensor. The
+         shared body invited a fingerprint the screen then did not accept. -->
+    <!-- SECURITY-COPY: tier B -->
+    <string name="onboarding_recoverykit_gate_body_password_only">Um Kit de recuperação abre este cofre sem a senha mestra, e criar um substitui qualquer kit que você já tenha. Confirme com a senha do cofre para continuar.</string>
+    <string name="onboarding_recoverykit_gate_password_label">Senha do cofre</string>
+    <string name="onboarding_recoverykit_gate_biometric">Usar biometria</string>
+    <string name="onboarding_recoverykit_gate_biometric_subtitle">Confirme para criar um Kit de recuperação</string>
+    <string name="onboarding_recoverykit_gate_submit">Continuar</string>
+    <string name="onboarding_recoverykit_gate_error_password">Essa não é a senha deste cofre.</string>
+    <string name="onboarding_recoverykit_gate_error_memory">As configurações de criptografia deste cofre precisam de mais memória do que este dispositivo dá ao aplicativo enquanto ele está aberto. Nada foi alterado. Em um telefone com mais memória, reduza-as em Configurações › Backup — depois disso, isso funcionará aqui também.</string>
+    <string name="onboarding_recoverykit_gate_error_session_ended">O cofre foi bloqueado antes de concluir. Desbloqueie-o e tente novamente.</string>
+    <plurals name="onboarding_recoverykit_gate_error_throttled">
+        <item quantity="one">Muitas tentativas. Tente novamente em %1$d segundo.</item>
+        <item quantity="many">Muitas tentativas. Tente novamente em %1$d segundos.</item>
+        <item quantity="other">Muitas tentativas. Tente novamente em %1$d segundos.</item>
+    </plurals>
+    <string name="onboarding_recoverykit_title">Kit de recuperação</string>
+    <string name="onboarding_recoverykit_subtitle">A única maneira de voltar se você esquecer sua senha mestra</string>
+    <string name="onboarding_recoverykit_back_label">Voltar</string>
+    <string name="onboarding_recoverykit_empty_body">Um Kit de recuperação é composto por 24 palavras que abrem este cofre sem a senha mestra. Não há redefinição e nenhuma conta, então é a única rota de volta.\n\nCriar um substitui qualquer kit que você já tenha. Faça isso se nunca salvou um, se o perdeu, ou se mudou sua senha mestra desde então — isso rotaciona a chave para a qual o kit antigo foi criado, e o aplicativo o revoga em vez de deixá-lo com uma página que falha no momento em que você precisa dela.</string>
+    <string name="onboarding_recoverykit_working">Processando…</string>
+    <string name="onboarding_recoverykit_create_cta">Criar um Kit de recuperação</string>
+    <string name="onboarding_recoverykit_done_cta">Concluído</string>
+    <string name="onboarding_recoverykit_replace_footnote">Salvá-las substituirá qualquer Kit de recuperação anterior deste cofre. Até você salvar, o kit que já tem continua funcionando: se sair sem salvar, nada muda. Prefira salvar neste dispositivo: alguns destinos de compartilhamento enviam para a nuvem.</string>
+    <string name="onboarding_recoverykit_error_locked">Desbloqueie seu cofre primeiro.</string>
+    <string name="onboarding_recoverykit_error_create_failed">Não foi possível criar um Kit de recuperação para este cofre.</string>
+    <string name="onboarding_recoverykit_error_commit_failed">Arquivo salvo, mas este cofre manteve seu Kit de recuperação anterior. Desbloqueie o cofre e tente novamente — as palavras que você acabou de salvar não o abrirão.</string>
+</resources>

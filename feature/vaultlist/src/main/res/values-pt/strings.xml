@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- ===================== VaultListScreen — header, search, chips ===================== -->
+    <string name="vaultlist_screen_title">Cofre</string>
+    <string name="vaultlist_menu_open">Abrir menu</string>
+    <string name="vaultlist_search_placeholder">Pesquisar títulos, nomes de usuário, sites, notas, tags, pastas</string>
+    <string name="vaultlist_chip_favourites">Favoritos</string>
+    <string name="vaultlist_chip_all">Todos</string>
+    <!-- Off position of the folder strip, shown only when the vault has folders. -->
+    <string name="vaultlist_chip_totp">2FA</string>
+    <!-- The filter control beside the search field, its sheet, and the active-filter strip. -->
+    <string name="vaultlist_filter_open">Filtro</string>
+    <string name="vaultlist_filter_sheet_title">Filtro</string>
+    <string name="vaultlist_filter_section_type">Tipo</string>
+    <!-- Heading of the sheet's tag section. The tag values under it are user data, shown as
+         authored, and are never resources. Omitted entirely when the vault has no tags. -->
+    <string name="vaultlist_filter_section_tags">Tags</string>
+    <string name="vaultlist_filter_clear_all">Limpar tudo</string>
+    <string name="vaultlist_filter_token_remove">Remover filtro: %1$s</string>
+    <!-- Names the tag narrowing in the count line: "4 items · tag work". %1$s is the tag as the
+         user wrote it. Lowercase, like vaultlist_narrowed_favourites, because it reads mid-sentence. -->
+    <string name="vaultlist_narrowed_tag">tag %1$s</string>
+    <string name="vaultlist_error_retry">Tentar novamente</string>
+    <string name="vaultlist_error_action">Isso não funcionou. Tente novamente.</string>
+    <string name="vaultlist_error_load_vault">Não foi possível ler o cofre, então esta lista pode estar incompleta.</string>
+    <string name="vaultlist_error_load_trash">Não foi possível ler a lixeira, então esta lista pode estar incompleta.</string>
+
+    <!-- Selection-mode header, replacing the ordinary title/subtitle while rows are being picked. -->
+    <plurals name="vaultlist_selection_count_title">
+        <item quantity="one">%1$d selecionado</item>
+        <item quantity="many">%1$d selecionados</item>
+        <item quantity="other">%1$d selecionados</item>
+    </plurals>
+    <string name="vaultlist_selection_subtitle">Toque nas linhas para adicionar ou remover</string>
+    <plurals name="vaultlist_selection_hidden_subtitle">
+        <item quantity="one">%1$d oculto pelo filtro</item>
+        <item quantity="many">%1$d ocultos pelo filtro</item>
+        <item quantity="other">%1$d ocultos pelo filtro</item>
+    </plurals>
+    <plurals name="vaultlist_selection_not_in_list_subtitle">
+        <item quantity="one">%1$d fora desta lista</item>
+        <item quantity="many">%1$d fora desta lista</item>
+        <item quantity="other">%1$d fora desta lista</item>
+    </plurals>
+    <string name="vaultlist_selection_cancel">Cancelar seleção</string>
+    <string name="vaultlist_selection_deselect_all">Desmarcar todos os itens exibidos</string>
+    <string name="vaultlist_selection_select_all">Selecionar todos os itens exibidos</string>
+
+    <!-- Count line under the title. -->
+    <plurals name="vaultlist_count_items">
+        <item quantity="one">Itens: %1$d</item>
+        <item quantity="many">Itens: %1$d</item>
+        <item quantity="other">Itens: %1$d</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier G. Was the equivalent of "locked to this device" until 2026-07-30, and
+         false in every language: nothing binds the vault to the hardware, and Android Auto Backup
+         uploads the file unless the user disabled cloud backup. It now says only what is true —
+         encrypted, by the password that opened it (mechanism, not place, since 2026-09-16). Guarded per language by TierGClaimsTest. -->
+    <string name="vaultlist_count_device_suffix">%1$s · criptografia com sua senha do cofre</string>
+    <string name="vaultlist_count_opening">Abrindo seu cofre…</string>
+    <string name="vaultlist_count_filtered_suffix">%1$s · filtro: %2$s</string>
+    <!-- Section headings pinning the favourites block above the rest of the list. -->
+    <string name="vaultlist_section_all_items">Todos os itens</string>
+    <string name="vaultlist_section_favourites">Favoritos</string>
+    <string name="vaultlist_section_in_subfolders">Em subpastas</string>
+    <string name="vaultlist_narrowed_favourites">favoritos</string>
+    <string name="vaultlist_narrowed_search">pesquisa</string>
+    <!-- Quoted to preserve the surrounding spaces: joins "favourites" and "search". -->
+    <string name="vaultlist_narrowed_and">" e "</string>
+
+    <!--
+      "Nenhum %1$s ainda" agreed with nothing it was given: "Nenhum notas ainda", "Nenhum cartões
+      ainda". "Ainda não há" is invariant, so each sentence just names its own plural.
+    -->
+    <string name="vaultlist_empty_no_logins_yet">Ainda não há logins</string>
+    <string name="vaultlist_empty_no_totp_yet">Ainda não há códigos 2FA</string>
+    <string name="vaultlist_empty_no_cards_yet">Ainda não há cartões</string>
+    <string name="vaultlist_empty_no_identities_yet">Ainda não há identidades</string>
+    <string name="vaultlist_empty_no_notes_yet">Ainda não há notas</string>
+    <string name="vaultlist_empty_no_files_yet">Ainda não há arquivos</string>
+    <string name="vaultlist_empty_no_passkeys_yet">Ainda não há chaves de acesso</string>
+    <string name="vaultlist_empty_no_matches">Nenhum item correspondente</string>
+    <string name="vaultlist_empty_vault_title">Seu cofre está vazio</string>
+    <string name="vaultlist_empty_body_search_filtered">Nada corresponde a “%1$s” com os filtros que você aplicou.</string>
+    <string name="vaultlist_empty_body_search">Nada neste cofre corresponde a “%1$s”.</string>
+    <string name="vaultlist_empty_body_addable">Adicione um ou limpe o filtro para ver o resto do seu cofre.</string>
+    <string name="vaultlist_empty_body_addable_in_folder">Adicione um a esta pasta ou limpe o filtro para ver o que mais ela contém.</string>
+    <!-- GLOSSARY: pt renders passkey as "chave de acesso"; this line said "Passkeys" while the
+         category chip above it said "Chaves de acesso". -->
+    <string name="vaultlist_empty_body_passkey">As chaves de acesso aparecem aqui quando um site cria uma com o LocalKeep.</string>
+    <string name="vaultlist_empty_body_filtered">Nada corresponde aos filtros que você aplicou.</string>
+    <string name="vaultlist_empty_body_default">Adicione um login, um cartão, uma nota ou qualquer outra coisa que queira proteger. Tudo é criptografado assim que você salva.</string>
+    <!-- The article is gendered — uma nota, um cartão — so it belongs in the sentence. -->
+    <string name="vaultlist_empty_add_password">Adicionar uma senha</string>
+    <string name="vaultlist_empty_add_login">Adicionar um login</string>
+    <string name="vaultlist_empty_add_totp">Adicionar um código 2FA</string>
+    <string name="vaultlist_empty_add_note">Adicionar uma nota</string>
+    <string name="vaultlist_empty_add_file">Adicionar um arquivo</string>
+    <string name="vaultlist_empty_add_card">Adicionar um cartão</string>
+    <string name="vaultlist_empty_add_identity">Adicionar uma identidade</string>
+    <string name="vaultlist_empty_add_first_item">Adicionar seu primeiro item</string>
+    <string name="vaultlist_empty_clear_search_filters">Limpar pesquisa e filtros</string>
+    <string name="vaultlist_empty_clear_search">Limpar pesquisa</string>
+    <string name="vaultlist_empty_clear_filters">Limpar filtros</string>
+    <!-- Machine-assisted, pending the next per-language sweep. -->
+    <plurals name="vaultlist_empty_body_search_elsewhere">
+        <item quantity="one">Nada aqui corresponde a “%1$s”, mas %2$d item em outra parte do seu cofre corresponde.</item>
+        <item quantity="other">Nada aqui corresponde a “%1$s”, mas %2$d itens em outra parte do seu cofre correspondem.</item>
+    </plurals>
+    <string name="vaultlist_empty_search_everywhere">Pesquisar em todos os itens</string>
+
+    <string name="vaultlist_add_item_label">Adicionar item</string>
+
+    <!-- ===================== Bulk action bar ===================== -->
+    <string name="vaultlist_bulk_working">Processando…</string>
+    <string name="vaultlist_bulk_move_label">Mover</string>
+    <plurals name="vaultlist_bulk_move_description">
+        <item quantity="one">Mover %1$d item para uma pasta</item>
+        <item quantity="many">Mover %1$d itens para uma pasta</item>
+        <item quantity="other">Mover %1$d itens para uma pasta</item>
+    </plurals>
+    <string name="vaultlist_bulk_tag_label">Tag</string>
+    <plurals name="vaultlist_bulk_tag_description">
+        <item quantity="one">Adicionar uma tag a %1$d item</item>
+        <item quantity="many">Adicionar uma tag a %1$d itens</item>
+        <item quantity="other">Adicionar uma tag a %1$d itens</item>
+    </plurals>
+    <string name="vaultlist_bulk_trash_label">Lixeira</string>
+    <plurals name="vaultlist_bulk_trash_description">
+        <item quantity="one">Mover %1$d item para a lixeira</item>
+        <item quantity="many">Mover %1$d itens para a lixeira</item>
+        <item quantity="other">Mover %1$d itens para a lixeira</item>
+    </plurals>
+
+    <!-- Confirmation before a bulk trash — reversible, so not SECURITY-COPY tier A. -->
+    <plurals name="vaultlist_bulk_trash_confirm_title">
+        <item quantity="one">Mover %1$d item para a lixeira?</item>
+        <item quantity="many">Mover %1$d itens para a lixeira?</item>
+        <item quantity="other">Mover %1$d itens para a lixeira?</item>
+    </plurals>
+    <string name="vaultlist_bulk_trash_confirm_body">Eles permanecem na lixeira até que você a esvazie, portanto isso pode ser desfeito.</string>
+    <string name="vaultlist_bulk_trash_confirm_action">Mover para a lixeira</string>
+
+    <!-- ===================== Bulk move sheet ===================== -->
+    <plurals name="vaultlist_move_sheet_title">
+        <item quantity="one">Mover %1$d item</item>
+        <item quantity="many">Mover %1$d itens</item>
+        <item quantity="other">Mover %1$d itens</item>
+    </plurals>
+    <string name="vaultlist_move_sheet_subtitle">Escolha uma pasta. Isso substitui a pasta atual deles.</string>
+    <string name="vaultlist_move_no_folder_text">Sem pasta</string>
+    <string name="vaultlist_move_no_folder_label">Mover sem pasta</string>
+    <!-- %1$s is the destination folder\'s name. -->
+    <string name="vaultlist_move_to_folder_label">Mover para %1$s</string>
+    <string name="vaultlist_move_no_folders_hint">Você ainda não tem pastas. Crie uma ao editar qualquer item, depois volte.</string>
+
+    <!-- ===================== Bulk tag dialog ===================== -->
+    <plurals name="vaultlist_tag_dialog_title">
+        <item quantity="one">Adicionar tag a %1$d item</item>
+        <item quantity="many">Adicionar tag a %1$d itens</item>
+        <item quantity="other">Adicionar tag a %1$d itens</item>
+    </plurals>
+    <string name="vaultlist_tag_dialog_body">A tag é adicionada a cada um. As tags que eles já possuem são mantidas.</string>
+    <string name="vaultlist_tag_dialog_confirm">Adicionar tag</string>
+    <string name="vaultlist_tag_dialog_field_label">Nome da tag</string>
+
+    <!-- ===================== Pro / quota dialogs ===================== -->
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <!-- SECURITY-COPY: tier E. The purchase button; carries the price. -->
+    <string name="vaultlist_unlock_pro_action">Desbloquear Pro — %1$s</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="vaultlist_unlock_pro_action_no_price">Desbloquear Pro</string>
+    <string name="vaultlist_view_on_play_action">Ver no Google Play</string>
+    <string name="vaultlist_dialog_not_now">Agora não</string>
+
+    <!-- SECURITY-COPY: tier F. The free-tier attachment quota — the standing example in
+         the security-copy protocol ("5 of 5 used"). -->
+    <plurals name="vaultlist_quota_blocked_title">
+        <item quantity="one">Arquivos e mídia — %1$d no cofre, limite %2$d</item>
+        <item quantity="many">Arquivos e mídia — %1$d no cofre, limite %2$d</item>
+        <item quantity="other">Arquivos e mídia — %1$d no cofre, limite %2$d</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F. Same quota, spelled out in the dialog body. -->
+    <plurals name="vaultlist_quota_blocked_body_base">
+        <item quantity="one">Um cofre gratuito contém %2$d arquivos e fotos e você tem %3$d, contando os arquivos guardados em pastas e os anexados a outros itens. Exclua %1$d para liberar espaço para um novo</item>
+        <item quantity="many">Um cofre gratuito contém %2$d arquivos e fotos e você tem %3$d, contando os arquivos guardados em pastas e os anexados a outros itens. Exclua %1$d para liberar espaço para um novo</item>
+        <item quantity="other">Um cofre gratuito contém %2$d arquivos e fotos e você tem %3$d, contando os arquivos guardados em pastas e os anexados a outros itens. Exclua %1$d para liberar espaço para um novo</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier E. "unlimited" is a commercial claim. -->
+
+    <!-- SECURITY-COPY: tier F. One key per category with the noun written in, never a template
+         taking %1$s - see values/strings.xml. The participle agrees with this file's own noun.
+         %1$d is what the vault holds, %2$d the cap. -->
+    <plurals name="vaultlist_card_quota_blocked_title">
+        <item quantity="one">Cartões — %1$d no cofre, limite %2$d</item>
+        <item quantity="many">Cartões — %1$d no cofre, limite %2$d</item>
+        <item quantity="other">Cartões — %1$d no cofre, limite %2$d</item>
+    </plurals>
+    <plurals name="vaultlist_identity_quota_blocked_title">
+        <item quantity="one">Identidades — %1$d no cofre, limite %2$d</item>
+        <item quantity="many">Identidades — %1$d no cofre, limite %2$d</item>
+        <item quantity="other">Identidades — %1$d no cofre, limite %2$d</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier F. %1$d is how many must go (the quantity), %2$d the cap, %3$d stored.
+         The noun beside %2$d is fixed-singular; see values/strings.xml. -->
+    <plurals name="vaultlist_card_quota_blocked_body_base">
+        <item quantity="one">Um cofre gratuito contém %2$d cartão e você tem %3$d. Exclua %1$d para liberar espaço para um novo</item>
+        <item quantity="many">Um cofre gratuito contém %2$d cartão e você tem %3$d. Exclua %1$d para liberar espaço para um novo</item>
+        <item quantity="other">Um cofre gratuito contém %2$d cartão e você tem %3$d. Exclua %1$d para liberar espaço para um novo</item>
+    </plurals>
+    <plurals name="vaultlist_identity_quota_blocked_body_base">
+        <item quantity="one">Um cofre gratuito contém %2$d identidade e você tem %3$d. Exclua %1$d para liberar espaço para uma nova</item>
+        <item quantity="many">Um cofre gratuito contém %2$d identidade e você tem %3$d. Exclua %1$d para liberar espaço para uma nova</item>
+        <item quantity="other">Um cofre gratuito contém %2$d identidade e você tem %3$d. Exclua %1$d para liberar espaço para uma nova</item>
+    </plurals>
+
+    <string name="vaultlist_quota_blocked_suffix_purchase">, ou desbloqueie o Pro para acesso ilimitado.</string>
+    <string name="vaultlist_quota_blocked_suffix_no_purchase">, ou desbloqueie o Pro na versão Play.</string>
+
+    <!-- ===================== Quick copy (row pill + clipboard label) ===================== -->
+    <string name="vaultlist_quickcopy_copy">Copiar</string>
+    <!-- SECURITY-COPY: tier C. Names what is about to reach the clipboard. -->
+    <string name="vaultlist_quickcopy_copy_password">Copiar senha</string>
+    <string name="vaultlist_quickcopy_code">Código</string>
+    <!-- SECURITY-COPY: tier C. Names what is about to reach the clipboard. -->
+    <string name="vaultlist_quickcopy_copy_totp">Copiar código de dois fatores</string>
+    <!-- %1$s is the action label above (e.g. "Copy password"), %2$s is the item title. -->
+    <string name="vaultlist_quickcopy_description">%1$s de %2$s</string>
+    <!-- The system clipboard UI\'s label for the copied value, distinct from the row pill above. -->
+    <!-- SECURITY-COPY: tier C. -->
+    <string name="vaultlist_clipboard_label_password">Senha</string>
+    <!-- SECURITY-COPY: tier C. -->
+    <string name="vaultlist_clipboard_label_totp">Código 2FA</string>
+    <string name="vaultlist_totp_generate_error">Não foi possível gerar um código para este item.</string>
+
+    <!-- ===================== Add-to-vault sheet ===================== -->
+    <string name="vaultlist_add_sheet_title">Adicionar ao cofre</string>
+    <string name="vaultlist_add_sheet_subtitle">Criptografado assim que você salva</string>
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="vaultlist_badge_allowance_spent">
+        <item quantity="one">limite %2$d · %1$d no total</item>
+        <item quantity="many">limite %2$d · %1$d no total</item>
+        <item quantity="other">limite %2$d · %1$d no total</item>
+    </plurals>
+
+    <!-- One row per NewItemType in AddItemSheet; the short label stays a plain Kotlin String (see
+         report — shared across the module and the app-module drawer, gate-safe token length), but
+         the longer descriptive line is real prose and belongs in resources. -->
+    <string name="vaultlist_type_password">Senha</string>
+    <string name="vaultlist_type_login">Login</string>
+    <string name="vaultlist_type_totp">Código 2FA</string>
+    <string name="vaultlist_type_note">Nota segura</string>
+    <string name="vaultlist_type_file">Arquivo</string>
+    <string name="vaultlist_type_card">Cartão</string>
+    <string name="vaultlist_type_identity">Identidade</string>
+    <string name="vaultlist_category_logins">Logins</string>
+    <string name="vaultlist_category_totp">Códigos 2FA</string>
+    <string name="vaultlist_category_cards">Cartões</string>
+    <string name="vaultlist_category_identities">Identidades</string>
+    <string name="vaultlist_category_notes">Notas</string>
+    <string name="vaultlist_category_files">Arquivos e mídia</string>
+    <string name="vaultlist_category_passkeys">Chaves de acesso</string>
+
+    <string name="vaultlist_type_password_description">Uma senha forte, gerada para você</string>
+    <string name="vaultlist_type_login_description">Nome de usuário, senha e sites</string>
+    <string name="vaultlist_type_totp_description">Códigos de seis dígitos que se renovam a cada 30 segundos</string>
+    <string name="vaultlist_type_note_description">Texto criptografado de formato livre</string>
+    <string name="vaultlist_type_file_description">Documentos e fotos criptografados</string>
+    <string name="vaultlist_type_card_description">Número do cartão, validade, CVV e PIN</string>
+    <string name="vaultlist_type_identity_description">Nome, endereço e números de documentos</string>
+
+    <!-- ===================== Vault item row ===================== -->
+    <string name="vaultlist_item_untitled">Sem título</string>
+    <!-- %1$s is the item title. -->
+    <string name="vaultlist_row_remove_favourite">Remover %1$s dos favoritos</string>
+    <string name="vaultlist_row_add_favourite">Adicionar %1$s aos favoritos</string>
+    <string name="vaultlist_row_deselect">Desmarcar %1$s</string>
+    <string name="vaultlist_row_select">Selecionar %1$s</string>
+    <string name="vaultlist_row_open">Abrir %1$s</string>
+    <string name="vaultlist_row_extend_selection">Estender seleção</string>
+    <string name="vaultlist_row_more_actions">Mais ações</string>
+    <string name="vaultlist_menu_settings">Editar</string>
+    <!-- Accessibility description. %1$s title, %2$s subtitle, %3$s selection state
+         (vaultlist_row_state_selected / vaultlist_row_state_not_selected). -->
+    <string name="vaultlist_row_description_selecting">%1$s, %2$s, %3$s</string>
+    <string name="vaultlist_row_state_selected">selecionado</string>
+    <string name="vaultlist_row_state_not_selected">não selecionado</string>
+    <!-- %1$s title, %2$s subtitle. -->
+    <string name="vaultlist_row_description">%1$s, %2$s</string>
+    <string name="vaultlist_row_description_favourite">%1$s, %2$s, favorito</string>
+    <string name="vaultlist_row_move_to_trash">Mover %1$s para a lixeira</string>
+    <string name="vaultlist_row_select_multiple">Selecionar vários itens</string>
+    <!-- SECURITY-COPY: tier C. Explains why a reveal gate exists on this row. -->
+    <string name="vaultlist_row_requires_confirmation">%1$s requer confirmação para mostrar</string>
+
+    <string name="vaultlist_menu_remove_favourite">Remover dos favoritos</string>
+    <string name="vaultlist_menu_add_favourite">Adicionar aos favoritos</string>
+    <string name="vaultlist_notice_favourited">Adicionado aos favoritos</string>
+    <string name="vaultlist_notice_unfavourited">Removido dos favoritos</string>
+    <string name="vaultlist_menu_select_multiple">Selecionar vários…</string>
+    <string name="vaultlist_menu_move_to_trash">Mover para a lixeira</string>
+
+    <!-- Row subtitle fallbacks, shown when the identifying field is blank. -->
+    <string name="vaultlist_subtitle_login_fallback">Login</string>
+    <string name="vaultlist_subtitle_totp_fallback">Código 2FA</string>
+    <string name="vaultlist_subtitle_card_fallback">Cartão</string>
+    <string name="vaultlist_subtitle_identity_fallback">Identidade</string>
+    <string name="vaultlist_subtitle_note">Nota segura</string>
+    <string name="vaultlist_subtitle_file">Arquivo</string>
+    <string name="vaultlist_subtitle_passkey">Chave de acesso</string>
+
+    <!-- ===================== Trash ===================== -->
+    <string name="vaultlist_trash_title">Lixeira</string>
+    <plurals name="vaultlist_trash_count_subtitle">
+        <item quantity="one">Itens: %1$d · ainda criptografados</item>
+        <item quantity="many">Itens: %1$d · ainda criptografados</item>
+        <item quantity="other">Itens: %1$d · ainda criptografados</item>
+    </plurals>
+    <!-- The header when folders are in the trash too. Composed from the two plurals the folder rows
+         use, because one plural cannot agree with two counts. -->
+    <string name="vaultlist_trash_count_subtitle_with_folders">%1$s, %2$s · ainda criptografados</string>
+    <string name="vaultlist_trash_back">Voltar</string>
+    <string name="vaultlist_trash_search_placeholder">Pesquisar itens excluídos</string>
+    <string name="vaultlist_trash_empty_no_matches">Sem correspondências</string>
+    <string name="vaultlist_trash_empty_title">A lixeira está vazia</string>
+    <string name="vaultlist_trash_empty_body_search">Nada na lixeira corresponde a isso.</string>
+    <string name="vaultlist_trash_empty_body">Itens excluídos ficam aqui até que você a esvazie. Nada é removido automaticamente.</string>
+    <!-- SECURITY-COPY: tier A. Used both as the screen button and as the confirm-dialog action that
+         actually destroys the trash contents. -->
+    <string name="vaultlist_trash_empty_button">Esvaziar lixeira</string>
+    <string name="vaultlist_trash_restore_action">Restaurar %1$s</string>
+    <!-- SECURITY-COPY: tier A. Labels the per-row irreversible delete control. -->
+    <string name="vaultlist_trash_delete_forever_action">Excluir %1$s para sempre</string>
+
+    <!-- SECURITY-COPY: tier A. Empty-trash confirmation dialog. -->
+    <string name="vaultlist_trash_empty_confirm_title">Esvaziar a lixeira?</string>
+    <!-- SECURITY-COPY: tier A. Built from emptyTrashBody(); totalCount always drives the count. -->
+    <plurals name="vaultlist_trash_empty_removes_phrase">
+        <item quantity="one">Isso exclui permanentemente %1$d item</item>
+        <item quantity="many">Isso exclui permanentemente todos os %1$d itens</item>
+        <item quantity="other">Isso exclui permanentemente todos os %1$d itens</item>
+    </plurals>
+    <!-- Appended when the trash also holds folders; the count is every trashed folder, nested ones included. -->
+    <!-- SECURITY-COPY: tier A -->
+    <plurals name="vaultlist_trash_empty_and_folders">
+        <item quantity="one">e %1$d pasta</item>
+        <item quantity="other">e %1$d pastas</item>
+        <item quantity="many">e %1$d pastas</item>
+    </plurals>
+    <!-- Replaces the items phrase when the trash holds only folders, so the sentence never says "all 0 items". -->
+    <!-- SECURITY-COPY: tier A -->
+    <plurals name="vaultlist_trash_empty_removes_folders_only">
+        <item quantity="one">Isso exclui permanentemente %1$d pasta</item>
+        <item quantity="other">Isso exclui permanentemente todas as %1$d pastas</item>
+        <item quantity="many">Isso exclui permanentemente todas as %1$d pastas</item>
+    </plurals>
+    <!-- SECURITY-COPY: tier A. -->
+    <string name="vaultlist_trash_empty_hiding_clause">, incluindo aqueles que sua pesquisa está ocultando</string>
+    <!-- SECURITY-COPY: tier A. Corrected copy (2026-07-29): no longer claims there is no copy
+         anywhere else — a rolling snapshot or an Auto Backup copy may still hold the item. -->
+    <string name="vaultlist_trash_empty_no_undo_clause">. Não é possível desfazer, embora um snapshot local ou backup anterior ainda possa conter uma cópia.</string>
+
+    <!-- SECURITY-COPY: tier A. Per-item permanent-delete confirmation. -->
+    <string name="vaultlist_trash_delete_confirm_title">Excluir “%1$s” para sempre?</string>
+    <!-- SECURITY-COPY: tier A. -->
+    <string name="vaultlist_trash_delete_confirm_body">Isso não pode ser desfeito. O item é removido do cofre no próximo salvamento.</string>
+    <!-- SECURITY-COPY: tier A. -->
+    <string name="vaultlist_trash_delete_confirm_action">Excluir para sempre</string>
+
+    <!-- ===================== Transient LkNotices confirmations ===================== -->
+    <!-- Resolved by the composable and passed into the ViewModel, which cannot hold a Context to
+         resolve them itself (LkNotices.post takes a plain String; core/ui is out of scope here). -->
+    <string name="vaultlist_notice_moved_to_trash">Movido para a lixeira</string>
+    <string name="vaultlist_notice_undo">Desfazer</string>
+    <string name="vaultlist_notice_restored">Restaurado</string>
+    <string name="vaultlist_notice_item_restored">Item restaurado</string>
+    <!-- The original folder is still in the trash, so the item came back somewhere else. Naming
+         the destination is the difference between a restore the user can find and one they cannot,
+         mirroring vaultlist_notice_folder_restored_to below for the folder-restore case. -->
+    <string name="vaultlist_notice_item_restored_to">Item restaurado em %1$s</string>
+    <string name="vaultlist_notice_item_restored_to_root">Item restaurado no nível superior</string>
+    <string name="vaultlist_notice_restore_undone">Devolvido à lixeira</string>
+    <string name="vaultlist_trash_preview_action">Pré-visualizar %1$s</string>
+    <string name="vaultlist_trash_preview_restore">Restaurar</string>
+    <string name="vaultlist_trash_preview_close">Fechar</string>
+    <string name="vaultlist_trash_preview_no_files">Esta entrada não tem arquivos anexados.</string>
+    <string name="vaultlist_trash_preview_open_file">Abrir %1$s</string>
+    <string name="vaultlist_notice_item_deleted_forever">Item excluído permanentemente</string>
+    <string name="vaultlist_notice_trash_emptied">Lixeira esvaziada</string>
+    <string name="vaultlist_notice_no_bulk_change">Nada mudou — cada item selecionado já estava assim</string>
+    <plurals name="vaultlist_bulk_moved">
+        <item quantity="one">%1$d item movido</item>
+        <item quantity="other">%1$d itens movidos</item>
+    </plurals>
+    <plurals name="vaultlist_bulk_removed_from_folder">
+        <item quantity="one">%1$d item removido da pasta</item>
+        <item quantity="other">%1$d itens removidos da pasta</item>
+    </plurals>
+    <plurals name="vaultlist_bulk_tagged">
+        <item quantity="one">%1$d item marcado com tag</item>
+        <item quantity="other">%1$d itens marcados com tag</item>
+    </plurals>
+    <plurals name="vaultlist_bulk_trashed">
+        <item quantity="one">%1$d item movido para a lixeira</item>
+        <item quantity="other">%1$d itens movidos para a lixeira</item>
+    </plurals>
+    <plurals name="vaultlist_bulk_restored">
+        <item quantity="one">%1$d item restaurado</item>
+        <item quantity="other">%1$d itens restaurados</item>
+    </plurals>
+    <string name="vaultlist_row_description_folder">%1$s, em %2$s</string>
+    <plurals name="vaultlist_row_attachments">
+        <item quantity="one">%1$d arquivo</item>
+        <item quantity="other">%1$d arquivos</item>
+    </plurals>
+    <string name="vaultlist_row_description_attachments">%1$s, %2$s</string>
+    <string name="vaultlist_folders_title">Pastas</string>
+    <string name="vaultlist_folders_subtitle">Guardam itens e outras pastas. Excluir uma pasta move-a para a Lixeira com todo o conteúdo, e a Lixeira pode restaurá-la.</string>
+    <string name="vaultlist_folders_back">Voltar</string>
+    <string name="vaultlist_folders_new_label">Nova pasta</string>
+    <string name="vaultlist_folders_new_create">Criar pasta</string>
+    <string name="vaultlist_folders_new_cancel">Cancelar</string>
+    <string name="vaultlist_folders_new_placeholder">Trabalho, Família, Banco…</string>
+    <string name="vaultlist_folders_empty_title">Nenhuma pasta ainda</string>
+    <string name="vaultlist_folders_empty_body">Crie uma abaixo.</string>
+    <string name="vaultlist_folders_open_action">Mostrar apenas %1$s</string>
+    <string name="vaultlist_folders_rename_action">Renomear %1$s</string>
+    <string name="vaultlist_folders_rename_label">Novo nome para %1$s</string>
+    <string name="vaultlist_folders_rename_confirm">Salvar nome</string>
+    <string name="vaultlist_folders_rename_cancel">Cancelar renomeação</string>
+    <string name="vaultlist_folders_delete_action">Excluir %1$s</string>
+    <string name="vaultlist_folders_delete_title">Excluir %1$s?</string>
+    <string name="vaultlist_folders_delete_confirm">Excluir pasta</string>
+    <string name="vaultlist_folders_delete_dismiss">Manter</string>
+    <string name="vaultlist_folders_error_name_exists">Já existe uma pasta com esse nome.</string>
+    <string name="vaultlist_folders_error_name_in_trash">Há uma pasta com esse nome na lixeira. Restaure-a ou remova-a permanentemente para usar o nome aqui.</string>
+    <string name="vaultlist_folders_error_too_deep">As pastas podem ser aninhadas em até oito níveis. Escolha uma pasta principal mais perto do topo.</string>
+    <string name="vaultlist_folders_error_action">Não funcionou. Nada foi alterado.</string>
+    <string name="vaultlist_folders_error_duplicate_allowance">Nada foi copiado. Um cofre gratuito não tem espaço para cópias dos arquivos, cartões ou identidades desta pasta.</string>
+    <plurals name="vaultlist_folders_delete_body">
+        <item quantity="one">A pasta vai para a lixeira, subpastas incluídas — %1$d\u00a0item no total. Você pode restaurá-la a partir da lixeira.</item>
+        <item quantity="other">A pasta vai para a lixeira, subpastas incluídas — %1$d\u00a0itens no total. Você pode restaurá-la a partir da lixeira.</item>
+        <item quantity="many">A pasta vai para a lixeira, subpastas incluídas — %1$d\u00a0itens no total. Você pode restaurá-la a partir da lixeira.</item>
+    </plurals>
+    <!-- A folder holding nothing: the counted body would say "0 items in all", a total of nothing. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_folders_delete_body_empty">A pasta vai para a lixeira, subpastas incluídas — não contém nenhum item. Você pode restaurá-la a partir da lixeira.</string>
+    <!-- A folder holding nothing and containing no folders: the sentence above says subfolders are
+         included, which is a claim about something that is not there. -->
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_folders_delete_body_childless">A pasta vai para a lixeira — não contém itens nem subpastas. Você pode restaurá-la a partir da lixeira.</string>
+
+    <!-- ===================== Pastas como contêineres ===================== -->
+    <string name="vaultlist_folder_browse_empty_title">Esta pasta está vazia</string>
+    <string name="vaultlist_folder_browse_empty_body">Ainda não há nada guardado aqui. Adicione um item e ele ficará nesta pasta.</string>
+    <string name="vaultlist_folder_browse_empty_button">Adicionar um item aqui</string>
+    <string name="vaultlist_folder_no_items">Nenhum item nesta pasta</string>
+    <string name="vaultlist_breadcrumb_a11y">Caminho da pasta</string>
+    <string name="vaultlist_breadcrumb_root">Todos os itens</string>
+    <plurals name="vaultlist_folder_row_description">
+        <item quantity="one">Pasta %1$s, itens: %2$d</item>
+        <item quantity="many">Pasta %1$s, itens: %2$d</item>
+        <item quantity="other">Pasta %1$s, itens: %2$d</item>
+    </plurals>
+    <plurals name="vaultlist_count_folders">
+        <item quantity="one">Pastas: %1$d</item>
+        <item quantity="many">Pastas: %1$d</item>
+        <item quantity="other">Pastas: %1$d</item>
+    </plurals>
+    <string name="vaultlist_count_device_folders_suffix">%1$s · %2$s · criptografia com sua senha do cofre</string>
+    <string name="vaultlist_count_filtered_folders_suffix">%1$s · %2$s · filtro: %3$s</string>
+    <string name="vaultlist_folder_row_disambiguated">%1$s · em %2$s</string>
+    <string name="vaultlist_fab_add_to_folder">Adicionar em %1$s</string>
+    <string name="vaultlist_search_outside_folder">Buscar fora de %1$s</string>
+    <string name="vaultlist_folder_absent_notice">Essa pasta não existe mais. O item foi salvo sem pasta.</string>
+    <string name="vaultlist_move_new_folder">Nova pasta</string>
+    <string name="vaultlist_folder_name_suffix">%1$s (%2$d)</string>
+    <string name="vaultlist_folder_picker_subfolder">%1$s, em %2$s</string>
+    <string name="vaultlist_folder_renamed_notice">%1$s foi renomeada para %2$s para evitar nomes iguais.</string>
+    <plurals name="vaultlist_folders_show_more">
+        <item quantity="one">Mostrar mais %1$d pasta</item>
+        <item quantity="many">Mostrar mais %1$d pastas</item>
+        <item quantity="other">Mostrar mais %1$d pastas</item>
+    </plurals>
+    <string name="vaultlist_folders_show_fewer">Mostrar menos pastas</string>
+    <string name="vaultlist_folders_move_action">Mover %1$s para outra pasta</string>
+    <string name="vaultlist_folders_move_title">Mover %1$s</string>
+    <string name="vaultlist_folders_move_root">Sem pasta (primeiro nível)</string>
+    <string name="vaultlist_folders_move_dismiss">Cancelar</string>
+    <string name="vaultlist_folders_new_in">Dentro de %1$s</string>
+    <string name="vaultlist_folders_new_in_root">No primeiro nível</string>
+    <string name="vaultlist_folders_new_parent_choose">Escolher onde a nova pasta vai ficar</string>
+    <string name="vaultlist_folders_new_parent_title">Onde ela fica?</string>
+    <string name="vaultlist_folders_repair_title">Reparar as pastas?</string>
+    <string name="vaultlist_folders_repair_body">Algumas pastas apontam para uma pasta superior que não existe, apontam umas para as outras, ou estão aninhadas demais para aparecer. O reparo move essas pastas para o primeiro nível e devolve qualquer item cuja pasta sumiu. Nada é excluído.</string>
+    <string name="vaultlist_folders_repair_confirm">Reparar</string>
+    <string name="vaultlist_folders_repair_dismiss">Agora não</string>
+    <string name="vaultlist_folders_repair_action">Reparar pastas</string>
+    <string name="vaultlist_folders_repair_banner">Algumas pastas não puderam ser lidas corretamente.</string>
+
+    <string name="vaultlist_folder_action_more">Mais ações para %1$s</string>
+    <string name="vaultlist_folder_action_rename">Renomear</string>
+    <string name="vaultlist_folder_action_move">Mover…</string>
+    <string name="vaultlist_folder_action_duplicate">Duplicar</string>
+    <string name="vaultlist_folder_action_delete">Excluir</string>
+    <string name="vaultlist_folder_copy_suffix">%1$s (cópia)</string>
+    <string name="vaultlist_folder_copy_suffix_n">%1$s (cópia %2$d)</string>
+    <string name="vaultlist_add_new_folder">Nova pasta</string>
+    <string name="vaultlist_folders_new_confirm">Criar pasta</string>
+
+    <string name="vaultlist_empty_folder_title">Esta pasta está vazia</string>
+    <string name="vaultlist_empty_folder_body">Adicione um item aqui ou volte para todos os itens.</string>
+    <string name="vaultlist_empty_folder_action">Voltar para todos os itens</string>
+
+    <!-- ===================== Lixeira: linhas de pasta ===================== -->
+    <string name="vaultlist_trash_folders_section">Pastas</string>
+    <string name="vaultlist_trash_folder_summary">%1$s, %2$s</string>
+    <plurals name="vaultlist_trash_folder_folder_count">
+        <item quantity="one">%1$d pasta</item>
+        <item quantity="other">%1$d pastas</item>
+        <item quantity="many">%1$d pastas</item>
+    </plurals>
+    <plurals name="vaultlist_trash_folder_item_count">
+        <item quantity="one">Itens: %1$d</item>
+        <item quantity="other">Itens: %1$d</item>
+        <item quantity="many">Itens: %1$d</item>
+    </plurals>
+    <string name="vaultlist_trash_folder_restore_action">Restaurar %1$s e tudo o que há nela</string>
+    <string name="vaultlist_trash_folder_delete_action">Excluir definitivamente %1$s e tudo o que há nela</string>
+    <string name="vaultlist_notice_folder_restored">Pasta restaurada</string>
+    <string name="vaultlist_notice_folder_restored_to">Pasta restaurada em %1$s</string>
+    <string name="vaultlist_notice_folder_restored_to_root">Pasta restaurada no nível superior</string>
+    <string name="vaultlist_notice_folder_deleted_forever">Pasta excluída definitivamente</string>
+    <!-- SECURITY-COPY: tier A -->
+    <string name="vaultlist_notice_purge_stale">A lixeira mudou. Nada foi excluído — verifique-a e tente novamente.</string>
+    <string name="vaultlist_trash_folder_delete_confirm_title">Excluir “%1$s” definitivamente?</string>
+    <string name="vaultlist_trash_folder_delete_confirm_body">Isto destrói %1$s e %2$s no total, e não pode ser desfeito.</string>
+
+    <!-- ===================== Arrastar e soltar ===================== -->
+    <string name="vaultlist_folder_action_move_to_trash">Mover %1$s para a lixeira</string>
+    <string name="vaultlist_item_action_move_to_folder">Mover para uma pasta…</string>
+    <string name="vaultlist_folder_action_move_folder">Mover %1$s…</string>
+    <string name="vaultlist_folder_action_open">Abrir %1$s</string>
+    <string name="vaultlist_row_folder_trail_ellipsis">…</string>
+    <string name="vaultlist_move_sheet_title_folder">Mover %1$s</string>
+    <string name="vaultlist_move_sheet_subtitle_folder">Escolha o destino. Todo o conteúdo vai junto.</string>
+    <string name="vaultlist_drag_to_parent">Mover para %1$s</string>
+    <string name="vaultlist_drag_to_root">Mover para o nível superior</string>
+    <string name="vaultlist_drag_remove_from_folder">Remover da pasta</string>
+    <string name="vaultlist_drag_trash_dock">Mover para a lixeira</string>
+    <string name="vaultlist_drag_undo">Desfazer</string>
+    <string name="vaultlist_drag_undone">Movimentação desfeita</string>
+    <plurals name="vaultlist_drag_moved_items">
+        <item quantity="one">%1$d item movido</item>
+        <item quantity="other">%1$d itens movidos</item>
+        <item quantity="many">%1$d itens movidos</item>
+    </plurals>
+    <string name="vaultlist_drag_moved_folder">Pasta movida</string>
+    <string name="vaultlist_drag_unfiled_folder">Pasta movida para o nível superior</string>
+    <string name="vaultlist_drag_trashed_folder">%1$s, %2$s movidos para a lixeira</string>
+
+    <!-- ============================================================================================
+         Make-Invisible (hidden entries) strings. Several of these assert a security property — where
+         concealed data lives, that a reveal is session-scoped, that recovery survives a forgotten
+         phrase — so they are owed the full security-copy protocol (register entry + banned-phrase
+         decision + fr/de/es/pt translation reviewed by the adversarial pass). That protocol is the
+         i18n workstream's job and lands with the translations, so the SECURITY-COPY marker is NOT
+         applied here yet: the marker and the values-*/ files move together, or TierGClaimsTest's
+         register and the resources drift apart the moment one is added without the other. English-
+         only for now; the feature is functional. See the make-invisible plan, Task 8.
+         ============================================================================================ -->
+    <!-- The persistent banner shown only while the reveal phrase has been entered this session and
+         hidden entries are visible. States the two facts the user needs: this is temporary, and it
+         ends with the session. Amber (LkColors) — a state, not a failure. -->
+    <string name="vaultlist_revealed_header">As entradas que você tornou invisíveis estão sendo exibidas nesta sessão</string>
+    <string name="vaultlist_revealed_countdown">Serão ocultadas novamente em %1$s</string>
+    <string name="vaultlist_revealed_state_description">Sessão de revelação ativa</string>
+    <string name="vaultlist_hide_again">Parar de exibir</string>
+    <!-- Polite one-shot announcement when the session becomes revealed. -->
+    <string name="vaultlist_revealed_announcement">As entradas que você tornou invisíveis estão sendo mostradas nesta sessão e serão ocultadas automaticamente</string>
+
+    <string name="vaultlist_hide_action">Tornar invisível…</string>
+    <string name="vaultlist_hide_sheet_title">Tornar %1$s invisível</string>
+    <string name="vaultlist_hide_preset_5min">5 minutos</string>
+    <string name="vaultlist_hide_preset_30min">30 minutos</string>
+    <string name="vaultlist_hide_preset_1hour">1 hora</string>
+    <string name="vaultlist_hide_preset_1day">1 dia</string>
+    <string name="vaultlist_hide_preset_indefinite">Indefinidamente</string>
+    <string name="vaultlist_hide_preset_custom">Personalizado…</string>
+    <!-- The custom-duration entry: a positive whole number plus a unit. -->
+    <string name="vaultlist_hide_custom_amount_label">Quantidade</string>
+    <string name="vaultlist_hide_custom_unit_minutes">Minutos</string>
+    <string name="vaultlist_hide_custom_unit_hours">Horas</string>
+    <string name="vaultlist_hide_custom_unit_days">Dias</string>
+    <string name="vaultlist_hide_custom_confirm">Tornar invisível por este período</string>
+    <string name="vaultlist_hide_custom_back">Voltar</string>
+    <!-- Shown inline when the typed duration is not usable (zero, or longer than ten years). -->
+    <string name="vaultlist_hide_custom_error">Digite um número inteiro de 1 ou mais, até dez anos no total.</string>
+    <string name="vaultlist_hide_phrase_title">Definir uma frase de revelação</string>
+    <string name="vaultlist_hide_phrase_body">Digite esta frase na caixa de pesquisa para exibir os itens invisíveis. Se você esquecê-la, sempre poderá trazê-los de volta em Configurações, usando a senha do cofre ou a biometria.</string>
+    <string name="vaultlist_hide_phrase_label">Frase de revelação</string>
+    <string name="vaultlist_hide_phrase_confirm">Tornar invisível</string>
+    <string name="vaultlist_hide_error_collision">Essa frase corresponde a um item que você pode ver. Escolha outra.</string>
+    <string name="vaultlist_marker_hidden">Invisível</string>
+    <!-- The filter sheet's invisible-entries section, composed only inside a reveal session — see
+         FilterSheetContent for why it must never be on screen otherwise. A section heading and a
+         switch that narrows the list to the entries the session is showing; the switch's label is
+         also the token in the active-filter strip. Neither may read as a protection claim. -->
+    <string name="vaultlist_filter_section_hidden">Entradas invisíveis</string>
+    <string name="vaultlist_filter_hidden_only">Apenas entradas invisíveis</string>
+    <!-- Names the same narrowing in the count line: "3 items · invisible only". Lowercase, like
+         vaultlist_narrowed_favourites, because it reads mid-sentence. -->
+    <string name="vaultlist_narrowed_hidden">apenas invisíveis</string>
+    <string name="vaultlist_stop_hiding">Tornar visível</string>
+
+    <!-- Save current location (schema 6). -->
+    <string name="vaultlist_empty_no_coordinates_yet">Ainda não há lugares GPS</string>
+    <string name="vaultlist_empty_add_coordinate">Salvar um lugar GPS</string>
+    <string name="vaultlist_type_coordinate">Lugar GPS</string>
+    <string name="vaultlist_category_coordinates">Lugares GPS</string>
+    <string name="vaultlist_type_coordinate_description">Onde você está agora, salvo uma vez</string>
+    <string name="vaultlist_subtitle_coordinate">Lugar GPS salvo</string>
+    <!-- Recovery phrase (added 2026-08-21) -->
+    <string name="vaultlist_type_phrase">Frase de recuperação</string>
+    <string name="vaultlist_category_phrases">Frases de recuperação</string>
+    <string name="vaultlist_subtitle_phrase">Frase de recuperação</string>
+    <string name="vaultlist_type_phrase_description">Uma frase de recuperação, com ortografia verificada e mantida em ordem</string>
+    <string name="vaultlist_empty_no_phrases_yet">Ainda não há frases de recuperação</string>
+    <string name="vaultlist_empty_add_phrase">Adicionar uma frase de recuperação</string>
+    <string name="vaultlist_recovery_kit_set_password">Você abriu este cofre com seu kit de recuperação. Defina uma nova senha mestra agora, para que o próximo desbloqueio não peça as 24 palavras de novo.</string>
+    <string name="vaultlist_recovery_kit_set_password_action">Definir uma nova senha mestra</string>
+</resources>

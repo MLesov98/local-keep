@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="generator_title">Générateur</string>
+    <!-- Reassurance line under the title. "secure random generator" is deliberate plain
+         language for CSPRNG — keep it non-technical in every locale. -->
+    <string name="generator_subtitle">Créé sur cet appareil, avec le générateur aléatoire sécurisé du système</string>
+    <string name="generator_save_as_login">Enregistrer comme nouvel identifiant</string>
+
+    <!-- Slider card heading in random mode / passphrase mode. -->
+    <string name="generator_length">Longueur</string>
+    <string name="generator_words">Mots</string>
+    <!-- Accessibility label of the slider in passphrase mode. -->
+    <string name="generator_word_count">Nombre de mots</string>
+
+    <!-- Character-class toggles. The hints beside them (A–Z, 0–9, l1 O0, !@#$) describe
+         literal characters and are translatable="false". -->
+    <string name="generator_uppercase">Majuscules</string>
+    <string name="generator_lowercase">Minuscules</string>
+    <string name="generator_digits">Chiffres</string>
+    <string name="generator_symbols">Symboles</string>
+    <string name="generator_avoid_ambiguous">Éviter les caractères ambigus</string>
+    <string name="generator_capitalize_words">Majuscule initiale</string>
+    <string name="generator_include_number">Inclure un nombre</string>
+
+    <string name="generator_separator">Séparateur</string>
+
+    <!-- The two positions of the mode toggle. -->
+    <string name="generator_mode_random">Aléatoire</string>
+    <string name="generator_mode_passphrase">Phrase secrète</string>
+    <!-- Accessibility: appended to the selected mode's name. -->
+    <string name="generator_mode_selected">%1$s, sélectionné</string>
+
+    <string name="generator_regenerate">Régénérer</string>
+    <string name="generator_copy">Copier le mot de passe généré</string>
+    <!-- The clipboard entry's label, shown by the system clipboard UI. -->
+    <string name="generator_clipboard_label">Mot de passe généré</string>
+
+    <!-- Accessibility announcement after a regenerate. Deliberately does NOT read the
+         value aloud — see OutputCard's comment. -->
+    <plurals name="generator_announce_generated">
+        <item quantity="one">Nouveau mot de passe généré, %1$d caractère</item>
+        <item quantity="other">Nouveau mot de passe généré, %1$d caractères</item>
+    </plurals>
+
+    <!-- Entropy readout: number and word are separate nodes on screen. -->
+    <plurals name="generator_entropy_bits">
+        <item quantity="one">%1$d bit</item>
+        <item quantity="other">%1$d bits</item>
+    </plurals>
+
+    <!-- SECURITY-COPY: tier F adjacent, but purely a validation notice. -->
+    <string name="generator_error_no_options">Choisissez au moins une option valide</string>
+    <!-- PASSPHRASE mode's one reachable generation failure: the bundled EFF word list is loaded off
+         the main thread at app startup (LocalKeepApplication.onCreate) and this screen can in
+         principle be reached before that finishes. Says what actually happened and what to do,
+         rather than generator_error_no_options's "choose an option", which names nothing on this
+         screen. Not a security claim — an operational status. -->
+    <string name="generator_error_wordlist_unavailable">La liste de mots est encore en cours de chargement — réessayez dans un instant</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <!--
+      Allowlist approach: include everything in app-private filesDir by default, then
+      explicitly exclude the biometric key store, encrypted file/media blobs (P11), the
+      rolling local-backup copies (P15 — see RollingBackupManager), and the transient
+      atomic-write artifacts. vault.enc itself is the one file this app needs backed up.
+      Note: getCacheDir()/getCodeCacheDir() contents are ALWAYS excluded by the platform,
+      with no XML rule needed or possible for them.
+    -->
+    <cloud-backup>
+        <include domain="file" path="."/>
+        <exclude domain="file" path="device_keys.bin"/>
+        <exclude domain="file" path="device_keys.bin.tmp"/>
+        <exclude domain="file" path="vault.enc.bak"/>
+        <exclude domain="file" path="vault.enc.bak.sweep.tmp"/>
+        <exclude domain="file" path="vault.enc.tmp"/>
+        <exclude domain="file" path="blobs/"/>
+        <exclude domain="file" path="blob-replacements/"/>
+        <exclude domain="file" path="dek-rotation.journal"/>
+        <exclude domain="file" path="dek-rotation.journal.tmp"/>
+        <exclude domain="file" path="backups/"/>
+        <!-- Copies of a container that would not open, kept aside by the pre-unlock restore
+             flow (PreUnlockRestore.QUARANTINE_DIR) so a restore can never destroy the bytes it
+             replaces. Ciphertext, and dead weight in a backup set with a 25 MB cap the live
+             vault also has to fit inside. -->
+        <exclude domain="file" path="damaged/"/>
+        <!--
+          androidx DataStore lands at filesDir/datastore/, which the wildcard include above swept
+          up unnoticed. Two stores live there and neither should leave the device:
+          `autofill_trust` is a plaintext inventory of every app and web domain the user has
+          autofilled a LocalKeep credential into — a browsing-and-accounts profile in its own
+          right, and the trust attestation the autofill anti-phishing check reads, so it is also
+          device-bound state that must be re-established rather than restored; `billing_entitlement`
+          is a Pro cache that Play reconciles at startup anyway.
+        -->
+        <exclude domain="file" path="datastore/"/>
+
+        <!-- Non-secret prefs: disable-cloud-backup toggle, last-export timestamp, auto-lock timeout. -->
+        <include domain="sharedpref" path="."/>
+        <!-- The unlock backoff's failure count and lockout deadline (core/vault UnlockThrottle).
+             Not secret, but device-local: restored onto a new phone it would re-arm the backoff at
+             a high exponent on the first wrong guess there. -->
+        <exclude domain="sharedpref" path="unlock_throttle.xml"/>
+    </cloud-backup>
+
+    <device-transfer>
+        <include domain="file" path="."/>
+        <exclude domain="file" path="device_keys.bin"/>
+        <exclude domain="file" path="device_keys.bin.tmp"/>
+        <exclude domain="file" path="vault.enc.bak"/>
+        <exclude domain="file" path="vault.enc.bak.sweep.tmp"/>
+        <exclude domain="file" path="vault.enc.tmp"/>
+        <exclude domain="file" path="blobs/"/>
+        <exclude domain="file" path="blob-replacements/"/>
+        <exclude domain="file" path="dek-rotation.journal"/>
+        <exclude domain="file" path="dek-rotation.journal.tmp"/>
+        <exclude domain="file" path="backups/"/>
+        <!-- Copies of a container that would not open, kept aside by the pre-unlock restore
+             flow (PreUnlockRestore.QUARANTINE_DIR) so a restore can never destroy the bytes it
+             replaces. Ciphertext, and dead weight in a backup set with a 25 MB cap the live
+             vault also has to fit inside. -->
+        <exclude domain="file" path="damaged/"/>
+        <!-- Same reasoning as the cloud-backup block above. -->
+        <exclude domain="file" path="datastore/"/>
+        <include domain="sharedpref" path="."/>
+        <!-- Same reasoning as the cloud-backup block above. -->
+        <exclude domain="sharedpref" path="unlock_throttle.xml"/>
+    </device-transfer>
+</data-extraction-rules>

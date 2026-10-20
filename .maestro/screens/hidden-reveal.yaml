@@ -1,0 +1,48 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+# The reveal path: typing the reveal phrase into the vault-list search box is a deliberate design
+# choice (decided 2026-08-18) — the box stays a plain search box
+# to everyone who does not know the phrase, and only turns into anything else on an exact match
+# with zero visible results. `VaultListViewModel.maybeAttemptReveal` runs the phrase through the
+# same KDF-gated check as an unlock attempt, so this is not instant — the wait below uses the same
+# generous timeout `subflows/unlock.yaml` gives a cold KDF, for the same reason.
+#
+# The phrase and the title are `HiddenFixtureSeeder`'s fixed constants (`REVEAL_PHRASE`,
+# `HIDDEN_LOGIN_TITLE`), not invented here — seed the device with `tools/seed-hidden-fixture.sh`
+# first. The title assertion is the one exception this directory's README carves out: a vault item
+# title is the user's own data, not a localized resource, so it is safe to assert on directly.
+- runFlow:
+    file: ../subflows/unlock.yaml
+
+- assertNotVisible:
+    text: "Offshore account"
+
+- tapOn:
+    id: "vaultlist-search"
+- inputText: "open sesame please"
+- hideKeyboard
+
+# `maybeAttemptReveal` clears the search box itself on success and flips `revealSessionActive`,
+# which is what puts `RevealedSessionHeader` on screen — waiting on that tag rather than a fixed
+# duration keeps this honest on a slow KDF instead of racing it.
+- extendedWaitUntil:
+    visible:
+      id: "vaultlist-revealed-header"
+    timeout: 30000
+
+- assertVisible:
+    text: "Offshore account"
+
+# "Hide again now" conceals the whole reveal session at once — the same control the header's own
+# comment in VaultListScreen.kt describes. Tapping it should put the title straight back out of
+# reach without a re-lock.
+- tapOn:
+    id: "vaultlist-hide-again"
+- waitForAnimationToEnd:
+    timeout: 4000
+- assertNotVisible:
+    id: "vaultlist-revealed-header"
+- assertNotVisible:
+    text: "Offshore account"

@@ -1,0 +1,55 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+# The "Save current location" flow, driven by test tag rather than by text so this one file runs in
+# every language — the rule this directory's README sets, and the reason the capture button carries
+# `coordinate-capture` at all.
+#
+# What this can and cannot prove, stated because the difference matters:
+#
+#   - It proves the permission prompt is absent until the capture is asked for. That is the Play
+#     prominent-disclosure requirement and the one thing a static read of the code cannot settle.
+#   - It proves the rationale precedes the system dialog, and that declining leaves the user on a
+#     working form rather than in a dead end.
+#   - It cannot prove a real GNSS fix. On an emulator the position comes from `adb emu geo fix`,
+#     which arrives flagged as a mock — accepted only because `BuildConfig.DEBUG` is true here, and
+#     refused outright by a release build (see `LocationFixPolicy`). Run
+#     `tools/coordinates-device-pass.sh`, which starts the geo-fix loop this flow needs.
+#
+# Prerequisite: location permission REVOKED before the run. The harness script does it; by hand it
+# is `adb shell pm revoke com.localkeep.foss android.permission.ACCESS_FINE_LOCATION` (and COARSE).
+- runFlow:
+    file: ../subflows/unlock.yaml
+
+- tapOn:
+    id: "fab-add-item"
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# The row exists and is not Pro-gated. A location has no blob, no quota and no tier — gating the
+# one item type that must be created where you are standing would make it useless there.
+- assertVisible:
+    id: "add-type-coordinate"
+- tapOn:
+    id: "add-type-coordinate"
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# THE ASSERTION THIS FLOW EXISTS FOR. Opening the form must not have asked for anything. A
+# permission dialog here would be a Play policy violation and would also be invisible in review —
+# it is one `LaunchedEffect` away at all times.
+- assertNotVisible:
+    id: "com.android.permissioncontroller:id/permission_allow_foreground_only_button"
+
+- assertVisible:
+    id: "coordinate-capture"
+- tapOn:
+    id: "coordinate-capture"
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# The rationale first, in the app's own dialog, then the system prompt. The order is the
+# requirement: a bare OS prompt on someone who just tapped a button tells them nothing about why.
+- assertVisible:
+    id: "coordinate-capture"

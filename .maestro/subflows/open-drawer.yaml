@@ -1,0 +1,17 @@
+# Opens the command drawer and scrolls the named destination into view.
+#
+# `DRAWER_ROUTE` is a nav route, not a label, so this file never mentions a word that changes
+# with the language. The scroll matters: half the destinations sit below the fold on a phone,
+# and which half depends on how long the labels are in the language under test.
+appId: com.localkeep.foss
+---
+- tapOn:
+    id: "nav-open-drawer"
+- scrollUntilVisible:
+    element:
+      id: "drawer-${DRAWER_ROUTE}"
+    direction: DOWN
+    timeout: 15000
+    visibilityPercentage: 60
+- tapOn:
+    id: "drawer-${DRAWER_ROUTE}"

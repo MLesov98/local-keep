@@ -1,0 +1,1 @@
+Gerenciador offline. Sem conta, servidor de sincronização nem assinatura.

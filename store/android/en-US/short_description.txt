@@ -1,0 +1,1 @@
+Offline password manager. No account, no sync server, no subscription.

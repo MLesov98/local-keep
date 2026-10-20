@@ -1,0 +1,32 @@
+LocalKeep guarda sus contraseñas en una caja fuerte cifrada en su teléfono.
+
+No necesita crear una cuenta ni confiar en un servidor de sincronización. Su contraseña maestra protege su caja fuerte y nadie puede restablecerla por usted, ni siquiera nosotros. El Kit de recuperación le permite recuperar el acceso si la olvida. Guarde el Kit sin conexión: cualquiera que lo tenga puede abrir su caja fuerte real.
+
+QUÉ HACE
+
+• Inicios de sesión y notas seguras, sin límite de cantidad
+• Un generador de contraseñas y frases de contraseña que usted controla: longitud, clases de caracteres, número de palabras
+• Autocompletado en aplicaciones y navegadores, además de compatibilidad con claves de acceso en Android 14 y versiones posteriores
+• Códigos de dos factores guardados junto al inicio de sesión al que pertenecen, con lector de códigos QR
+• Desbloqueo biométrico y un tiempo de bloqueo automático que usted elige
+• Una revisión de salud de contraseñas reutilizadas, débiles, antiguas y potencialmente comprometidas, mediante una lista offline integrada; no se envían contraseñas ni datos derivados para comprobarlas
+• Importación desde KeePass (KDBX), Bitwarden, 1Password, Chrome, Apple Passwords, Aegis o cualquier CSV con fila de encabezado
+• Exportación cuando quiera: el archivo es suyo
+• Copias instantáneas locales y una papelera recuperable, para que un error no sea definitivo
+• Una caja fuerte de coacción de Pro: una segunda contraseña maestra abre una caja fuerte señuelo. El desbloqueo biométrico y el Kit de recuperación siguen abriendo su caja fuerte real
+
+GRATIS Y PRO
+
+Los inicios de sesión y las notas no tienen límite. El generador, el autocompletado, los códigos de dos factores, la importación, la exportación y la revisión de salud son gratuitos y no hay anuncios.
+
+Pro es una compra única — sin suscripción — que añade archivos adjuntos a otros elementos y la caja fuerte de coacción, y elimina el límite en tarjetas, identidades y archivos o elementos multimedia independientes. La versión gratuita incluye una tarjeta, una identidad y hasta siete archivos o elementos multimedia independientes en total.
+
+QUÉ RECOPILA LA APLICACIÓN
+
+LocalKeep no recopila datos de análisis, informes de fallos ni telemetría. Esta versión se conecta a Google Play solo para las compras de Pro, la comprobación del acceso a Pro y una solicitud ocasional de reseña dentro de la aplicación. No se envían datos de la caja fuerte a Google Play. Android puede seguir informando de un fallo a Google si tiene activados los diagnósticos del sistema: eso es el sistema operativo, no LocalKeep, y ese informe nunca contiene el contenido de la caja fuerte, sus contraseñas ni sus claves.
+
+DE QUÉ NO LE PROTEGE LA APLICACIÓN
+
+Su caja fuerte está cifrada con una clave derivada de su contraseña maestra, así que una contraseña maestra débil es el eslabón débil, y ningún gestor de contraseñas puede resolverlo por usted. Si el propio teléfono está comprometido a nivel del sistema operativo — con root, o ejecutando una versión hostil de Android — todo lo que escriba puede leerse antes de llegar a la aplicación. Esto es cierto para cualquier gestor de contraseñas, y preferimos decírselo antes que dejar que suponga lo contrario.
+
+LocalKeep es de código abierto. Lea el código antes de confiarle nada.

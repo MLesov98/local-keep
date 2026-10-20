@@ -1,0 +1,32 @@
+LocalKeep keeps your passwords in an encrypted vault on your phone.
+
+There is no account to create and no sync server to trust. Your master password protects your vault, and nobody can reset it for you — not even us. A Recovery Kit can restore access if you forget it. Keep the Kit offline: anyone who has it can open your real vault.
+
+WHAT IT DOES
+
+• Logins and secure notes, with no limit on how many
+• A password and passphrase generator you control — length, character classes, word count
+• Autofill in apps and browsers, plus passkey support on Android 14 and later
+• Two-factor codes stored beside the login they belong to, with a QR scanner
+• Biometric unlock, and an auto-lock timeout you choose
+• A password health check for reused, weak, old and potentially breached passwords, using a bundled offline list so no passwords or derived data are sent for checking
+• Import from KeePass (KDBX), Bitwarden, 1Password, Chrome, Apple Passwords, Aegis, or any CSV with a header row
+• Export whenever you like — it is your file
+• Local snapshots and a recoverable trash, so a mistake is not permanent
+• A Pro duress vault: a second master password opens a decoy vault. Biometric unlock and the Recovery Kit still open your real vault
+
+FREE AND PRO
+
+Logins and notes are unlimited. The generator, autofill, two-factor codes, import, export and the health check are free, with no ads.
+
+Pro is a one-time purchase — no subscription — and adds attachments to other items and the duress vault, while removing the free-tier limits on cards, identity entries, and standalone files or media. Free includes one card, one identity entry, and up to seven standalone files or media items in total.
+
+WHAT THE APP COLLECTS
+
+LocalKeep collects no analytics, crash reports or telemetry. This version connects to Google Play only for Pro purchases, entitlement checks and an occasional in-app review card. No vault data is sent to Google Play. Android itself may still report a crash to Google if you have system diagnostics turned on — that is the operating system, not LocalKeep, and such a report never contains vault contents, passwords or keys.
+
+WHAT THIS DOES NOT PROTECT YOU FROM
+
+Your vault is encrypted with a key derived from your master password, so a weak master password is the weak link, and no password manager can fix that for you. If the phone itself is compromised at the operating-system level — rooted, or running a hostile build of Android — then anything you type can be read before it reaches the app. That is true of every password manager, and we would rather say it than let you assume otherwise.
+
+LocalKeep is open source. Read the code before you trust it with anything.

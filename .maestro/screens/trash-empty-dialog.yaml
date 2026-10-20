@@ -1,0 +1,22 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+# A dialog, deliberately. The flows above only reach *screens*, and the defect that motivated this
+# whole harness — LkDialog's `dismissLabel = "Cancel"` default — lived in a dialog and would have
+# been missed by every one of them. The confirmation for the one irreversible action in the trash
+# is the cheapest dialog to reach and the one that most needs to be right in every language.
+- runFlow:
+    file: ../subflows/unlock.yaml
+- runFlow:
+    file: ../subflows/open-drawer.yaml
+    env:
+      DRAWER_ROUTE: "trash"
+- tapOn:
+    id: "trash-empty"
+- assertVisible:
+    id: "dialog-confirm"
+- assertVisible:
+    id: "dialog-dismiss"
+- waitForAnimationToEnd:
+    timeout: 4000

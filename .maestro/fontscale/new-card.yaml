@@ -1,0 +1,17 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+- runFlow:
+    file: ../subflows/unlock.yaml
+- tapOn:
+    id: "fab-add-item"
+- scrollUntilVisible:
+    element:
+      id: "add-type-card"
+    direction: DOWN
+    timeout: 10000
+- tapOn:
+    id: "add-type-card"
+- waitForAnimationToEnd:
+    timeout: 5000

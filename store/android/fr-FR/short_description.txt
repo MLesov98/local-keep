@@ -1,0 +1,1 @@
+Gestionnaire hors ligne, sans compte, serveur de synchronisation ni abonnement.

@@ -1,0 +1,32 @@
+O LocalKeep guarda suas senhas em um cofre criptografado no seu telefone.
+
+Você não precisa criar uma conta nem confiar em um servidor de sincronização. Sua senha mestra protege seu cofre, e ninguém pode redefini-la por você, nem mesmo nós. O Kit de recuperação permite recuperar o acesso se você esquecê-la. Mantenha o Kit offline: qualquer pessoa que o tenha pode abrir seu cofre real.
+
+O QUE ELE FAZ
+
+• Logins e notas seguras, sem limite de quantidade
+• Um gerador de senhas e frases-senha que você controla: comprimento, classes de caracteres, número de palavras
+• Preenchimento automático em aplicativos e navegadores, além de suporte a chaves de acesso no Android 14 ou posterior
+• Códigos de dois fatores guardados junto ao login a que pertencem, com leitor de QR code
+• Desbloqueio biométrico e um tempo de bloqueio automático escolhido por você
+• Uma verificação de saúde de senhas reutilizadas, fracas, antigas e potencialmente comprometidas, com uma lista offline integrada; nenhuma senha nem dado derivado delas são enviados para a verificação
+• Importação do KeePass (KDBX), do Bitwarden, do 1Password, do Chrome, do Apple Passwords, do Aegis ou de qualquer CSV com linha de cabeçalho
+• Exportação quando você quiser: o arquivo é seu
+• Snapshots locais e uma lixeira recuperável, para que um engano não seja definitivo
+• Um cofre de coação Pro: uma segunda senha mestra abre um cofre engodo. O desbloqueio biométrico e o Kit de recuperação continuam abrindo seu cofre real
+
+GRATUITO E PRO
+
+Logins e notas são ilimitados. O gerador, o preenchimento automático, os códigos de dois fatores, a importação, a exportação e a verificação de saúde são gratuitos, sem anúncios.
+
+O Pro é uma compra única — sem assinatura — que acrescenta anexos a outros itens e o cofre de coação, além de remover o limite em cartões, identidades e arquivos ou itens de mídia independentes. A versão gratuita inclui um cartão, uma identidade e até sete arquivos ou itens de mídia independentes no total.
+
+O QUE O APLICATIVO COLETA
+
+O LocalKeep não coleta dados de análise, relatórios de falhas nem telemetria. Esta versão se conecta ao Google Play somente para compras do Pro, verificação do status do Pro e uma solicitação ocasional de avaliação no aplicativo. Nenhum dado do cofre é enviado ao Google Play. O próprio Android ainda pode relatar uma falha ao Google se você tiver os diagnósticos do sistema ativados: isso é o sistema operacional, não o LocalKeep, e esse relatório nunca contém o conteúdo do cofre, suas senhas ou suas chaves.
+
+CONTRA O QUE O APLICATIVO NÃO OFERECE PROTEÇÃO
+
+Seu cofre é criptografado com uma chave derivada da sua senha mestra, então uma senha mestra fraca é o elo fraco, e nenhum gerenciador de senhas pode resolver isso por você. Se o próprio telefone estiver comprometido no nível do sistema operacional — com root ou executando uma versão maliciosa do Android —, tudo o que você digitar pode ser lido antes de chegar ao aplicativo. Isso vale para qualquer gerenciador de senhas, e preferimos dizer isso a você em vez de deixar que suponha o contrário.
+
+O LocalKeep é de código aberto. Leia o código antes de confiar qualquer coisa a ele.

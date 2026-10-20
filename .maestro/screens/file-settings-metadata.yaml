@@ -1,0 +1,41 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+  - fixture
+---
+# Run after MediaViewerFixtureSeeder with DEVICE_PIN set. This flow exercises the one-time cleanup
+# action on the image page. There is no Save-time fallback to cover any more: cleanup became
+# opt-in on 2026-08-25 and Save no longer strips, so pressing the button is the only way metadata
+# leaves an image — which is precisely what this flow does before saving.
+- runFlow:
+    file: ../subflows/unlock.yaml
+- runFlow:
+    file: ../subflows/open-drawer.yaml
+    env:
+      DRAWER_ROUTE: "vault/FILE"
+- tapOn:
+    id: "vaultlist-row-00000000-0000-4000-8000-0000000000e1"
+- inputText: "${DEVICE_PIN}"
+- pressKey: ENTER
+- extendedWaitUntil:
+    visible:
+      id: "file-viewer-settings"
+    timeout: 15000
+- tapOn:
+    id: "file-viewer-settings"
+- extendedWaitUntil:
+    visible:
+      id: "file-settings-delete-metadata"
+    timeout: 10000
+- tapOn:
+    id: "file-settings-delete-metadata"
+- extendedWaitUntil:
+    visible:
+      id: "file-settings-metadata-removed"
+    timeout: 10000
+- tapOn:
+    id: "file-settings-save"
+- extendedWaitUntil:
+    visible:
+      id: "file-viewer-settings"
+    timeout: 15000

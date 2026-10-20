@@ -1,0 +1,12 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+- runFlow:
+    file: ../subflows/unlock.yaml
+- runFlow:
+    file: ../subflows/open-drawer.yaml
+    env:
+      DRAWER_ROUTE: "trash"
+- waitForAnimationToEnd:
+    timeout: 4000

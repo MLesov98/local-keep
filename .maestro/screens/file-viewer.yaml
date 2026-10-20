@@ -1,0 +1,72 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+  - fixture
+---
+# Run after MediaViewerFixtureSeeder with DEVICE_PIN set to the emulator credential. The fixture
+# gives this flow stable ids and one page per renderer family; it must not be run against a user's
+# vault because the delete assertion below intentionally changes the fixture.
+- runFlow:
+    file: ../subflows/unlock.yaml
+
+- runFlow:
+    file: ../subflows/open-drawer.yaml
+    env:
+      DRAWER_ROUTE: "vault/FILE"
+- extendedWaitUntil:
+    visible:
+      id: "vaultlist-row-00000000-0000-4000-8000-0000000000e1"
+    timeout: 10000
+- tapOn:
+    id: "vaultlist-row-00000000-0000-4000-8000-0000000000e1"
+
+# The content renderer must not be mounted while the device-auth prompt is pending.
+- assertNotVisible:
+    id: "file-viewer-export"
+- inputText: "${DEVICE_PIN}"
+- pressKey: ENTER
+- extendedWaitUntil:
+    visible:
+      id: "file-viewer-export"
+    timeout: 15000
+
+# A base-scale image swipe must reach the next standalone File page; the image's zoom detector must
+# not consume the pager gesture. The stable page tag avoids matching translated counter text.
+- swipe:
+    start: 85%, 50%
+    end: 15%, 50%
+    duration: 700
+- extendedWaitUntil:
+    visible:
+      id: "file-viewer-page-00000000-0000-4000-8000-0000000000e4"
+    timeout: 10000
+- assertNotVisible:
+    id: "file-viewer-page-00000000-0000-4000-8000-0000000000e1"
+
+# Return to the image page before checking page-scoped metadata actions.
+- swipe:
+    start: 15%, 50%
+    end: 85%, 50%
+    duration: 700
+- extendedWaitUntil:
+    visible:
+      id: "file-viewer-page-00000000-0000-4000-8000-0000000000e1"
+    timeout: 10000
+
+# One authenticated session covers the pager; Details and Settings remain page-scoped.
+- tapOn:
+    id: "file-viewer-details"
+- assertVisible:
+    id: "file-viewer-details"
+- pressKey: BACK
+- tapOn:
+    id: "file-viewer-settings"
+- extendedWaitUntil:
+    visible:
+      id: "file-settings-save"
+    timeout: 10000
+- pressKey: BACK
+- extendedWaitUntil:
+    visible:
+      id: "file-viewer-settings"
+    timeout: 10000

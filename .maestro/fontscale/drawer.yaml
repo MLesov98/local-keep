@@ -1,0 +1,10 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+- runFlow:
+    file: ../subflows/unlock.yaml
+- tapOn:
+    id: "nav-open-drawer"
+- waitForAnimationToEnd:
+    timeout: 4000

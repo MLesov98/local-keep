@@ -1,0 +1,12 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+- runFlow:
+    file: ../subflows/unlock.yaml
+- tapOn:
+    id: "fab-add-item"
+- tapOn:
+    id: "add-type-new-folder"
+- waitForAnimationToEnd:
+    timeout: 4000

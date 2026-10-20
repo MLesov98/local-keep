@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>LocalKeep passkey test</title>
+  </head>
+  <body>
+    <h1>Web login</h1>
+    <!--
+      Self-contained on purpose: no stylesheet, no script, no favicon reference. The interceptor
+      that serves this page answers everything else with 404, and a sub-resource that 404s reads on
+      screen as a half-broken page rather than as the deliberate air gap it is.
+    -->
+    <form>
+      <p><label>Username <input id="username" autocomplete="username" autofocus></label></p>
+      <p><label>Password <input id="password" type="password" autocomplete="current-password"></label></p>
+      <button type="submit">Sign in</button>
+    </form>
+  </body>
+</html>

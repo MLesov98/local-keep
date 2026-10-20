@@ -1,0 +1,11 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+- runFlow:
+    file: ../subflows/unlock.yaml
+- tapOn:
+    id: "vaultlist-search"
+- inputText: "Seed"
+- waitForAnimationToEnd:
+    timeout: 4000

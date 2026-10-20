@@ -1,0 +1,43 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+# The documented recovery route: Settings → Privacy → Hidden items, the one row
+# `SettingsScreen.kt` renders unconditionally (never gated on whether anything is currently
+# hidden — see the comment above the Privacy `SettingsGroup`), because it is the only way back for
+# a user who has forgotten the reveal phrase or set an indefinite lease.
+- runFlow:
+    file: ../subflows/unlock.yaml
+- runFlow:
+    file: ../subflows/open-drawer.yaml
+    env:
+      DRAWER_ROUTE: "settings"
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# The Privacy group is the second on the screen, but row heights vary by language, so this scrolls
+# rather than assumes the row is already on screen — the same reason `open-drawer.yaml` scrolls to
+# its destination instead of tapping a fixed position.
+- scrollUntilVisible:
+    element:
+      id: "hidden-items"
+    direction: DOWN
+    timeout: 15000
+    visibilityPercentage: 60
+- tapOn:
+    id: "hidden-items"
+
+# `LkScreen`'s own tag composes whether the auth gate or the authorized entry list renders under
+# it (see the KDoc on `HIDDEN_ITEMS_SCREEN_TEST_TAG` in `HiddenItemsScreen.kt`), so reaching this
+# assertion only proves navigation opened the screen — nothing here is a claim about authorization.
+- assertVisible:
+    id: "hidden-items-screen"
+
+# STOPS HERE, deliberately. Past this point the screen is behind a biometric prompt Maestro cannot
+# drive, or a password field that carries no test tag (`AuthGate`'s `PasswordField` and submit
+# button are both untagged — see HiddenItemsScreen.kt). Typing the vault's master password into
+# that field to get past it would be "faking the auth" for the purposes of this flow: it would
+# prove the credential works, not that the recovery route is reachable, which is the one thing a
+# device pass cannot already assume. Tagging and driving the authenticated `HiddenEntries` body
+# (change-duration, change-phrase, stop-hiding) is left to a future flow once those controls carry
+# tags of their own.

@@ -1,0 +1,32 @@
+LocalKeep conserve vos mots de passe dans un coffre chiffré sur votre téléphone.
+
+Vous n'avez aucun compte à créer ni aucun serveur de synchronisation auquel faire confiance. Votre mot de passe principal protège votre coffre, et personne ne peut le réinitialiser à votre place, pas même nous. Le Kit de récupération permet de rétablir l'accès si vous oubliez votre mot de passe principal. Conservez le Kit hors ligne : quiconque le possède peut ouvrir votre vrai coffre.
+
+CE QU'ELLE FAIT
+
+• Identifiants et notes sécurisées, en nombre illimité
+• Un générateur de mots de passe et de phrases secrètes que vous maîtrisez : longueur, classes de caractères, nombre de mots
+• Remplissage automatique dans les applications et les navigateurs, ainsi que la prise en charge des clés d'accès sous Android 14 ou version ultérieure
+• Codes à deux facteurs enregistrés à côté de l'identifiant auquel ils appartiennent, avec un lecteur de codes QR
+• Déverrouillage biométrique, et un délai de verrouillage automatique que vous choisissez
+• Un bilan de santé des mots de passe réutilisés, faibles, anciens et potentiellement compromis, à l'aide d'une liste hors ligne intégrée ; aucun mot de passe ni aucune donnée dérivée ne sont envoyés pour effectuer la vérification
+• Importation depuis KeePass (KDBX), Bitwarden, 1Password, Chrome, Apple Passwords, Aegis ou n'importe quel CSV comportant une ligne d'en-tête
+• Exportation quand vous le souhaitez : le fichier vous appartient
+• Instantanés locaux et corbeille récupérable, pour qu'une erreur ne soit pas définitive
+• Un coffre de contrainte Pro : un second mot de passe principal ouvre un coffre leurre. Le déverrouillage biométrique et le Kit de récupération ouvrent toujours votre vrai coffre
+
+GRATUIT ET PRO
+
+Les identifiants et les notes sont illimités. Le générateur, le remplissage automatique, les codes à deux facteurs, l'importation, l'exportation et le bilan de santé sont gratuits, sans publicité.
+
+Pro est un achat unique — sans abonnement — qui ajoute les pièces jointes aux autres éléments et le coffre de contrainte, tout en supprimant la limite sur les cartes, les identités et les fichiers ou médias stockés séparément. La version gratuite permet de créer une carte, une identité et jusqu'à sept fichiers ou médias stockés séparément au total.
+
+CE QUE L'APPLICATION COLLECTE
+
+LocalKeep ne collecte aucune donnée d'analyse, aucun rapport de plantage ni aucune télémétrie. Cette version se connecte à Google Play uniquement pour les achats Pro, la vérification du statut Pro et une demande occasionnelle d'avis dans l'application. Aucune donnée du coffre n'est transmise à Google Play. Android lui-même peut encore signaler un plantage à Google si vous avez activé les diagnostics système : cela vient du système d'exploitation, pas de LocalKeep, et un tel rapport ne contient jamais le contenu du coffre, vos mots de passe ni vos clés.
+
+CE DONT ELLE NE VOUS PROTÈGE PAS
+
+Votre coffre est chiffré avec une clé dérivée de votre mot de passe principal : un mot de passe principal faible est donc le maillon faible, et aucun gestionnaire de mots de passe ne peut y remédier à votre place. Si le téléphone lui-même est compromis au niveau du système d'exploitation — rooté, ou exécutant une version hostile d'Android — tout ce que vous saisissez peut être lu avant d'atteindre l'application. C'est vrai de tous les gestionnaires de mots de passe, et nous préférons vous le dire plutôt que de vous laisser supposer le contraire.
+
+LocalKeep est un logiciel libre. Lisez le code avant de lui confier quoi que ce soit.

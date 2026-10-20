@@ -1,0 +1,18 @@
+# Opens the vault. Every screen flow starts here, and none of them says a word of English:
+# the two controls are addressed by test tag, which is the same in all five languages.
+appId: com.localkeep.foss
+---
+- launchApp:
+    clearState: false
+- tapOn:
+    id: "unlock-password"
+- inputText: "${MASTER_PASSWORD}"
+- hideKeyboard
+- tapOn:
+    id: "unlock-submit"
+# The vault list is the first thing with a bottom bar. Waiting on the tag rather than on a
+# duration keeps the flow honest on a cold KDF, which is slow on purpose.
+- extendedWaitUntil:
+    visible:
+      id: "tab-vault"
+    timeout: 30000

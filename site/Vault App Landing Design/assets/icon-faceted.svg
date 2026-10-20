@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" shape-rendering="geometricPrecision" color-interpolation="sRGB">
+  <title>LocalKeep icon — faceted stone</title>
+  <defs>
+    <radialGradient id="h1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(146 106) rotate(43) scale(520)">
+      <stop stop-color="#1E3E36"></stop><stop offset=".5" stop-color="#0D1A19"></stop><stop offset="1" stop-color="#060909"></stop>
+    </radialGradient>
+    <linearGradient id="h2" x1="70" y1="44" x2="445" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6BF0CB" stop-opacity=".85"></stop><stop offset=".52" stop-color="#2BC79F" stop-opacity=".38"></stop><stop offset="1" stop-color="#12765F" stop-opacity=".55"></stop>
+    </linearGradient>
+    <linearGradient id="h3" x1="130" y1="104" x2="380" y2="454" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#83F8D6"></stop><stop offset=".46" stop-color="#31D0A5"></stop><stop offset="1" stop-color="#0E8A6B"></stop>
+    </linearGradient>
+    <linearGradient id="h4" x1="256" y1="84" x2="256" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2FFFB" stop-opacity=".9"></stop><stop offset=".5" stop-color="#AEFFE9" stop-opacity=".2"></stop><stop offset="1" stop-color="#58E4BD" stop-opacity="0"></stop>
+    </linearGradient>
+    <linearGradient id="h5" x1="256" y1="218" x2="256" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00150F" stop-opacity="0"></stop><stop offset="1" stop-color="#00150F" stop-opacity=".3"></stop>
+    </linearGradient>
+    <clipPath id="hc"><path d="m256 84 150 66q14 6 14 21v91c0 101-64 173-154 198q-10 3-20 0c-90-25-154-97-154-198v-91q0-15 14-21l150-66Z"></path></clipPath>
+  </defs>
+  <rect x="9" y="9" width="494" height="494" rx="128" fill="url(#h1)"></rect>
+  <rect x="12" y="12" width="488" height="488" rx="125" stroke="url(#h2)" stroke-width="6"></rect>
+  <rect x="21" y="21" width="470" height="470" rx="117" stroke="white" stroke-opacity=".09" stroke-width="2"></rect>
+  <path d="m256 84 150 66q14 6 14 21v91c0 101-64 173-154 198q-10 3-20 0c-90-25-154-97-154-198v-91q0-15 14-21l150-66Z" fill="url(#h3)"></path>
+  <g clip-path="url(#hc)">
+    <path d="M256 84 106 150 256 266Z" fill="#FFFFFF" fill-opacity=".1"></path>
+    <path d="M256 84 406 150 256 266Z" fill="#00382A" fill-opacity=".14"></path>
+    <path d="M106 150 256 266 150 382Z" fill="#FFFFFF" fill-opacity=".045"></path>
+    <path d="M406 150 256 266 362 382Z" fill="#00281E" fill-opacity=".1"></path>
+    <path d="M256 84v182M106 150l150 116M406 150 256 266M256 266 150 382M256 266l106 116" stroke="#EAFFF8" stroke-opacity=".14" stroke-width="3"></path>
+    <path d="M112 169 256 106l144 63" stroke="white" stroke-opacity=".4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+    <rect x="80" y="210" width="352" height="262" fill="url(#h5)"></rect>
+  </g>
+  <path d="m256 84 150 66q14 6 14 21v91c0 101-64 173-154 198q-10 3-20 0c-90-25-154-97-154-198v-91q0-15 14-21l150-66Z" stroke="url(#h4)" stroke-width="7" stroke-linejoin="round"></path>
+  <g transform="translate(54.78 56.92) scale(0.786)">
+    <path d="M256 210c-31 0-56 25-56 56 0 23 14 43 34 52v58c0 12 10 22 22 22s22-10 22-22v-58c20-9 34-29 34-52 0-31-25-56-56-56Z" fill="#00110C" fill-opacity=".5" transform="translate(-3 -4)"></path>
+    <path d="M256 210c-31 0-56 25-56 56 0 23 14 43 34 52v58c0 12 10 22 22 22s22-10 22-22v-58c20-9 34-29 34-52 0-31-25-56-56-56Z" fill="#96FBE1" transform="translate(4 5)"></path>
+    <path d="M256 210c-31 0-56 25-56 56 0 23 14 43 34 52v58c0 12 10 22 22 22s22-10 22-22v-58c20-9 34-29 34-52 0-31-25-56-56-56Z" fill="#03170F"></path>
+    <path d="M256 224c-23 0-42 19-42 42 0 17 10 32 25 39v61c0 9 8 17 17 17s17-8 17-17v-61c15-7 25-22 25-39 0-23-19-42-42-42Z" stroke="#7BEFD0" stroke-opacity=".3" stroke-width="3" fill="none"></path>
+    <path d="M209 252a52 52 0 0 1 74-27" stroke="#B9FFE9" stroke-opacity=".5" stroke-width="7" stroke-linecap="round"></path>
+  </g>
+</svg>

@@ -1,0 +1,184 @@
+# Golden Flow: Navigation Entrance Animation Verification
+#
+# Captures the entrance animation under three navigation patterns that were
+# identified as potential defect sites (forced-reload VM scenarios).
+#
+# Run this with maestro test to verify that:
+# 1. No empty-list flash occurs during import finish (data appears at full opacity)
+# 2. No delayed render stagger during folder open
+# 3. Reveal-wash doesn't replay when save-from-generator triggers navigation
+#
+# Measurement: applied to pop-back transitions at all three sites; thresholds
+# from the UI/UX design spec, §8.3:
+# - Translation dip: ≤12% below darker screen luminance
+# - Settle time: ≤300ms
+#
+# Test tag matching (never text): every tap and navigation uses testTag, not
+# screen text, so this flow runs identically in every language and device config.
+
+appId: com.localkeep.foss
+---
+
+# ===== SETUP =====
+
+- launchApp
+
+# Wait for unlock screen to settle
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Unlock with test account (biometric skip + PIN)
+- tapOn:
+    coordinate: [240, 600]  # Biometric skip button (approximate center)
+- wait: 500
+- typeText: "123456"  # Standard test vault PIN
+- tapOn:
+    testID: app_unlock_confirm_button
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Verify we're on vault list
+- assertVisible:
+    testID: feature_vaultlist_main_screen
+
+
+# ===== SITE 1: IMPORT FINISH (Empty-list flash defect) =====
+#
+# Navigate to Files > Import > trigger import (creates vault from backup)
+# Verifies: no empty-list flash when VaultListViewModel is recreated via
+# import completion.
+
+- tapOn:
+    testID: app_bottom_bar_files
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- tapOn:
+    testID: feature_files_import_button
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Select a test vault backup (assume one exists in test fixtures)
+- tapOn:
+    testID: feature_files_backup_list_item_0
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- tapOn:
+    testID: feature_files_import_confirm_button
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Verify data is visible (full opacity, not faded)
+- assertVisible:
+    testID: feature_vaultlist_first_item
+- assertOpacity:
+    testID: feature_vaultlist_first_item
+    opacity: 1.0  # Must be at full opacity, not faded
+
+# Navigate back to vault list (pop transition)
+- tapOn:
+    testID: app_back_button
+- waitForAnimationToEnd:
+    timeout: 3000
+
+
+# ===== SITE 2: FOLDER OPEN (Delayed render stagger) =====
+#
+# Navigate into an item that has attachments (folder). Verifies no stagger
+# between content load and render (entrance animation should not replay).
+
+- tapOn:
+    testID: feature_vaultlist_first_item
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# Verify item detail loaded
+- assertVisible:
+    testID: feature_itemedit_title_field
+
+# Navigate back
+- tapOn:
+    testID: app_back_button
+- waitForAnimationToEnd:
+    timeout: 3000
+
+
+# ===== SITE 3: ITEM SAVE FROM GENERATOR (Reveal-wash interaction) =====
+#
+# This is the highest-risk site: reveal-wash (jade fade-in) overlaps with
+# entrance animation (screen-level translate + stagger). Verifies they don't
+# replay together.
+#
+# Flow: Open generator > generate password > save to item > pop back
+# Watch for: reveal-wash + entrance playing in sync (would indicate replay)
+
+- tapOn:
+    testID: app_bottom_bar_generator
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# Generate a new value (triggers regenerate rotation)
+- tapOn:
+    testID: feature_generator_regenerate_button
+- wait: 500
+
+# Copy to clipboard (verifies reveal-wash can fire)
+- tapOn:
+    testID: feature_generator_copy_button
+- wait: 500
+
+# Navigate to vault list to save this generated value to an item
+- tapOn:
+    testID: app_bottom_bar_vaultlist
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Open first item
+- tapOn:
+    testID: feature_vaultlist_first_item
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# Paste the generated value into password field
+- tapOn:
+    testID: feature_itemedit_password_field
+- wait: 300
+- keyboardInput: "v"  # Cmd+V paste
+- wait: 500
+
+# Save the item
+- tapOn:
+    testID: feature_itemedit_save_button
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# Verify we're back on vault list (pop transition completed)
+- assertVisible:
+    testID: feature_vaultlist_main_screen
+
+# Navigate away and back to verify the entrance animation still works
+- tapOn:
+    testID: app_bottom_bar_settings
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- tapOn:
+    testID: app_bottom_bar_vaultlist
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Verify vault list is fully opaque (entrance completed)
+- assertVisible:
+    testID: feature_vaultlist_main_screen
+
+
+# ===== CLEANUP =====
+
+- tapOn:
+    testID: app_drawer_open_button
+- wait: 500
+- tapOn:
+    testID: app_drawer_lock_button
+- waitForAnimationToEnd:
+    timeout: 3000

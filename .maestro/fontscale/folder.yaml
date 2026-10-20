@@ -1,0 +1,11 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+- runFlow:
+    file: ../subflows/unlock.yaml
+- tapOn:
+    id: "vaultlist-folder-row"
+    index: 0
+- waitForAnimationToEnd:
+    timeout: 4000

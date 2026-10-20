@@ -1,0 +1,32 @@
+LocalKeep bewahrt Ihre Passwörter in einem verschlüsselten Tresor auf Ihrem Telefon auf.
+
+Sie müssen weder ein Konto anlegen noch einem Sync-Server vertrauen. Ihr Master-Passwort schützt Ihren Tresor, und niemand kann es für Sie zurücksetzen — auch wir nicht. Mit dem Wiederherstellungskit können Sie wieder auf den Tresor zugreifen, falls Sie Ihr Master-Passwort vergessen. Bewahren Sie das Kit offline auf: Wer es besitzt, kann Ihren echten Tresor öffnen.
+
+WAS SIE KANN
+
+• Zugangsdaten und sichere Notizen in unbegrenzter Anzahl
+• Ein Passwort- und Passphrasen-Generator, den Sie steuern: Länge, Zeichenklassen, Wortanzahl
+• Autofill in Apps und Browsern, dazu Unterstützung für Passkeys unter Android 14 oder höher
+• Zwei-Faktor-Codes, gespeichert direkt bei den Zugangsdaten, zu denen sie gehören, mit QR-Scanner
+• Biometrisches Entsperren und eine Zeitspanne bis zur automatischen Sperre, die Sie festlegen
+• Eine Passwortprüfung auf wiederverwendete, schwache, alte und möglicherweise kompromittierte Passwörter anhand einer mitgelieferten Offline-Liste; für die Prüfung werden weder Passwörter noch daraus abgeleitete Daten gesendet
+• Import aus KeePass (KDBX), Bitwarden, 1Password, Chrome, Apple Passwords, Aegis oder jeder CSV-Datei mit Kopfzeile
+• Export, wann immer Sie möchten: Es ist Ihre Datei
+• Lokale Schnappschüsse und ein wiederherstellbarer Papierkorb, damit die Folgen eines Versehens nicht endgültig sind
+• Ein Pro-Notfall-Tresor: Ein zweites Master-Passwort öffnet einen als Tarnung dienenden Tresor. Biometrisches Entsperren und das Wiederherstellungskit öffnen weiterhin Ihren echten Tresor
+
+KOSTENLOS UND PRO
+
+Zugangsdaten und Notizen sind unbegrenzt. Generator, Autofill, Zwei-Faktor-Codes, Import, Export und Passwortprüfung sind kostenlos und werbefrei.
+
+Pro ist ein einmaliger Kauf — kein Abo — und ergänzt Anhänge an anderen Einträgen sowie den Notfall-Tresor; außerdem entfällt die Begrenzung auf eine Karte, eine Identität und sieben eigenständige Dateien oder Medieneinträge. Kostenlos erhalten Sie eine Karte, eine Identität und insgesamt bis zu sieben eigenständige Dateien oder Medieneinträge.
+
+WAS DIE APP ERFASST
+
+LocalKeep erfasst keine Analysedaten, Absturzberichte oder Telemetrie. Diese Version verbindet sich nur für Pro-Käufe, die Prüfung des Pro-Status und eine gelegentliche Bewertungsanfrage in der App mit Google Play. Dabei werden keine Tresordaten an Google Play gesendet. Android selbst kann weiterhin einen Absturz an Google melden, wenn Sie die Systemdiagnose aktiviert haben — das ist das Betriebssystem, nicht LocalKeep, und ein solcher Bericht enthält niemals Tresorinhalte, Passwörter oder Schlüssel.
+
+WOVOR DIE APP SIE NICHT SCHÜTZT
+
+Ihr Tresor ist mit einem Schlüssel verschlüsselt, der aus Ihrem Master-Passwort abgeleitet wird. Ein schwaches Master-Passwort ist damit die Schwachstelle, und kein Passwort-Manager kann Ihnen das abnehmen. Ist das Telefon selbst auf Betriebssystemebene kompromittiert — gerootet oder mit einer bösartig veränderten Android-Version —, kann alles, was Sie eingeben, gelesen werden, bevor es die App erreicht. Das gilt für jeden Passwort-Manager, und wir sagen es lieber, als Sie etwas anderes annehmen zu lassen.
+
+LocalKeep ist quelloffen. Lesen Sie den Code, bevor Sie ihm etwas anvertrauen.

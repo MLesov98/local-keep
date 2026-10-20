@@ -1,0 +1,48 @@
+appId: com.localkeep.foss
+tags:
+  - screen
+---
+# Proves concealment on a device the same way the seeder proves it to itself in
+# `HiddenFixtureSeeder`: not by reading a status string (there isn't one — a "hidden items" badge
+# on the vault list would announce the one fact this feature exists to withhold) but by naming a
+# vault item title that must not be on screen. Item titles are the one exception to "navigate by
+# tag, never by text" documented in this directory's README: they are the user's own data, not a
+# localized resource, so they read identically in all five languages and are exactly what
+# "concealed" and "visible" mean for this feature.
+#
+# Requires `tools/seed-hidden-fixture.sh` to have run against the unlocked device beforehand — the
+# titles below are the fixed constants in `HiddenFixtureSeeder.kt`, not invented here.
+- runFlow:
+    file: ../subflows/unlock.yaml
+
+# The visible control: present so an absence assertion below cannot pass by the vault simply being
+# empty, and to prove the screen that follows is a working vault list rather than a blank one.
+- assertVisible:
+    text: "Cafe wifi"
+
+# Every concealed item title, none of them reachable from the vault-list root: the direct-hide
+# login, the note nested two folders deep under the concealed "Offshore" root, the passkey, and the
+# file — one of each shape the seeder built, and all four must read as absent, not merely
+# "not the top result".
+- assertNotVisible:
+    text: "Offshore account"
+- assertNotVisible:
+    text: "Statement 2026-01"
+- assertNotVisible:
+    text: "Offshore passkey"
+- assertNotVisible:
+    text: "Offshore scan"
+
+- runFlow:
+    file: ../subflows/open-drawer.yaml
+    env:
+      DRAWER_ROUTE: "trash"
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# Trash concealment is the same claim on a different list: the item that went to trash on its own
+# stays visible, the one leased hidden after trashing does not.
+- assertVisible:
+    text: "Old receipt"
+- assertNotVisible:
+    text: "Offshore archive"

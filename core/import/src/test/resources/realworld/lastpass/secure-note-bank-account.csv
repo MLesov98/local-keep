@@ -1,0 +1,13 @@
+url,username,password,totp,extra,name,grouping,fav
+http://sn,,,,"NoteType:Bank Account
+Language:
+Bank Name:Bank of the Shire
+Account Type:Checking
+Routing Number:123456
+Account Number:1234567890
+SWIFT Code:123
+IBAN Number:1234
+Pin:1111
+Branch Address:1 Main Street, Bree, Bree-hill, Eriador
+Branch Phone:1112223333
+Notes:",Test Bank Account,Tools Test Items,0

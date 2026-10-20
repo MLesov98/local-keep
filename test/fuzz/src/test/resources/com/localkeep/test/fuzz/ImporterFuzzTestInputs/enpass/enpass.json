@@ -1,0 +1,6 @@
+{"folders":[{"uuid":"f1","title":"Work","parent_uuid":""}],
+ "items":[{"uuid":"i1","title":"Example","category":"login","template_type":"login.default",
+   "folders":["f1"],"note":"hello",
+   "fields":[{"label":"Username","type":"username","value":"alice","sensitive":0},
+             {"label":"Password","type":"password","value":"s3cr3t","sensitive":1},
+             {"label":"Website","type":"url","value":"https://example.com","sensitive":0}]}]}

@@ -1,0 +1,7 @@
+{"version":"1.31.6","userId":"u1","encrypted":false,
+ "vaults":{"v1":{"name":"Personal","description":"","items":[
+   {"itemId":"i1","state":1,"createTime":1700000000,"modifyTime":1700000001,
+    "data":{"metadata":{"name":"Example","note":"hello"},
+            "content":{"itemUsername":"alice","username":"","password":"s3cr3t",
+                       "urls":["https://example.com"],"totpUri":""},
+            "extraFields":[]}}]}}}

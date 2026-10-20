@@ -1,0 +1,16 @@
+url,username,password,totp,extra,name,grouping,fav
+http://sn,,,,"NoteType:Driver's License
+Language:en-US
+Number:1234567890
+Expiration Date:September,22,2926
+License Class:D
+Name:Bilbo Baggins
+Address:Bag End, Bagshot Row, Underhill
+City / Town:Hobbiton
+State:Westfarthing
+ZIP / Postal Code:00000
+Country:The Shire
+Date of Birth:September,22,2890
+Sex:Male
+Height:4'0""
+Notes:",Test Drivers License,Tools Test Items,0

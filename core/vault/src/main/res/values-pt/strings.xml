@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Auto-lock preset names, shown as choices on the Security screen. -->
+    <string name="core_vault_autolock_aggressive_label">Agressivo</string>
+    <string name="core_vault_autolock_balanced_label">Equilibrado</string>
+    <string name="core_vault_autolock_relaxed_label">Relaxado</string>
+
+    <!-- Auto-lock preset descriptions, shown under the selected preset name. -->
+    <string name="core_vault_autolock_aggressive_description">Bloqueia quase imediatamente quando você sai do aplicativo.</string>
+    <string name="core_vault_autolock_balanced_description">Sobrevive a uma troca rápida de aplicativo; bloqueia logo depois.</string>
+    <string name="core_vault_autolock_relaxed_description">Para um dispositivo que só você usa.</string>
+</resources>

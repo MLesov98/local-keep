@@ -1,0 +1,2 @@
+type,account_name,account_holder,cc_number,code,expiration_month,expiration_year,routing_number,account_number,country,issuing_bank
+credit_card,Card,Alice Example,4111111111111111,123,4,2030,,,GB,Example Bank

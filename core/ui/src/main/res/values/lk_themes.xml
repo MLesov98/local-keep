@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Framework-level chrome, for the moments Compose has not started painting yet or cannot.
+
+  `Theme.LocalKeep.Base` fixes the cold-launch flash: the framework draws `windowBackground` before
+  the first Compose frame, and Material's default dark grey is nothing like this app's near-black
+  ground — the app visibly changed colour on every launch.
+
+  `Theme.LocalKeep.Dialog` is for platform `AlertDialog`s raised from activities that host no Compose
+  tree (the passkey consent prompt). It cannot reproduce the design's gradient and hairline ring, but
+  it does stop a system-styled panel appearing in the middle of a dark app.
+-->
+<resources>
+    <style name="Theme.LocalKeep.Base" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/lk_ground</item>
+        <item name="android:colorBackground">@color/lk_ground</item>
+        <item name="android:navigationBarColor">@color/lk_ground</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:colorAccent">@color/lk_jade</item>
+    </style>
+
+    <style name="Theme.LocalKeep.Dialog" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:windowBackground">@color/lk_dialog</item>
+        <item name="android:colorBackground">@color/lk_dialog</item>
+        <item name="android:colorAccent">@color/lk_jade</item>
+        <item name="android:textColorPrimary">@color/lk_text_primary</item>
+        <item name="android:textColorSecondary">@color/lk_text_muted</item>
+    </style>
+</resources>

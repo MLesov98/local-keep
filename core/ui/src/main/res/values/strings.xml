@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- AlwaysOn.kt: the always-on protection claims shown by Settings' "How this works" group
+         and the Security tab's summary list. Sourced from one place so the two screens cannot
+         end up making different claims about the same cryptography. -->
+    <string name="core_ui_always_on_encryption_title">Encryption</string>
+    <!-- Names the algorithms used to protect the vault. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_encryption_summary">Everything is encrypted with your master password — Argon2id, then AES-256-GCM-SIV</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_encryption_detail">Your master password is stretched with Argon2id (calibrated to this device) into a key-encryption key, which wraps a random data key. Vault contents are encrypted with AES-256-GCM-SIV. Keys are wiped from memory on lock. Nothing is sent anywhere to do any of this.</string>
+
+    <string name="core_ui_always_on_throttling_title">Unlock throttling</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_throttling_summary">Guesses get slower, and cannot be turned off</string>
+    <!-- Claimed guessing stayed slow "even with the vault file in hand"
+         until 2026-07-30 — the one case where this backoff does nothing, since an attacker with
+         vault.enc runs their own cracker. It also contradicted settings_error_password_too_weak.
+         Now scoped to the app, and names Argon2id as what actually costs an offline attacker;
+         TierGClaimsTest asserts that name stays. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_throttling_detail">Repeated wrong master passwords are delayed with a growing backoff, so guessing through the app stays slow. Someone holding the vault file bypasses this entirely — there, the cost per guess is Argon2id. The backoff is always on and cannot be turned off.</string>
+
+    <string name="core_ui_always_on_phishing_title">Anti-phishing prompts</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_phishing_summary">Autofill asks before filling the wrong site</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_phishing_detail">When an app or site doesn\'t match the saved entry\'s domain, LocalKeep asks before filling instead of filling quietly. It is always on: a check you could switch off would protect nobody.</string>
+
+    <string name="core_ui_always_on_screenblock_title">Screen and app-switcher blocking</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_screenblock_summary">Screenshots and the recents preview are blocked</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_screenblock_detail">Every window in the app is marked secure, so screenshots and screen recordings come out blank and the app-switcher shows no preview of your vault.</string>
+
+    <!-- The root/tamper fact. Title carries no claim, so it is untagged. -->
+    <string name="core_ui_always_on_root_title">Rooted and modified devices</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_root_summary">Checked at launch — a warning, not a defense</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_root_detail">LocalKeep looks for common signs that this device has been rooted or modified, and warns you once if it finds any. A quiet launch is no news rather than a clean bill of health: these are simple file and build-tag checks, and software built to hide root will pass them. That is why the warning never blocks you — it reports a condition, it does not defend against one. Someone who controls the operating system can read this screen and record your master password as you type it, and no password manager on any phone can prevent that.</string>
+
+    <string name="core_ui_always_on_leaves_device_title">What can leave this device</string>
+    <!-- Claims what does and does not leave the device — see the Tier G
+         note on unlock_subtitle in the security-copy protocol for why this class of
+         claim needs a native reader, not just a fluent one. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_leaves_device_summary">An encrypted backup, if you allow it. Nothing else.</string>
+    <!-- The cloud-backup sentence names the switch as it is drawn and in
+         the polarity it operates. It used to read "turn it off under Vault → Cloud backup", which
+         was wrong twice: there is no row called "Cloud backup" (the control is a switch labelled
+         "Disable cloud backup", in Settings and on the Backup screen), and following the
+         instruction literally means turning that switch ON. The one place the app explains what
+         may leave the device cannot send the user the wrong way. F13 UX persona, 2026-08-30. -->
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_leaves_device_detail">Android Auto Backup may upload your vault file to your Google account, but only as encrypted ciphertext — it is unreadable without your master password. To stop it, turn off Include vault in Android backup in Backup &amp; export. Crash reports sent to the Play Store never include vault contents, passwords, or keys. Some phone makers sync the system clipboard across devices — LocalKeep marks copied secrets as sensitive and clears them automatically, but that sync is why auto-clear matters.</string>
+
+    <!-- ClipboardCountdown.kt -->
+    <!-- %1$s is the clipboard entry's label (e.g. "Password", "TOTP code"), supplied by the copy
+         site via ClipboardHelper — not itself defined in this module. -->
+    <string name="core_ui_clipboard_copied_label">%1$s copied</string>
+    <!-- Clipboard clear countdown; %1$d is the whole seconds remaining. -->
+    <!-- SECURITY-COPY: tier F -->
+    <plurals name="core_ui_clipboard_clears_in_seconds">
+        <item quantity="one">Clipboard clears in %1$ds</item>
+        <item quantity="other">Clipboard clears in %1$ds</item>
+    </plurals>
+    <string name="core_ui_clipboard_clear_now">Clear now</string>
+    <!-- Accessibility label for the "Clear now" chip. -->
+    <string name="core_ui_clipboard_clear_now_action">Clear the clipboard now</string>
+
+    <!-- PermissionDenial.kt: %1$s is featureSentence, a caller-supplied sentence already ending
+         in a period (e.g. "LocalKeep can't scan a QR code without camera access."), so this
+         string continues it as a second sentence. -->
+    <string name="core_ui_permission_denial_retry">%1$s You can tap it again to allow access.</string>
+    <string name="core_ui_permission_denial_settings_required">%1$s Android won\'t ask again, so it has to be granted in Settings.</string>
+    <string name="core_ui_permission_denial_open_settings">Open settings</string>
+
+    <!-- LkModals.kt -->
+    <!-- The default dismiss label for every LkDialog. It was the Kotlin literal "Cancel"
+         until 2026-07-30, so nine dialogs — including "Restore this snapshot?" and
+         "Empty trash?" — offered an English word in every language. -->
+    <string name="core_ui_dialog_cancel">Cancel</string>
+
+    <!-- BiometricUnlock.kt (core/crypto) -->
+    <!-- The negative-button label on the system BiometricPrompt dialog shown by every biometric
+         unlock/enable flow. Shared here because core/crypto is UI-agnostic and cannot hold a
+         string resource itself; callers (UnlockViewModel, SettingsViewModel, CredentialActivity,
+         OnboardingViewModel) all already depend on core:ui and resolve it with getString, the
+         same pattern their title/subtitle strings use. -->
+    <string name="core_ui_biometric_negative_button">Use master password</string>
+
+    <!-- ProGate.kt -->
+    <!-- %1$s is the locked category's own name (e.g. "Cards", "Files & media"), passed by the
+         caller — never the name of a single item. -->
+    <!-- %1$s is PRO_PRICE, deliberately left untranslated per
+         the security-copy rules — Play Billing's own localised price is the
+         authority on what a user is actually charged. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="core_ui_pro_gate_unlock_prompt">This is part of Pro — a one-time %1$s unlock. One payment, no subscription, and everything you already have keeps working even if you never buy it.</string>
+    <!-- Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="core_ui_pro_gate_unlock_prompt_no_price">This is part of Pro — a one-time unlock. One payment, no subscription, and everything you already have keeps working even if you never buy it.</string>
+    <string name="core_ui_pro_gate_foss_locked_note">This Pro feature is in the Play Store version of the app.</string>
+    <!-- "Google Play" is a product name, never translated. -->
+    <string name="core_ui_pro_gate_view_on_play">View on Google Play</string>
+    <!-- "Pro" is the app's fixed tier name, never translated. -->
+    <string name="core_ui_pro_gate_heading">Pro feature</string>
+
+    <!-- The two things an unlock attempt has to be able to say. Shared by Settings, the vault list
+         and the item editor, which all raise the same purchase from their own screen.
+         Names no cause: Play answers a refused launch, an unreachable store and a misconfigured
+         product identically, so naming one of them would be a guess told to the user as fact. -->
+    <string name="core_ui_pro_gate_purchase_failed">The purchase could not be started. Check your connection and try again.</string>
+    <!-- Never say "try again" here: Play completes a pending purchase on its own, and a retry
+         invites a second charge. -->
+    <string name="core_ui_pro_gate_purchase_pending">This purchase has not been confirmed yet. Pro unlocks by itself as soon as it clears — there is no need to buy it again.</string>
+    <!-- Play answered ITEM_ALREADY_OWNED and re-querying still did not unlock Pro here. Never say
+         "try again": Play will not sell a one-time product twice, so the retry this used to offer
+         returned the same error forever. Says "a Google account" rather than "this one" on
+         purpose — the re-query fails both when a different account owns it and when Play could not
+         be reached, and the app cannot tell those apart from here. Names Restore purchases because
+         that is the only action that can actually resolve it. -->
+    <!-- SECURITY-COPY: tier E -->
+    <string name="core_ui_pro_gate_purchase_already_owned">Pro is already owned on a Google account, so it cannot be bought twice. If it has not unlocked here, use Restore purchases in Settings and check which account Play is signed in to.</string>
+
+    <!-- LkDeriving.kt -->
+    <!-- LkDerivingOverlay stage labels. Each names the operation that is running right now.
+         Descriptive of an action, not an assertion about a security property, so they are not
+         Tier G under the security-copy protocol. Machine-assisted translation, 2026-08-10: pending review in
+         the next i18n sweep. -->
+    <string name="core_ui_deriving_reading">Reading the vault</string>
+    <string name="core_ui_deriving_decrypting">Decrypting the vault</string>
+    <string name="core_ui_deriving_opening">Opening</string>
+    <string name="core_ui_deriving_default_title">Deriving your key</string>
+    <!-- Screen-reader announcement. %1$s is the overlay's title (defaults to
+         core_ui_deriving_default_title, but callers may override it). -->
+    <string name="core_ui_deriving_announce">%1$s. This takes a few seconds.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_deriving_rationale">This wait is the point — it is the same cost an attacker pays for every guess. No delay is ever added.</string>
+
+    <!-- LkFields.kt -->
+    <string name="core_ui_field_password_label">Password</string>
+    <string name="core_ui_field_password_hide">Hide password</string>
+    <string name="core_ui_field_password_show">Show password</string>
+    <!-- LkCheckRow's accessibility state. %1$s is the row's own label (e.g. "Symbols"). The state
+         word was a Kotlin literal until 2026-07-30, so every generator tick box announced an
+         English "enabled"/"disabled" in all four translated languages. -->
+    <!-- A11y.kt: how a masked field announces itself. %1$s is the field label; in the
+         revealed form %2$s is the secret itself, spoken only on demand. Both were Kotlin
+         literals until 2026-07-30, so every masked field in the app said "hidden" in
+         English in all four translated languages. -->
+    <string name="core_ui_secret_field_hidden">%1$s, hidden</string>
+    <string name="core_ui_secret_field_revealed">%1$s, revealed: %2$s</string>
+    <string name="core_ui_check_row_enabled">%1$s, enabled</string>
+    <string name="core_ui_check_row_disabled">%1$s, disabled</string>
+    <!-- LkIndicators.kt: LkSlider's accessibility label. %1$s is the slider's own label
+         (e.g. "Length"); %2$s is the current numeric value. Was a Kotlin string-interpolated
+         "$label, $value" with a hardcoded comma until 2026-08-10, which a translator cannot
+         reorder or re-punctuate. -->
+    <string name="core_ui_slider_label">%1$s, %2$s</string>
+    <string name="core_ui_field_search_placeholder">Search</string>
+    <string name="core_ui_field_search_clear">Clear search</string>
+
+    <!-- LkLogo.kt: the wordmark is rendered as two runs so "KEEP" can take the accent colour.
+         Both runs and the mark's content description are the brand name — never translated. -->
+    <string name="core_ui_wordmark_local" translatable="false">LOCAL</string>
+    <string name="core_ui_wordmark_keep" translatable="false">KEEP</string>
+    <string name="core_ui_wordmark_content_description" translatable="false">LocalKeep</string>
+
+    <!-- ===== LkLockButton.kt: the toolbar lock control, on all three top-level tabs. ===== -->
+    <string name="core_ui_lock_button">Lock</string>
+    <string name="core_ui_lock_action_label">Lock vault</string>
+    <string name="core_ui_panic_lock_action_label">Panic lock — master password required to reopen</string>
+    <!-- Explains why biometric unlock just turned off. -->
+    <!-- SECURITY-COPY: tier C -->
+    <string name="core_ui_panic_lock_toast">Panic lock — master password required. Biometrics are off.</string>
+    <!-- ═══ Password strength, one vocabulary for every place a secret is scored ═══
+         Moved here from feature/generator 2026-08-19: the generator scored entropy with these four
+         words while the login form scored nothing, and `Item Flows.dc.html` puts a meter in both.
+         Two catalogues holding the same four adjectives is two translations to keep in step for
+         nothing. Values are the generator's, carried over verbatim. -->
+    <string name="core_ui_strength_weak">Weak</string>
+    <string name="core_ui_strength_reasonable">Reasonable</string>
+    <string name="core_ui_strength_strong">Strong</string>
+    <string name="core_ui_strength_excellent">Excellent</string>
+    <string name="core_ui_folder_none">None</string>
+    <string name="core_ui_folder_label">Folder</string>
+    <string name="core_ui_folder_change">Change folder</string>
+    <string name="core_ui_folder_change_a11y">Change folder</string>
+    <string name="core_ui_folder_screen_title">Folder</string>
+    <string name="core_ui_folder_screen_subtitle">Folders live only in your vault file. Nesting is allowed, and an item belongs to one folder at a time.</string>
+    <string name="core_ui_folder_screen_back">Back</string>
+    <string name="core_ui_folder_screen_done">Done</string>
+    <string name="core_ui_folder_screen_cancel">Cancel</string>
+    <string name="core_ui_folder_remove_a11y">Remove from folder</string>
+    <string name="core_ui_folder_move_to_a11y">Move to %1$s</string>
+    <string name="core_ui_folder_selected_a11y">%1$s, selected</string>
+    <string name="core_ui_folder_new_button">New folder</string>
+    <string name="core_ui_folder_new_placeholder">Folder name</string>
+    <string name="core_ui_folder_new_label">New folder name</string>
+    <string name="core_ui_folder_new_hint">You can rename it later from Folders.</string>
+    <string name="core_ui_folder_new_hint_taken">A folder here is already called that. Pick another name.</string>
+    <string name="core_ui_folder_new_hint_elsewhere">There is a folder with this name somewhere else. This one is separate from it.</string>
+    <string name="core_ui_folder_new_destination_inside">Inside %1$s</string>
+    <string name="core_ui_folder_new_destination_top">At the top level</string>
+    <string name="core_ui_folder_create_ready_a11y">Create folder</string>
+    <string name="core_ui_folder_create_needs_name_a11y">Create folder, type a name first</string>
+    <!-- The same disabled button when the name is typed but a sibling already has it. It used to
+         say "type a name first" over a field that held one (device pass 2026-10-04). -->
+    <string name="core_ui_folder_create_name_taken_a11y">Create folder, a folder here is already called that</string>
+    <string name="core_ui_folder_collapse_a11y">Hide the subfolders of %1$s</string>
+    <string name="core_ui_folder_expand_a11y">Show the subfolders of %1$s</string>
+    <string name="core_ui_folder_collapse_all">Collapse all</string>
+    <string name="core_ui_folder_expand_all">Expand all</string>
+    <!-- Content description for the drawer button carried by every top-level tab header. -->
+    <string name="core_ui_menu_open">Open menu</string>
+
+    <!-- ═══ QR scanner dialog (QrScanner.kt) — moved here from :feature:itemedit on 2026-09-10
+         so the Recovery Kit unlock flow could reuse the same scanner instead of duplicating it.
+         Under the viewfinder: what to do, then what happened. Generic on purpose — the dialog's
+         title and camera-unavailable fallback stay with each caller, because those two do name
+         what is being scanned. "Code read." replaces the old "Seed read.": the TOTP screen and
+         the Recovery Kit screen both read a code, not specifically a seed. ═══ -->
+    <!-- Not shown on Android since 2026-10-15 (the opening screen already says what to aim at).
+         Kept because the iOS port's QrScanner.swift still reads it through the shared catalogue. -->
+    <string name="core_ui_qr_hint_aim">Fill the frame with the code.</string>
+    <string name="core_ui_qr_hint_read">Code read.</string>
+    <!-- Spoken only when the confirm button is blocked *by a blank field*. Never keyed off
+         `enabled`: both callers also disable while a save is in flight, and announcing "enter a
+         title" over a filled field states a false cause to the one user who cannot see it. Says
+         "title", matching the field label both callers pass (V21). -->
+    <string name="core_ui_naming_confirm_disabled_a11y">%1$s, available once you enter a title</string>
+    <!-- Names the bottom sheet's drag handle. Material's own DragHandle carries this label and
+         this app draws its own, which dropped it: TalkBack landed on a focusable, clickable
+         node with no name at all (device, 2026-09-20). -->
+    <string name="core_ui_sheet_drag_handle">Drag handle</string>
+    <!-- Shown when a picker intent has no handler on the device (rememberExternalPickerLauncher). -->
+    <string name="core_ui_picker_unavailable">No file picker is available on this device.</string>
+    <!-- LkDisclosure: the spoken action hint (read after the row, as "double tap to …") and the
+         state word read with it. Not interpolated with the title on purpose: "Hide %1$s" does not
+         survive German or French grammar for a title that is itself a verb phrase. -->
+    <string name="core_ui_disclosure_expand_a11y">Expand</string>
+    <string name="core_ui_disclosure_collapse_a11y">Collapse</string>
+    <string name="core_ui_disclosure_state_expanded">Expanded</string>
+    <string name="core_ui_disclosure_state_collapsed">Collapsed</string>
+</resources>

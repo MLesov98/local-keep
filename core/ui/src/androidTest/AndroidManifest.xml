@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!--
+          A real SecureActivity subclass, so SecureActivityFlagTest can assert on an actual window
+          rather than on the resource it reads. Test-only: this manifest is merged into the
+          androidTest APK and never into a shipped one.
+        -->
+        <activity
+            android:name="com.localkeep.core.ui.SecureActivityUnderTest"
+            android:exported="false"
+            android:theme="@style/Theme.LocalKeep.Base" />
+    </application>
+</manifest>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Whether every LocalKeep window sets FLAG_SECURE (blocks screenshots, screen recording and
+      the app-switcher preview). Read by SecureActivity.onCreate.
+
+      This default is `true` and must stay `true`. It is deliberately overridden to `false` in
+      exactly one place — app/src/debug/res/values/bools.xml — so that a developer or QA build can
+      be photographed while UI work is verified. Release variants never compile that directory, so
+      the opt-out is absent from a shipped APK rather than optimised out of it.
+
+      The guarantee is a build gate, not a convention: `./gradlew checkScreenSecurity` reads the
+      merged release resources of both flavours and fails unless this resolves to `true`.
+    -->
+    <bool name="lk_obscure_screen">true</bool>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <!--
+          Target of the clipboard-clear alarm, declared here beside ClipboardHelper so the receiver
+          and the only code that schedules it move together.
+
+          Not exported, with no intent filter: the alarm reaches it through an explicit
+          PendingIntent, and nothing outside the app should be able to make LocalKeep clear the
+          clipboard on demand. It needs no permission — the alarm is inexact, so neither
+          SCHEDULE_EXACT_ALARM nor USE_EXACT_ALARM is involved, and `checkFlavorPermissions` would
+          fail the build if either appeared.
+        -->
+        <receiver
+            android:name="com.localkeep.core.ui.ClipboardClearReceiver"
+            android:exported="false" />
+    </application>
+
+</manifest>

@@ -1,0 +1,3 @@
+{"version":1,"header":{"slots":null,"params":null},
+ "db":{"version":2,"entries":[{"type":"totp","uuid":"u1","name":"acct","issuer":"Example",
+   "info":{"secret":"JBSWY3DPEHPK3PXP","algo":"SHA1","digits":6,"period":30}}]}}

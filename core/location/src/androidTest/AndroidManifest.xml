@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      Test APK only. It is never merged into `app`, in either flavour or either build type — a
+      library module's androidTest manifest contributes to `com.localkeep.core.location.test` and
+      nothing else, which is checkable with `aapt dump permissions` on the two shipped APKs.
+
+      WAKE_LOCK is here because the harness runs for the better part of an hour with the screen off
+      and a GNSS receiver that must stay tracking across the whole of it. A capture that the
+      platform suspended halfway is not a slow capture, it is a corrupted measurement, and it would
+      look exactly like a real result.
+    -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+</manifest>

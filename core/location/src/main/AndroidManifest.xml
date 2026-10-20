@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      Declared by the module that owns the capability rather than by the app, so the permission and
+      the only code that can use it move together. Both are foreground-only and both are requested
+      at the moment the user taps "Save current location" — never at launch.
+
+      COARSE is here because Android 12+ requires the pair to be requested together for a precise
+      grant to be offered at all; the feature still refuses an approximate-only grant, because a
+      coordinate item that stored an area-level estimate would be the app relabelling what the user
+      consented to. See AndroidCurrentLocationProvider and LocationFixPolicy.
+
+      What is deliberately absent, and must stay absent: ACCESS_BACKGROUND_LOCATION and
+      FOREGROUND_SERVICE. There is no tracking, no history and no scheduled work in this feature —
+      one snapshot, taken when asked. `checkFlavorPermissions` pins the merged set for both flavours
+      and will fail the build if either appears.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!--
+      The feature is not worth refusing an install over: a device without GNSS hardware can hold
+      every other kind of vault item perfectly well, and Play would otherwise filter the app off it.
+    -->
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+
+</manifest>

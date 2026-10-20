@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The handful of palette values that XML needs.
+
+  Kotlin's LkColors stays the source of truth — these exist only because a window background, a
+  launcher icon and a platform AlertDialog are resolved by the framework before any Compose code
+  runs, and none of them can read a CompositionLocal. Keep them in step with LkColors.kt by hand;
+  there are five, and they are the five that would be visible as a wrong-coloured flash.
+-->
+<resources>
+    <!-- LkColors.ground -->
+    <color name="lk_ground">#FF0A0C0E</color>
+    <!-- LkColors.dialogTop -->
+    <color name="lk_dialog">#FF151B1D</color>
+    <!-- LkColors.jade -->
+    <color name="lk_jade">#FF3ED9AE</color>
+    <!-- LkColors.textPrimary -->
+    <color name="lk_text_primary">#FFEDF1F2</color>
+    <!-- LkColors.textMuted -->
+    <color name="lk_text_muted">#FF8B979E</color>
+</resources>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- AlwaysOn.kt: the always-on protection claims shown by Settings' "How this works" group
+         and the Security tab's summary list. Sourced from one place so the two screens cannot
+         end up making different claims about the same cryptography. -->
+    <string name="core_ui_always_on_encryption_title">Chiffrement</string>
+    <!-- SECURITY-COPY: tier G. Names the algorithms used to protect the vault. -->
+    <string name="core_ui_always_on_encryption_summary">Tout est chiffré avec votre mot de passe principal — Argon2id, puis AES-256-GCM-SIV</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_encryption_detail">Votre mot de passe principal est étiré avec Argon2id (calibré sur cet appareil) en une clé de chiffrement de clé, qui enveloppe une clé de données aléatoire. Les contenus du coffre sont chiffrés avec AES-256-GCM-SIV. Les clés sont effacées de la mémoire au verrouillage. Rien n\'est envoyé nulle part pour faire tout cela.</string>
+
+    <string name="core_ui_always_on_throttling_title">Limitation des tentatives de déverrouillage</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_throttling_summary">Les tentatives ralentissent et ne peuvent pas être désactivées</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_throttling_detail">Les tentatives répétées avec un mot de passe principal incorrect sont retardées par un délai croissant, de sorte que les tentatives via l\'application restent lentes. Quiconque possède le fichier du coffre contourne entièrement ce mécanisme — là, le coût par tentative est Argon2id. Ce délai est toujours activé et ne peut pas être désactivé.</string>
+
+    <string name="core_ui_always_on_phishing_title">Alertes anti-hameçonnage</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_phishing_summary">Le remplissage automatique demande avant de remplir le mauvais site</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_phishing_detail">Quand une application ou un site ne correspond pas au domaine de l\'élément enregistré, LocalKeep demande avant de remplir au lieu de remplir silencieusement. Toujours activée\u00a0: une vérification que vous pourriez désactiver ne protégerait personne.</string>
+
+    <string name="core_ui_always_on_screenblock_title">Blocage de l\'écran et de l\'aperçu des applications récentes</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_screenblock_summary">Les captures d\'écran et l\'aperçu des applications récentes sont bloqués</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_screenblock_detail">Chaque fenêtre de l\'application est marquée comme sécurisée, si bien que les captures d\'écran et les enregistrements d\'écran apparaissent vides et que l\'aperçu des applications récentes ne montre rien de votre coffre.</string>
+
+    <!-- The root/tamper fact. Title carries no claim, so it is untagged. -->
+    <string name="core_ui_always_on_root_title">Appareils rootés ou modifiés</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_root_summary">Vérifié au démarrage — un avertissement, pas une défense</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_root_detail">LocalKeep recherche les signes courants indiquant que cet appareil a été rooté ou modifié, et vous avertit une fois s\'il en trouve. Un démarrage silencieux ne prouve rien\u00a0: ce sont de simples vérifications de fichiers et de balises de build, et un logiciel conçu pour masquer le root y échappera. C\'est pourquoi l\'avertissement ne vous bloque jamais\u00a0: il signale un état, il ne vous en protège pas. Quiconque contrôle le système d\'exploitation peut lire cet écran et enregistrer votre mot de passe principal pendant que vous le saisissez, et aucun gestionnaire de mots de passe sur aucun téléphone ne peut l\'empêcher.</string>
+
+    <string name="core_ui_always_on_leaves_device_title">Ce qui peut quitter cet appareil</string>
+    <!-- SECURITY-COPY: tier G. Claims what does and does not leave the device — see the Tier G
+         note on unlock_subtitle in the security-copy protocol for why this class of
+         claim needs a native reader, not just a fluent one. -->
+    <string name="core_ui_always_on_leaves_device_summary">Une sauvegarde chiffrée, si vous l\'autorisez. Rien d\'autre.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_always_on_leaves_device_detail">La sauvegarde automatique Android peut envoyer votre fichier de coffre à votre compte Google, mais uniquement sous forme de texte chiffré — il est illisible sans votre mot de passe principal. Pour l\'arrêter, désactivez Inclure le coffre dans la sauvegarde Android dans Sauvegarde et exportation. Les rapports de crash envoyés au Play Store ne contiennent jamais de contenus de coffre, mots de passe ou clés. Certains fabricants de téléphones synchronisent le presse-papiers système entre les appareils — LocalKeep marque les secrets copiés comme sensibles et les efface automatiquement, mais c\'est précisément pour cela que l\'effacement automatique est important.</string>
+
+    <!-- ClipboardCountdown.kt -->
+    <!-- %1$s is the clipboard entry\'s label (e.g. "Password", "TOTP code"), supplied by the copy
+         site via ClipboardHelper — not itself defined in this module. -->
+    <string name="core_ui_clipboard_copied_label">Copié\u00a0: %1$s</string>
+    <!-- SECURITY-COPY: tier F. Clipboard clear countdown; %1$d is the whole seconds remaining. -->
+    <plurals name="core_ui_clipboard_clears_in_seconds">
+        <item quantity="one">Le presse-papiers s\'efface dans %1$ds</item>
+        <item quantity="other">Le presse-papiers s\'efface dans %1$ds</item>
+    </plurals>
+    <string name="core_ui_clipboard_clear_now">Effacer maintenant</string>
+    <!-- Accessibility label for the "Clear now" chip. -->
+    <string name="core_ui_clipboard_clear_now_action">Effacer le presse-papiers maintenant</string>
+
+    <!-- PermissionDenial.kt: %1$s is featureSentence, a caller-supplied sentence already ending
+         in a period (e.g. "LocalKeep can\'t scan a QR code without camera access."), so this
+         string continues it as a second sentence. -->
+    <string name="core_ui_permission_denial_retry">%1$s Vous pouvez appuyer à nouveau pour autoriser l\'accès.</string>
+    <string name="core_ui_permission_denial_settings_required">%1$s Android ne redemandera plus, il faut donc l\'accorder dans les paramètres.</string>
+    <string name="core_ui_permission_denial_open_settings">Ouvrir les paramètres</string>
+
+    <!-- LkModals.kt -->
+    <!-- The default dismiss label for every LkDialog. It was the Kotlin literal "Cancel"
+         until 2026-07-30, so nine dialogs — including "Restore this snapshot?" and
+         "Empty trash?" — offered an English word in every language. -->
+    <string name="core_ui_dialog_cancel">Annuler</string>
+    <string name="core_ui_biometric_negative_button">Utiliser le mot de passe principal</string>
+
+    <!-- ProGate.kt -->
+    <!-- %1$s is the locked category\'s own name (e.g. "Cards", "Files & media"), passed by the
+         caller — never the name of a single item. -->
+    <!-- SECURITY-COPY: tier E. %1$s is PRO_PRICE, deliberately left untranslated per
+         the security-copy rules — Play Billing\'s own localised price is the
+         authority on what a user is actually charged. -->
+    <string name="core_ui_pro_gate_unlock_prompt">Ceci fait partie de Pro — un déblocage unique de %1$s. Un seul paiement, pas d\'abonnement, et tout ce que vous avez déjà continue de fonctionner même si vous ne l\'achetez jamais.</string>
+    <!-- SECURITY-COPY: tier E. Shown when Play has not told us the price (and always in
+         foss, which sells nothing). States no amount at all rather than a literal. -->
+    <string name="core_ui_pro_gate_unlock_prompt_no_price">Ceci fait partie de Pro — un déblocage unique. Un seul paiement, pas d\'abonnement, et tout ce que vous avez déjà continue de fonctionner même si vous ne l\'achetez jamais.</string>
+    <string name="core_ui_pro_gate_foss_locked_note">Cette fonctionnalité Pro est disponible dans la version Play Store de l\'application.</string>
+    <!-- "Google Play" is a product name, never translated. -->
+    <string name="core_ui_pro_gate_view_on_play">Voir sur Google Play</string>
+    <!-- "Pro" is the app\'s fixed tier name, never translated. -->
+    <string name="core_ui_pro_gate_heading">Fonctionnalité Pro</string>
+
+    <!-- The two things an unlock attempt has to be able to say. Shared by Settings, the vault list
+         and the item editor, which all raise the same purchase from their own screen.
+         Names no cause: Play answers a refused launch, an unreachable store and a misconfigured
+         product identically, so naming one of them would be a guess told to the user as fact. -->
+    <string name="core_ui_pro_gate_purchase_failed">L\'achat n\'a pas pu être lancé. Vérifiez votre connexion et réessayez.</string>
+    <!-- Never say "try again" here: Play completes a pending purchase on its own, and a retry
+         invites a second charge. -->
+    <string name="core_ui_pro_gate_purchase_pending">Cet achat n\'est pas encore confirmé. Pro se débloquera tout seul dès sa validation — inutile de l\'acheter à nouveau.</string>
+    <string name="core_ui_pro_gate_purchase_already_owned">Pro est déjà acheté sur un compte Google et ne peut pas être acheté deux fois. S\'il n\'est pas débloqué ici, utilisez Restaurer les achats dans les Paramètres et vérifiez à quel compte Play est connecté.</string>
+
+    <!-- LkDeriving.kt -->
+    <string name="core_ui_deriving_reading">Lecture du coffre</string>
+    <string name="core_ui_deriving_decrypting">Déchiffrement du coffre</string>
+    <string name="core_ui_deriving_opening">Ouverture</string>
+    <string name="core_ui_deriving_default_title">Dérivation de votre clé</string>
+    <!-- Screen-reader announcement. %1$s is the overlay\'s title (defaults to
+         core_ui_deriving_default_title, but callers may override it). -->
+    <string name="core_ui_deriving_announce">%1$s. Cela prend quelques secondes.</string>
+    <!-- SECURITY-COPY: tier G -->
+    <string name="core_ui_deriving_rationale">Cette attente est voulue — c\'est le même coût qu\'un attaquant paie pour chaque tentative. Aucun délai n\'est jamais ajouté.</string>
+
+    <!-- LkFields.kt -->
+    <string name="core_ui_field_password_label">Mot de passe</string>
+    <string name="core_ui_field_password_hide">Masquer le mot de passe</string>
+    <string name="core_ui_field_password_show">Afficher le mot de passe</string>
+    <string name="core_ui_secret_field_hidden">Champ masqué\u00a0: %1$s</string>
+    <string name="core_ui_secret_field_revealed">Champ affiché\u00a0: %1$s — %2$s</string>
+    <string name="core_ui_check_row_enabled">Activé\u00a0: %1$s</string>
+    <string name="core_ui_check_row_disabled">Désactivé\u00a0: %1$s</string>
+    <string name="core_ui_field_search_placeholder">Rechercher</string>
+    <string name="core_ui_field_search_clear">Effacer la recherche</string>
+
+
+    <!-- ===== LkLockButton.kt: the toolbar lock control, on all three top-level tabs. ===== -->
+    <string name="core_ui_lock_button">Verrouiller</string>
+    <string name="core_ui_lock_action_label">Verrouiller le coffre</string>
+    <string name="core_ui_panic_lock_action_label">Verrouillage d\'urgence — mot de passe principal requis pour rouvrir</string>
+    <!-- SECURITY-COPY: tier C. Explains why biometric unlock just turned off. -->
+    <string name="core_ui_panic_lock_toast">Verrouillage d\'urgence — mot de passe principal requis. Biométrie désactivée.</string>
+    <string name="core_ui_slider_label">%1$s, %2$s</string>
+    <string name="core_ui_strength_weak">Faible</string>
+    <string name="core_ui_strength_reasonable">Raisonnable</string>
+    <string name="core_ui_strength_strong">Fort</string>
+    <string name="core_ui_strength_excellent">Excellent</string>
+    <string name="core_ui_folder_none">Aucun</string>
+    <string name="core_ui_folder_label">Dossier</string>
+    <string name="core_ui_folder_change">Changer de dossier</string>
+    <string name="core_ui_folder_change_a11y">Changer de dossier</string>
+    <string name="core_ui_folder_screen_title">Dossier</string>
+    <string name="core_ui_folder_screen_subtitle">Les dossiers n\'existent que dans votre fichier de coffre. L\'imbrication est possible, et un élément appartient à un seul dossier à la fois.</string>
+    <string name="core_ui_folder_screen_back">Retour</string>
+    <string name="core_ui_folder_screen_done">Terminé</string>
+    <string name="core_ui_folder_screen_cancel">Annuler</string>
+    <string name="core_ui_folder_remove_a11y">Retirer du dossier</string>
+    <string name="core_ui_folder_move_to_a11y">Déplacer vers %1$s</string>
+    <string name="core_ui_folder_selected_a11y">Dossier sélectionné\u00a0: %1$s</string>
+    <string name="core_ui_folder_new_button">Nouveau dossier</string>
+    <string name="core_ui_folder_new_placeholder">Nom du dossier</string>
+    <string name="core_ui_folder_new_label">Nom du nouveau dossier</string>
+    <string name="core_ui_folder_new_hint">Vous pourrez le renommer plus tard depuis Dossiers.</string>
+    <string name="core_ui_folder_new_hint_taken">Un dossier porte déjà ce nom ici. Choisissez-en un autre.</string>
+    <string name="core_ui_folder_new_hint_elsewhere">Un dossier porte ce nom ailleurs. Celui-ci en est distinct.</string>
+    <string name="core_ui_folder_new_destination_inside">Dans %1$s</string>
+    <string name="core_ui_folder_new_destination_top">Au premier niveau</string>
+    <string name="core_ui_folder_create_ready_a11y">Créer le dossier</string>
+    <string name="core_ui_folder_create_needs_name_a11y">Créer le dossier, nom requis</string>
+    <string name="core_ui_folder_create_name_taken_a11y">Créer le dossier, un dossier porte déjà ce nom ici</string>
+    <string name="core_ui_folder_collapse_a11y">Masquer les sous-dossiers de %1$s</string>
+    <string name="core_ui_folder_expand_a11y">Afficher les sous-dossiers de %1$s</string>
+    <string name="core_ui_folder_collapse_all">Tout réduire</string>
+    <string name="core_ui_folder_expand_all">Tout développer</string>
+    <string name="core_ui_menu_open">Ouvrir le menu</string>
+
+    <!-- ═══ QR scanner dialog (QrScanner.kt) — moved here from :feature:itemedit on 2026-09-10
+         so the Recovery Kit unlock flow could reuse the same scanner instead of duplicating it.
+         Under the viewfinder: what to do, then what happened. Generic on purpose — the dialog's
+         title and camera-unavailable fallback stay with each caller, because those two do name
+         what is being scanned. "Code read." replaces the old "Seed read.": the TOTP screen and
+         the Recovery Kit screen both read a code, not specifically a seed. ═══ -->
+    <string name="core_ui_qr_hint_aim">Remplissez le cadre avec le code.</string>
+    <string name="core_ui_qr_hint_read">Code lu.</string>
+    <string name="core_ui_naming_confirm_disabled_a11y">%1$s, disponible dès que vous saisissez un titre</string>
+    <string name="core_ui_sheet_drag_handle">Poignée de déplacement</string>
+    <string name="core_ui_picker_unavailable">Aucun sélecteur de fichiers n\'est disponible sur cet appareil.</string>
+    <string name="core_ui_disclosure_expand_a11y">Déplier</string>
+    <string name="core_ui_disclosure_collapse_a11y">Replier</string>
+    <string name="core_ui_disclosure_state_expanded">Déplié</string>
+    <string name="core_ui_disclosure_state_collapsed">Replié</string>
+</resources>

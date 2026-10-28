@@ -1,5 +1,7 @@
 package com.localkeep.feature.generator
 
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -668,31 +670,47 @@ internal fun OutputCard(
 
 /** A two-position segmented control. Chips would imply the two modes could both be off. */
 @Composable
-private fun ModeToggle(
+internal fun ModeToggle(
     random: Boolean,
     onSelect: (GeneratorUiState.Mode) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val c = LkTheme.colors
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .lkSurface(LkShape.md, c.field, c.ring)
-            .padding(horizontal = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        ModeButton(
-            stringResource(R.string.generator_mode_random),
-            random,
-            { onSelect(GeneratorUiState.Mode.RANDOM) },
-            Modifier.weight(1f),
-        )
-        ModeButton(
-            stringResource(R.string.generator_mode_passphrase),
-            !random,
-            { onSelect(GeneratorUiState.Mode.PASSPHRASE) },
-            Modifier.weight(1f),
-        )
+    val randomLabel = stringResource(R.string.generator_mode_random)
+    val passphraseLabel = stringResource(R.string.generator_mode_passphrase)
+    // Equal halves, unless a label will not fit one: at 308dp and font 2.0 "Passphrase" broke inside
+    // the word, "Passphras / e", beside a half holding "Random" with room to spare (final sweep,
+    // 2026-10-28). Then each segment takes the share its label needs, which keeps both words whole on
+    // one row; wherever the halves fit, the control is exactly the comps' two equal segments.
+    val measurer = rememberTextMeasurer()
+    val (randomPx, passphrasePx) = remember(randomLabel, passphraseLabel, measurer) {
+        listOf(randomLabel, passphraseLabel).map {
+            measurer.measure(it, LkText.buttonSmall, softWrap = false, maxLines = 1).size.width
+        }
+    }
+    BoxWithConstraints(modifier.fillMaxWidth()) {
+        val half = with(LocalDensity.current) { ((maxWidth - 12.dp) / 2).toPx() }
+        val proportional = maxOf(randomPx, passphrasePx) > half
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .lkSurface(LkShape.md, c.field, c.ring)
+                .padding(horizontal = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            ModeButton(
+                randomLabel,
+                random,
+                { onSelect(GeneratorUiState.Mode.RANDOM) },
+                Modifier.weight(if (proportional) randomPx.toFloat().coerceAtLeast(1f) else 1f),
+            )
+            ModeButton(
+                passphraseLabel,
+                !random,
+                { onSelect(GeneratorUiState.Mode.PASSPHRASE) },
+                Modifier.weight(if (proportional) passphrasePx.toFloat().coerceAtLeast(1f) else 1f),
+            )
+        }
     }
 }
 

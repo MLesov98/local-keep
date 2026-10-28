@@ -12,6 +12,7 @@
  *   ./gradlew :app:checkReleaseSigning :app:bundlePlayRelease
  *   node tools/play-upload.mjs --track internal
  *   node tools/play-upload.mjs --aab path/to/app.aab --track alpha --notes notes.json
+ *   node tools/play-upload.mjs --track internal,alpha   # one upload, several tracks, one edit
  *
  * Release notes JSON is [{ "language": "en-US", "text": "..." }, ...]; omit for none.
  */
@@ -40,7 +41,9 @@ function die(message) {
 }
 
 const aabPath = arg('aab', resolve(dirname(fileURLToPath(import.meta.url)), '../app/build/outputs/bundle/playRelease/app-play-release.aab'));
-const track = arg('track', 'internal');
+// Comma-separated: one bundle can serve several tracks, and it has to — Play refuses a second upload
+// of the same versionCode, so internal and closed testers on one build means one edit.
+const tracks = arg('track', 'internal').split(',').map((t) => t.trim()).filter(Boolean);
 const notesPath = arg('notes');
 // 'completed' publishes to the track immediately; 'draft' leaves it for a human to roll out.
 const status = arg('status', 'completed');
@@ -138,10 +141,12 @@ const release = {
   ...(notesPath ? { releaseNotes: JSON.parse(readFileSync(notesPath, 'utf8')) } : {}),
 };
 
-await call(token, 'PUT', `${API}/applications/${pkg}/edits/${edit.id}/tracks/${track}`, {
-  body: JSON.stringify({ track, releases: [release] }),
-  contentType: 'application/json',
-});
+for (const track of tracks) {
+  await call(token, 'PUT', `${API}/applications/${pkg}/edits/${edit.id}/tracks/${track}`, {
+    body: JSON.stringify({ track, releases: [release] }),
+    contentType: 'application/json',
+  });
+}
 
 await call(token, 'POST', `${API}/applications/${pkg}/edits/${edit.id}:commit`);
-console.log(`published versionCode ${bundle.versionCode} to ${track} (${status})`);
+console.log(`published versionCode ${bundle.versionCode} to ${tracks.join(', ')} (${status})`);

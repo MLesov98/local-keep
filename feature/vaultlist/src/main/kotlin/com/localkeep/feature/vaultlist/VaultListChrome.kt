@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.localkeep.core.ui.lkTag
 import com.localkeep.core.ui.theme.LkIconButton
@@ -169,12 +170,15 @@ internal fun VaultSearchRow(
     // One row, or two. Beside the star and the Filter button the well has the row minus two 48dp
     // targets and their gaps, and once there is text it also pays for its own Clear button: at 308dp
     // and font scale 2.0 that left the editable area 48dp wide, the first letter of what was typed
-    // half cut (SCL-024). Under the rule the title bar and the health card already use, the two
-    // buttons drop to a row of their own below the field and the field takes the full width; 360dp
-    // at the default size keeps the single row the comps draw. Each row ends clear of a resting FAB
-    // on its own, because the FAB can be on either.
+    // half cut (SCL-024). Then the two buttons drop to a row of their own below the field and the
+    // field takes the full width. Each row ends clear of a resting FAB on its own, because the FAB
+    // can be on either.
+    //
+    // Decided on the room the query actually gets — [searchRowStacks] — not on [LkText.stacks]. That
+    // rule stacked at font scale 1.5 on any width, so a 360dp Galaxy S20 at a large text size put
+    // the two buttons alone on a line under a field that had room to spare beside them (2026-10-28).
     BoxWithConstraints(modifier.fillMaxWidth()) {
-        if (!LkText.stacks(fontScale, maxWidth)) {
+        if (!searchRowStacks(maxWidth, fontScale)) {
             Row(
                 modifier = Modifier.clearOfFab(fab).fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -197,6 +201,25 @@ internal fun VaultSearchRow(
         }
     }
 }
+
+/** The star and the Filter button beside the well: two 48dp targets and their two gaps. */
+private val SearchControlsWidth = 48.dp * 2 + LkSpace.sm * 2
+
+/**
+ * What [LkSearchField]'s well spends that is not query text, with text in it: 15dp of padding at
+ * each end, the 18dp search glyph and its 12dp gap, and the 24dp Clear button with its own.
+ */
+private val SearchWellChrome = 15.dp * 2 + 18.dp + 12.dp + 24.dp + 12.dp
+
+/**
+ * The query width below which the buttons leave the field's line, per unit of font scale. 100dp at
+ * 2.0 is SCL-024's floor; scaling it keeps roughly the same five or six characters visible at any
+ * text size, so a large-but-not-largest setting is not stacked for room it already has.
+ */
+private val SearchQueryFloor = 50.dp
+
+internal fun searchRowStacks(rowWidth: Dp, fontScale: Float): Boolean =
+    rowWidth - SearchControlsWidth - SearchWellChrome < SearchQueryFloor * fontScale.coerceAtLeast(1f)
 
 /**
  * The screen title with its two controls — the drawer button before it, Lock after it — and the

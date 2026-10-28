@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.ColumnScope
@@ -1218,16 +1219,28 @@ private fun MoreSection(
  * with no line limit, so a long folder name was measured first, wrapped across the whole row, and
  * left the weighted label and the chevron zero wide: the only way into folder, tags and reprompt
  * read as a grey block. `internal` so a JVM test can measure it.
+ *
+ * A [FlowRow] and not a `Row` with the summary in `weight(1f)` (device font-scale sweep,
+ * 2026-10-28). The label is measured first and keeps its whole line, so at a 360dp window and font
+ * scale 1.5 the summary was handed what was left — "no…", two letters of "none set" — and the one
+ * thing a closed section has to say, whether anything is inside it, was unreadable on the screen
+ * most phones have. A flow row measures each child whole and moves the one that no longer fits
+ * under the label, where it has the full width; where it does fit (411dp and 1.0) it stays beside
+ * the label at the end, as before. A summary too long for even a line to itself still ellipsises
+ * there, so the label and chevron are never starved (O1-05 above).
  */
 @Composable
 internal fun RowScope.MoreSectionHeadline(label: String, summary: String, chevronDegrees: Float) {
     val c = LkTheme.colors
-    Row(
+    FlowRow(
         Modifier.weight(1f),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(LkSpace.sm),
+        // SpaceBetween puts the summary at the end beside the label and, alone on a stacked line,
+        // at the start under it. The gap is the label's own end padding, since SpaceBetween has none.
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.spacedBy(LkSpace.xs),
+        itemVerticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(label, style = LkText.navLabel, color = c.textSecondary)
+        Text(label, style = LkText.navLabel, color = c.textSecondary, modifier = Modifier.padding(end = LkSpace.sm))
         Text(
             summary,
             style = LkText.monoCaption,
@@ -1235,7 +1248,10 @@ internal fun RowScope.MoreSectionHeadline(label: String, summary: String, chevro
             textAlign = TextAlign.End,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f),
+            // A flow row decides where to break from a child's *minimum* intrinsic width, which for
+            // text is its longest word — "none" — so without this it kept "none set" beside the
+            // label and squeezed it to an ellipsis anyway. Max intrinsic asks for the whole value.
+            modifier = Modifier.width(IntrinsicSize.Max),
         )
     }
     Icon(

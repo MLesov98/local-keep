@@ -90,4 +90,20 @@ class SearchRowStacksOnWidthTest {
         assertTrue(star.left >= field.right - 1f, "the star is not beside the field")
         assertTrue(filter.left >= star.right - 1f, "the filter is not beside the star")
     }
+
+    /**
+     * 2026-10-28, a 360dp Galaxy S20 at a large text size: the star and Filter dropped to a line of
+     * their own under a field that had room for a query beside them, because the row stacked at font
+     * scale 1.5 whatever the width.
+     */
+    @Test
+    @Config(sdk = [34], qualifiers = "w360dp-h640dp-xhdpi", fontScale = 1.5f)
+    fun at360dpAtFontScaleOneAndAHalfTheButtonsStayBesideTheField() {
+        show()
+        val field = bounds("vaultlist-search")
+        val star = bounds("vaultlist-favourites")
+        assertTrue(star.left >= field.right - 1f, "the star left the field's line at 360dp / 1.5")
+        assertTrue(textAreaDp() >= 75f, "the query area is ${textAreaDp()}dp: too narrow to share the line")
+    }
+
 }

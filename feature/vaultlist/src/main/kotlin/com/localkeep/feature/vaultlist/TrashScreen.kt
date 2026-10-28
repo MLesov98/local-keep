@@ -754,8 +754,9 @@ internal fun TrashItemRowBody(
     val c = LkTheme.colors
     val fontScale = LocalDensity.current.fontScale
     val tile = TrashTile * fontScale.coerceIn(1f, 1.5f)
+    val titleWord = rememberWidestWord(title, LkText.rowTitle)
     BoxWithConstraints(modifier) {
-        val stacked = nameYields(maxWidth, tile + LkSpace.md * 2 + TrashActionsWidth, fontScale)
+        val stacked = nameYields(maxWidth, tile + LkSpace.md * 2 + TrashActionsWidth, fontScale, titleWord)
         val identity: @Composable RowScope.() -> Unit = {
             LkMonogramTile(title, size = tile, shape = LkShape.sm)
             Column(Modifier.weight(1f)) {
@@ -911,12 +912,13 @@ internal fun TrashFolderRowBody(
 ) {
     val c = LkTheme.colors
     val fontScale = LocalDensity.current.fontScale
+    val nameWord = rememberWidestWord(name, LkText.rowTitle)
     BoxWithConstraints(modifier) {
         // The glyph, the name column's 12dp each side and the two buttons take their width first. At
         // 308dp and 2.0x that left the name ~112dp and "W4empty" broke as "W4emp/ty" (S-W4-F2), so
         // under the rule the item row and the folder screen use ([nameYields]) the buttons drop to
         // a row of their own beneath the name, end-aligned.
-        val stacked = nameYields(maxWidth, TrashFolderGlyph + 24.dp + TrashActionsWidth, fontScale)
+        val stacked = nameYields(maxWidth, TrashFolderGlyph + 24.dp + TrashActionsWidth, fontScale, nameWord)
         val identity: @Composable RowScope.() -> Unit = {
             // Plain icon rather than LkMonogramTile: a folder has no initial worth showing, and the
             // amber says "nothing is wrong here" — this row is an offer to restore, not a warning.

@@ -17,6 +17,8 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.platform.LocalDensity
 import java.time.ZoneId
@@ -328,10 +330,9 @@ internal fun VaultItemRow(
     //
     // Clamping the dodge is not the fix: its job is to keep the cluster out from under the FAB, and
     // a clamp puts it back there. [trailingClusterReserve] narrows the title's *content* by the
-    // same amount instead, and the threshold below is the narrow-window half of it. Above
-    // [LkText.stackAboveFontScale] the row becomes two — the title block, then the cluster
-    // right-aligned beneath it — which hands the title the full width. Same threshold and same
-    // reasoning as the strength meter and the health ring:
+    // same amount instead. When the name will not fit beside the cluster ([vaultRowStacks]) the
+    // row stacks: the name takes a line of its own at full width and the cluster moves down beside
+    // the subtitle. Same reasoning as the strength meter and the health ring:
     // a dp-sized graphic beside sp-sized text is a layout with no floor. Dropping the pill above the
     // threshold was the cheaper-looking alternative and is wrong — the overflow menu offers
     // favourite, select, hide and trash, and no copy at all, so it would take the one-tap secret away
@@ -351,127 +352,139 @@ internal fun VaultItemRow(
         if (selecting) SelectionTick(selected) else LkMonogramTile(title, sharedKey = item.id.toString())
     }
 
-    val details: @Composable (Modifier) -> Unit = { detailsModifier ->
-        Column(detailsModifier, verticalArrangement = Arrangement.spacedBy(3.dp)) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-            ) {
-                // Two lines *at the default text size*, and proportionally more above it. The
-                // title is the only thing identifying the row, and spec §2 forbids truncating
-                // critical content at large font sizes. A flat `maxLines = 2` was the earlier
-                // answer to exactly that clause, and it only looked like one: doubling the text
-                // size halves the characters a line holds, so a fixed line count is a shrinking
-                // character budget. At font scale 2.0 it cut the name — "Banque Populaire
-                // co..." — which is the failure the cap was added to prevent.
-                //
-                // Scaling the count keeps the budget in characters roughly flat instead. The
-                // ceiling of five is for the pathological title; rows are user-named and
-                // nothing bounds their length, so this cannot be uncapped the way an
-                // app-authored settings summary can. The subtitle stays at one line — it is a
-                // disambiguator, and losing its tail costs far less than losing the name.
-                val titleLines = (2f * fontScale).roundToInt().coerceIn(2, 5)
-                Text(
-                    title,
-                    style = LkText.rowTitle,
-                    color = c.textPrimary,
-                    maxLines = titleLines,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f, fill = false),
+    // The name, and under it what kind of thing this is and where it is filed. Two lambdas rather
+    // than one column because the stacked layout (see [vaultRowStacks]) sets them on different terms:
+    // the name takes the full width, and the subtitle shares its line with the trailing cluster.
+    val titleLine: @Composable () -> Unit = {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            // Two lines *at the default text size*, and proportionally more above it. The
+            // title is the only thing identifying the row, and spec §2 forbids truncating
+            // critical content at large font sizes. A flat `maxLines = 2` was the earlier
+            // answer to exactly that clause, and it only looked like one: doubling the text
+            // size halves the characters a line holds, so a fixed line count is a shrinking
+            // character budget. At font scale 2.0 it cut the name — "Banque Populaire
+            // co..." — which is the failure the cap was added to prevent.
+            //
+            // Scaling the count keeps the budget in characters roughly flat instead. The
+            // ceiling of five is for the pathological title; rows are user-named and
+            // nothing bounds their length, so this cannot be uncapped the way an
+            // app-authored settings summary can. The subtitle stays at one line — it is a
+            // disambiguator, and losing its tail costs far less than losing the name.
+            val titleLines = (2f * fontScale).roundToInt().coerceIn(2, 5)
+            Text(
+                title,
+                style = LkText.rowTitle,
+                color = c.textPrimary,
+                maxLines = titleLines,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f, fill = false),
+            )
+            if (item.favorite) {
+                // A brass dot rather than a star glyph: at 5dp it is a rhythm marker you
+                // notice scanning the column, without adding a fifth icon to every row.
+                Box(
+                    Modifier
+                        .size(5.dp)
+                        .background(c.brass, androidx.compose.foundation.shape.CircleShape),
                 )
-                if (item.favorite) {
-                    // A brass dot rather than a star glyph: at 5dp it is a rhythm marker you
-                    // notice scanning the column, without adding a fifth icon to every row.
-                    Box(
-                        Modifier
-                            .size(5.dp)
-                            .background(c.brass, androidx.compose.foundation.shape.CircleShape),
-                    )
-                }
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(7.dp),
-            ) {
-                // What kind of thing this row is. The monogram identifies the *item*; nothing
-                // identified its type, so a card and a login were told apart only by reading
-                // the grey line — and a card's subtitle is its masked number, which does not
-                // say "card" at all.
-                //
-                // No contentDescription, and one would not be read anyway: the row sets its own
-                // contentDescription in `.semantics`, which replaces everything below it.
-                //
-                // That leaves a gap this icon makes visible rather than creates — a card's
-                // subtitle is its masked number, so the row announces "Amex travel, dot dot dot
-                // 4242" and never the word "card". Sighted users now get the type; screen
-                // readers still do not. Closing it means threading the type name into
-                // `vaultlist_row_description`, which is a five-catalogue change to a string
-                // this pass did not otherwise touch.
+        }
+    }
+
+    val subtitleLine: @Composable (Modifier) -> Unit = { lineModifier ->
+        Row(
+            modifier = lineModifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(7.dp),
+        ) {
+            // What kind of thing this row is. The monogram identifies the *item*; nothing
+            // identified its type, so a card and a login were told apart only by reading
+            // the grey line — and a card's subtitle is its masked number, which does not
+            // say "card" at all.
+            //
+            // No contentDescription, and one would not be read anyway: the row sets its own
+            // contentDescription in `.semantics`, which replaces everything below it.
+            //
+            // That leaves a gap this icon makes visible rather than creates — a card's
+            // subtitle is its masked number, so the row announces "Amex travel, dot dot dot
+            // 4242" and never the word "card". Sighted users now get the type; screen
+            // readers still do not. Closing it means threading the type name into
+            // `vaultlist_row_description`, which is a five-catalogue change to a string
+            // this pass did not otherwise touch.
+            Icon(
+                item.content.typeIcon(),
+                contentDescription = null,
+                tint = c.textFaint,
+                modifier = Modifier.size(12.dp),
+            )
+            Text(
+                subtitleText,
+                style = LkText.subtitle,
+                color = c.textMuted,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f, fill = false),
+            )
+            // Same treatment as the type icon to its left, one step quieter: this answers
+            // "where is it filed", which is a lesser question than "what is it". Absent
+            // entirely for an item in no folder — a "Folder: none" marker on most rows in
+            // the vault would cost every row to inform a few.
+            if (folderName != null) {
                 Icon(
-                    item.content.typeIcon(),
+                    LkIcons.Folder,
                     contentDescription = null,
                     tint = c.textFaint,
                     modifier = Modifier.size(12.dp),
                 )
                 Text(
-                    subtitleText,
+                    folderName,
                     style = LkText.subtitle,
-                    color = c.textMuted,
+                    color = c.textFaint,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f, fill = false),
                 )
-                // Same treatment as the type icon to its left, one step quieter: this answers
-                // "where is it filed", which is a lesser question than "what is it". Absent
-                // entirely for an item in no folder — a "Folder: none" marker on most rows in
-                // the vault would cost every row to inform a few.
-                if (folderName != null) {
-                    Icon(
-                        LkIcons.Folder,
-                        contentDescription = null,
-                        tint = c.textFaint,
-                        modifier = Modifier.size(12.dp),
-                    )
-                    Text(
-                        folderName,
-                        style = LkText.subtitle,
-                        color = c.textFaint,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f, fill = false),
-                    )
-                }
-                // Beside the folder trail, one step quieter again, and drawn only when there is
-                // something to say — see [attachmentsText].
-                if (attachmentsText != null) {
-                    Icon(
-                        LkIcons.Attachment,
-                        contentDescription = null,
-                        tint = c.textFaint,
-                        modifier = Modifier.size(12.dp),
-                    )
-                    Text(
-                        attachmentsText,
-                        style = LkText.subtitle,
-                        color = c.textFaint,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f, fill = false),
-                    )
-                }
-                // Amber, not coral: a concealed item surfaced in a reveal session is a state,
-                // not a failure. Decorative — the row's contentDescription and its Stop hiding
-                // action already carry the meaning, so a second spoken node would double it.
-                if (hidden) {
-                    Text(
-                        hiddenMarker,
-                        style = LkText.badge,
-                        color = c.amber,
-                        modifier = Modifier.decorative(),
-                    )
-                }
-                if (item.hasTotpBadge()) LkBadge(totpBadgeText)
             }
+            // Beside the folder trail, one step quieter again, and drawn only when there is
+            // something to say — see [attachmentsText].
+            if (attachmentsText != null) {
+                Icon(
+                    LkIcons.Attachment,
+                    contentDescription = null,
+                    tint = c.textFaint,
+                    modifier = Modifier.size(12.dp),
+                )
+                Text(
+                    attachmentsText,
+                    style = LkText.subtitle,
+                    color = c.textFaint,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false),
+                )
+            }
+            // Amber, not coral: a concealed item surfaced in a reveal session is a state,
+            // not a failure. Decorative — the row's contentDescription and its Stop hiding
+            // action already carry the meaning, so a second spoken node would double it.
+            if (hidden) {
+                Text(
+                    hiddenMarker,
+                    style = LkText.badge,
+                    color = c.amber,
+                    modifier = Modifier.decorative(),
+                )
+            }
+            if (item.hasTotpBadge()) LkBadge(totpBadgeText)
+        }
+    }
+
+    val details: @Composable (Modifier) -> Unit = { detailsModifier ->
+        Column(detailsModifier, verticalArrangement = Arrangement.spacedBy(3.dp)) {
+            titleLine()
+            subtitleLine(Modifier)
         }
     }
 
@@ -533,8 +546,29 @@ internal fun VaultItemRow(
         }
     }
 
+    // The stack decision is measured, not read off the font scale. Stacking at a fixed 1.5 put the
+    // copy pill alone on a second line under "Login 1" on a 360dp Galaxy S20 at a large text size,
+    // with the room beside the name plainly empty (2026-10-28) — while at 1.3 the same rule kept
+    // "accounts.google.com" on one line and broke it mid-word. What decides is whether the title's
+    // widest word, and a floor of room for the rest of it, fit the column the one-line layout leaves.
+    val measurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val pillLabel = quick?.let { stringResource(it.shortLabelRes) }
+    val widestWordPx = remember(title, measurer, fontScale) {
+        title.split(' ', '\n', '\t').filter { it.isNotEmpty() }
+            .maxOfOrNull { measurer.measure(it, LkText.rowTitle, softWrap = false, maxLines = 1).size.width } ?: 0
+    }
+    val pillLabelPx = remember(pillLabel, measurer, fontScale) {
+        pillLabel?.let { measurer.measure(it, QuickCopyPillLabel, softWrap = false, maxLines = 1).size.width } ?: 0
+    }
+
     BoxWithConstraints(modifier.lkTag("vaultlist-row-${item.id}")) {
-        val stacked = LkText.stacks(fontScale, maxWidth - RowStartInset - RowEndReserve)
+        val content = maxWidth - RowStartInset - RowEndReserve
+        val trailingWidth = when {
+            quick != null -> maxOf(48.dp, QuickCopyPillChrome + with(density) { pillLabelPx.toDp() })
+            item.reprompt -> 32.dp
+            else -> 0.dp
+        }
         // Shared by both layouts - see the call sites for when each applies. One definition, because
         // `FabDodgeAtRestTest` counts the readers of the FAB's bounds and two copies would drift.
         val clusterReservePx: Density.() -> Int = {
@@ -546,6 +580,20 @@ internal fun VaultItemRow(
             )
         }
         val detailsReserve = Modifier.reserveForTrailingCluster(clusterReservePx)
+        // The row a resting FAB covers slides its cluster left and narrows the title by the same
+        // amount, so that width is not the title's to count on. Read here, in composition, so the
+        // decision sees it: on a 360dp screen at 1.5 the dodge left "Login 1" split over two lines
+        // with its subtitle cut to "Lo…" (device pass 2026-10-28). [FabDodgeLatch] holds once engaged
+        // and stacking moves the cluster down, not sideways, so the stacked row keeps the reserve
+        // that put it there and does not flip back.
+        val stacked = vaultRowStacks(
+            contentWidth = content,
+            trailingWidth = trailingWidth,
+            favoriteDot = item.favorite,
+            widestTitleWord = with(density) { widestWordPx.toDp() },
+            fontScale = fontScale,
+            dodge = with(density) { density.clusterReservePx().toDp() },
+        )
         // The stacked answer to the same dodge, for a row with no trailing control of its own: the
         // plate gets a line under the details instead of taking width from them.
         val clusterLine = Modifier.reserveLineForTrailingCluster {
@@ -651,28 +699,42 @@ internal fun VaultItemRow(
                 .padding(start = RowStartInset, end = RowEndReserve, top = RowVerticalInset, bottom = RowVerticalInset)
 
         if (stacked) {
-            Column(frame, verticalArrangement = Arrangement.spacedBy(LkSpace.sm)) {
-                // A row with no copy pill and no padlock plate (a card, a note) has nothing on its
-                // second line, so the overflow plate - bottom-anchored - sits on the details' own
-                // last line, and a dodge slides it onto the subtitle: the last digits of a masked
-                // card number (SCL-009). Narrowing the details to keep clear of it (what the
-                // one-line layout does) starves them here, where the stack exists because there is
-                // no width to spare: at 308dp and font 2.0 the title broke inside a word and the
-                // number lost its last four digits (S-L3). The reserve is a line, not width: the
-                // plate drops onto a line of its own beneath the text, which keeps its full width.
-                // A row that does have a trailing control already has that line, and needs nothing.
-                Row(
-                    modifier = if (quick == null && !item.reprompt) clusterLine else Modifier,
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(13.dp),
-                ) {
-                    leading()
-                    details(Modifier.weight(1f))
+            // A row with no copy pill and no padlock plate (a card, a note) has nothing beside its
+            // subtitle, so the overflow plate - bottom-anchored - sits on the subtitle's line, and a
+            // dodge slides it onto the subtitle: the last digits of a masked card number (SCL-009).
+            // The reserve is a line, not width: the plate drops onto a line of its own beneath the
+            // text. A row that does have a trailing control keeps it beside the subtitle, already
+            // clear of the text, and needs nothing.
+            Row(
+                modifier = if (quick == null && !item.reprompt) frame.then(clusterLine) else frame,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(13.dp),
+            ) {
+                leading()
+                // The name gets the whole width, and the cluster moves down to the subtitle's line
+                // rather than onto one of its own. Until 2026-10-28 it took a third line, end-aligned
+                // under the text, and the row read as broken: a name, then a dead half-row with two
+                // buttons at its far end, and the same gap again on the next stacked row.
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    titleLine()
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(13.dp),
+                    ) {
+                        // The subtitle gives up the dodge, as the one-line layout's details do: the
+                        // cluster beside it slides left on the row a resting FAB covers, and without
+                        // the reserve it slid onto the subtitle's text — "birdwatcCopy" (final sweep,
+                        // 360dp / 1.5, 2026-10-28).
+                        // Only where there is a control beside it to slide: a row with none (a card)
+                        // already gives a dodged plate a line of its own, and narrowing its subtitle as
+                        // well cut the masked number's last four digits (SCL-009).
+                        subtitleLine(
+                            Modifier.weight(1f)
+                                .then(if (quick != null || item.reprompt) detailsReserve else Modifier),
+                        )
+                        trailing(Modifier)
+                    }
                 }
-                // End-aligned rather than tucked under the monogram: the cluster stays a cluster, so
-                // it still dodges the FAB as one object and still reads as this row's trailing
-                // controls rather than as a second, differently-shaped row of content.
-                trailing(Modifier.align(Alignment.End))
             }
         } else {
             Row(
@@ -700,8 +762,8 @@ internal fun VaultItemRow(
         // on the button itself: see [fabDodgeOffset] for why reading a shifted control's own
         // position never settles.
         //
-        // Stacked, the trailing cluster is the row's last line, so this sits with the pill. Both
-        // controls are bottom-anchored — the pill by being the padded container's final child, this
+        // Stacked, the trailing cluster shares the row's last line with the subtitle, so this sits with
+        // the pill. Both controls are bottom-anchored — the pill by ending the padded container, this
         // one by [RowVerticalInset] under a bottom alignment — which is what keeps them on one line
         // whatever the type does to their heights. The inset sits *before* the position callback, so
         // the anchor still reports the button's own box and the dodge is unaffected.
@@ -1089,8 +1151,38 @@ private fun QuickCopyPill(
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         Icon(LkIcons.Copy, contentDescription = null, tint = c.jade, modifier = Modifier.size(12.dp))
-        Text(label, style = LkText.badge.copy(letterSpacing = LkText.chip.letterSpacing), color = c.jade)
+        Text(label, style = QuickCopyPillLabel, color = c.jade)
     }
+}
+
+private val QuickCopyPillLabel get() = LkText.badge.copy(letterSpacing = LkText.chip.letterSpacing)
+
+/** Everything in [QuickCopyPill] but its label: 11dp padding each side, the 12dp glyph, its 6dp gap. */
+private val QuickCopyPillChrome = 11.dp * 2 + 12.dp + 6.dp
+
+/** Room the title column keeps for a name beyond its widest word, per unit of font scale. */
+private val RowTitleFloor = 48.dp
+
+/**
+ * Whether the row stacks: the name on a line of its own, the trailing cluster beside the subtitle.
+ * Only when the title column the one-line layout would leave — content minus the 42dp tile, the 13dp
+ * gaps, the trailing control, the favourite dot and any FAB dodge — cannot hold the title's widest word whole, or
+ * [RowTitleFloor] at this text size. Width alone no longer decides: at 308dp that rule stacked every
+ * row, "Bank" included, and SCL-008 — the FAB dodge starving the title at that width — is answered
+ * by counting the dodge itself.
+ */
+internal fun vaultRowStacks(
+    contentWidth: Dp,
+    trailingWidth: Dp,
+    favoriteDot: Boolean,
+    widestTitleWord: Dp,
+    fontScale: Float,
+    dodge: Dp = 0.dp,
+): Boolean {
+    val trailing = if (trailingWidth > 0.dp) trailingWidth + 13.dp else 0.dp
+    val dot = if (favoriteDot) 11.dp else 0.dp
+    val column = contentWidth - 42.dp - 13.dp - trailing - dot - dodge
+    return column < maxOf(widestTitleWord, RowTitleFloor * fontScale.coerceAtLeast(1f))
 }
 
 /**

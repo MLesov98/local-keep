@@ -1,5 +1,7 @@
 package com.localkeep.feature.importwizard
 
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -300,26 +302,51 @@ internal fun SourceGrid(onSelect: (ImportSource) -> Unit) {
         }
         // Two per row: a real grid of seven tiles wastes vertical space on a phone, and these
         // entries need enough width for names like "Apple Passwords" not to truncate.
-        ImportSource.entries.chunked(2).forEachIndexed { rowIndex, pair ->
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                pair.forEachIndexed { column, source ->
-                    SourceTile(
-                        source = source,
-                        modifier = Modifier
-                            .weight(1f)
-                            .lkEnter(delayMillis = lkStaggerDelay(rowIndex * 2 + column)),
-                        onClick = { onSelect(source) },
-                    )
+        //
+        // One per row when two would break a name inside a word. At 308dp and font 1.5 a tile's
+        // text column was ~100dp and the names came out as "Bitwarde / n", "1Passwo / rd" and a
+        // clipped "Apple Passwor" (final sweep, 2026-10-28). Decided by measuring the widest word
+        // across every source's name against the column a half-width tile leaves, so the two-up
+        // grid the comps draw stays wherever it fits.
+        val labels = ImportSource.entries.map { stringResource(it.labelRes) }
+        val measurer = rememberTextMeasurer()
+        val density = LocalDensity.current
+        val widestWord = remember(labels, measurer, density) {
+            val px = labels.flatMap { it.split(' ') }.filter { it.isNotEmpty() }
+                .maxOfOrNull { measurer.measure(it, LkText.rowTitle, softWrap = false, maxLines = 1).size.width } ?: 0
+            with(density) { px.toDp() }
+        }
+        BoxWithConstraints(Modifier.fillMaxWidth()) {
+            val perRow = if ((maxWidth - SourceGridGap) / 2 - SourceTilePadding * 2 < widestWord) 1 else 2
+            Column(verticalArrangement = Arrangement.spacedBy(SourceGridGap)) {
+                ImportSource.entries.chunked(perRow).forEachIndexed { rowIndex, pair ->
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(SourceGridGap),
+                    ) {
+                        pair.forEachIndexed { column, source ->
+                            SourceTile(
+                                source = source,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .lkEnter(delayMillis = lkStaggerDelay(rowIndex * perRow + column)),
+                                onClick = { onSelect(source) },
+                            )
+                        }
+                        // Keeps the last odd tile at half width instead of stretching it across the row.
+                        if (pair.size < perRow) Spacer(Modifier.weight(1f))
+                    }
                 }
-                // Keeps the last odd tile at half width instead of stretching it across the row.
-                if (pair.size == 1) Spacer(Modifier.weight(1f))
             }
         }
     }
 }
+
+/** The gap between source tiles, across and down. */
+private val SourceGridGap = 12.dp
+
+/** A source tile's inner padding, each side — what the name's column loses to the tile's frame. */
+private val SourceTilePadding = 16.dp
 
 @Composable
 private fun SourceTile(
@@ -341,7 +368,7 @@ private fun SourceTile(
             .lkFocusRing(LkShape.xxl)
             .clickable(interactionSource = interaction, indication = null, onClick = onClick)
             .minTouchTarget()
-            .padding(16.dp)
+            .padding(SourceTilePadding)
             .semantics(mergeDescendants = true) {
                 contentDescription = if (blocked) {
                     blockedDescription

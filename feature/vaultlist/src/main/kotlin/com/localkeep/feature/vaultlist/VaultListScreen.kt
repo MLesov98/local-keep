@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -106,6 +107,7 @@ import com.localkeep.core.ui.shellOverlayInset
 import com.localkeep.core.ui.lkTag
 import com.localkeep.core.ui.rememberHapticClick
 import com.localkeep.core.ui.rememberHaptics
+import com.localkeep.core.ui.theme.rememberLkWindowTooShortForPinnedChrome
 import com.localkeep.core.ui.theme.LkActionEmphasis
 import com.localkeep.core.ui.theme.LkCollapsedFoldersSaver
 import com.localkeep.core.ui.theme.LkDialog
@@ -923,8 +925,13 @@ fun VaultListScreen(
      * stays because a shorter header is still more room for rows before the first scroll.
      *
      * The filter controls below are untouched — they are not chrome.
+     *
+     * Also on a window short *for its text size* ([rememberLkWindowTooShortForPinnedChrome]): at
+     * 308x548dp and font 1.5 — portrait, so never under 480 — the stacked title, the count, the search
+     * row and a filter chip filled the first screen and left the list a ~100px strip with the FAB on
+     * it (final sweep, 2026-10-28). The compact row is the same answer one rule over.
      */
-    val compactTitle = shortWindow
+    val compactTitle = shortWindow || rememberLkWindowTooShortForPinnedChrome()
 
     // Drop the keyboard the moment a reveal lands.
     //
@@ -1150,7 +1157,8 @@ fun VaultListScreen(
                                         ?: stringResource(R.string.vaultlist_screen_title),
                                     style = LkText.cardTitle,
                                     color = c.textStrong,
-                                    maxLines = 1,
+                                    // Two: at 308dp / font 2.0 one line cut the name to "2FA co…" (2026-10-28).
+                                    maxLines = 2,
                                     overflow = TextOverflow.Ellipsis,
                                     modifier = Modifier.lkTag("vaultlist-compact-title"),
                                 )
@@ -1396,7 +1404,10 @@ fun VaultListScreen(
                             // emulator, that cut the panel off mid-sentence. Found by the F03 QA persona,
                             // 2026-08-29. That Box takes the Column's remainder now, so the arithmetic
                             // would work; the panel still does not need it, and this stays unbounded.
-                            compact = keyboardUp,
+                            // Or a window short for its text size: at 308x548dp and font 1.3-1.5 the
+                            // 96dp plate was all that showed above the bottom bar, its sentence and
+                            // button below the fold beside the FAB's own "+" (final sweep, 2026-10-28).
+                            compact = keyboardUp || compactTitle,
                             fab = { fabDodgeBounds(fabWindowBounds, listState.isScrollInProgress) },
                             // Scrolls with the list it is an item of — it used to carry its own
                             // `verticalScroll`, back when the region under a pinned header did not
@@ -2187,6 +2198,17 @@ internal fun emptyOfTypeBodyRes(inFolder: Boolean): Int =
     if (inFolder) R.string.vaultlist_empty_body_addable_in_folder else R.string.vaultlist_empty_body_addable
 
 /**
+ * An empty state's button hugs its label, centred, instead of filling the panel less a fixed inset.
+ *
+ * Full width, the plate ran under the resting FAB at the panel's end — "Add a card", "Add a 2FA
+ * code" and "Back to all items" had their right edge covered at 360dp / font 1.5 and at 2.0 — and the
+ * fixed 40dp insets left a 308dp panel too narrow for the label, which then broke over two lines in
+ * a cramped plate (final sweep, 2026-10-28). Hugging the label keeps the centred plate clear of a
+ * corner FAB and gives the label whatever the panel has; the label row carries its own padding.
+ */
+private val EmptyActionWidth = Modifier.width(IntrinsicSize.Max)
+
+/**
  * The offer to set a new master password, shown once to a session opened with the Recovery Kit.
  *
  * The whole block is the tap target, and the action is **drawn** under the sentence rather than
@@ -2253,7 +2275,12 @@ internal fun EmptyVault(
     // and lost the last ~48dp of its first two lines. Applied after the caller's padding, so the
     // panel is measured by its content and not by the reserve, and it is the same mechanism the
     // search row uses — `fab` is null for the whole of a scroll, so nothing reflows under a finger.
-    val panel = modifier.clearOfFab(fab)
+    // Applied to the sentence alone, not the panel (2026-10-28). Only the copy can sit beside the FAB
+    // — the action is below it, on a row `gutterFab` keeps clear — and narrowing the panel took the
+    // action's 30dp + 40dp side insets out of what remained: at 360dp and font scale 1.5 "Add a card"
+    // broke to "Add a / card" inside a ~130dp button, cut by the bottom bar. At 411dp, with no
+    // overlap, the same panel was fine, which is how earlier passes missed it.
+    val copy = Modifier.clearOfFab(fab)
     // A scoped search that found nothing here, while the same words match elsewhere, is the one
     // empty state with a better answer than "clear everything and start again". It keeps the chip
     // honest — the list really does only contain what the chip says — and still admits that the
@@ -2271,13 +2298,14 @@ internal fun EmptyVault(
 icon = LkIcons.Folder,
             title = stringResource(R.string.vaultlist_empty_folder_title),
             body = stringResource(R.string.vaultlist_empty_folder_body),
-            modifier = panel.lkEnter(),
+            modifier = modifier.lkEnter(),
+            copyModifier = copy,
             action = {
                 LkSecondaryButton(
                     text = stringResource(R.string.vaultlist_empty_folder_action),
                     onClick = onBackToRoot,
                     height = 40.dp,
-                    modifier = Modifier.padding(horizontal = LkSpace.lg),
+                    modifier = EmptyActionWidth,
                 )
             },
         )
@@ -2322,7 +2350,8 @@ icon = emptyStateIcon(addableType, emptyOfType, narrowed),
             filtered -> stringResource(R.string.vaultlist_empty_body_filtered)
             else -> stringResource(R.string.vaultlist_empty_body_default)
         },
-        modifier = panel.lkEnter(),
+        modifier = modifier.lkEnter(),
+        copyModifier = copy,
         // The plate is the biggest thing on an empty screen and reads as the button; it was inert
         // on every addable category (2026-07-29). It now runs exactly what the button below runs.
         // Where there is genuinely nothing to add — a search with no matches, passkeys — it stays
@@ -2353,7 +2382,7 @@ icon = emptyStateIcon(addableType, emptyOfType, narrowed),
                         text = addTypeLabel.orEmpty(),
                         onClick = { onAddOfType?.invoke(addableType) },
                         height = 40.dp,
-                        modifier = Modifier.padding(horizontal = 40.dp),
+                        modifier = EmptyActionWidth,
                     )
                 }
             }
@@ -2370,7 +2399,7 @@ icon = emptyStateIcon(addableType, emptyOfType, narrowed),
                             ?: stringResource(R.string.vaultlist_empty_search_everywhere),
                         onClick = { onSearchEverywhere?.invoke() },
                         height = 40.dp,
-                        modifier = Modifier.padding(horizontal = 40.dp),
+                        modifier = EmptyActionWidth,
                     )
                 }
             }
@@ -2384,7 +2413,7 @@ icon = emptyStateIcon(addableType, emptyOfType, narrowed),
                         },
                         onClick = onClear,
                         height = 40.dp,
-                        modifier = Modifier.padding(horizontal = LkSpace.lg),
+                        modifier = EmptyActionWidth,
                     )
                 }
             }
@@ -2394,7 +2423,7 @@ icon = emptyStateIcon(addableType, emptyOfType, narrowed),
                         text = addFirstItemLabel,
                         onClick = onAddFirst,
                         height = 40.dp,
-                        modifier = Modifier.padding(horizontal = 40.dp),
+                        modifier = EmptyActionWidth,
                     )
                 }
             }

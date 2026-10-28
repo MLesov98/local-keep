@@ -47,6 +47,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
@@ -556,8 +558,16 @@ internal fun FolderRowBody(
     // still leaves room for the name and the three controls beside it on a small phone.
     val indent = (depth.coerceAtMost(FolderTree.MAX_DEPTH) * 14).dp
     val actionCount = if (justCreated) 1 else 3
+    val nameWord = rememberWidestWord(name, LkText.body)
     BoxWithConstraints(modifier) {
-        val stacked = folderRowStacks(maxWidth, indent, actionCount, fontScale)
+        val stacked = folderRowStacks(maxWidth, indent, actionCount, fontScale, nameWord)
+        val countText: @Composable () -> Unit = {
+            Text(
+                pluralStringResource(R.plurals.vaultlist_count_items, itemCount, itemCount),
+                style = LkText.caption,
+                color = c.textFaint,
+            )
+        }
         val identity: @Composable RowScope.() -> Unit = {
             if (depth > 0) Spacer(Modifier.size(width = indent, height = 1.dp))
             Icon(
@@ -568,11 +578,7 @@ internal fun FolderRowBody(
             )
             Column(Modifier.weight(1f).padding(start = 12.dp)) {
                 Text(name, style = LkText.body, color = c.textPrimary)
-                Text(
-                    pluralStringResource(R.plurals.vaultlist_count_items, itemCount, itemCount),
-                    style = LkText.caption,
-                    color = c.textFaint,
-                )
+                countText()
             }
         }
         val actions: @Composable RowScope.() -> Unit = {
@@ -601,9 +607,25 @@ internal fun FolderRowBody(
                 actions()
             }
         } else {
-            Column(verticalArrangement = Arrangement.spacedBy(LkSpace.xs)) {
-                Row(verticalAlignment = Alignment.CenterVertically) { identity() }
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { actions() }
+            // The name takes the full width and the actions move down beside the count, the same
+            // shape a stacked vault row takes. They used to take a line of their own, end-aligned,
+            // which left a dead half-row to their left under every stacked folder (final sweep,
+            // 308dp / font 1.3-1.5, 2026-10-28).
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (depth > 0) Spacer(Modifier.size(width = indent, height = 1.dp))
+                Icon(
+                    LkIcons.Folder,
+                    contentDescription = null,
+                    tint = c.textFaint,
+                    modifier = Modifier.size(FolderGlyph),
+                )
+                Column(Modifier.weight(1f).padding(start = 12.dp)) {
+                    Text(name, style = LkText.body, color = c.textPrimary)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(Modifier.weight(1f)) { countText() }
+                        actions()
+                    }
+                }
             }
         }
     }
@@ -616,11 +638,15 @@ private val FolderGlyph = 17.dp
 private val FolderRowActionWidth = 48.dp
 
 /**
- * The room a name needs, at the default text size, before its row gives up putting the actions
- * beside it. About six characters of body text: enough that a short word ("archive", "Travel")
- * stays whole. Scaled by the font in [folderRowStacks].
+ * The least room a name keeps beside its row's actions, at the default text size, whatever its words
+ * measure: about four characters of body text, so a name of short words is not set one word to a
+ * line. Scaled by the font in [nameYields]. The name's own widest word is the other half of the rule.
+ *
+ * This was 96dp and the only half until 2026-10-28, which made it a word budget that ignored the
+ * word: at font 1.5 on a 360dp phone it asked 144dp, and a folder called "Personal" — 100dp of text —
+ * got its three buttons on a line of their own under an empty half-row.
  */
-internal val folderNameFloor = 96.dp
+internal val folderNameFloor = 56.dp
 
 /**
  * Whether a folder row's actions drop beneath the name, for a row [rowWidth] wide.
@@ -629,8 +655,14 @@ internal val folderNameFloor = 96.dp
  * that less the indent, the glyph, the 12dp after it and the actions; below [folderNameFloor] times
  * the font scale (never less than one) it would have to break words, so the actions yield.
  */
-internal fun folderRowStacks(rowWidth: Dp, indent: Dp, actionCount: Int, fontScale: Float): Boolean =
-    nameYields(rowWidth, indent + FolderGlyph + 12.dp + FolderRowActionWidth * actionCount, fontScale)
+internal fun folderRowStacks(
+    rowWidth: Dp,
+    indent: Dp,
+    actionCount: Int,
+    fontScale: Float,
+    widestWord: Dp = 0.dp,
+): Boolean =
+    nameYields(rowWidth, indent + FolderGlyph + 12.dp + FolderRowActionWidth * actionCount, fontScale, widestWord)
 
 /**
  * Whether a name that is given what is left of a row [rowWidth] wide after [taken] has less than a
@@ -638,8 +670,24 @@ internal fun folderRowStacks(rowWidth: Dp, indent: Dp, actionCount: Int, fontSca
  * (SCL-025) and the trash rows (SCL-027), kept in one place so the two cannot drift: the floor is
  * [folderNameFloor] at the default size and grows with the font, never shrinking below it.
  */
-internal fun nameYields(rowWidth: Dp, taken: Dp, fontScale: Float): Boolean =
-    rowWidth - taken < folderNameFloor * fontScale.coerceAtLeast(1f)
+internal fun nameYields(rowWidth: Dp, taken: Dp, fontScale: Float, widestWord: Dp = 0.dp): Boolean =
+    rowWidth - taken < maxOf(widestWord, folderNameFloor * fontScale.coerceAtLeast(1f))
+
+/**
+ * The rendered width of [text]'s widest word in [style] — the narrowest column it can be set in
+ * without a word breaking. Words split on whitespace only, matching how the line breaker treats
+ * "accounts.google.com": one word.
+ */
+@Composable
+internal fun rememberWidestWord(text: String, style: TextStyle): Dp {
+    val measurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    return remember(text, style, measurer, density) {
+        val px = text.split(' ', '\n', '\t').filter { it.isNotEmpty() }
+            .maxOfOrNull { measurer.measure(it, style, softWrap = false, maxLines = 1).size.width } ?: 0
+        with(density) { px.toDp() }
+    }
+}
 
 @Composable
 private fun FolderManagementRow(

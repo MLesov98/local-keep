@@ -40,7 +40,7 @@ class FolderRowStacksOnWidthTest {
     @get:Rule
     val compose = createComposeRule()
 
-    private val name = "Level one archive aa"
+    private var name = "Level one archive aa"
 
     private fun show(rowWidth: Dp, depth: Int, justCreated: Boolean = false) {
         compose.setContent {
@@ -123,6 +123,36 @@ class FolderRowStacksOnWidthTest {
         }
         assertEquals(deleteBounds().top, compose.onNodeWithContentDescription(MOVE).fetchSemanticsNode().boundsInRoot.top, 0.5f)
         assertFalse(deleteBounds().left < 0f)
+    }
+
+    /**
+     * A short name keeps its actions beside it at a large font on an ordinary phone. The rule used to
+     * be a flat 96dp-per-scale budget, so at font 1.5 it asked 144dp of a ~290dp row and "Personal"
+     * — about 100dp of text — got its three buttons on a line of their own under an empty half-row
+     * (device sweep, 360dp / 1.5, 2026-10-28). It now asks for the name's widest word.
+     */
+    @Test
+    @Config(sdk = [34], qualifiers = "w360dp-h800dp-xhdpi", fontScale = 1.5f)
+    fun aShortNameKeepsItsActionsBesideItAtFontOneAndAHalf() {
+        name = "Personal"
+        show(290.dp, depth = 0)
+        val n = nameBounds()
+        val delete = deleteBounds()
+        assertTrue(delete.left >= n.right - 1f && delete.top < n.bottom, "Delete ($delete) left the name's line ($n)")
+    }
+
+    /**
+     * A stacked folder row puts its actions beside the count, not on a line of their own under it —
+     * that left a dead half-row to their left under every stacked folder (final sweep, 2026-10-28).
+     */
+    @Test
+    @Config(sdk = [34], qualifiers = "w308dp-h548dp-xhdpi", fontScale = 2.0f)
+    fun aStackedRowSetsItsActionsBesideTheCount() {
+        show(260.dp, depth = 1)
+        val count = compose.onNodeWithText("3 items", useUnmergedTree = true).fetchSemanticsNode().boundsInRoot
+        val delete = deleteBounds()
+        assertTrue(delete.top >= nameBounds().bottom - 1f, "the row did not stack")
+        assertTrue(delete.top < count.bottom && delete.bottom > count.top, "Delete ($delete) is not on the count's line ($count)")
     }
 
     private companion object {

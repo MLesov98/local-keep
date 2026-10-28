@@ -391,7 +391,7 @@ fun LkTextField(
                         placeholder,
                         style = placeholderStyle,
                         color = c.textFaint,
-                        maxLines = lkPlaceholderMaxLines(LocalDensity.current.fontScale),
+                        maxLines = lkPlaceholderMaxLines(LocalDensity.current.fontScale, singleLine),
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
@@ -482,8 +482,18 @@ private const val PlaceholderSingleLineFontScale = 1.3f
  * The well grows to meet it on its own: a placeholder is a sibling of the text field inside a [Box],
  * and the [Row] around it carries a `defaultMinSize` floor rather than a fixed height.
  */
-internal fun lkPlaceholderMaxLines(fontScale: Float): Int =
-    if (fontScale <= PlaceholderSingleLineFontScale) 1 else 2
+internal fun lkPlaceholderMaxLines(fontScale: Float, singleLine: Boolean = true): Int {
+    val stepped = if (fontScale <= PlaceholderSingleLineFontScale) 1 else 2
+    // A multi-line well has the height for more, and a one-line budget there cut a sentence beside
+    // three lines of empty well: the note's "Too sensitive for a plain n…" at 308dp and font 1.3
+    // (device sweep, 2026-10-28) — the step above is about width per character, and a 308dp window
+    // shrinks the line exactly as a bigger font does. Wrapping costs nothing a multi-line well has
+    // not already reserved, and a placeholder that fits one line still renders on one.
+    return if (singleLine) stepped else maxOf(stepped, MultiLinePlaceholderLines)
+}
+
+/** Lines a placeholder may take inside a multi-line well — its rows are already there, empty. */
+private const val MultiLinePlaceholderLines = 3
 
 /**
  * How wide the ramp is that a clipped value fades out across.

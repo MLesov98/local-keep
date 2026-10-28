@@ -132,18 +132,28 @@ class VaultItemRowStacksOnWidthTest {
         return results.single()
     }
 
-    /** SCL-008: the narrowest window at the default size stacks, so the pill sits under the name. */
+    /**
+     * SCL-008 at the narrowest window and the default size: the name is whole and the copy button is
+     * clear of it. This asserted that the row *stacked* until 2026-10-28, which was the mechanism
+     * rather than the outcome — and the mechanism was "every row stacks below 260dp", so "Bank" at
+     * 308dp got a line to itself with a dead half-row beside its buttons. The stack is now decided by
+     * whether the name fits ([vaultRowStacks]); "SeedReuseA" does, so it keeps the one-line layout,
+     * and the starvation SCL-008 was about is pinned by the FAB case below.
+     */
     @Test
     @Config(sdk = [34], qualifiers = "w308dp-h640dp-xhdpi", fontScale = 1.0f)
-    fun theRowStacksAt308dpAtTheDefaultTextSize() {
+    fun theNameIsWholeAndClearOfItsCopyButtonAt308dpAtTheDefaultTextSize() {
         show(login)
         val title = boundsOf(title())
         val copy = boundsOf(copy())
+        val layout = layoutOf(title())
         assertTrue(
-            copy.top >= title.bottom - 1f,
-            "the copy button ($copy) still shares a line with the title ($title) on a 216dp content " +
-                "width: the row has not stacked.",
+            layout.lineCount == 1 && !layout.isLineEllipsized(0),
+            "\"$TITLE\" is cut or wrapped at 308dp / 1.0 (lines=${layout.lineCount}).",
         )
+        val w = minOf(copy.right, title.right) - maxOf(copy.left, title.left)
+        val h = minOf(copy.bottom, title.bottom) - maxOf(copy.top, title.top)
+        assertTrue(w <= 0f || h <= 0f, "the copy button ($copy) is drawn over the title ($title).")
     }
 
     /** SCL-008: under a resting FAB the name still fits on one line at 308dp / 1.0. */
@@ -192,6 +202,96 @@ class VaultItemRowStacksOnWidthTest {
         assertTrue(
             copy.top < title.bottom && copy.bottom > title.top,
             "at 360dp / 1.0 the copy button ($copy) no longer shares a line with the title ($title).",
+        )
+    }
+
+    /**
+     * 2026-10-28: a 360dp Galaxy S20 at a large text size. The row used to stack at any width from
+     * font scale 1.5, so "Login 1" — six characters with room to spare — got its copy button on a
+     * line of its own beneath an empty gap. The stack is for a name that does not fit, not a size.
+     */
+    @Test
+    @Config(sdk = [34], qualifiers = "w360dp-h640dp-xhdpi", fontScale = 1.5f)
+    fun aShortNameKeepsItsCopyButtonBesideItAt360dpAtFontScaleOneAndAHalf() {
+        val short = login.copy(title = "Login 1")
+        show(short)
+        val title = boundsOf(compose.onNodeWithText("Login 1", useUnmergedTree = true))
+        val app = RuntimeEnvironment.getApplication()
+        val copy = boundsOf(
+            compose.onNodeWithContentDescription(
+                app.getString(
+                    R.string.vaultlist_quickcopy_description,
+                    app.getString(R.string.vaultlist_quickcopy_copy_password),
+                    "Login 1",
+                ),
+            ),
+        )
+        assertTrue(
+            copy.top < title.bottom && copy.bottom > title.top,
+            "at 360dp / 1.5 the copy button ($copy) was moved off the title's line ($title) for a " +
+                "name that fits beside it.",
+        )
+    }
+
+    /**
+     * The other half of the same measurement: at 1.3 the old rule kept the row on one line and broke
+     * "accounts.google.com" mid-word ("accounts.googl / e.com"). A word wider than the column the
+     * one-line layout leaves is what earns the stack.
+     */
+    @Test
+    @Config(sdk = [34], qualifiers = "w360dp-h640dp-xhdpi", fontScale = 1.3f)
+    fun aLongSingleWordNameIsNotBrokenMidWordAt360dp() {
+        val long = login.copy(title = "accounts.google.com")
+        show(long)
+        val layout = layoutOf(compose.onNodeWithText("accounts.google.com", useUnmergedTree = true))
+        assertTrue(
+            layout.lineCount == 1,
+            "\"accounts.google.com\" wraps to ${layout.lineCount} lines at 360dp / 1.3: the row kept " +
+                "a column too narrow for the name's only word.",
+        )
+    }
+
+    private fun copyFor(title: String): SemanticsNodeInteraction {
+        val app = RuntimeEnvironment.getApplication()
+        return compose.onNodeWithContentDescription(
+            app.getString(
+                R.string.vaultlist_quickcopy_description,
+                app.getString(R.string.vaultlist_quickcopy_copy_password),
+                title,
+            ),
+        )
+    }
+
+    /**
+     * Width alone does not stack a row. Below 260dp of content every row used to stack, so at 308dp
+     * and font 1.3 "Bank" — four letters — sat over a dead half-row with its buttons on a line of
+     * their own (device sweep, 2026-10-28).
+     */
+    @Test
+    @Config(sdk = [34], qualifiers = "w308dp-h640dp-xhdpi", fontScale = 1.3f)
+    fun aFourLetterNameKeepsItsCopyButtonBesideItAt308dp() {
+        show(login.copy(title = "Bank"))
+        val title = boundsOf(compose.onNodeWithText("Bank", useUnmergedTree = true))
+        val copy = boundsOf(copyFor("Bank"))
+        assertTrue(copy.top < title.bottom && copy.bottom > title.top, "Copy ($copy) left the title's line ($title)")
+    }
+
+    /**
+     * A row that does stack puts the cluster beside the subtitle, not on a line of its own under it:
+     * the name takes the first line whole, and nothing is left as a dead half-row (2026-10-28).
+     */
+    @Test
+    @Config(sdk = [34], qualifiers = "w360dp-h640dp-xhdpi", fontScale = 1.5f)
+    fun aStackedRowSharesTheSubtitleLineWithItsCopyButton() {
+        val long = login.copy(title = "accounts.google.com")
+        show(long)
+        val title = boundsOf(compose.onNodeWithText("accounts.google.com", useUnmergedTree = true))
+        val subtitle = boundsOf(compose.onNodeWithText("someone@example.com", useUnmergedTree = true))
+        val copy = boundsOf(copyFor("accounts.google.com"))
+        assertTrue(copy.top >= title.bottom - 1f, "the row did not stack: Copy ($copy) is beside the title ($title)")
+        assertTrue(
+            copy.top < subtitle.bottom && copy.bottom > subtitle.top,
+            "Copy ($copy) is not on the subtitle's line ($subtitle): it took a line of its own",
         )
     }
 

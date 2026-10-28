@@ -133,6 +133,22 @@ fun rememberLkKeyboardUnpinsChrome(): Boolean {
 }
 
 /**
+ * The keyboard rule's budget applied to the whole window, keyboard or not: true when the window
+ * itself is shorter than pinned chrome needs at this text size.
+ *
+ * For a screen whose pinned actions can starve its content before any keyboard opens. Unlock at a
+ * 308x548 window and font 1.5 pinned Unlock, Use Recovery Kit and the footer over everything but
+ * the masthead, and the master-password well — the reason the screen exists — sat below the fold of
+ * a scroll region with nothing on screen saying it scrolled (device sweep, 2026-10-28).
+ */
+@Composable
+fun rememberLkWindowTooShortForPinnedChrome(): Boolean =
+    keyboardUnpinsChrome(
+        visibleHeight = LocalConfiguration.current.screenHeightDp.dp,
+        fontScale = LocalDensity.current.fontScale,
+    )
+
+/**
  * The height left above the keyboard, or the whole window when there is none. For callers that
  * have to cap a region at a share of it ([rememberLkKeyboardUnpinsChrome] says only whether).
  */
@@ -936,6 +952,16 @@ fun LkEmptyState(
      * so dropping the plate costs a shortcut, never the only route.
      */
     compact: Boolean = false,
+    /**
+     * Applied to the title and sentence alone, not to the plate or [action].
+     *
+     * For a caller that has to give up the *end* of the copy to something floating over the panel —
+     * the vault list's resting FAB. It used to narrow the whole panel instead, and the panel's side
+     * padding plus the action's own inset then came out of what the FAB had left: at 360dp and font
+     * scale 1.5 the button was a ~130dp plate and "Add a card" broke to "Add a / card" (device sweep
+     * 2026-10-28). Only the sentence can sit beside such a FAB; the action is below it.
+     */
+    copyModifier: Modifier = Modifier,
     action: (@Composable () -> Unit)? = null,
 ) {
     val c = LkTheme.colors
@@ -974,6 +1000,7 @@ fun LkEmptyState(
         }
         }
         Column(
+            modifier = copyModifier,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {

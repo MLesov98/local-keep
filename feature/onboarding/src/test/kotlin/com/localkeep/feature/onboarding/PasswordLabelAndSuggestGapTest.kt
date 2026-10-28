@@ -55,18 +55,11 @@ class PasswordLabelAndSuggestGapTest {
         compose.mainClock.autoAdvance = false
         compose.setContent {
             LocalKeepTheme {
-                Row(
-                    Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.spacedBy(LkSpace.md),
-                ) {
-                    LkFieldLabel(
-                        stringResource(R.string.onboarding_password_field_label),
-                        modifier = Modifier.weight(1f).testTag(LABEL),
-                        maxLines = 2,
-                    )
-                    SuggestLink(onClick = {}, modifier = Modifier.testTag(LINK))
-                }
+                PasswordLabelRow(
+                    onSuggest = {},
+                    labelModifier = Modifier.testTag(LABEL),
+                    linkModifier = Modifier.testTag(LINK),
+                )
             }
         }
         compose.mainClock.advanceTimeBy(1_000)
@@ -78,9 +71,12 @@ class PasswordLabelAndSuggestGapTest {
         val d = compose.density.density
         val label = compose.onNodeWithTag(LABEL).fetchSemanticsNode()
         val link = compose.onNodeWithTag(LINK).fetchSemanticsNode()
+        // Beneath the label is the other honest arrangement (2026-10-28): the row is a flow row, and
+        // the link drops under a label it no longer fits beside rather than squeezing it.
+        val below = link.positionOnScreen.y >= label.positionOnScreen.y + label.size.height - 1f
         val gap = (link.positionOnScreen.x - (label.positionOnScreen.x + label.size.width)) / d
         assertTrue(
-            gap >= LkSpace.md.value - TOLERANCE,
+            below || gap >= LkSpace.md.value - TOLERANCE,
             "[$case] the label ends ${gap}dp before the Suggest link, against the ${LkSpace.md.value}dp " +
                 "the row asks for — at 0 they abut and read as one run of text (2A-F4).",
         )
@@ -139,4 +135,24 @@ class PasswordLabelAndSuggestGapTest {
         /** Rounding between dp and px at xxhdpi. */
         const val TOLERANCE = 0.5f
     }
+
+    /**
+     * The label is never cut. Weighted beside the link it came out as "MAST / ER P…" at 308dp and
+     * font 2.0 — broken inside a word and ellipsized, on the field onboarding exists to fill (final
+     * sweep, 2026-10-28).
+     */
+    @Test
+    @Config(qualifiers = "w309dp-h686dp-xxhdpi", fontScale = 2.0f)
+    fun `the label is whole on the narrowest window at font scale 2`() {
+        show()
+        val results = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+        compose.onNodeWithTag(LABEL, useUnmergedTree = true).fetchSemanticsNode()
+            .config[androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult].action!!.invoke(results)
+        val layout = results.single()
+        assertTrue(
+            (0 until layout.lineCount).none { layout.isLineEllipsized(it) } && layout.lineCount <= 2,
+            "the label is cut: ${layout.lineCount} line(s), ellipsized=${(0 until layout.lineCount).any { layout.isLineEllipsized(it) }}",
+        )
+    }
+
 }

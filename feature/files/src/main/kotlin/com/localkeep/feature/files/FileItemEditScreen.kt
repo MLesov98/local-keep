@@ -1,5 +1,8 @@
 package com.localkeep.feature.files
 
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.IntrinsicSize
 import android.Manifest
 import android.app.Activity
 import android.content.IntentSender
@@ -2057,6 +2060,30 @@ fun FileItemEditScreen(
 }
 
 /**
+ * The closed "Folder, tags and more" row's label and summary. Split out so its wrapping can be
+ * measured without a view model.
+ */
+@Composable
+internal fun RowScope.FileMoreHeadlineText(label: String, summary: String) {
+    val c = LkTheme.colors
+    // A flow row, as the item editor's headline is (`MoreSectionHeadline`): with the label in
+    // `weight(1f)` and the summary measured first, "Folder, tags and more" was set one word
+    // to a line in a sliver beside "none set" at 308dp / font 2.0 (final sweep, 2026-10-28).
+    // The summary now stays beside the label where both fit and drops under it where not.
+    FlowRow(
+        Modifier.weight(1f),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.spacedBy(LkSpace.xs),
+        itemVerticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(label, style = LkText.navLabel, color = c.textSecondary, modifier = Modifier.padding(end = LkSpace.sm))
+        // Max intrinsic: a flow row breaks on a child's minimum width, which for text is its
+        // longest word, and would keep "none set" beside the label squeezed to an ellipsis.
+        Text(summary, style = LkText.monoCaption, color = c.textFaint, modifier = Modifier.width(IntrinsicSize.Max))
+    }
+}
+
+/**
  * Folder, tags and the favourite flag, behind one disclosure — the File editor's half of the
  * "Folder, tags and more" row every other item type already draws (4C-11, 2026-09-20).
  *
@@ -2129,8 +2156,7 @@ private fun FileMoreSection(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(LkSpace.sm),
         ) {
-            Text(label, style = LkText.navLabel, color = c.textSecondary, modifier = Modifier.weight(1f))
-            Text(summary, style = LkText.monoCaption, color = c.textFaint)
+            FileMoreHeadlineText(label, summary)
             Icon(
                 LkIcons.ChevronRight,
                 null,

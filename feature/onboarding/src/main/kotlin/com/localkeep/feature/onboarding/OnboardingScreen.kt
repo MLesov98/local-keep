@@ -1,5 +1,8 @@
 package com.localkeep.feature.onboarding
 
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.FlowRow
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -384,29 +387,7 @@ private fun PasswordStep(
         // this wrapper. LkFormField itself cannot be reused here — it only builds LkTextField, and
         // this is a masked field with a label-trailing link.
         Column(verticalArrangement = Arrangement.spacedBy(LkSpace.sm)) {
-            Row(
-                Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.Bottom,
-                // `spacedBy` over `SpaceBetween`, and the label weighted: SpaceBetween only ever
-                // *distributes* leftover width, so once there is none the two children meet. At
-                // font scale 2.0 the link wrapped to two lines and came to rest flush against the
-                // label — `[68,1146][648,1209]` abutting `[648,1065][1012,1209]` (2A-F4) — a
-                // heading and an action reading as one run of text, on the row where the action is
-                // an *alternative* to the field below rather than a description of it. A gap that
-                // is a token rather than whatever is left over cannot be squeezed to nothing; the
-                // weight is what the label gives up instead, by wrapping.
-                horizontalArrangement = Arrangement.spacedBy(LkSpace.md),
-            ) {
-                LkFieldLabel(
-                    stringResource(R.string.onboarding_password_field_label),
-                    modifier = Modifier.weight(1f),
-                    // Two lines rather than the component's default ellipsis: what it gives up for
-                    // the gap above is width, and a field whose only name is "MASTER PASSW…" has
-                    // paid for the gap with the thing the gap was protecting.
-                    maxLines = 2,
-                )
-                SuggestLink(onClick = viewModel::suggestPassphrase)
-            }
+            PasswordLabelRow(onSuggest = viewModel::suggestPassphrase)
             LkPasswordField(
                 value = state.password,
                 onValueChange = viewModel::onPasswordChanged,
@@ -489,6 +470,40 @@ private fun PasswordStep(
 
         NoticeText(state.notice)
         ErrorText(state.error)
+    }
+}
+
+/**
+ * The master-password field's label with "Suggest one" beside it, or beneath it where both do not
+ * fit. `internal`, with tag modifiers, so `PasswordLabelAndSuggestGapTest` measures this row and not
+ * a copy of it.
+ */
+@Composable
+internal fun PasswordLabelRow(
+    onSuggest: () -> Unit,
+    labelModifier: Modifier = Modifier,
+    linkModifier: Modifier = Modifier,
+) {
+    // A flow row: the link sits beside the label where both fit and drops beneath it where
+    // they do not. It was a Row with the label weighted, which kept the two apart (2A-F4,
+    // the link flush against the label at 2.0) but made the *label* pay for the room: at
+    // 308dp and font 2.0 it came out as "MAST / ER P…", broken inside a word and cut, on
+    // the one field the whole of onboarding exists to fill (final sweep, 2026-10-28). The
+    // label's end padding is the gap 2A-F4 asked for; SpaceBetween adds none of its own.
+    FlowRow(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.spacedBy(LkSpace.xs),
+        itemVerticalAlignment = Alignment.Bottom,
+    ) {
+        LkFieldLabel(
+            stringResource(R.string.onboarding_password_field_label),
+            // Max intrinsic, or the flow row breaks on the label's longest word and keeps
+            // the link beside a label squeezed to it.
+            modifier = labelModifier.width(IntrinsicSize.Max).padding(end = LkSpace.md),
+            maxLines = 2,
+        )
+        SuggestLink(onClick = onSuggest, modifier = linkModifier)
     }
 }
 

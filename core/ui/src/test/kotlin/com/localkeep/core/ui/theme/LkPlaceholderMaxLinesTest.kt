@@ -67,6 +67,27 @@ class LkPlaceholderMaxLinesTest {
     }
 
     /**
+     * A multi-line well lets its placeholder use the rows it already has. The note's sentence was cut
+     * to "Too sensitive for a plain n…" at 308dp and font 1.3 beside three empty lines of well
+     * (device sweep, 2026-10-28): the one-line step is about characters per line, and a narrow window
+     * takes them away exactly as a bigger font does. "Never three" above is about single-line wells,
+     * where a third line would push the form down; here the rows are already reserved.
+     */
+    @Test
+    fun `a multi-line well lets its placeholder wrap at any scale`() {
+        for (scale in listOf(0.85f, 1.0f, 1.3f, 1.5f, 2.0f)) {
+            assertEquals(3, lkPlaceholderMaxLines(scale, singleLine = false), "font scale $scale")
+        }
+    }
+
+    /** The control: a single-line well is exactly what it was. */
+    @Test
+    fun `a single-line well keeps the stepped budget`() {
+        assertEquals(1, lkPlaceholderMaxLines(1.3f, singleLine = true))
+        assertEquals(2, lkPlaceholderMaxLines(2.0f, singleLine = true))
+    }
+
+    /**
      * And the well is wired to it. A pure rule nothing calls is the same defect as no rule: the
      * function would have every assertion above passing while the field still drew one line.
      */
@@ -74,7 +95,7 @@ class LkPlaceholderMaxLinesTest {
     fun `the placeholder actually asks the rule how many lines it may have`() {
         val fields = File("src/main/kotlin/com/localkeep/core/ui/theme/LkFields.kt").readText()
         assertTrue(
-            "maxLines = lkPlaceholderMaxLines(LocalDensity.current.fontScale)" in fields,
+            "maxLines = lkPlaceholderMaxLines(LocalDensity.current.fontScale, singleLine)" in fields,
             "the placeholder in LkTextField does not take its line budget from " +
                 "lkPlaceholderMaxLines — a rule nothing calls changes nothing on screen",
         )

@@ -70,6 +70,7 @@ import com.localkeep.core.ui.labelled
 import com.localkeep.core.ui.lkTag
 import com.localkeep.core.ui.openAppSettings
 import com.localkeep.core.ui.rememberHaptics
+import com.localkeep.core.ui.theme.rememberLkWindowTooShortForPinnedChrome
 import com.localkeep.core.ui.theme.LkSpace
 import com.localkeep.core.ui.theme.LkActionScaffold
 import com.localkeep.core.ui.theme.LkDerivingOverlay
@@ -184,8 +185,7 @@ fun UnlockScreen(
         )
     }
 
-    // The same threshold the vault list uses, so the app agrees with itself about what "short" is.
-    val shortWindow = LocalConfiguration.current.screenHeightDp < 480
+    val shortWindow = rememberUnlockWindowIsShort()
 
     val scroll = rememberScrollState()
     // Bring a new error into view, because on this screen it can arrive below the fold.
@@ -888,6 +888,19 @@ private fun resolveKdfSummary(summary: UnlockKdfSummary?): String? {
     val passesPhrase = pluralStringResource(R.plurals.unlock_kdf_passes, summary.passes, summary.passes)
     return stringResource(R.string.unlock_kdf_summary, passesPhrase, summary.memoryMib)
 }
+
+/**
+ * Whether [UnlockFrame] takes its short arrangement — everything in one scroll, nothing pinned.
+ *
+ * Under 480dp tall, the threshold the vault list uses, so the app agrees with itself about what
+ * "short" is. Or short for its text size ([rememberLkWindowTooShortForPinnedChrome]): on a 308x548
+ * window at font 1.5 the pinned Unlock, Use Recovery Kit and footer left the scroll region room for
+ * the masthead alone, and the master-password well sat below its fold with nothing on screen saying
+ * it scrolled — a lock screen showing two buttons and no field (device sweep, 2026-10-28).
+ */
+@Composable
+internal fun rememberUnlockWindowIsShort(): Boolean =
+    LocalConfiguration.current.screenHeightDp < 480 || rememberLkWindowTooShortForPinnedChrome()
 
 /**
  * The credential the screen exists to take: the password well, or the Recovery Kit grid.

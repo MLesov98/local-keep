@@ -1,0 +1,186 @@
+{
+  "_comment": [
+    "Frame order, layout and caption copy for the Play phone screenshots.",
+    "tools/store-shots.py captures the raw screens per storefront into build/store-raw/android/<locale>/;",
+    "tools/store-frames.mjs composes the finished, captioned set into store/android/<locale>/screenshots/.",
+    "",
+    "Eight frames, Play's maximum, ordered by what decides an install: Play shows the first two or three",
+    "in search results. Frame 1 has to say 'password manager' in under a second, frame 2 shows everything it holds, and frame 3 is the one",
+    "feature no competitor has. Chosen in the 2026-10-22 gauntlet review; 'everything' moved from 8th to 2nd on the principal's call the same day.",
+    "",
+    "Caption budget: two lines, 30 characters per line in English, so German has room. The word in",
+    "[brackets] is drawn in the accent colour; the brackets are not rendered.",
+    "",
+    "Claims checked against the app: 'No server' rather than 'No cloud', because Backup & export",
+    "offers Android cloud backup. 'Recovery phrase' is the app's own term, not 'seed phrase'. The",
+    "invisible-entries caption does not say 'from anyone': the phrase reveals them for a session.",
+    "",
+    "Every frame is the app's own pixels, cropped and labelled, never composited into a screen the app",
+    "does not have. 04 once floated the ID photo over the identity entry; the app shows it only in the",
+    "file viewer after a credential check, so it is now those two real screens (2026-10-22)."
+  ],
+  "frames": [
+    {"name": "01-vault", "layout": "single", "shots": ["vault"]},
+    {"name": "02-everything", "layout": "stack", "shots": ["add"], "crops": ["sheet"]},
+    {"name": "03-invisible", "layout": "stack", "shots": ["invisible-before", "invisible-after"], "crops": [[70, 1030], [70, 1220]]},
+    {"name": "04-id-photo", "layout": "stack", "shots": ["identity", "id-photo"], "crops": [[70, 1268], [800, 1600]]},
+    {"name": "05-card", "layout": "stack", "shots": ["card", "card-revealed"], "crops": [[470, 1600], [470, 1600]]},
+    {"name": "06-location", "layout": "single", "shots": ["location"]},
+    {"name": "07-undo", "layout": "stack", "shots": ["trash", "snapshots"], "crops": [[100, 940], [1010, 2055]]},
+    {"name": "08-import", "layout": "single", "shots": ["import"]}
+  ],
+  "captureLocale": {
+    "en-US": "en-US",
+    "en-GB": "en-US",
+    "en-AU": "en-US",
+    "en-CA": "en-US",
+    "fr-FR": "fr-FR",
+    "de-DE": "de-DE",
+    "es-419": "es-419",
+    "pt-BR": "pt-BR"
+  },
+  "captions": {
+    "en": [
+      "Your passwords, on your [phone].\nNo account. No server.",
+      "Logins, 2FA, cards, IDs,\nrecovery phrases. One [vault].",
+      "Make entries [invisible].\nYour phrase brings them back.",
+      "A photo of your ID,\n[encrypted] on your phone.",
+      "Cards stay [masked]\nuntil you choose to look.",
+      "Save a place by [GPS].\nFound once. Never followed.",
+      "Deleted by mistake?\nTrash and snapshots [undo] it.",
+      "Switching? Bring it all.\n[Import] from 10 apps."
+    ],
+    "fr": [
+      "Mots de passe sur votre [mobile].\nSans compte. Sans serveur.",
+      "Identifiants, cartes, papiers —\ntout dans un seul [coffre].",
+      "Rendez des éléments [invisibles].\nVotre phrase les ramène.",
+      "Votre pièce d'identité en photo,\n[chiffrée] sur votre téléphone.",
+      "Vos cartes restent [masquées]\njusqu'à votre confirmation.",
+      "Enregistrez un lieu par [GPS].\nUne seule fois, sans suivi.",
+      "Une erreur ? La corbeille ou\nun instantané l'[annule].",
+      "Vous changez d'appli ?\n[Importez] tout depuis 10 applis."
+    ],
+    "de": [
+      "Passwörter auf Ihrem [Handy].\nKein Konto. Kein Server.",
+      "Passwörter, Karten, Ausweise:\nalles in einem [Tresor].",
+      "Einträge [unsichtbar] machen.\nIhre Phrase holt sie zurück.",
+      "Ihr Ausweis als Foto,\n[verschlüsselt] auf dem Handy.",
+      "Karten bleiben [ausgeblendet],\nbis Sie sie einblenden.",
+      "Orte per [GPS] speichern.\nEinmal erfasst. Nie verfolgt.",
+      "Ein Fehler? Papierkorb und\nSchnappschüsse [retten] Sie.",
+      "Wechseln? Alles mitnehmen.\n[Import] aus 10 Apps."
+    ],
+    "es": [
+      "Sus contraseñas, en su [celular].\nSin cuenta. Sin servidor.",
+      "Contraseñas, 2FA, tarjetas y\ndocumentos en una [caja fuerte].",
+      "Haga [invisibles] sus elementos.\nSu frase los trae de vuelta.",
+      "Una foto de su documento,\n[cifrada] en su celular.",
+      "Las tarjetas siguen [ocultas]\nhasta que decida mostrarlas.",
+      "Guarde un lugar por [GPS].\nUna sola vez. Sin rastreo.",
+      "¿Un error? [Deshágalo]:\npapelera o copia instantánea.",
+      "¿Viene de otra app?\n[Importe] desde 10 apps."
+    ],
+    "pt": [
+      "Suas senhas, no seu [celular].\nSem conta. Sem servidor.",
+      "Senhas, cartões, documentos:\ntudo em um só [cofre].",
+      "Torne itens [invisíveis].\nSua frase os traz de volta.",
+      "Uma foto do seu documento,\n[criptografada] no celular.",
+      "Cartões ficam [ocultos]\naté você decidir mostrá-los.",
+      "Salve um lugar por [GPS].\nUma vez só. Sem rastreamento.",
+      "Errou? Lixeira e snapshots\nlocais [desfazem] o erro.",
+      "Vai trocar de app?\n[Importe] de 10 apps."
+    ]
+  },
+  "labels": {
+    "en": {
+      "03-invisible": [
+        "Before: search finds nothing",
+        "After: you type your phrase"
+      ],
+      "07-undo": [
+        "Deleted items",
+        "Earlier versions of your vault"
+      ],
+      "05-card": [
+        "Masked",
+        "After you confirm it's you"
+      ],
+      "04-id-photo": [
+        "The identity entry",
+        "Its photo, after you confirm it's you"
+      ]
+    },
+    "fr": {
+      "03-invisible": [
+        "Avant : la recherche ne trouve rien",
+        "Après : vous tapez votre phrase"
+      ],
+      "07-undo": [
+        "Éléments supprimés",
+        "Versions antérieures du coffre"
+      ],
+      "05-card": [
+        "Masqué",
+        "Après confirmation de votre identité"
+      ],
+      "04-id-photo": [
+        "L'élément Identité",
+        "Sa photo, après confirmation de votre identité"
+      ]
+    },
+    "de": {
+      "03-invisible": [
+        "Vorher: Die Suche findet nichts",
+        "Nachher: Sie tippen Ihre Phrase"
+      ],
+      "07-undo": [
+        "Gelöschte Einträge",
+        "Frühere Versionen des Tresors"
+      ],
+      "05-card": [
+        "Ausgeblendet",
+        "Nach Bestätigung Ihrer Identität"
+      ],
+      "04-id-photo": [
+        "Der Identitäts-Eintrag",
+        "Das Foto, nach Bestätigung Ihrer Identität"
+      ]
+    },
+    "es": {
+      "03-invisible": [
+        "Antes: la búsqueda no encuentra nada",
+        "Después: usted escribe su frase"
+      ],
+      "07-undo": [
+        "Elementos eliminados",
+        "Versiones anteriores de la caja fuerte"
+      ],
+      "05-card": [
+        "Oculto",
+        "Tras confirmar su identidad"
+      ],
+      "04-id-photo": [
+        "El elemento de identidad",
+        "Su foto, tras confirmar su identidad"
+      ]
+    },
+    "pt": {
+      "03-invisible": [
+        "Antes: a busca não encontra nada",
+        "Depois: você digita sua frase"
+      ],
+      "07-undo": [
+        "Itens apagados",
+        "Snapshots locais"
+      ],
+      "05-card": [
+        "Oculto",
+        "Depois de confirmar sua identidade"
+      ],
+      "04-id-photo": [
+        "O item de identidade",
+        "A foto, depois de confirmar sua identidade"
+      ]
+    }
+  }
+}

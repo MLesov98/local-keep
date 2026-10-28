@@ -1,1 +1,1 @@
-Gerenciador offline. Sem conta, servidor de sincronização nem assinatura.
+Gerenciador de senhas offline: 2FA, documentos, cartões e arquivos. Sem conta.

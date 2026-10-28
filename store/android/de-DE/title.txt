@@ -1,1 +1,1 @@
-LocalKeep Passwort-Manager
+LocalKeep Passwortmanager

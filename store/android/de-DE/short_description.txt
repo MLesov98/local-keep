@@ -1,1 +1,1 @@
-Offline-Passwort-Manager. Kein Konto, kein Sync-Server, kein Abo.
+Offline-Passwortmanager mit 2FA-Codes, Ausweisen, Karten & Dateien. Kein Konto.

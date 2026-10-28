@@ -1,1 +1,1 @@
-Contraseñas sin conexión. Sin cuenta, servidor de sincronización ni suscripción.
+Gestor de contraseñas sin conexión: 2FA, documentos, tarjetas. Sin cuenta.

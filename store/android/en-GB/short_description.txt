@@ -1,1 +1,1 @@
-Offline password manager. No account, no sync server, no subscription.
+Offline password manager with 2FA codes, IDs, cards & files. No account.
